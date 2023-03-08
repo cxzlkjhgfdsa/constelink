@@ -1,6 +1,8 @@
-package com.srp.constelinkmember.security.dto;
+package com.srp.constelinkmember.dto;
 
 import java.util.Map;
+
+import com.srp.constelinkmember.dto.enums.SocialType;
 
 public abstract class OAuth2MemberInfo {
 	protected Map<String, Object> attributes;

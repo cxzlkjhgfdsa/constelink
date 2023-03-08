@@ -1,4 +1,4 @@
-package com.srp.constelinkmember.security.dto;
+package com.srp.constelinkmember.dto.enums;
 
 public enum Role {
 	ADMIN, HOSPITAL, MEMBER

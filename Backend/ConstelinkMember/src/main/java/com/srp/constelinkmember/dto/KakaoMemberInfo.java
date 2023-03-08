@@ -1,6 +1,8 @@
-package com.srp.constelinkmember.security.dto;
+package com.srp.constelinkmember.dto;
 
 import java.util.Map;
+
+import com.srp.constelinkmember.dto.enums.SocialType;
 
 public class KakaoMemberInfo extends OAuth2MemberInfo {
 	private Map<String, Object> profile_item;
