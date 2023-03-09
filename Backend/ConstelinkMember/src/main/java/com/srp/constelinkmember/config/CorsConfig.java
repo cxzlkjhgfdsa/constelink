@@ -15,9 +15,10 @@ public class CorsConfig {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOrigin("*");
-		config.addAllowedHeader("*");
-		config.setAllowedHeaders(Arrays.asList("GET", "POST"));
+		config.setAllowedOriginPatterns(Arrays.asList("*"));
+		config.setAllowedHeaders(Arrays.asList("*"));
+		config.setAllowedMethods(Arrays.asList("GET", "POST"));
+		config.setExposedHeaders(Arrays.asList("Authorization", "refresh"));
 
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);

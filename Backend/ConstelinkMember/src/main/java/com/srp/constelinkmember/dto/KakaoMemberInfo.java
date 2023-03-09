@@ -6,9 +6,11 @@ import com.srp.constelinkmember.dto.enums.SocialType;
 
 public class KakaoMemberInfo extends OAuth2MemberInfo {
 	private Map<String, Object> profile_item;
+	private Map<String, Object> properties;
 
 	public KakaoMemberInfo(Map<String, Object> attributes) {
 		super(attributes);
+		this.properties = (Map<String, Object>)attributes.get("properties");
 		this.profile_item = (Map<String, Object>)attributes.get("kakao_account");
 	}
 
@@ -29,11 +31,11 @@ public class KakaoMemberInfo extends OAuth2MemberInfo {
 
 	@Override
 	public String getNickName() {
-		return (String)attributes.get("nickname");
+		return (String)properties.get("nickname");
 	}
 
 	@Override
 	public String getProfile() {
-		return (String)attributes.get("profile_image");
+		return (String)properties.get("profile_image");
 	}
 }

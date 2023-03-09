@@ -12,17 +12,25 @@ import com.srp.constelinkmember.dto.enums.SocialType;
 
 public class MemberPrincipalDetail implements OAuth2User {
 
-	private String memberId;
+	private Long memberId;
 	private String memberName;
 	private Map<String, Object> attributes;
 
 	public MemberPrincipalDetail() {
 	}
 
-	public MemberPrincipalDetail(String memberId, String memberName, Map<String, Object> attributes) {
+	public MemberPrincipalDetail(Long memberId, String memberName, Map<String, Object> attributes) {
 		this.memberId = memberId;
 		this.memberName = memberName;
 		this.attributes = attributes;
+	}
+
+	public Long getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(Long memberId) {
+		this.memberId = memberId;
 	}
 
 	@Override
