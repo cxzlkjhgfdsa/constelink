@@ -1,23 +1,14 @@
 package com.srp.constelinkmember.db.entity;
 
-import java.time.LocalDateTime;
-
 import com.srp.constelinkmember.dto.enums.Role;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,34 +17,51 @@ import lombok.Setter;
 @Entity
 @Table(name = "member")
 public class Member {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "member_id", nullable = false)
-	private Long id;
+    @Id
+    @Column(name = "member_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
 
-	@Column(name = "username", length = 50)
-	private String username;
+    @Size(max = 50)
+    @NotNull
+    @Column(name = "username", nullable = false, length = 50)
+    private String username;
 
-	@Column(name = "email", length = 50)
-	private String email;
+    @Size(max = 50)
+    @NotNull
+    @Column(name = "email", nullable = false, length = 50)
+    private String email;
 
-	@Column(name = "member_profile_img", length = 100)
-	private String memberProfileImg;
+    @Size(max = 100)
+    @Column(name = "member_profile_img", length = 100)
+    private String memberProfileImg;
 
-	@Column(name = "member_regdate", nullable = false)
-	private LocalDateTime memberRegdate;
+    @NotNull
+    @Column(name = "member_regdate", nullable = false)
+    private LocalDateTime memberRegdate;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "role", nullable = false, length = 10)
-	private Role role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false, length = 10)
+    private Role role;
 
-	@Column(name = "social_id", length = 100)
-	private String socialId;
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "social_id", nullable = false, length = 100)
+    private String socialId;
 
-	@Column(name = "member_total_amount_raised", nullable = false)
-	private int memberTotalAmountRaised;
+    @NotNull
+    @Column(name = "member_total_amount_raised", nullable = false)
+    private int memberTotalAmountRaised;
 
-	@Column(name = "member_point", nullable = false)
-	private int memberPoint;
+    @NotNull
+    @Column(name = "member_point", nullable = false)
+    private int memberPoint;
+
+    @NotNull
+    @Column(name = "member_inactive", nullable = false)
+    private Boolean memberInactive = false;
+
+    @OneToMany
+    private Set<Donation> donations = new LinkedHashSet<>();
 
 }

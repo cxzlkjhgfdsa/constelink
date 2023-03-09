@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 
+import com.srp.constelinkmember.db.entity.Member;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -11,10 +12,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.srp.constelinkmember.api.service.MemberService;
 import com.srp.constelinkmember.common.exception.CustomException;
 import com.srp.constelinkmember.common.exception.CustomExceptionType;
-import com.srp.constelinkmember.db.entity.Member;
 import com.srp.constelinkmember.db.repository.MemberRepository;
 import com.srp.constelinkmember.dto.GoogleMemberInfo;
 import com.srp.constelinkmember.dto.KakaoMemberInfo;
@@ -65,6 +64,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 				.memberRegdate(LocalDateTime.now())
 				.memberPoint(0)
 				.memberTotalAmountRaised(0)
+				.memberInactive(false)
 				.build();
 
 			Member saveMember = memberRepository.save(member);
@@ -74,6 +74,9 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 		else{
 			log.info("로그인을 바로 진행합니다");
 			Member loginMember = findMember.get();
+			if(loginMember.getMemberInactive()){
+				loginMember.setMemberInactive(false);
+			}
 			loginMember.setMemberProfileImg(oAuth2MemberInfo.getProfile());
 			return new MemberPrincipalDetail(loginMember.getId(), loginMember.getUsername(), oAuth2User.getAttributes());
 		}

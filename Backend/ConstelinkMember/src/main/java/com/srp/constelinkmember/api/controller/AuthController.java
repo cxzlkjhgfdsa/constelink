@@ -1,10 +1,9 @@
 package com.srp.constelinkmember.api.controller;
 
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-
-import org.springframework.data.redis.core.RedisTemplate;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,13 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.srp.constelinkmember.api.service.MemberService;
-import com.srp.constelinkmember.common.exception.CustomException;
-import com.srp.constelinkmember.common.exception.CustomExceptionType;
-import com.srp.constelinkmember.db.entity.Member;
 import com.srp.constelinkmember.dto.LoginInfoDto;
 import com.srp.constelinkmember.dto.request.LoginRequest;
 import com.srp.constelinkmember.dto.response.LoginResponse;
-import com.srp.constelinkmember.security.jwt.TokenProvider;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
-@Tag(name = "멤버", description = "멤버 관련 api 입니다.")
+@Tag(name = "인증", description = "인증 관련 api 입니다.")
 @Slf4j
 public class AuthController {
 	private final MemberService memberService;
@@ -40,9 +35,14 @@ public class AuthController {
 		LoginInfoDto loginInfoDto = memberService.login(loginRequest);
 
 		HttpHeaders httpHeaders = new HttpHeaders();
-		//httpHeaders.add("Access-Control-Expose-Headers", "Authorization, Set-Cookie");
+		ResponseCookie cookie = ResponseCookie.from("refresh", loginInfoDto.getRefreshToken())
+				.path("/")
+				.sameSite("None")
+				.httpOnly(true)
+				.secure(true)
+				.build();
+		httpHeaders.add(HttpHeaders.SET_COOKIE, cookie.toString());
 		httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + loginInfoDto.getAccessToken());
-		httpHeaders.add("refresh",  loginInfoDto.getRefreshToken());
 
 		LoginResponse loginResponse = LoginResponse.builder()
 			.nickname(loginInfoDto.getNickname())
@@ -50,5 +50,18 @@ public class AuthController {
 			.build();
 
 		return ResponseEntity.ok().headers(httpHeaders).body(loginResponse);
+	}
+
+	@Operation(summary = "토큰 재발급 메서드", description = "토큰 재발급 메서드입니다.")
+	@PostMapping("/reissue")
+	public ResponseEntity<String> reIssue(HttpServletRequest request){
+		String refreshToken = request.getHeader(HttpHeaders.SET_COOKIE);
+		log.info("refreshToken == " + refreshToken);
+
+		String accessToken = memberService.reGenerateToken(request, refreshToken);
+		log.info("AccessToken 재 발급 완료!!"+accessToken);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
+		return ResponseEntity.ok().headers(httpHeaders).body("토큰 재발급 완료");
 	}
 }

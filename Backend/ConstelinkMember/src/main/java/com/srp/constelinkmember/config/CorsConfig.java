@@ -18,7 +18,7 @@ public class CorsConfig {
 		config.setAllowedOriginPatterns(Arrays.asList("*"));
 		config.setAllowedHeaders(Arrays.asList("*"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST"));
-		config.setExposedHeaders(Arrays.asList("Authorization", "refresh"));
+		config.setExposedHeaders(Arrays.asList("Authorization", "Set-Cookie"));
 
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);

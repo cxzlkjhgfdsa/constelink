@@ -1,9 +1,10 @@
 package com.srp.constelinkmember.security.jwt;
 
 import java.security.Key;
-import java.time.Duration;
 import java.util.Date;
 
+import com.srp.constelinkmember.common.exception.CustomException;
+import com.srp.constelinkmember.common.exception.CustomExceptionType;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -61,4 +62,24 @@ public class TokenProvider implements InitializingBean {
 
 		return  refreshToken;
 	}
+
+	public String resolveToken(String token) {
+		if(!isBearerToken(token)){
+			throw new CustomException(CustomExceptionType.NULL_TOKEN_EXCEPTION);
+		}
+		log.info("token resolver working.....");
+		String accessToken = token.replace("Bearer ", "");
+		return Jwts.parser()
+				.setSigningKey(key)
+				.parseClaimsJws(accessToken)
+				.getBody()
+				.getSubject();
+	}
+
+
+	private boolean isBearerToken(String header) {
+		return header.startsWith("Bearer ");
+
+	}
+
 }
