@@ -1,0 +1,52 @@
+@font-face {
+    font-family: "Hahmlet";
+    src: url("../../assets/fonts/Hahmlet-VariableFont_wght.ttf");
+  }
+  
+@font-face {
+    font-family: "ClimateCrisis";
+    src: url("../../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
+  }
+  
+
+
+  header {
+    height: 70px;
+    width: 100%;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 0.5fr 0.5fr 1.5fr 0.5fr 0.5fr;
+    box-shadow: 1px 1px 1px 1px lightgray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+  }
+  
+  .header_logo{
+    /* padding-left: 10px; */
+    font-family: ClimateCrisis;
+    font-size: 32px;
+    color: #A19FD5;
+  }
+  .header_login{
+    font-weight: bold;
+  }
+  
+  .header_menu{
+    font-family: "Hahmlet";
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .header_menu li{
+
+  }
+
+  
+  
+  
