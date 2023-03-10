@@ -34,9 +34,8 @@ public class Fundraising {
 	@Column(name = "fundraising_id", nullable = false)
 	private Long id;
 
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(name = "beneficiary_id", nullable = false)
-	private Long beneficiary;
+	@Column(name = "beneficiary_id", nullable = false)
+	private Long beneficiaryId;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)

@@ -4,45 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58ac1b3a-d6fa-44d3-a8c1-89d522027bd0" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Fundraising/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/ConstelinkFundraisingApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/common/exception/CustomException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/common/exception/CustomExceptionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/common/exception/GlobalExceptionAdvice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/controller/BeneficiaryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/controller/FundraisingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/controller/HospitalController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/controller/RecoveryDiaryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/dto/common/PageDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/dto/response/ExceptionResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/dto/response/ResponseBeneficiaryInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/dto/response/ResponseHospitalInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Beneficiary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Bookmark.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/entity/BookmarkId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Category.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Fundraising.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Hospital.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/entity/RecoveryDiary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/repository/BeneficiaryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/repository/BookmarkIdRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/repository/BookmarkRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/repository/CategoryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/repository/FundraisingRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/repository/HospitalRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/repository/RecoveryDiaryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/service/BeneficiaryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/service/FundraisingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/service/HospitalService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/main/java/com/srp/constelinkfundraising/db/service/RecoveryDiaryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Fundraising/src/test/java/com/srp/constelinkfundraising/ConstelinkFundraisingApplicationTests.java" afterDir="false" />
+    <list default="true" id="58ac1b3a-d6fa-44d3-a8c1-89d522027bd0" name="변경" comment="### 제목&#10;# :gitmoji: [FE/BE/공통] 작업내용 (제목과 본문은 한 줄 띄워주세요)&#10;&#10;&#10;### 본문 - 한 줄에 최대 72 글자까지만 입력하기  &#10;# 무엇을, 왜, 어떻게 했는지&#10;&#10;&#10;# 꼬리말&#10;# (선택) 이슈번호 작성&#10;&#10;#   [커밋 타입]  리스트&#10;#   :sparkles:          : 기능 (새로운 기능)&#10;#   :bug:               : 버그 (버그 수정)&#10;#   :lipstick:          : CSS 등 사용자 UI 디자인 변경&#10;#   :recycle:           : 리팩토링&#10;#   :art:               : 스타일 (코드 형식, 세미콜론 추가: 비즈니스 로직에 변경 없음)&#10;#   :memo:              : 문서 (문서 추가, 수정, 삭제)&#10;#   :white_check_mark:  : 테스트 (테스트 코드 추가, 수정, 삭제: 비즈니스 로직에 변경 없음)&#10;#   :hammer:            : 기타 변경사항 (빌드 스크립트 수정 등)&#10;#   :truck:             : 파일 혹은 폴더명을 수정하거나 옮기는 작업만 하는 경우&#10;#   :fire:              : 코드, 파일을 삭제하는 작업만 수행한 경우&#10;#   :twisted_rightwards_arrows:    : 브랜치 합병&#10;#   :rocket:            : 배포 관련&#10;# ------------------&#10;#   [체크리스트]&#10;#     제목 첫 글자는 대문자로 작성했나요?&#10;#     제목은 명령문으로 작성했나요?&#10;#     제목 끝에 마침표(.) 금지&#10;#     제목과 본문을 한 줄 띄워 분리하기&#10;#     본문에 여러줄의 메시지를 작성할 땐 &quot;-&quot;로 구분했나요?&#10;# ------------------">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/ConstelinkFundraisingApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/ConstelinkFundraisingApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/common/exception/CustomException.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/common/exception/CustomException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/common/exception/CustomExceptionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/common/exception/CustomExceptionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/common/exception/GlobalExceptionAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/common/exception/GlobalExceptionAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/controller/BeneficiaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/controller/BeneficiaryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/controller/FundraisingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/controller/FundraisingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/controller/HospitalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/controller/HospitalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/controller/RecoveryDiaryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/controller/RecoveryDiaryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/dto/common/PageDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/dto/common/PageDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/dto/response/ExceptionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/dto/response/ExceptionResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/dto/response/ResponseBeneficiaryInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/dto/response/ResponseBeneficiaryInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/dto/response/ResponseHospitalInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/dto/response/ResponseHospitalInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Beneficiary.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Beneficiary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Bookmark.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Bookmark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/BookmarkId.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/BookmarkId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Fundraising.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Fundraising.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Hospital.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/Hospital.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/RecoveryDiary.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/entity/RecoveryDiary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/BeneficiaryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/BeneficiaryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/BookmarkIdRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/BookmarkIdRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/BookmarkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/BookmarkRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/CategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/FundraisingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/FundraisingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/HospitalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/HospitalRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/RecoveryDiaryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/repository/RecoveryDiaryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/service/BeneficiaryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/service/BeneficiaryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/service/FundraisingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/service/FundraisingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/service/HospitalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/service/HospitalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/service/RecoveryDiaryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/main/java/com/srp/constelinkfundraising/db/service/RecoveryDiaryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConstelinkFundraising/src/test/java/com/srp/constelinkfundraising/ConstelinkFundraisingApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/ConstelinkFundraising/src/test/java/com/srp/constelinkfundraising/ConstelinkFundraisingApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +70,8 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -81,10 +84,22 @@
       <option name="presentableId" value="Default" />
       <updated>1678408268411</updated>
       <workItem from="1678408271444" duration="596000" />
+      <workItem from="1678410973708" duration="1205000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
