@@ -9,8 +9,10 @@ import org.springframework.util.SerializationUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class CookieUtils {
 
 	public static Optional<Cookie> getCookie(HttpServletRequest request, String name) {
@@ -57,6 +59,17 @@ public class CookieUtils {
 	public static <T> T deserialize(Cookie cookie, Class<T> cls) {
 		return cls.cast(SerializationUtils.deserialize(
 			Base64.getUrlDecoder().decode(cookie.getValue())));
+	}
+
+	public String getCookieInfo(Cookie[] cookies, String key){
+		String cookieInfo = "";
+		for(Cookie cookie : cookies){
+			if(cookie.getName().equals("refresh")){
+				log.info("token = " + cookie.getValue());
+				cookieInfo = cookie.getValue();
+			}
+		}
+		return cookieInfo;
 	}
 
 }

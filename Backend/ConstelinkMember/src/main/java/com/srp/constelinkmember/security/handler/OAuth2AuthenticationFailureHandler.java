@@ -19,8 +19,8 @@ public class OAuth2AuthenticationFailureHandler implements AuthenticationFailure
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-		AuthenticationException exception){
+		AuthenticationException exception) throws IOException {
 		log.info("로그인 실패");
-		
+		response.sendError(HttpServletResponse.SC_FORBIDDEN, "소셜 로그인 중 오류 발생");
 	}
 }

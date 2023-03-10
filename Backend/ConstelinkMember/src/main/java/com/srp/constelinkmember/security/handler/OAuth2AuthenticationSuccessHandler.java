@@ -38,7 +38,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-		Authentication authentication) throws IOException, ServletException {
+		Authentication authentication) throws IOException{
 		MemberPrincipalDetail principalDetail = (MemberPrincipalDetail)authentication.getPrincipal();
 		Long memberId = principalDetail.getMemberId();
 
@@ -47,8 +47,9 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 		String redisKey = "ID:"+randomId;
 		redisTemplate.opsForValue().set(redisKey, memberId, 10, TimeUnit.SECONDS);
 
-		response.sendRedirect(UriComponentsBuilder.fromUriString("http://localhost:3000/redirect-login")
+		response.sendRedirect(UriComponentsBuilder.fromUriString("http://localhost:3000/")
 				.queryParam("connect-id", redisKey)
+				.queryParam("flag" , principalDetail.isInactive())
 				.build()
 				.encode(StandardCharsets.UTF_8)
 				.toUriString());

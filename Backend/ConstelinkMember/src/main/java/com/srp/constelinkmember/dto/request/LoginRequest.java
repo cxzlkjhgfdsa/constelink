@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter
 public class LoginRequest {
 	String key;
+	boolean flag;
 
 }

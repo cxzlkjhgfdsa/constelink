@@ -14,15 +14,17 @@ public class MemberPrincipalDetail implements OAuth2User {
 
 	private Long memberId;
 	private String memberName;
+	private boolean isInactive;
 	private Map<String, Object> attributes;
 
 	public MemberPrincipalDetail() {
 	}
 
-	public MemberPrincipalDetail(Long memberId, String memberName, Map<String, Object> attributes) {
+	public MemberPrincipalDetail(Long memberId, String memberName, boolean isInactive, Map<String, Object> attributes) {
 		this.memberId = memberId;
 		this.memberName = memberName;
 		this.attributes = attributes;
+		this.isInactive = isInactive;
 	}
 
 	public Long getMemberId() {
@@ -31,6 +33,14 @@ public class MemberPrincipalDetail implements OAuth2User {
 
 	public void setMemberId(Long memberId) {
 		this.memberId = memberId;
+	}
+
+	public boolean isInactive() {
+		return isInactive;
+	}
+
+	public void setInactive(boolean inactive) {
+		isInactive = inactive;
 	}
 
 	@Override

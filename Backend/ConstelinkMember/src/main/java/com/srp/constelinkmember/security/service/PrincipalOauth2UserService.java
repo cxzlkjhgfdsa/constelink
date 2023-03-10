@@ -68,17 +68,18 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 				.build();
 
 			Member saveMember = memberRepository.save(member);
-			return new MemberPrincipalDetail(saveMember.getId(), saveMember.getUsername(), oAuth2User.getAttributes());
+			return new MemberPrincipalDetail(saveMember.getId(), saveMember.getUsername(), false,  oAuth2User.getAttributes());
 		}
 		// 가입되어있다면 로그인
 		else{
 			log.info("로그인을 바로 진행합니다");
 			Member loginMember = findMember.get();
+			boolean isInactive = false;
 			if(loginMember.getMemberInactive()){
-				loginMember.setMemberInactive(false);
+				isInactive = true;
 			}
 			loginMember.setMemberProfileImg(oAuth2MemberInfo.getProfile());
-			return new MemberPrincipalDetail(loginMember.getId(), loginMember.getUsername(), oAuth2User.getAttributes());
+			return new MemberPrincipalDetail(loginMember.getId(), loginMember.getUsername(),isInactive, oAuth2User.getAttributes());
 		}
 	}
 

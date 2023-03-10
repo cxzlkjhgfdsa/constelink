@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.srp.constelinkmember.dto.enums.Role;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -64,11 +65,7 @@ public class TokenProvider implements InitializingBean {
 	}
 
 	public String resolveToken(String token) {
-		if(!isBearerToken(token)){
-			throw new CustomException(CustomExceptionType.NULL_TOKEN_EXCEPTION);
-		}
-		log.info("token resolver working.....");
-		String accessToken = token.replace("Bearer ", "");
+		String accessToken = isBearerToken(token);
 		return Jwts.parser()
 				.setSigningKey(key)
 				.parseClaimsJws(accessToken)
@@ -76,10 +73,37 @@ public class TokenProvider implements InitializingBean {
 				.getSubject();
 	}
 
+	public String getRoleByToken(String token){
+		String accessToken = isBearerToken(token);
+		Claims body = Jwts.parser()
+			.setSigningKey(key)
+			.parseClaimsJws(accessToken)
+			.getBody();
+		return (String)body.get(AUTHORITIES_KEY);
+	}
 
-	private boolean isBearerToken(String header) {
-		return header.startsWith("Bearer ");
 
+	private String isBearerToken(String token) {
+		String[] tokenInfo = token.split(" ");
+
+		if(!"Bearer".equals(tokenInfo[0])){
+			throw new CustomException(CustomExceptionType.NULL_TOKEN_EXCEPTION);
+		}else{
+			return tokenInfo[1];
+		}
+	}
+	public long getExpiration(String token) {
+
+		String accessToken = isBearerToken(token);
+
+			Date expiration = Jwts
+				.parserBuilder()
+				.setSigningKey(key)
+				.build()
+				.parseClaimsJws(accessToken)
+				.getBody()
+				.getExpiration();
+			return expiration.getTime();
 	}
 
 }

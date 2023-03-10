@@ -64,4 +64,6 @@ public class Member {
     @OneToMany
     private Set<Donation> donations = new LinkedHashSet<>();
 
+
+
 }
