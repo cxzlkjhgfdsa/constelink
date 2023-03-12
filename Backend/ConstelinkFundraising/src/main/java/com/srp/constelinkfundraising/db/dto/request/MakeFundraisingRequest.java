@@ -4,19 +4,19 @@ import java.time.LocalDateTime;
 
 import com.srp.constelinkfundraising.db.entity.Category;
 
+import lombok.Getter;
+
+@Getter
 public class MakeFundraisingRequest {
 
 	private Long beneficiaryId;
 
-	private Category category;
+	private Long categoryId;
 
-	private int fundraisingAmountRaised;
 
 	private int fundraisingAmountGoal;
 
-	private LocalDateTime fundraisingStartTime;
-
-	private LocalDateTime fundraisingEndTime;
+	private Long fundraisingEndTime;
 
 	private String fundraisingTitle;
 
@@ -24,7 +24,4 @@ public class MakeFundraisingRequest {
 
 	private String fundraisingThumbnail;
 
-	private int fundraisingPeople;
-
-	private boolean fundraisingIsDone;
 }

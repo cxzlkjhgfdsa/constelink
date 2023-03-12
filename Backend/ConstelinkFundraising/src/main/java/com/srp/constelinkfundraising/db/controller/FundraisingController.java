@@ -58,10 +58,10 @@ public class FundraisingController {
 
 	@Operation(summary = "기부 만들기", description = "기부 만들기")
 	@PostMapping ("")
-	public ResponseEntity<String> makeFundraising(
+	public ResponseEntity<Fundraising> makeFundraising(
 		@RequestBody MakeFundraisingRequest makeFundraisingRequest
 	) {
-		String fundraisingResponse = fundraisingService.makeFundraising(makeFundraisingRequest);
+		Fundraising fundraisingResponse = fundraisingService.makeFundraising(makeFundraisingRequest);
 		return ResponseEntity.ok(fundraisingResponse);
 	}
 }
