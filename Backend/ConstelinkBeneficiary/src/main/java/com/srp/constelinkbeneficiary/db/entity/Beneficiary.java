@@ -1,6 +1,6 @@
-package com.srp.constelinkfundraising.db.entity;
+package com.srp.constelinkbeneficiary.db.entity;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -36,13 +36,13 @@ public class Beneficiary {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "hospital_id", nullable = false)
-	private com.srp.constelinkfundraising.db.entity.Hospital hospital;
+	private com.srp.constelinkbeneficiary.db.entity.Hospital hospital;
 
 	@Column(name = "beneficiary_name", length = 10)
 	private String beneficiaryName;
 
 	@Column(name = "beneficiary_birthday")
-	private LocalDateTime beneficiaryBirthday;
+	private Date beneficiaryBirthday;
 
 	@Column(name = "beneficiary_disease", length = 50)
 	private String beneficiaryDisease;

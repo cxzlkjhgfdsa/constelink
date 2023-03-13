@@ -1,4 +1,4 @@
-package com.srp.constelinkfundraising.db.entity;
+package com.srp.constelinkbeneficiary.db.entity;
 
 import java.time.LocalDateTime;
 
@@ -37,7 +37,7 @@ public class RecoveryDiary {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "beneficiary_id", nullable = false)
-	private com.srp.constelinkfundraising.db.entity.Beneficiary beneficiary;
+	private com.srp.constelinkbeneficiary.db.entity.Beneficiary beneficiary;
 
 	@Column(name = "recovery_diary_regdate", nullable = false)
 	private LocalDateTime recoveryDiaryRegdate;
@@ -45,6 +45,8 @@ public class RecoveryDiary {
 	@Column(name = "recovery_diary_photo", length = 100)
 	private String recoveryDiaryPhoto;
 
+	@Column(name= "recovery_diary_title")
+	private String recoveryDiaryTitle;
 	@Lob
 	@Column(name = "recovery_diary_content")
 	private String recoveryDiaryContent;

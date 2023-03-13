@@ -1,16 +1,16 @@
-package com.srp.constelinkfundraising.db.dto.response;
+package com.srp.constelinkbeneficiary.db.dto.response;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ResponseBeneficiaryInfo {
+public class BeneficiaryInfoResponse {
 
 	private String beneficiaryName;
-	private LocalDateTime beneficiaryBirthday;
+	private Date beneficiaryBirthday;
 	private String beneficiaryDisease;
 	private String beneficiaryPhoto;
 	private int beneficiaryAmountRaised;

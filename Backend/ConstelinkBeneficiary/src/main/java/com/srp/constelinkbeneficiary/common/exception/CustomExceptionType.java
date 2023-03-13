@@ -1,4 +1,4 @@
-package com.srp.constelinkfundraising.common.exception;
+package com.srp.constelinkbeneficiary.common.exception;
 
 import org.springframework.http.HttpStatus;
 

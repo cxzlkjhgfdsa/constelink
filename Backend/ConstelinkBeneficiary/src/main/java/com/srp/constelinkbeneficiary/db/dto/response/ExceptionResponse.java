@@ -1,4 +1,4 @@
-package com.srp.constelinkfundraising.db.dto.response;
+package com.srp.constelinkbeneficiary.db.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.srp.constelinkfundraising.db.dto.common;
+package com.srp.constelinkbeneficiary.db.dto.common;
 
 
 public class PageDto {

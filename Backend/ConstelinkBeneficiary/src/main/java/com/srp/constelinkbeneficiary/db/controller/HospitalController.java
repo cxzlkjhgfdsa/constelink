@@ -1,4 +1,4 @@
-package com.srp.constelinkfundraising.db.controller;
+package com.srp.constelinkbeneficiary.db.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -8,36 +8,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.srp.constelinkfundraising.db.dto.response.ResponseHospitalInfo;
-import com.srp.constelinkfundraising.db.entity.Hospital;
-import com.srp.constelinkfundraising.db.service.HospitalService;
+import com.srp.constelinkbeneficiary.db.dto.response.HospitalInfoResponse;
+import com.srp.constelinkbeneficiary.db.entity.Hospital;
+import com.srp.constelinkbeneficiary.db.service.HospitalService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 
-@Tag(name = "hospitals", description = "병원 API")
+@Tag(name = "병원 API", description = "병원 API")
 @RestController
 @RequestMapping("/api/hospitals")
 @RequiredArgsConstructor
 public class HospitalController {
 
 	private final HospitalService hospitalService;
-
+	@Operation(summary = "id로 병원 조회", description = "병원 정보 조회")
 	@GetMapping("/{id}")
-	public ResponseEntity<ResponseHospitalInfo> findHospital(@PathVariable("id") Long id) {
-		ResponseHospitalInfo responseHospitalInfo = hospitalService.findHospitalById(id);
-		return ResponseEntity.ok(responseHospitalInfo);
+	public ResponseEntity<HospitalInfoResponse> findHospital(@PathVariable("id") Long id) {
+		HospitalInfoResponse hospitalInfoResponse = hospitalService.findHospitalById(id);
+		return ResponseEntity.ok(hospitalInfoResponse);
 	}
-
+	@Operation(summary = "병원 목록 조회", description = "page, size, sort_by 필요.")
 	@GetMapping("")
 	public ResponseEntity<Page<Hospital>> getHospitalPage(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-		@RequestParam(value = "showNum", required = false, defaultValue = "5") int showNum,
+		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
 		@RequestParam(value = "order", required = false, defaultValue = "0") int order) {
 		// order:0 오름차순, order:1 내림차순
 		// page는 0페이지부터 시작
-		Page<Hospital> hospitalPage = hospitalService.hospitalInfoList(page-1, showNum, order);
+		Page<Hospital> hospitalPage = hospitalService.hospitalInfoList(page-1, size, order);
 		return ResponseEntity.ok(hospitalPage);
 	}
 

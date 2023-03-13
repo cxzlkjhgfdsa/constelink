@@ -1,12 +1,11 @@
-package com.srp.constelinkfundraising.db.dto.response;
+package com.srp.constelinkbeneficiary.db.dto.response;
 
-import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ResponseHospitalInfo {
+public class HospitalInfoResponse {
 	private Long id;
 	private String hospitalName;
 	private int hospitalTotalAmountRaised;

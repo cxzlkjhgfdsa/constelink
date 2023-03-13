@@ -1,4 +1,4 @@
-package com.srp.constelinkfundraising.db.entity;
+package com.srp.constelinkbeneficiary.db.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
