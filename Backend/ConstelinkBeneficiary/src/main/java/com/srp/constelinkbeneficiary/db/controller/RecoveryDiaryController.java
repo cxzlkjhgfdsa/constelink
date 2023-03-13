@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.srp.constelinkbeneficiary.db.dto.enums.SortType;
 import com.srp.constelinkbeneficiary.db.dto.request.RecoveryDiaryRequest;
 import com.srp.constelinkbeneficiary.db.dto.response.RecoveryDiaryResponse;
 import com.srp.constelinkbeneficiary.db.entity.RecoveryDiary;
@@ -25,13 +26,13 @@ import lombok.RequiredArgsConstructor;
 public class RecoveryDiaryController {
 	private final RecoveryDiaryService recoveryDiaryService;
 
-	@Operation(summary = "회복일지 목록 조회", description = "page, size, sortBy 값 필요. dafault값 존재 ")
+	@Operation(summary = "회복일지 목록 조회", description = "page, size, sortBy 값 필요. dafault값 오름차순 ")
 	@GetMapping("")
-	public ResponseEntity<Page<RecoveryDiary>> getRecoveryDiaries(
+	public ResponseEntity<Page<RecoveryDiaryResponse>> getRecoveryDiaries(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(value = "sortBy", required = false, defaultValue = "0") int sortBy) {
-		Page<RecoveryDiary> recoveryDiaries = recoveryDiaryService.getRecoveryDiaryList(page-1, size, sortBy);
+		@RequestParam(value = "sort_by", required = false, defaultValue = "ID_ASC") SortType sortType) {
+		Page<RecoveryDiaryResponse> recoveryDiaries = recoveryDiaryService.getRecoveryDiaryList(page-1, size, sortType);
 		return ResponseEntity.ok(recoveryDiaries);
 	}
 

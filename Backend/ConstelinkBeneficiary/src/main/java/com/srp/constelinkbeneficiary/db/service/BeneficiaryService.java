@@ -57,7 +57,6 @@ public class BeneficiaryService {
 	}
 
 	public BeneficiaryInfoResponse addBeneficiary(BeneficiaryReqeust beneficiaryReqeust) {
-		System.out.println("ㅋㅋㅋㅋㅋㅋ");
 		Beneficiary beneficiary = new Beneficiary().builder()
 			.hospital(hospitalRepository.findHospitalById(beneficiaryReqeust.getHospitalId()))
 			.beneficiaryName(beneficiaryReqeust.getName())
@@ -67,7 +66,6 @@ public class BeneficiaryService {
 			.beneficiaryStatus("RAISING")
 			.beneficiaryBirthday(beneficiaryReqeust.getBirthday())
 			.build();
-		System.out.println("zxczxc");
 		beneficiary =beneficiaryRepository.saveAndFlush(beneficiary);
 
 		BeneficiaryInfoResponse beneficiaryInfoDto = BeneficiaryInfoResponse.builder()

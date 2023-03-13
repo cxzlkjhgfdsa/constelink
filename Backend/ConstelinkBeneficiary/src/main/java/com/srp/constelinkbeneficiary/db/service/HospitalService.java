@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.srp.constelinkbeneficiary.common.exception.CustomException;
 import com.srp.constelinkbeneficiary.common.exception.CustomExceptionType;
+import com.srp.constelinkbeneficiary.db.dto.enums.SortType;
 import com.srp.constelinkbeneficiary.db.dto.response.HospitalInfoResponse;
 import com.srp.constelinkbeneficiary.db.entity.Hospital;
 import com.srp.constelinkbeneficiary.db.repository.HospitalRepository;
@@ -38,18 +39,18 @@ public class HospitalService {
 		return hospitalInfoResponse;
 	}
 
-	public Page<Hospital> hospitalInfoList(int page, int size, int sortBy) {
+	public Page<Hospital> hospitalInfoList(int page, int size, SortType sortBy) {
 		Page<Hospital> ResponseHospitalInfoList;
 		// 0이면 오름차순+
 		switch(sortBy){
-			case 0:
+			case ID_ASC:
 				ResponseHospitalInfoList = hospitalRepository.findAll(PageRequest.of(page,size, Sort.by("id").ascending()));
 				break;
-			case 1:
+			case ID_DESC:
 				ResponseHospitalInfoList = hospitalRepository.findAll(PageRequest.of(page,size, Sort.by("id").descending()));
 				break;
 			default:
-				ResponseHospitalInfoList = hospitalRepository.findAll(PageRequest.of(page,size, Sort.by("id").descending()));
+				ResponseHospitalInfoList = hospitalRepository.findAll(PageRequest.of(page,size, Sort.by("id").ascending()));
 				break;
 		}
 

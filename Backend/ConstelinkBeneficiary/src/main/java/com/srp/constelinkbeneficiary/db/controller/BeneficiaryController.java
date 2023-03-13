@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.srp.constelinkbeneficiary.db.dto.enums.SortType;
 import com.srp.constelinkbeneficiary.db.dto.request.BeneficiaryReqeust;
 import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryInfoResponse;
 import com.srp.constelinkbeneficiary.db.service.BeneficiaryService;
@@ -37,17 +38,16 @@ public class BeneficiaryController {
 		return ResponseEntity.ok(beneficiary);
 	}
 
-	@Operation(summary = "수혜자 목록 조회", description = "병원 id에 해당하는 수혜자들 모두 조회")
+	@Operation(summary = "수혜자 목록 조회", description = "hospitalId, page, size, sortBy 필요. default값 ALL")
 	@GetMapping("")
 	// 하나의 병원에 있는 모든 수혜자 목록 가져오기
 	public ResponseEntity<Page<BeneficiaryInfoResponse>> findBeneficiaryByHospitalId (
 		@RequestParam(value = "hospitalId") Long hospitalId,
-		@RequestParam(value = "page") int page,
-		@RequestParam(value = "size") int size,
-		@RequestParam(value = "sortBy") String sortby
+		@RequestParam(value = "page",required = false, defaultValue = "1") int page,
+		@RequestParam(value = "size",required = false, defaultValue = "5") int size,
+		@RequestParam(value = "sort_by",required = false, defaultValue = "ALL") SortType sortType
 	) {
-
-		Page<BeneficiaryInfoResponse> beneficiaryInfoList = beneficiaryService.findBeneficiariesByHospitalId(hospitalId, page, size);
+		Page<BeneficiaryInfoResponse> beneficiaryInfoList = beneficiaryService.findBeneficiariesByHospitalId(hospitalId, page-1, size);
 		return ResponseEntity.ok(beneficiaryInfoList);
 	}
 

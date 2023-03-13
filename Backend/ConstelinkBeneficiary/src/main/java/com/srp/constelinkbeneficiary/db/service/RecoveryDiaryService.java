@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.srp.constelinkbeneficiary.db.dto.enums.SortType;
 import com.srp.constelinkbeneficiary.db.dto.request.RecoveryDiaryRequest;
 import com.srp.constelinkbeneficiary.db.dto.response.RecoveryDiaryResponse;
 import com.srp.constelinkbeneficiary.db.entity.RecoveryDiary;
@@ -21,17 +22,32 @@ public class RecoveryDiaryService {
 	private final RecoveryDiaryRepository recoveryDiaryRepository;
 	private final BeneficiaryRepository beneficiaryRepository;
 
-	public Page<RecoveryDiary> getRecoveryDiaryList(int page, int size, int sortBy) {
-		Page<RecoveryDiary> recoveryDiaryList;
-		switch (sortBy) {
-			case 1:
-				recoveryDiaryList = recoveryDiaryRepository.findAll(PageRequest.of(page,size, Sort.by("id").ascending()));
+	public Page<RecoveryDiaryResponse> getRecoveryDiaryList(int page, int size, SortType sortType) {
+		Page<RecoveryDiary> recoveryDiaryPage;
+		switch (sortType) {
+			case ID_ASC:
+				recoveryDiaryPage = recoveryDiaryRepository.findAll(PageRequest.of(page,size, Sort.by("id").ascending()));
+				break;
+			case ID_DESC:
+				recoveryDiaryPage = recoveryDiaryRepository.findAll(PageRequest.of(page,size, Sort.by("id").descending()));
 				break;
 			default:
-				recoveryDiaryList = recoveryDiaryRepository.findAll(PageRequest.of(page,size, Sort.by("id").descending()));
+				recoveryDiaryPage = recoveryDiaryRepository.findAll(PageRequest.of(page,size, Sort.by("id").ascending()));
 				break;
 		}
-		return recoveryDiaryList;
+		Page<RecoveryDiaryResponse> recoveryDiaryResponses = recoveryDiaryPage.map(recoveryDiary -> new RecoveryDiaryResponse().builder()
+			.recoveryDiaryTitle(recoveryDiary.getRecoveryDiaryTitle())
+			.photo(recoveryDiary.getRecoveryDiaryPhoto())
+			.content(recoveryDiary.getRecoveryDiaryContent())
+			.beneficiaryId(recoveryDiary.getBeneficiary().getId())
+			.beneficiaryName(recoveryDiary.getBeneficiary().getBeneficiaryName())
+			.id(recoveryDiary.getId())
+			.amountSpent(recoveryDiary.getRecoveryDiaryAmountSpent())
+			.regdate(recoveryDiary.getRecoveryDiaryRegdate())
+			.build());
+
+
+		return recoveryDiaryResponses;
 	}
 
 	public RecoveryDiaryResponse addRecoveryDiary(RecoveryDiaryRequest recoveryDiaryRequest) {
@@ -48,6 +64,7 @@ public class RecoveryDiaryService {
 			.id(recoveryDiary.getId())
 			.amountSpent(recoveryDiary.getRecoveryDiaryAmountSpent())
 			.beneficiaryId(recoveryDiary.getBeneficiary().getId())
+			.beneficiaryName(recoveryDiary.getBeneficiary().getBeneficiaryName())
 			.content(recoveryDiaryRequest.getContent())
 			.photo(recoveryDiaryRequest.getPhoto())
 			.recoveryDiaryTitle(recoveryDiary.getRecoveryDiaryTitle())

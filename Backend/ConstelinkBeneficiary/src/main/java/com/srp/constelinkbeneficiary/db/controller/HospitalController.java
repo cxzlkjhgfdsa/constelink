@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.srp.constelinkbeneficiary.db.dto.enums.SortType;
 import com.srp.constelinkbeneficiary.db.dto.response.HospitalInfoResponse;
 import com.srp.constelinkbeneficiary.db.entity.Hospital;
 import com.srp.constelinkbeneficiary.db.service.HospitalService;
@@ -30,15 +31,14 @@ public class HospitalController {
 		HospitalInfoResponse hospitalInfoResponse = hospitalService.findHospitalById(id);
 		return ResponseEntity.ok(hospitalInfoResponse);
 	}
-	@Operation(summary = "병원 목록 조회", description = "page, size, sort_by 필요.")
+	@Operation(summary = "병원 목록 조회", description = "page, size, sort_by 필요. default값 오름차순")
 	@GetMapping("")
 	public ResponseEntity<Page<Hospital>> getHospitalPage(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(value = "order", required = false, defaultValue = "0") int order) {
-		// order:0 오름차순, order:1 내림차순
-		// page는 0페이지부터 시작
-		Page<Hospital> hospitalPage = hospitalService.hospitalInfoList(page-1, size, order);
+		@RequestParam(value = "sort_by", required = false, defaultValue = "ID_ASC") SortType sortType) {
+
+		Page<Hospital> hospitalPage = hospitalService.hospitalInfoList(page-1, size, sortType);
 		return ResponseEntity.ok(hospitalPage);
 	}
 
