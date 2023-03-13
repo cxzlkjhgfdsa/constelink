@@ -3,6 +3,11 @@
     src: url("./assets/fonts/Hahmlet-VariableFont_wght.ttf");
 }
 
+@font-face {
+    font-family: "Tilt";
+    src: url("./assets/fonts/TiltWarp-Regular-VariableFont_XROT\,YROT.ttf");
+}
+
 
 .Test {
     left: 0;
@@ -80,3 +85,33 @@
     cursor: pointer;
 }
 
+/* 별달러 가기 배너 */
+.with_box{
+    background: linear-gradient(to bottom right, #a4a3cb, #ffff );
+    height: 110px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 20%;
+    font-family: "Tilt";
+} 
+
+.with_title{
+    font-size: 20px;
+    font-weight: bolder;
+    color: #ececec;
+}
+.with_btn{
+    background-color: white;
+    width: 190px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+    cursor: pointer;
+    font-family: "Hahmlet";
+    font-size: 14px;
+    
+}

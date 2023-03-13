@@ -60,37 +60,17 @@ const Test: React.FC = () => {
         ))}
       </Slider>
 
+          <nav className={styles.with_box}>
+            
+            <img src="" alt="" />
+            <div className={styles.with_title}>너네 별따러 갈때, 우린 달러가!</div>
+            <div className={styles.with_btn}><span style={{color:"purple", fontWeight:"bold" ,paddingRight:"3px"}}>Constelink</span> 함께하기 -{">"}</div>
 
+            
+          </nav>
 
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   );
 };
 
