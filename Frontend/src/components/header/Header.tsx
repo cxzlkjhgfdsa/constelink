@@ -11,11 +11,14 @@ const Header: React.FC = () => {
             case '/notice':
                 setSelectedMenu('공지사항');
                 break;
-            case '/board':
-                setSelectedMenu('게시판');
+            case '/donate':
+                setSelectedMenu('치료모금');
                 break;
-            case '/trade':
-                setSelectedMenu('거래정보');
+            case '/diary':
+                setSelectedMenu('치료일지');
+                break;
+            case '/finish':
+                setSelectedMenu('치료완료');
                 break;
             default:
                 setSelectedMenu('default');
