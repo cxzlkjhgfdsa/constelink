@@ -35,6 +35,7 @@ public class BookmarkController {
 		return bookmarkService.bookmarkFundraising(bookmarkFundraisingRequest);
 	}
 
+	@Operation(summary = "북마크한 목록 조회", description = "query에 memberId 넣으면 해당 member 북마크 목록 조회")
 	@GetMapping("")
 	public Page<Fundraising> getBookmarks(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,

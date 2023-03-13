@@ -19,11 +19,10 @@ public interface FundraisingRepository extends JpaRepository<Fundraising, Long> 
 	Page<Fundraising> findFundraisingsByBeneficiaryId (Long beneficiary, Pageable pageable);
 
 	Fundraising findFundraisingById(Long id);
-	Page<Fundraising> findFundraisingsByFundraisingTitleContaining(String search, Pageable pageable);
+	// Page<Fundraising> findFundraisingsByFundraisingTitleContaining(String search, Pageable pageable);
 
+	// Page<Fundraising> findFundraisingsByFundraisingEndTimeAfter(Timestamp timestamp, Pageable pageable);
 
-	Page<Fundraising> findFundraisingsByFundraisingEndTimeAfter(Timestamp timestamp, Pageable pageable);
-
-	Page<Fundraising> findFundraisingsByFundraisingEndTimeBefore(Timestamp timestamp, Pageable pageable);
+	// Page<Fundraising> findFundraisingsByFundraisingEndTimeBefore(Timestamp timestamp, Pageable pageable);
 
 }

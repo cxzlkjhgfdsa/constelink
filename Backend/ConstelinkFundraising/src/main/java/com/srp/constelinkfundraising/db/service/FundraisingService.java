@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.srp.constelinkfundraising.db.dto.enums.SortType;
 import com.srp.constelinkfundraising.db.dto.request.DonateRequest;
 import com.srp.constelinkfundraising.db.dto.request.MakeFundraisingRequest;
 import com.srp.constelinkfundraising.db.dto.response.FundraisingResponse;
@@ -71,6 +72,70 @@ public class FundraisingService {
 		return fundraisingResponsePage;
 	}
 
+	public Page<FundraisingResponse> getFundraisingsByStartDate(int page, int size, SortType sortType) {
+		Page<Fundraising> fundraising;
+		switch (sortType){
+			case START_DATE_ASC:
+				fundraising = fundraisingRepository.findAll(PageRequest.of(page, size, Sort.by("fundraisingStartTime").ascending()));
+				break;
+			case START_DATE_DESC:
+				fundraising = fundraisingRepository.findAll(PageRequest.of(page, size, Sort.by("fundraisingStartTime").descending()));
+				break;
+			default:
+				fundraising = fundraisingRepository.findAll(PageRequest.of(page, size, Sort.by("fundraisingStartTime").descending()));
+				break;
+		}
+		Page<FundraisingResponse> fundraisingResponsePage = fundraising.map(
+			fund -> new FundraisingResponse().builder()
+				.fundraisingIsDone(fund.isFundraisingIsDone())
+				.fundraisingPeople(fund.getFundraisingPeople())
+				.fundraisingStory(fund.getFundraisingStory())
+				.fundraisingThumbnail(fund.getFundraisingThumbnail())
+				.fundraisingTitle(fund.getFundraisingTitle())
+				.fundraisingAmountRaised(fund.getFundraisingAmountRaised())
+				.fundraisingStartTime(fund.getFundraisingStartTime())
+				.id(fund.getId())
+				.fundraisingEndTime(fund.getFundraisingEndTime())
+				.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
+				.beneficiaryId(fund.getBeneficiaryId())
+				.categoryId(fund.getId())
+				.build()
+		);
+		return fundraisingResponsePage;
+	}
+
+	public Page<FundraisingResponse> getFundraisingsByEndDate(int page, int size, SortType sortType) {
+		Page<Fundraising> fundraising;
+		switch (sortType){
+			case END_DATE_ASC:
+				fundraising = fundraisingRepository.findAll(PageRequest.of(page, size, Sort.by("fundraisingEndTime").ascending()));
+				break;
+			case END_DATE_DESC:
+				System.out.println("DESC");
+				fundraising = fundraisingRepository.findAll(PageRequest.of(page, size, Sort.by("fundraisingEndTime").descending()));
+				break;
+			default:
+				fundraising = fundraisingRepository.findAll(PageRequest.of(page, size, Sort.by("fundraisingEndTime").descending()));
+				break;
+		}
+		Page<FundraisingResponse> fundraisingResponsePage = fundraising.map(
+			fund -> new FundraisingResponse().builder()
+				.fundraisingIsDone(fund.isFundraisingIsDone())
+				.fundraisingPeople(fund.getFundraisingPeople())
+				.fundraisingStory(fund.getFundraisingStory())
+				.fundraisingThumbnail(fund.getFundraisingThumbnail())
+				.fundraisingTitle(fund.getFundraisingTitle())
+				.fundraisingAmountRaised(fund.getFundraisingAmountRaised())
+				.fundraisingStartTime(fund.getFundraisingStartTime())
+				.id(fund.getId())
+				.fundraisingEndTime(fund.getFundraisingEndTime())
+				.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
+				.beneficiaryId(fund.getBeneficiaryId())
+				.categoryId(fund.getId())
+				.build()
+		);
+		return fundraisingResponsePage;
+	}
 	public FundraisingResponse donateFundraising(DonateRequest donateRequest) {
 		// 돈 0원 이상 체크, id체크
 		Fundraising fundraising = fundraisingRepository.findFundraisingById(donateRequest.getId());
@@ -109,10 +174,6 @@ public class FundraisingService {
 
 	public FundraisingResponse bookmarkFundraising(Long fundrasingId){
 		FundraisingResponse fundraisingResponse = new FundraisingResponse();
-
-
 		return fundraisingResponse;
-
-
 	}
 }
