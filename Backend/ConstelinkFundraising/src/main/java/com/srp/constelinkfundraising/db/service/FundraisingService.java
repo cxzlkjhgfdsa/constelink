@@ -41,7 +41,7 @@ public class FundraisingService {
 				.fundraisingEndTime(fund.getFundraisingEndTime())
 				.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
 				.beneficiaryId(fund.getBeneficiaryId())
-				.categoryId(fund.getId())
+				.categoryName(fund.getCategory().getCategoryName())
 				.build()
 		);
 
@@ -65,7 +65,7 @@ public class FundraisingService {
 				.fundraisingEndTime(fund.getFundraisingEndTime())
 				.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
 				.beneficiaryId(fund.getBeneficiaryId())
-				.categoryId(fund.getId())
+				.categoryName(fund.getCategory().getCategoryName())
 				.build()
 		);
 		System.out.println("확인2");
@@ -98,7 +98,7 @@ public class FundraisingService {
 				.fundraisingEndTime(fund.getFundraisingEndTime())
 				.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
 				.beneficiaryId(fund.getBeneficiaryId())
-				.categoryId(fund.getId())
+				.categoryName(fund.getCategory().getCategoryName())
 				.build()
 		);
 		return fundraisingResponsePage;
@@ -131,7 +131,7 @@ public class FundraisingService {
 				.fundraisingEndTime(fund.getFundraisingEndTime())
 				.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
 				.beneficiaryId(fund.getBeneficiaryId())
-				.categoryId(fund.getId())
+				.categoryName(fund.getCategory().getCategoryName())
 				.build()
 		);
 		return fundraisingResponsePage;
@@ -152,7 +152,7 @@ public class FundraisingService {
 			.fundraisingEndTime(fundraising.getFundraisingEndTime())
 			.fundraisingAmountGoal(fundraising.getFundraisingAmountGoal())
 			.beneficiaryId(fundraising.getBeneficiaryId())
-			.categoryId(fundraising.getId())
+			.categoryName(fundraising.getCategory().getCategoryName())
 			.build();
 		return 	fundraisingResponse;
 	}

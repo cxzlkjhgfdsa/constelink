@@ -41,10 +41,25 @@ public class BookmarkService {
 		}
 	}
 
-	public Page<Fundraising> getBookmarks(Long memberId, int page, int size) {
-		System.out.println("북마크서비스");
-		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksById_MemberId (memberId, PageRequest.of(page,size));
-		Page<Fundraising> bookmarkResponses = bookmarks.map(bookmark -> bookmark.getFundraising());
+	public Page<FundraisingResponse> getBookmarks(Long memberId, int page, int size) {
+
+		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberId (memberId, PageRequest.of(page,size));
+		System.out.println("시작");
+		Page<FundraisingResponse> bookmarkResponses = bookmarks.map(bookmark -> new FundraisingResponse().builder()
+				.categoryName(bookmark.getFundraising().getCategory().getCategoryName())
+				.beneficiaryId(bookmark.getFundraising().getBeneficiaryId())
+				.fundraisingAmountGoal(bookmark.getFundraising().getFundraisingAmountGoal())
+				.fundraisingEndTime(bookmark.getFundraising().getFundraisingEndTime())
+				.id(bookmark.getFundraising().getId())
+				.fundraisingStartTime(bookmark.getFundraising().getFundraisingStartTime())
+				.fundraisingAmountRaised(bookmark.getFundraising().getFundraisingAmountRaised())
+				.fundraisingTitle(bookmark.getFundraising().getFundraisingTitle())
+				.fundraisingThumbnail(bookmark.getFundraising().getFundraisingThumbnail())
+				.fundraisingStory(bookmark.getFundraising().getFundraisingStory())
+				.fundraisingPeople(bookmark.getFundraising().getFundraisingPeople())
+				.build());
+
+		System.out.println(bookmarkResponses);
 		System.out.println("북마크끝");
 		return bookmarkResponses;
 	}

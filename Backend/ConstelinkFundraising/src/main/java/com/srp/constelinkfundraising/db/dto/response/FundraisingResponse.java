@@ -17,7 +17,7 @@ public class FundraisingResponse {
 
 	private Long id;
 	private Long beneficiaryId;
-	private Long categoryId;
+	private String categoryName;
 	private int fundraisingAmountRaised;
 	private int fundraisingAmountGoal;
 	private LocalDateTime fundraisingStartTime;

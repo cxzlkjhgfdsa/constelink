@@ -11,5 +11,5 @@ import com.srp.constelinkfundraising.db.entity.Fundraising;
 public interface BookmarkRepository extends JpaRepository<Bookmark, BookmarkId> {
 
 	Bookmark findBookmarksById(BookmarkId bookmarkId);
-	Page<Bookmark> findBookmarksById_MemberId(Long memberId, Pageable pageable);
+	Page<Bookmark> findBookmarksByIdMemberId(Long memberId, Pageable pageable);
 }
