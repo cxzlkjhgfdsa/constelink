@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Header from './components/header/Header';
 import Login from './pages/Login';
 import RecoveryDiary from './pages/RecoveryDiary';
 
@@ -8,6 +9,9 @@ function App() {
     <div className="App">
       <Login/>
       <RecoveryDiary/>
+      {/* <Login/> */}
+      <Header/>
+
     </div>
   );
 }
