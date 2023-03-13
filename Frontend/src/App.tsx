@@ -7,10 +7,11 @@ import RecoveryDiary from './pages/RecoveryDiary';
 function App() {
   return (
     <div className="App">
-      {/* <Login/> */}
+
+      <Login/>
       <RecoveryDiary/>
       {/* <Login/> */}
-      {/* <Header/> */}
+      <Header/>
 
     </div>
   );
