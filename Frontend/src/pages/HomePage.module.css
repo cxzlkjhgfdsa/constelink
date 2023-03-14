@@ -1,11 +1,11 @@
 @font-face {
     font-family: "Hahmlet";
-    src: url("./assets/fonts/Hahmlet-VariableFont_wght.ttf");
+    src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
 }
 
 @font-face {
     font-family: "Tilt";
-    src: url("./assets/fonts/TiltWarp-Regular-VariableFont_XROT\,YROT.ttf");
+    src: url("../assets/fonts/TiltWarp-Regular-VariableFont_XROT\,YROT.ttf");
 }
 
 

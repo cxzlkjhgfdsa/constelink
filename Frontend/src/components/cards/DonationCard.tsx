@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from "./DonationCard.module.css";
-import { DonationData } from './../../models/card/donatecard';
+import { DonationData } from '../../models/donatecard';
 import { useState } from 'react';
 import { useEffect } from 'react';
 interface Props {

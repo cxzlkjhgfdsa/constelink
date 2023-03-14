@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/Header';
+import HomePage from './pages/HomePage';
 import Login from './pages/Login';
-import Test from './Test';
 
 
 function App() {
@@ -10,9 +10,8 @@ function App() {
     <div className="App">
       {/* <Login/> */}
       <Header/>
-      <Test/>
-      
-    
+      {/* <Test/> */}
+      <HomePage/>
     </div>
   );
 }
