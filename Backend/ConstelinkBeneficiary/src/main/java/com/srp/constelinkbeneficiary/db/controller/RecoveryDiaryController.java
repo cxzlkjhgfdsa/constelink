@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class RecoveryDiaryController {
 	private final RecoveryDiaryService recoveryDiaryService;
 
-	@Operation(summary = "회복일지 목록 조회", description = "page, size, sortBy 값 필요. dafault값 오름차순 ")
+	@Operation(summary = "회복일지 목록 조회", description = "page, size, sort_by 값 필요. dafault값 page=1, size=5, sort_by=ID_ASC")
 	@GetMapping("")
 	public ResponseEntity<Page<RecoveryDiaryResponse>> getRecoveryDiaries(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
@@ -37,7 +37,7 @@ public class RecoveryDiaryController {
 	}
 
 
-	@Operation(summary = "회복일지 등록", description = "수혜자 id, 일기 제목, 일기 내용, 사용한 돈, 사진url 기입가능")
+	@Operation(summary = "회복일지 등록", description = "beneficiaryId, title, content, amountSpent, beneficiaryId 기입")
 	@PostMapping("")
 	public ResponseEntity<RecoveryDiaryResponse> addRecoveryDiary(
 		@RequestBody RecoveryDiaryRequest recoveryDiaryRequest

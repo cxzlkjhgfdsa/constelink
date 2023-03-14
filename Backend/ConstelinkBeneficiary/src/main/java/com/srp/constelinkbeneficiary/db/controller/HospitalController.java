@@ -25,13 +25,13 @@ import lombok.RequiredArgsConstructor;
 public class HospitalController {
 
 	private final HospitalService hospitalService;
-	@Operation(summary = "id로 병원 조회", description = "병원 정보 조회")
+	@Operation(summary = "id로 병원 조회", description = "(id)로 병원 정보 조회")
 	@GetMapping("/{id}")
 	public ResponseEntity<HospitalInfoResponse> findHospital(@PathVariable("id") Long id) {
 		HospitalInfoResponse hospitalInfoResponse = hospitalService.findHospitalById(id);
 		return ResponseEntity.ok(hospitalInfoResponse);
 	}
-	@Operation(summary = "병원 목록 조회", description = "page, size, sort_by 필요. default값 오름차순")
+	@Operation(summary = "병원 목록 조회", description = "page, size, sort_by 필요. default값 page=1, size=5, defaultValue=ID_ASC")
 	@GetMapping("")
 	public ResponseEntity<Page<Hospital>> getHospitalPage(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,

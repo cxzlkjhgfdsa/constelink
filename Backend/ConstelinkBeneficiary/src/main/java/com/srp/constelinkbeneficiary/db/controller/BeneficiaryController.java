@@ -29,7 +29,7 @@ public class BeneficiaryController {
 
 	private final BeneficiaryService beneficiaryService;
 
-@Operation(summary = "수혜자 정보 조회", description = "수혜자 id로 수혜자 정보 가져오기")
+@Operation(summary = "수혜자 정보 조회", description = "수혜자 id로 수혜자 정보 가져오기 (id) 기입")
 	@GetMapping("/{id}")
 	// 해당 수혜자 정보 가져오기
 	public ResponseEntity<BeneficiaryInfoResponse> findBeneficiaryById (@PathVariable(value = "id") Long id) {
@@ -38,7 +38,7 @@ public class BeneficiaryController {
 		return ResponseEntity.ok(beneficiary);
 	}
 
-	@Operation(summary = "수혜자 목록 조회", description = "hospitalId, page, size, sortBy 필요. default값 ALL")
+	@Operation(summary = "수혜자 목록 조회", description = "hospitalId, page, size, sort_by 필요. default값 page=1, size=5, sort_by = ALL ")
 	@GetMapping("")
 	// 하나의 병원에 있는 모든 수혜자 목록 가져오기
 	public ResponseEntity<Page<BeneficiaryInfoResponse>> findBeneficiaryByHospitalId (
@@ -51,7 +51,7 @@ public class BeneficiaryController {
 		return ResponseEntity.ok(beneficiaryInfoList);
 	}
 
-	@Operation(summary = "수혜자 등록", description = "병원 id, 수혜자 이름, 생년월일, 질병, 사진, 목표금액 필요. ")
+	@Operation(summary = "수혜자 등록", description = "hospitalId, name, birthday, disease, photo, amountGoal 기입")
 	@PostMapping("")
 	public ResponseEntity<BeneficiaryInfoResponse> addBeneficiary (
 		@RequestBody BeneficiaryReqeust beneficiaryReqeust
