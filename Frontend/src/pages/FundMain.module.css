@@ -1,0 +1,131 @@
+@font-face {
+  font-family: "noto-sans";
+  src: url("../assets/fonts/NotoSerifKR-Regular.otf");
+}
+
+@font-face {
+  font-family: "Crisis";
+  src: url("../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
+}
+
+@font-face {
+  font-family: "Hahmlet";
+  src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
+}
+
+.mainWrapper{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.fundMain{
+  margin-top: 4.5rem;
+  font-family: "Hahmlet";
+  display: flex;
+  flex-direction: column;
+  height: 15rem;
+  overflow: hidden;
+  background-image: url("../assets/img/night-sky1.jpg");
+
+  justify-content: center;
+  align-items: center;
+}
+
+.fundHeader{
+  height: 6.25rem;
+  width: 48%;
+  
+}
+
+.headerTitle{
+  text-align: center;
+  font-size: 2.5rem;
+  color: white;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  
+}
+
+.headerSubTitle{
+  text-align: left;
+  font-size: 1.2rem;
+  color: white;
+
+  margin-top: 10px;
+}
+
+
+.fundWrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.categoryWrapper{
+  margin-top: 1rem;
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* 카테고리박스 색바꾸기 더 깔끔한 방법 찾으면 추후에 수정 */
+.categoryBox_1{
+  /* 크기 및 간격 설정 */
+  min-width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #BE6DB7;
+}
+
+.categoryBox_2{
+  /* 크기 및 간격 설정 */
+  min-width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #FFAACF;
+}
+
+.categoryBox_3{
+  /* 크기 및 간격 설정 */
+  min-width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #DBD9EC;
+}
+
+.categoryBox_4{
+  /* 크기 및 간격 설정 */
+  min-width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #A19FD5;
+}
+
+.categoryBox_5{
+  /* 크기 및 간격 설정 */
+  min-width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #6F6D8F;
+}
+
+.categoryText{
+  font-family: "Hahmlet";
+  color: white;
+}
+
+.fundsTitle{
+  margin-top: 2rem;
+  float: left;
+  font-family: "Crisis";
+  font-size: 1rem;
+}
