@@ -1,6 +1,7 @@
 package com.srp.constelinkfundraising.db.service;
 
 import java.awt.print.Book;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +27,6 @@ public class BookmarkService {
 	private final FundraisingRepository fundraisingRepository;
 
 	public String bookmarkFundraising(BookmarkFundraisingRequest bookmarkFundraisingRequest) {
-		System.out.println("도착");
 		BookmarkId bookmarkId = new BookmarkId(bookmarkFundraisingRequest.getMemberId(),
 			bookmarkFundraisingRequest.getFundraisingId());
 		Bookmark bookmark = bookmarkRepository.findBookmarksById(bookmarkId);
@@ -44,7 +44,7 @@ public class BookmarkService {
 	public Page<FundraisingResponse> getBookmarks(Long memberId, int page, int size) {
 
 		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberId (memberId, PageRequest.of(page,size));
-		System.out.println("시작");
+
 		Page<FundraisingResponse> bookmarkResponses = bookmarks.map(bookmark -> new FundraisingResponse().builder()
 				.categoryName(bookmark.getFundraising().getCategory().getCategoryName())
 				.beneficiaryId(bookmark.getFundraising().getBeneficiaryId())
@@ -59,8 +59,6 @@ public class BookmarkService {
 				.fundraisingPeople(bookmark.getFundraising().getFundraisingPeople())
 				.build());
 
-		System.out.println(bookmarkResponses);
-		System.out.println("북마크끝");
 		return bookmarkResponses;
 	}
 }

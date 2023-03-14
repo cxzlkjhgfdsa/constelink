@@ -61,7 +61,7 @@ public class FundraisingController {
 
 		return ResponseEntity.ok(fundraisingResponsePage);
 	}
-	@Operation(summary = "기부하기", description = "cash만큼 해당 기부 id로 더해줌")
+	@Operation(summary = "기부하기", description = "cash만큼 해당 기부 id로 더해줌 (id, cash) 기입")
 	@PutMapping ("")
 	public ResponseEntity<FundraisingResponse> donateFundraising(
 		@RequestBody DonateRequest donateRequest
@@ -70,7 +70,7 @@ public class FundraisingController {
 		return ResponseEntity.ok(fundraisingResponse);
 	}
 
-	@Operation(summary = "기부 만들기", description = "기부 만들기")
+	@Operation(summary = "기부 만들기", description = "beneficiaryId, categoryId, fundraisingAmountGoal, fundraisingEndTime, fundraisingTitle, fundraisingStory, fundraisingThumbnail 기입")
 	@PostMapping ("")
 	public ResponseEntity<Fundraising> makeFundraising(
 		@RequestBody MakeFundraisingRequest makeFundraisingRequest

@@ -43,6 +43,7 @@ public class BookmarkController {
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
 		@RequestParam(name = "memberId", required = true) Long memberId
 	) {
+
 		return bookmarkService.getBookmarks(memberId,page-1,size);
 	}
 }
