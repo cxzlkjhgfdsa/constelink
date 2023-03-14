@@ -18,10 +18,12 @@
   justify-content: center;
   align-content: center;
   flex-direction: column;
+  width: 100%;
+  position: absolute;
+  left: 0;
 }
 
 .fundMain{
-  margin-top: 4.5rem;
   font-family: "Hahmlet";
   display: flex;
   flex-direction: column;
