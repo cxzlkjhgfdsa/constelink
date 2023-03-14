@@ -16,9 +16,11 @@ header {
     align-items: center;
     box-shadow: 1px 1px 1px 1px lightgray;
     position: fixed;
-    /* top: 0; */
-    /* left: 0; */
-    z-index: 9999;
+    top: 0;
+    left: 0;
+    z-index:1;
+    background-color: #ffff;
+    
 }
 
 .header_logo {
