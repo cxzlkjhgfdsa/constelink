@@ -13,6 +13,8 @@ import com.srp.constelinkfundraising.db.dto.enums.SortType;
 import com.srp.constelinkfundraising.db.entity.Category;
 import com.srp.constelinkfundraising.db.service.CategoryService;
 
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +49,7 @@ public class CategoryController {
 		@RequestParam(name = "sort_by", defaultValue = "ALL", required = false)SortType sortType
 	) {
 		Page<Category> categories = categoryService.getCategories(page-1, size, sortType);
+
 		return categories;
 	}
 }
