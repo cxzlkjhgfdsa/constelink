@@ -14,8 +14,7 @@
     width: 100%;
     height: 350px;
     position: absolute;
-    word-break: keep-all
-
+    word-break: keep-all;
 }
 
 .slide_list {
