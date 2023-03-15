@@ -88,7 +88,7 @@
 .with_box{
     background: linear-gradient(to bottom right, #a4a3cb, #ffff );
     height: 110px;
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     align-items: center;
     padding-left: 20%;

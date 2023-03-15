@@ -13,6 +13,8 @@
     font-weight: bold;
     color: #ffffff;
     cursor: pointer;
+    word-break: keep-all;
+
 }
 
 
@@ -21,6 +23,8 @@
 .dona_box {
     padding: 14px;
     padding-top:75%;
+    word-break: keep-all;
+
 }
 
 /* 병명 */
