@@ -2,15 +2,18 @@ package com.srp.constelinkfundraising.db.grpc;
 
 import java.io.IOException;
 
+import org.springframework.stereotype.Component;
+
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 
-public class HelloWorldServer {
-	private static final int PORT = 50051;
-	private Server server;
 
+public class HelloWorldServer {
+	public int PORT = 9090;
+	public static Server server;
 	public void start() throws IOException {
-		server = ServerBuilder.forPort(PORT)
+		System.out.println("여기옴");
+		this.server = ServerBuilder.forPort(PORT)
 			.addService(new HelloWorldServiceImpl())
 			.build()
 			.start();
@@ -24,10 +27,18 @@ public class HelloWorldServer {
 		server.awaitTermination();
 	}
 
+	public int getServer() {
+		return server.getPort();
+	}
+
 	public static void main(String[] args)
 		throws InterruptedException, IOException {
-		HelloWorldServer server = new HelloWorldServer();
+		int PORT = 9090;
+		server = ServerBuilder.forPort(PORT).addService(
+			new HelloWorldServiceImpl()
+		).build();
 		server.start();
-		server.blockUntilShutdown();
+		server.awaitTermination();
+
 	}
 }

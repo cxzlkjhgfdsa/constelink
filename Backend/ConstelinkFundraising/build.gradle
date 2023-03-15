@@ -1,3 +1,4 @@
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.4'
@@ -50,12 +51,15 @@ dependencies {
 	implementation 'io.grpc:grpc-protobuf:1.52.1'
 	implementation 'io.grpc:grpc-stub:1.52.1'
 	compileOnly 'org.apache.tomcat:annotations-api:6.0.53' // necessary for Java 9+
+
 }
 
 sourceSets {
 	main {
 		java {
-			srcDirs 'build/generated/source/proto/main/grpc', 'build/generated/source/proto/main/java', 'src/main/java/com.srp.constelinkfundraising'
+			srcDirs 'build/generated/source/proto/main/grpc'
+			srcDirs 'build/generated/source/proto/main/java'
+			srcDirs 'src/main/java/com.srp.constelinkfundraising'
 		}
 	}
 }

@@ -68,7 +68,6 @@ public class FundraisingService {
 				.categoryName(fund.getCategory().getCategoryName())
 				.build()
 		);
-		System.out.println("확인2");
 		return fundraisingResponsePage;
 	}
 
