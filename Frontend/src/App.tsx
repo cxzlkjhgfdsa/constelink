@@ -6,6 +6,7 @@ import MainLayout  from "./components/MainLayout";
 // import Header from './components/header/Header';
 import Login from './pages/Login';
 import FundMain from './pages/FundMain';
+import FundDetail from "./pages/FundDetail";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
               {/* <Login/> */}
               <Route element={<MainLayout />}>
                 <Route path='/fundmain' element={<FundMain />} />
+                <Route path='/funddetail' element={<FundDetail />} />
               </Route>
           </Routes>
         </div>

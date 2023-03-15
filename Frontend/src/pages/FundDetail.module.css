@@ -1,0 +1,77 @@
+@font-face {
+  font-family: "noto-sans";
+  src: url("../assets/fonts/NotoSerifKR-Regular.otf");
+}
+
+@font-face {
+  font-family: "Crisis";
+  src: url("../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
+}
+
+@font-face {
+  font-family: "Hahmlet";
+  src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
+}
+
+.mainWrapper{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  position: absolute;
+  left: 0;
+}
+
+.fundMain{
+  font-family: "Hahmlet";
+  display: flex;
+  flex-direction: column;
+  height: 15rem;
+  overflow: hidden;
+  background-image: url("../assets/img/patient_2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 30%;
+  justify-content: center;
+  align-items: center;
+}
+
+.fundAbstract{
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  justify-content: space-between;
+}
+
+.fundTitle{
+  display: flex;
+  flex-direction: column;
+}
+
+.fundCategory{
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #827D7D;
+  opacity: 75%;
+  color: white;
+  font-family: "Hahmlet";
+  font-size: small;
+  display: inline-block;
+}
+
+.fundHospital{
+  font-family: "Hahmlet";
+  color: white;
+}
+
+.fundBrief{
+  font-family: "Hahmlet";
+  font-size: x-large;
+  color: white;
+}
+
+.fundDday{
+
+}

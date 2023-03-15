@@ -1,9 +1,83 @@
+// import { useState } from "react";
 import styles from "./FundMain.module.css"
-const FundMain : React.FC = () => {
+
+import DonationCard from "../components/cards/DonationCard";
+import { DonationData } from "../models/donatecard";
+
+const FundMain: React.FC = () => {
 
   // 더미 만들어두기
   const categories: string[] = ["암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기", 
   "암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기"];
+
+  // 더미데이터
+  const infomation: DonationData[] =[
+    {
+      title: '"허리가 아픈 원철에게 치료비를 모금해주세요1"',
+      type: "희귀병",
+      deadline: "2023-05-01",
+      amount: 245000,
+      img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      hospital: "서울 아산병원",
+      goal: 250000
+    },{
+      title: '"허리가 아픈 원철에게 치료비를 모금해주세요2"',
+      type: "희귀병",
+      deadline: "2023-05-01",
+      amount: 245000,
+      img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      hospital: "서울 아산병원",
+      goal: 260000
+    },{
+      title: '"허리가 아픈 원철에게 치료비를 모금해주세요3"',
+      type: "희귀병",
+      deadline: "2023-05-01",
+      amount: 245000,
+      img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      hospital: "서울 아산병원",
+      goal: 330000
+    },{
+      title: '"허리가 아픈 원철에게 치료비를 모금해주세요3"',
+      type: "희귀병",
+      deadline: "2023-05-01",
+      amount: 245000,
+      img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      hospital: "서울 아산병원",
+      goal: 330000
+    },{
+      title: '"허리가 아픈 원철에게 치료비를 모금해주세요3"',
+      type: "희귀병",
+      deadline: "2023-05-01",
+      amount: 245000,
+      img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      hospital: "서울 아산병원",
+      goal: 330000
+    },{
+      title: '"허리가 아픈 원철에게 치료비를 모금해주세요3"',
+      type: "희귀병",
+      deadline: "2023-05-01",
+      amount: 245000,
+      img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      hospital: "서울 아산병원",
+      goal: 330000
+    },{
+      title: '"허리가 아픈 원철에게 치료비를 모금해주세요3"',
+      type: "희귀병",
+      deadline: "2023-05-01",
+      amount: 245000,
+      img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      hospital: "서울 아산병원",
+      goal: 330000
+    },{
+      title: '"허리가 아픈 원철에게 치료비를 모금해주세요3"',
+      type: "희귀병",
+      deadline: "2023-05-01",
+      amount: 245000,
+      img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      hospital: "서울 아산병원",
+      goal: 330000
+    },
+  ]
 
   const renderBoxes = () => {
     const result = [];
@@ -67,11 +141,18 @@ const FundMain : React.FC = () => {
         <div className={styles.categoryWrapper}>
           {renderBoxes()}
         </div>
-        <div className={styles.fundsTitle}>
+        <div className={styles.cardsTitle}>
           Constelink Dreams
         </div>
-        <div className={styles.fundsWrapper}>
-
+        <div className={styles.cardsWrapper}>
+          {   
+            infomation.map(it =>{
+              return <div className={styles.cardWrapper}><DonationCard data={it} /></div>
+            })
+          }
+        </div>
+        <div className={styles.pagination}>
+          1 2 3 4 5
         </div>
       </div>
     </div>

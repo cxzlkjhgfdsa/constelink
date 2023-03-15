@@ -30,7 +30,6 @@
   height: 15rem;
   overflow: hidden;
   background-image: url("../assets/img/night-sky1.jpg");
-
   justify-content: center;
   align-items: center;
 }
@@ -47,14 +46,12 @@
   color: white;
   margin-top: 10px;
   margin-bottom: 0px;
-  
 }
 
 .headerSubTitle{
   text-align: left;
   font-size: 1.2rem;
   color: white;
-
   margin-top: 10px;
 }
 
@@ -68,7 +65,7 @@
 
 .categoryWrapper{
   margin-top: 1rem;
-  width: 70%;
+  width: 65%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -125,9 +122,27 @@
   color: white;
 }
 
-.fundsTitle{
+.cardsTitle{
   margin-top: 2rem;
   float: left;
+  width: 60%;
   font-family: "Crisis";
   font-size: 1rem;
+}
+
+.cardsWrapper{
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cardWrapper{
+  margin: 20px;
+}
+
+.pagination{
+  font-family: "Hahmlet";
+  margin-bottom: 2rem;
 }
