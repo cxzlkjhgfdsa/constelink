@@ -21,7 +21,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSackDollar, faHeartPulse, faHandHoldingHeart } from "@fortawesome/free-solid-svg-icons";
+import { faGratipay } from "@fortawesome/free-brands-svg-icons";
 
 const images = [topbanner1, topbanner2, topbanner3];
 const contents = [["콘스텔링크 Constelink1", "블록체인기반, 치료비 모금 플랫폼1"], ["콘스텔링크 Constelink2", "블로체인기반, 치료비 모금 플랫폼2"], ["콘스텔링크 Constelink3", "블로체인기반, 치료비 모금 플랫폼3"]];
@@ -109,14 +111,16 @@ const HomePage: React.FC = () => {
       </nav>
       <section>
 
-        {/* {
-            infomation.map(it =>{
-              return <DonationCard data={it}  />
-            })
-          } */}
+        <div className={styles.heal_title}>
+          <h1>블록체인기반 치료비 모금 플랫폼, Constelink</h1>
+          <div>직접 돕고 직접 확인하세요. 여러분의 행복, 모두의 행복을 챙기세요.</div>
+          <div>모든 치료비 기부내역은 투명하게 공개됩니다.</div>
+        </div>
 
-        <div style={{ paddingLeft: "15%", paddingRight: "15%", zIndex:"0",width:"930px",position: "relative"}}>
-          <Swiper style={{width:"940px", paddingRight: "7%"}}
+
+
+        <div style={{ zIndex: "0", position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
+          <Swiper style={{ width: "930px", paddingRight: "3%", position: "relative" }}
             // install Swiper modules
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={0}
@@ -127,15 +131,62 @@ const HomePage: React.FC = () => {
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}
           >
-            <SwiperSlide style={{ }}><DonationCard data={infomation[0]} /></SwiperSlide>
-            <SwiperSlide style={{ }}><DonationCard data={infomation[0]} /></SwiperSlide>
-            <SwiperSlide style={{ }}><DonationCard data={infomation[0]} /></SwiperSlide>
-            <SwiperSlide style={{ }}><DonationCard data={infomation[0]} /></SwiperSlide>
-            <SwiperSlide style={{ }}><DonationCard data={infomation[0]} /></SwiperSlide>
+            <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
+            <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
+            <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
+            <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
+            <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
           </Swiper>
         </div>
-
       </section>
+
+
+      <div className={styles.addbox}>
+        <div className={styles.addbox_item}>
+          광고바
+        </div>
+      </div>
+
+      <div className={styles.heal_title}>
+        <h1>여러분이 만든 여러분의 Constelink</h1>
+        <div>여러분의 도움이 있었기에 가능한 일이었습니다.</div>
+      </div>
+
+
+      <div className={styles.result_box}>
+        <ul className={styles.result_list} >
+          <li className={styles.result_item}>
+            <FontAwesomeIcon icon={faSackDollar} className={styles.result_icon} />
+            <div className={styles.result_content}>
+              <div className={styles.content_title}>총 모금액</div>
+              <div className={styles.content_curval}>{"2,400,000"} 원</div>
+            </div>
+          </li>
+
+
+          <li className={styles.result_item}>  <FontAwesomeIcon icon={faHeartPulse} className={styles.result_icon} />             <div className={styles.result_content}>
+            <div className={styles.content_title}>총 모금액</div>
+            <div className={styles.content_curval}>{"2,400,000"} 원</div>
+          </div></li>
+          <li className={styles.result_item}>  <FontAwesomeIcon icon={faHandHoldingHeart} className={styles.result_icon} />             <div className={styles.result_content}>
+            <div className={styles.content_title}>총 모금액</div>
+            <div className={styles.content_curval}>{"2,400,000"} 원</div>
+          </div></li>
+          <li className={styles.result_item}>  <FontAwesomeIcon icon={faGratipay} className={styles.result_icon} />             <div className={styles.result_content}>
+            <div className={styles.content_title}>총 모금액</div>
+            <div className={styles.content_curval}>{"2,400,000"} 원</div>
+          </div></li>
+        </ul>
+      </div>
+
+
+
+
+
+
+
+
+
 
 
     </div>
