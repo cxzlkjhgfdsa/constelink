@@ -2,16 +2,18 @@ package com.srp.constelinkfundraising.db.grpc;
 
 import org.springframework.stereotype.Service;
 
+import com.srp.constelinkfundraising.db.repository.FundraisingRepository;
 import com.srp.grpc.HelloRequest;
 import com.srp.grpc.HelloResponse;
 import com.srp.grpc.HelloWorldServiceGrpc;
 import io.grpc.stub.StreamObserver;
-
+import lombok.RequiredArgsConstructor;
 
 @Service
-public class HelloWorldServiceImpl
+@RequiredArgsConstructor
+public class HelloWorldService
 	extends HelloWorldServiceGrpc.HelloWorldServiceImplBase {
-
+	private final FundraisingRepository fundraisingRepository;
 	@Override
 	public void hello(
 		HelloRequest request,

@@ -12,17 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.srp.constelinkfundraising.db.dto.enums.SortType;
 import com.srp.constelinkfundraising.db.entity.Category;
 import com.srp.constelinkfundraising.db.grpc.HelloWorldServer;
-import com.srp.constelinkfundraising.db.grpc.HelloWorldServiceImpl;
 import com.srp.constelinkfundraising.db.service.CategoryService;
-import com.srp.grpc.Hello;
 import com.srp.grpc.HelloRequest;
 import com.srp.grpc.HelloResponse;
 import com.srp.grpc.HelloWorldServiceGrpc;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.Server;
-import io.grpc.ServerBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class CategoryController {
 
 	private final CategoryService categoryService;
+
 	private final ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
 		.usePlaintext()
 		.build();

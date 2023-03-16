@@ -5,8 +5,7 @@ import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.srp.constelinkfundraising.db.grpc.HelloWorldServer;
-import com.srp.constelinkfundraising.db.grpc.HelloWorldServiceImpl;
+import com.srp.constelinkfundraising.db.grpc.HelloWorldService;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -18,12 +17,12 @@ public class ConstelinkFundraisingApplication { ;
 		SpringApplication.run(ConstelinkFundraisingApplication.class, args);
 
 
-		int PORT = 9090;
-		Server server = ServerBuilder.forPort(PORT).addService(
-			new HelloWorldServiceImpl()
-		).build();
-		server.start();
-		server.awaitTermination();
+		// int PORT = 9090;
+		// Server server = ServerBuilder.forPort(PORT).addService(
+		// 	new HelloWorldService()
+		// ).build();
+		// server.start();
+		// server.awaitTermination();
 	}
 
 }
