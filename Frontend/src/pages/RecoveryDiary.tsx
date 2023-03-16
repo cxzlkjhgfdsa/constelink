@@ -11,7 +11,7 @@ const cards = [
   {
     title: "치료일지 1",
     image: profileImg1,
-    content: ["췌장암", "허리골절", "습진"],
+    content: ["췌장암", "허리골절", "습진","췌장암", "허리골절", "습진","췌장암", "허리골절", "습진"],
     hospital: "서울대병원"
   },
   {
@@ -99,24 +99,28 @@ const RecoveryDiary : React.FC = ()=>{
 
           {/* 검색어에 입력한대로 반응형 결과 도출 */}
           {filteredCards.map((card, index) => (
-  <div className={styles.card} key={index}>
-    <div className={styles.cardTop}>
-    </div>
-    <div className={styles.imageContainer}>
-      <img src={card.image} alt="profile" className={styles.image} />
-    </div>
-    <div className={styles.titleContent}>
-      <p className={styles.title}>{card.title}</p>
-      <div className={styles.content}>
-        {card.content.map((item, index) => (
-          <div className={styles.contentItem} key={index}>
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-))}
+            <div className={styles.card} key={index}>
+              <div className={styles.cardTop}>
+              </div>
+              <div className={styles.imageContainer}>
+                <img src={card.image} alt="profile" className={styles.image} />
+              </div>
+              <div className={styles.titleContent}>
+                <p className={styles.title}>{card.title}</p>
+                <div className={styles.content}>
+                  {card.content.map((item, index) => (
+                    <div className={styles.contentItem} key={index}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* 더 알아보기 버튼(디테일페이지로 이동) */}
+              <div className={styles.bottomContent}>
+                <div className={styles.detailButton}>더 알아보기</div>
+              </div>
+              </div>
+          ))}
         </div>
       </div>
     </div>
