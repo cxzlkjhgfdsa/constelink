@@ -5,9 +5,9 @@ option java_package = "com.srp.beneficiaryrpc";
 option java_outer_classname = "BeneficiaryProto";
 
 // The greeting service definition.
-service HospitalGrpcService {
+service BeneficiaryGrpcService {
   // Sends a greeting
-  rpc getHospitalRpc (BeneficiaryInfoReq) returns (BeneficiaryInfoRes) {
+  rpc getBeneficiaryRpc (BeneficiaryInfoReq) returns (BeneficiaryInfoRes) {
   }
 }
 
