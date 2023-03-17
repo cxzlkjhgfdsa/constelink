@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.srp.beneficiaryrpc";
+option java_outer_classname = "BeneficiaryProto";
+
+// The greeting service definition.
+service HospitalGrpcService {
+  // Sends a greeting
+  rpc getHospitalRpc (BeneficiaryInfoReq) returns (BeneficiaryInfoRes) {
+  }
+}
+
+// The request message containing the user's name.
+message BeneficiaryInfoReq {
+  int64 id = 1;
+}
+
+// The response message containing the greetings
+message BeneficiaryInfoRes {
+  string name = 1;
+  string disease = 2;
+  string photo = 3;
+  string status = 4;
+//  google.protobuf.Timestamp birthday = 5;
+  string hospital = 5;
+}
