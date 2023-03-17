@@ -1,0 +1,118 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* align-items: center; */
+  /* height: 100vh; */
+}
+
+.item {
+  display: flex;
+  flex-direction : column;
+  flex: 1 0 300px;
+  margin: 10px 300px 5px 300px;
+}
+
+.card {
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cardTop {
+  height: 200px;
+  background-color: #A19FD5;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: -75px;
+}
+
+.image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.titleContent {
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.contentItem {
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  background-color: #f7f7f7;
+  border-radius: 20px;
+}
+
+.patientInfo {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.patientInfoItem {
+  width: calc(50% - 10px);
+  margin-bottom: 10px;
+}
+
+.patientInfoTitle {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.patientInfoContent {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.treatmentRecords {
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+}
+
+.treatmentRecord {
+  width: calc(100% - 10px);
+  max-width: 400px;
+  margin-right: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.recordTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.recordContent {
+  margin: 10px;
+  line-height: 1.5;
+}
