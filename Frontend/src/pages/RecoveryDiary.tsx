@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
 import searchIcon from  "../assets/logo/search_icon.png";
 import styles from './RecoveryDiary.module.css';
 import profileImg1 from "../assets/img/profile1.png";
@@ -48,24 +49,30 @@ const cards = [
 
 const RecoveryDiary : React.FC = ()=>{
   const [searchKeyword, setSearchKeyword] = useState('');
+  // const history = useHistory();
 
   // Card title에 검색어가 있는지 여부를 확인
   const filteredCards = searchKeyword ? 
+      cards.filter((card) => {
+        const isInTitle = card.title.includes(searchKeyword);
+        const isInContent = card.content.some((item) => item.includes(searchKeyword));
+        const isInHospital = card.hospital.includes(searchKeyword);
+        return isInTitle || isInContent || isInHospital;
+      }) :
+      cards;
     // cards.filter((card) => card.title.includes(searchKeyword)) :
     // cards;
     // cards.filter((card) => card.content.includes(searchKeyword)) :
     // cards;
     // cards.filter((card) => card.hospital.includes(searchKeyword)) :
     // cards;
+    
+  // 클릭 시 디테일페이지로 이동하는 함수
+    // const handleCardClick = (id: number) => {
+    //   history.push(`/recovery-diary/${id}`);
+    // }
 
-    cards.filter((card) => {
-      const isInTitle = card.title.includes(searchKeyword);
-      const isInContent = card.content.some((item) => item.includes(searchKeyword));
-      const isInHospital = card.hospital.includes(searchKeyword);
-      return isInTitle || isInContent || isInHospital;
-    }) :
-    cards;
-  
+
   return (
     <div>
       <div className={styles.container}>
@@ -117,7 +124,9 @@ const RecoveryDiary : React.FC = ()=>{
               </div>
               {/* 더 알아보기 버튼(디테일페이지로 이동) */}
               <div className={styles.bottomContent}>
-                <div className={styles.detailButton}>더 알아보기</div>
+                <div className={styles.detailButton} 
+                // onclick={()=> handleCardClick(card)}
+                >더 알아보기</div>
               </div>
               </div>
           ))}
