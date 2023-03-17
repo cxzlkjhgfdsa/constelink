@@ -1,0 +1,96 @@
+@font-face {
+  font-family: "noto-sans";
+  src: url("../assets/fonts/NotoSerifKR-Regular.otf");
+}
+
+@font-face {
+  font-family: "Crisis";
+  src: url("../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
+}
+
+@font-face {
+  font-family: "Hahmlet";
+  src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
+}
+
+.mainWrapper{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  left: 0;
+}
+
+.mainBanner{
+  font-family: "Hahmlet";
+  display: flex;
+  flex-direction: column;
+  height: 15rem;
+  overflow: hidden;
+  background-image: url("../assets/img/topbanner_2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 30%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.bannerTitle{
+  font-family: "Hahmlet";
+  font-size: 2.5rem;
+  color: white;
+}
+
+.bannerSubTitle{
+  font-family: "Hahmlet";
+  font-size: large;
+  color: white;
+  position: relative;
+  right: 8rem;
+}
+
+.mainArticle{
+  background-color: red;
+  height: max-content;
+  padding-bottom: 5rem;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.articleStep{
+  background-color: white;
+  width: 90%;
+  height: 10rem;
+}
+
+.articleInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: blue;
+  width: 90%;
+  height: 10rem;
+}
+
+.infoBeneficiary{
+  background-color: aqua;
+  width: 80%;
+  height: 5rem;
+}
+
+.infoUser{
+  background-color: rebeccapurple;
+  width: 80%;
+  height: 5rem;
+}
+
+.infoCheck{
+  background-color: tomato;
+  width: 80%;
+  height: 5rem;
+}

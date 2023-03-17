@@ -7,6 +7,7 @@ import MainLayout  from "./components/MainLayout";
 import Login from './pages/Login';
 import FundMain from './pages/FundMain';
 import FundDetail from "./pages/FundDetail";
+import FundPayment from "./pages/FundPayment";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route element={<MainLayout />}>
                 <Route path='/fundmain' element={<FundMain />} />
                 <Route path='/funddetail' element={<FundDetail />} />
+                <Route path='/fundpayment' element={<FundPayment />} />
               </Route>
           </Routes>
         </div>
