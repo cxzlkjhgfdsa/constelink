@@ -2,21 +2,15 @@ package com.srp.constelinkmember.api.controller;
 
 import java.time.Duration;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.srp.constelinkmember.api.service.AuthService;
-import com.srp.constelinkmember.api.service.MemberService;
-import com.srp.constelinkmember.common.exception.CustomException;
-import com.srp.constelinkmember.common.exception.CustomExceptionType;
 import com.srp.constelinkmember.dto.LoginInfoDto;
 import com.srp.constelinkmember.dto.request.LoginRequest;
 import com.srp.constelinkmember.dto.response.LoginResponse;
@@ -24,6 +18,8 @@ import com.srp.constelinkmember.util.CookieUtils;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,18 +34,18 @@ public class AuthController {
 
 	@Operation(summary = "로그인 메서드", description = "로그인 메서드입니다.")
 	@PostMapping("/login")
-	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
+	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
 
 		LoginInfoDto loginInfoDto = authService.login(loginRequest);
 
 		HttpHeaders httpHeaders = new HttpHeaders();
 		ResponseCookie cookie = ResponseCookie.from("refresh", loginInfoDto.getRefreshToken())
-				.path("/")
-				.sameSite("None")
-				.httpOnly(true)
-				.secure(true)
-				.maxAge(Duration.ofDays(7))
-				.build();
+			.path("/")
+			.sameSite("None")
+			.httpOnly(true)
+			.secure(true)
+			.maxAge(Duration.ofDays(7))
+			.build();
 		httpHeaders.add(HttpHeaders.SET_COOKIE, cookie.toString());
 		httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + loginInfoDto.getAccessToken());
 
@@ -60,9 +56,10 @@ public class AuthController {
 
 		return ResponseEntity.ok().headers(httpHeaders).body(loginResponse);
 	}
+
 	@Operation(summary = "로그아웃 메서드", description = "로그아웃 메서드입니다.")
 	@PostMapping("/logout")
-	public ResponseEntity logout(HttpServletRequest request){
+	public ResponseEntity logout(HttpServletRequest request) {
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 		Cookie[] cookies = request.getCookies();
 		String refreshToken = cookieUtils.getCookieInfo(cookies, "refresh");
@@ -72,16 +69,15 @@ public class AuthController {
 
 	@Operation(summary = "토큰 재발급 메서드", description = "토큰 재발급 메서드입니다.")
 	@PostMapping("/reissue")
-	public ResponseEntity<String> reIssue(HttpServletRequest request){
+	public ResponseEntity<String> reIssue(HttpServletRequest request) {
 
 		Cookie[] cookies = request.getCookies();
 		String refreshToken = cookieUtils.getCookieInfo(cookies, "refresh");
 		String accessToken = authService.reGenerateToken(refreshToken);
-		log.info("AccessToken 재 발급 완료!!"+accessToken);
+		log.info("AccessToken 재 발급 완료!!" + accessToken);
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
 		return ResponseEntity.ok().headers(httpHeaders).body("토큰 재발급 완료");
 	}
-	
 
 }

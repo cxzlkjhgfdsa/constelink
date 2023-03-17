@@ -57,6 +57,10 @@ public class MemberService {
 
 		if(roleByToken.equals("MEMBER")){
 			log.info("Member에용");
+		}else if(roleByToken.equals("HOSPITAL")){
+			log.info("HOSPITAL 임");
+		}else if(roleByToken.equals("ADMIN")){
+			log.info("ADMIN 이무니다");
 		}
 	}
 }

@@ -1,6 +1,5 @@
 package com.srp.constelinkmember.api.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,26 +24,26 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MemberController {
 
-		private final MemberService memberService;
-		private final CookieUtils cookieUtils;
+	private final MemberService memberService;
+	private final CookieUtils cookieUtils;
 
-		@Operation(summary = "회원정보", description = "회원정보 조회 메서드.")
-		@GetMapping("/memberInfo")
-		public ResponseEntity memberInfo(HttpServletRequest request){
-			String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-			log.info("access == " + accessToken);
-			memberService.getMemberInfo(accessToken);
-			return null;
-		}
+	@Operation(summary = "회원정보", description = "회원정보 조회 메서드.")
+	@GetMapping("/memberInfo")
+	public ResponseEntity memberInfo(HttpServletRequest request) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		log.info("access == " + accessToken);
+		memberService.getMemberInfo(accessToken);
+		return null;
+	}
 
-		@Operation(summary = "회원탈퇴", description = "회원탈퇴 메서드입니다.")
-		@PostMapping("/withdrawal")
-		public ResponseEntity withdrawal(HttpServletRequest request){
-			String AccessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-			Cookie[] cookies = request.getCookies();
-			String refreshToken = cookieUtils.getCookieInfo(cookies, "refresh");
-			memberService.withdrawal(AccessToken, refreshToken);
-			return ResponseEntity.ok("회원 탈최가 정상적으로 완료되었습니다");
-		}
+	@Operation(summary = "회원탈퇴", description = "회원탈퇴 메서드입니다.")
+	@PostMapping("/withdrawal")
+	public ResponseEntity withdrawal(HttpServletRequest request) {
+		String AccessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		Cookie[] cookies = request.getCookies();
+		String refreshToken = cookieUtils.getCookieInfo(cookies, "refresh");
+		memberService.withdrawal(AccessToken, refreshToken);
+		return ResponseEntity.ok("회원 탈최가 정상적으로 완료되었습니다");
+	}
 
 }
