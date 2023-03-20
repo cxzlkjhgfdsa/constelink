@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.srp.constelinkmember.HospitalGrpcServiceGrpc;
 import com.srp.constelinkmember.HospitalInfoReq;
 import com.srp.constelinkmember.HospitalInfoRes;
-import com.srp.constelinkmember.dto.response.HospitalGrpcResponse;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -16,20 +15,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HospitalGrpcClientService {
 
-	private final ManagedChannel channel = ManagedChannelBuilder.forAddress("127.0.0.1", 8898)
+	private final ManagedChannel channel = ManagedChannelBuilder.forAddress("j8a206.p.ssafy.io", 9090)
 		.usePlaintext()
 		.build();
 	private HospitalGrpcServiceGrpc.HospitalGrpcServiceBlockingStub stub = HospitalGrpcServiceGrpc.newBlockingStub(
 		channel);
 
-	public HospitalGrpcResponse getHospitalInfo(Long id) {
+	public HospitalInfoRes getHospitalInfo(Long id) throws StatusRuntimeException {
 		log.info("여기 왔음?=-==================");
-		try {
-			final HospitalInfoRes response = this.stub.getHospitalRpc(HospitalInfoReq.newBuilder().setId(id).build());
+		final HospitalInfoRes response = this.stub.getHospitalRpc(HospitalInfoReq.newBuilder().setId(id).build());
+		return response;
 
-			return null;
-		} catch (final StatusRuntimeException e) {
-			return null;
-		}
 	}
 }

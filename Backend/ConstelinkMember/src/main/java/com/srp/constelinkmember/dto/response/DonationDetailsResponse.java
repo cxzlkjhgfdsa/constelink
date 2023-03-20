@@ -1,5 +1,9 @@
 package com.srp.constelinkmember.dto.response;
 
+import java.util.List;
+
+import com.srp.constelinkmember.dto.DonationDetailDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,13 +15,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class HospitalGrpcResponse {
-
-	String name;
-
-	int totalAmount;
-	int beneficiaryCount;
-	String walletAddress;
-	String link;
-	;
+public class DonationDetailsResponse {
+	private List<DonationDetailDto> donations;
+	private int totalPages;
+	private long totalElements;
 }

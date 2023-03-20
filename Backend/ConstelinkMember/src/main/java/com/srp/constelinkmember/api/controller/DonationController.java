@@ -1,0 +1,52 @@
+package com.srp.constelinkmember.api.controller;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.srp.constelinkmember.api.service.DonationService;
+import com.srp.constelinkmember.dto.request.SaveDonationRequest;
+import com.srp.constelinkmember.dto.response.DonationDetailsResponse;
+import com.srp.constelinkmember.security.jwt.TokenProvider;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("donations")
+@Tag(name = "기부 기록", description = "기부 기록 관련 api 입니다.")
+@Slf4j
+public class DonationController {
+
+	private final DonationService donationService;
+	private final TokenProvider tokenProvider;
+
+	@PostMapping("/save")
+	public ResponseEntity saveDonation(@RequestBody SaveDonationRequest saveRequest, HttpServletRequest request) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		String id = tokenProvider.resolveToken(accessToken);
+		Long memberId = Long.valueOf(id);
+
+		donationService.saveDonation(saveRequest, memberId);
+
+		return ResponseEntity.ok("정상적으로 저장 되었습니다");
+	}
+
+	@GetMapping("/list")
+	public ResponseEntity listDonation(@RequestParam("page") int page, HttpServletRequest request) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		String id = tokenProvider.resolveToken(accessToken);
+		Long memberId = Long.valueOf(id);
+		DonationDetailsResponse donationDetailsResponse = donationService.listDonation(memberId, page - 1);
+		return ResponseEntity.ok(donationDetailsResponse);
+	}
+
+}

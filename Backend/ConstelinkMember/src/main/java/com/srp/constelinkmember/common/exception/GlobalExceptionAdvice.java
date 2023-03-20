@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.srp.constelinkmember.dto.response.ExceptionResponse;
 
+import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
@@ -21,6 +22,13 @@ public class GlobalExceptionAdvice {
 	public ResponseEntity<ExceptionResponse> runtimeExceptionHandler(RuntimeException e) {
 		log.info(e.getMessage());
 		return getResponseEntity(CustomExceptionType.RUNTIME_EXCEPTION);
+	}
+
+	@ExceptionHandler(value = StatusRuntimeException.class)
+	public ResponseEntity<ExceptionResponse> statusRuntimeException(StatusRuntimeException e) {
+		log.info((e.getMessage()));
+		return getResponseEntity(CustomExceptionType.RUNTIME_EXCEPTION);
+
 	}
 
 	@ExceptionHandler(value = Exception.class)

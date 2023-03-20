@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.srp.constelinkmember.api.service.MemberService;
+import com.srp.constelinkmember.dto.response.MemberInfoResponse;
 import com.srp.constelinkmember.util.CookieUtils;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,12 +29,12 @@ public class MemberController {
 	private final CookieUtils cookieUtils;
 
 	@Operation(summary = "회원정보", description = "회원정보 조회 메서드.")
-	@GetMapping("/memberInfo")
+	@GetMapping("/info")
 	public ResponseEntity memberInfo(HttpServletRequest request) {
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 		log.info("access == " + accessToken);
-		memberService.getMemberInfo(accessToken);
-		return null;
+		MemberInfoResponse memberInfo = memberService.getMemberInfo(accessToken);
+		return ResponseEntity.ok(memberInfo);
 	}
 
 	@Operation(summary = "회원탈퇴", description = "회원탈퇴 메서드입니다.")
