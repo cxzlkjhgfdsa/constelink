@@ -2,11 +2,12 @@ import React from 'react';
 import styles from './RecoveryDiaryDetail.module.css';
 import profileImg1 from "../assets/img/profile1.png";
 import cardImg1 from "../assets/img/cardImg1.png";
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
 
 const RecoveryDiaryDetail: React.FC = () => {
-  // const { id } = useParams<{ id: string }>();
-  // // Use `id` to get the cardIndex data from the backend
+  const { index } = useParams<{ index: string }>();
+  // Use `id` to get the cardIndex data from the backend
   
   const cardIndex = {
     title: "치료일지",

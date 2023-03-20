@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import searchIcon from  "../assets/logo/search_icon.png";
 import styles from './RecoveryDiary.module.css';
 import profileImg1 from "../assets/img/profile1.png";
@@ -49,7 +49,7 @@ const cards = [
 
 const RecoveryDiary : React.FC = ()=>{
   const [searchKeyword, setSearchKeyword] = useState('');
-  // const history = useHistory();
+  const navigate = useNavigate();
 
   // Card title에 검색어가 있는지 여부를 확인
   const filteredCards = searchKeyword ? 
@@ -68,9 +68,9 @@ const RecoveryDiary : React.FC = ()=>{
     // cards;
     
   // 클릭 시 디테일페이지로 이동하는 함수
-    // const handleCardClick = (id: number) => {
-    //   history.push(`/recovery-diary/${id}`);
-    // }
+    const handleCardClick = (id: number) => {
+      navigate(`/diarydetail/${id}`);
+    }
 
 
   return (
@@ -124,8 +124,8 @@ const RecoveryDiary : React.FC = ()=>{
               </div>
               {/* 더 알아보기 버튼(디테일페이지로 이동) */}
               <div className={styles.bottomContent}>
-                <div className={styles.detailButton} 
-                // onclick={()=> handleCardClick(card)}
+                <div className={styles.detailButton}
+                onClick={()=> handleCardClick(index+1)}
                 >더 알아보기</div>
               </div>
               </div>
