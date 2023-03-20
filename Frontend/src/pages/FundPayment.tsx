@@ -21,6 +21,7 @@ const FundPayment: React.FC = () => {
                 <div className={styles.stepOneTodo}>후원자 선택</div>
               </div>
             </div>
+            <div className={styles.arrowDiv} />
             <div className={styles.articleStepTwo}>
               <div className={styles.voidCircle}></div>
               <div className={styles.stepDetail}>
@@ -28,6 +29,7 @@ const FundPayment: React.FC = () => {
                 <div className={styles.stepTodo}>후원자 선택</div>
               </div>
             </div>
+            <div className={styles.arrowDiv} />
             <div className={styles.articleStepThree}>
               <div className={styles.voidStar}></div>
               <div className={styles.stepDetail}>
@@ -82,6 +84,7 @@ const FundPayment: React.FC = () => {
               <div className={styles.detailItem}>
                 <div className={styles.itemLongKey}>모금금액 입력</div>
                 <input className={styles.itemInput} />
+                <div>원</div>
               </div>
             </div>
           </div>

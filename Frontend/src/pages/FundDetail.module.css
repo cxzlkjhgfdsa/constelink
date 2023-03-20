@@ -346,13 +346,64 @@
   right: 7rem;
 }
 
-.star{
+/* .star{
   margin: 0.5rem;
   height: 1rem;
   width: 1rem;
   background-color: yellow;
   position: relative;
   right: 8rem;
+} */
+.star{
+  right: 7.5rem;
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-top: 0.25rem;
+  margin-left: 1.2em;
+  margin-right: .9em;
+  margin-bottom: 1rem;
+  border-right:  .3em solid transparent;
+  border-bottom: .7em  solid #FC0;
+  border-left:   .3em solid transparent;
+  /* Controlls the size of the stars. */
+  font-size: 0.5rem;
+}
+.star::before{
+  content: '';
+    
+  display: block;
+  width: 0;
+  height: 0;
+  
+  position: absolute;
+  top: .6em;
+  left: -1em;
+
+  border-right:  1em solid transparent;
+  border-bottom: .7em  solid #FC0;
+  border-left:   1em solid transparent;
+
+  transform: rotate(-35deg);
+}
+.star::after{
+  content: '';
+    
+  display: block;
+  width: 0;
+  height: 0;
+  
+  position: absolute;
+  top: .6em;
+  left: -1em;
+
+  border-right:  1em solid transparent;
+  border-bottom: .7em  solid #FC0;
+  border-left:   1em solid transparent;
+
+  transform: rotate(-35deg);
+  transform: rotate(35deg);
 }
 
 .fundDetailBar {
