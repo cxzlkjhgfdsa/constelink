@@ -10,17 +10,14 @@ const NoticePage: React.FC = () => {
 
     const selectRef = useRef<HTMLSelectElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const [fixedType, setFixedType] = useState("off");
-    // const [content, setContent] = useState("");
-
-
-
+    const [fixedType, setFixedType] = useState(false);
     const [content, setContent] = useState('');
 
     const handleEditorChange = (value: string) => {
         setContent(value);
     };
     const handleClick = () => {
+        // api 설정 예정
         const selectedValue = selectRef.current?.value;
         const inputValue = inputRef.current?.value;
         const fixed = fixedType;
@@ -73,9 +70,8 @@ const NoticePage: React.FC = () => {
 
                     <div className={styles.category_fixed} >
                         <div>상단고정</div>
-                        <input type="button" value={fixedType} onClick={() => fixedType === "off" ? setFixedType("on") : setFixedType("off")} />
+                        <input className={!fixedType? styles.fbtn: styles.fbtnOn } type="button" value={fixedType?"on":"off"} onClick={() => setFixedType(!fixedType)} />
                     </div>
-
                 </div>
 
 
@@ -113,9 +109,9 @@ const NoticePage: React.FC = () => {
                 </div>
             </section>
 
-
-            <button onClick={handleClick}>작성완료</button>
-            {/* <a href='http://j8a206.p.ssafy.io:8997/oauth2/authorization/kakao'>ddd</a> */}
+            <div className={styles.write_finish} >
+            <button className={styles.write_btn} onClick={handleClick}>공지사항 작성</button>
+            </div>{/* <a href='http://j8a206.p.ssafy.io:8997/oauth2/authorization/kakao'>ddd</a> */}
         </div>
     );
 };
