@@ -355,20 +355,19 @@
   right: 8rem;
 }
 
-progress {
+.fundDetailBar {
   height: 0.75rem;
   opacity: 0.8;
   width: 80%;
   -webkit-appearance: none;
   appearance: none;
-  /* margin-top: 5rem;  */
 }
-progress::-webkit-progress-bar {
+.fundDetailBar::-webkit-progress-bar {
   background-color: #ffffff;
   border-radius: 10px;
 
 }
-progress::-webkit-progress-value {
+.fundDetailBar::-webkit-progress-value {
   background-color: #BE6DB7;
   border-radius: 10px;
  

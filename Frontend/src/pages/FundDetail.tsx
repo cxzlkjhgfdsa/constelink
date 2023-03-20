@@ -121,7 +121,7 @@ const FundDetail: React.FC = () => {
           <div className={styles.fundingTag}>모금도달률</div>
           <div className={styles.fundingPct}>80%</div>
           <div className={styles.star}/>
-          <progress value={curValue} max={100}/>
+          <progress className={styles.fundDetailBar} value={curValue} max={100}/>
           <div className={styles.fundingGoal}>{goalMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</div>
         </div>
       </div>
