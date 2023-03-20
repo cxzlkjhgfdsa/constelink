@@ -1,0 +1,10 @@
+.App {
+    padding-top: 70px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+ul.slick-dots {
+    padding-left: 20%;
+    margin-bottom: 40px;
+}
