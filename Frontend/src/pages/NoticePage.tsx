@@ -35,6 +35,7 @@ const NoticePage: React.FC = () => {
 
             <header className={styles.notice_title}>공지사항</header>
 
+            {/* 공지사항 리스트 페이지 */}
             {/* <section className={styles.notice_section}  >
                 <ul className={styles.notice_list}>
                     {[1, 2, 3, 4, 5, 6, 7, 8].map(it => <li className={styles.notice_item}>
@@ -52,7 +53,9 @@ const NoticePage: React.FC = () => {
                     </li>)}
                 </ul>
             </section> */}
-            <section className={styles.write_section} >
+
+            {/* 공지사항 작성페이지 */}
+            {/* <section className={styles.write_section} >
 
                 <div className={styles.write_title}>
                     <input type="text" className={styles.write_input} placeholder={"제목"} ref={inputRef} />
@@ -111,7 +114,17 @@ const NoticePage: React.FC = () => {
 
             <div className={styles.write_finish} >
             <button className={styles.write_btn} onClick={handleClick}>공지사항 작성</button>
-            </div>{/* <a href='http://j8a206.p.ssafy.io:8997/oauth2/authorization/kakao'>ddd</a> */}
+            </div><a href='http://j8a206.p.ssafy.io:8997/oauth2/authorization/kakao'>ddd</a> */}
+
+
+            <section className={styles.board_detail}>
+                <header className={styles.detail_title}>일반공지 [시스템 수정안내] 사용자 정보수정 기능 업데이트      2023-01-12 오후 4:01</header>
+                <div className={styles.detail_content} >
+
+                    ${'<div>ddd<div/>'}
+                </div>
+
+            </section>
         </div>
     );
 };

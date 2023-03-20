@@ -244,3 +244,17 @@ appearance: none; */
 .write_btn:hover{
   background-color:#BDBADC ;
  }
+ /* 공지사항 상세페이지 */
+
+ .board_detail{
+    width: 920px;
+ }
+ .detail_title{
+    height: 50px;
+    /* background-color: red; */
+    border-bottom: 1px solid #D6D6D6;
+ }
+.detail_content{
+    height: 400px;
+    background-color: red;
+}
