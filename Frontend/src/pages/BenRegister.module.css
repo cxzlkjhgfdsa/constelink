@@ -1,0 +1,120 @@
+@font-face {
+  font-family: "noto-sans";
+  src: url("../assets/fonts/NotoSerifKR-Regular.otf");
+}
+
+@font-face {
+  font-family: "Crisis";
+  src: url("../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
+}
+
+@font-face {
+  font-family: "Hahmlet";
+  src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
+}
+
+.mainWrapper{
+  background-color: aqua;
+  width: 100%;
+  height: max-content;
+  padding-bottom: 5rem;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* <div className={styles.mainTitle}>모금 시작하기</div>
+<div className={styles.benWrapper}></div>
+<div className={styles.imgWrapper}></div>
+<div className={styles.titleWrapper}></div>
+<div className={styles.fundWrapper}></div>
+<div className={styles.storyWrapper}></div>
+<div className={styles.timeWrapper}></div>
+<div className={styles.btnsWrapper}></div> */
+
+.mainTitle{
+  background-color: aliceblue;
+  font-family: "Hahmlet";
+  font-size: xx-large;
+  font-weight: bolder;
+}
+
+.benWrapper{
+  background-color: antiquewhite;
+  height: 5rem;
+  width:80%;
+}
+
+.inputTitle{
+  font-family: "Hahmlet";
+  font-size: large;
+  font-weight: bold;
+}
+
+.benSelector{
+
+}
+
+.imgWrapper{
+  background-color: aquamarine;
+  height: 5rem;
+  width: 80%;
+}
+
+.titleWrapper{
+  background-color: azure;
+  height: 5rem;
+  width: 80%;
+}
+
+.fundWrapper{
+  background-color: beige;
+  height: 5rem;
+  width: 80%;
+}
+
+.storyWrapper{
+  background-color: bisque;
+  height: 5rem;
+  width: 80%;
+}
+
+.timeWrapper{
+  background-color: blanchedalmond;
+  height: 5rem;
+  width: 80%;
+}
+
+.btnsWrapper{
+  /* background-color: blueviolet; */
+  height: 5rem;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.btnCancle{
+  width: 10rem;
+  height: 3rem;
+  background-color: #D9D9D9;
+  font-family: "Hahmlet";
+  font-size: large;
+  color: black;
+  line-height: 3rem;
+  text-align: center;
+  border-radius: 1.5rem;
+  margin-right: 1rem;
+}
+
+.btnRegister{
+  width: 10rem;
+  height: 3rem;
+  background-color: #A19FD5;
+  font-family: "Hahmlet";
+  font-size: large;
+  color: white;
+  line-height: 3rem;
+  text-align: center;
+  border-radius: 1.5rem;
+}
