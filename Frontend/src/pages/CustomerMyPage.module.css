@@ -1,0 +1,136 @@
+@font-face {
+    font-family: "noto-sans";
+    src: url("../assets/fonts/NotoSerifKR-Regular.otf");
+}
+
+@font-face {
+    font-family: "Crisis";
+    src: url("../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
+}
+
+@font-face {
+    font-family: "Hahmlet";
+    src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
+}
+
+
+.CustomerMyPage{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    padding-top: 50px;
+    /* background-color: rgb(48, 42, 81); */
+    height: 900px;
+    /* background-image: url("../assets/logo/star2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white; */
+}
+.user_profile{
+    display: flex;
+    /* background-color: red; */
+    /* justify-content: center; */
+    align-items: center;
+     width: 600px;
+     margin-left: 17%;
+}
+
+.user_img img{
+    width: 100px;
+    height: 100px;
+    /* border-radius: 50px; */
+}
+
+.user_log{
+    display: flex;
+    /* background-color: red; */
+    justify-content: space-around;
+    /* background-color: red; */
+    width: 600px;
+    background-color: red;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-image: url("../assets/img/login-banner.jpeg");
+    color: #ffffff
+
+}
+
+.user_menu{
+    display: flex;
+    justify-content: center;
+}
+
+.user_list{
+    list-style: none;
+    /* background-color: red; */
+    width: 600px;
+    padding-left: 0;
+  
+}
+
+.menu_logo{
+    width:30px;
+    height: 30px;
+    color: rgb(50, 50, 50)
+
+}
+
+.user_list li{
+    border-bottom: 2px solid gray;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    width: 600px;
+    cursor: pointer;
+    font-family:Hahmlet ;
+    /* padding-left: 10px; */
+    box-shadow: 1px  gray;
+    justify-content: space-between;
+    /* border-radius: 5px; */
+  
+}
+
+
+/* .user_list li:hover{
+   background-color: lightgray; 
+} */
+
+.comment_greet{
+    font-family: "Hahmlet";
+    
+}
+.comment_mypage{
+       font-family: "Hahmlet";
+       font-size: 24px;
+       font-weight: bold;
+}
+
+
+.donate_amount{
+    font-family: "noto-sans";
+}
+
+.menu_logo{
+    margin-left: 10px;
+    margin-right:20px;
+}
+
+.menu_left{
+    display: flex;
+    align-items: center;
+    /* background-color: red; */
+    width: 170px;
+    
+}
+
+.user_donate{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;;
+    align-items: center;
+}
+
+.donate_title{
+    font-weight: bold;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/Header';
+import CustomerMyPage from './pages/CustomerMyPage';
 import Login from './pages/Login';
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <div className="App">
       {/* <Login/> */}
       <Header/>
+      <CustomerMyPage/>
     </div>
   );
 }

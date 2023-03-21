@@ -33,8 +33,8 @@ const Header: React.FC = () => {
         setSelectedMenu(menu);
     };
     return (
-        <div>
-            <header>
+
+            <div className={styles.Header}>
                 <div className={styles.header_logo}>Constelink</div>
 
 
@@ -63,9 +63,9 @@ const Header: React.FC = () => {
 
 
                 <div className={styles.header_login}>로그인</div>
-            </header>
+            </div>
 
-        </div>
+      
     )
 }
 
