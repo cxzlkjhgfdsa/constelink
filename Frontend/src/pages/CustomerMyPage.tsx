@@ -5,13 +5,15 @@ import image1 from './../assets/logo/heart1.png';
 import image2 from './../assets/logo/star1.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAddressCard, faStar,faHospitalUser,faRightFromBracket,faChevronRight} from "@fortawesome/free-solid-svg-icons";
-
+// import Rodal from 'rodal';
+// include styles
+import 'rodal/lib/rodal.css';
 
 const CustomerMyPage: React.FC = () => {
     return (
         <div className={styles.CustomerMyPage}>
-
-            {/* <div className={styles.user_profile}>
+{/* 
+            <div className={styles.user_profile}>
                 <div className={styles.user_img}><img src={image}/></div>
                 <div className={styles.user_name}>
                 <div className={styles.comment_greet}>반갑습니다. 정원철님!</div>
@@ -70,6 +72,7 @@ const CustomerMyPage: React.FC = () => {
 
             <div className={styles.modify_finish}>
                 <button  className={styles.modify_btn} disabled >수정하기</button>
+                <div className={styles.modify_end}>탈퇴하기</div>
             </div>
 
 

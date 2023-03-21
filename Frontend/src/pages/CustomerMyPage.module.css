@@ -33,8 +33,11 @@
     /* background-color: red; */
     /* justify-content: center; */
     align-items: center;
-     width: 600px;
-     margin-left: 17%;
+     /* width: 600px; */
+     width: 100%;
+     /* margin-left: 17%; */
+     justify-content: center;
+     /* background-color: red; */
 }
 
 .user_img img{
@@ -208,6 +211,10 @@
 
 .modify_finish{
     margin-top: 25px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .modify_btn{
@@ -231,4 +238,13 @@
     background-color: lightgray;
     border-style: none;
     color: #909090;
+}
+.modify_end{
+    /* background-color: red; */
+    width: 100%;
+    text-align: right;
+    font-family: "Hahmlet";
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
 }
