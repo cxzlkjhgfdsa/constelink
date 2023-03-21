@@ -5,7 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.srp.constelinkfundraising.db.dto.enums.SortType;
+import com.srp.constelinkfundraising.db.dto.enums.CategorySortType;
 import com.srp.constelinkfundraising.db.entity.Category;
 import com.srp.constelinkfundraising.db.repository.CategoryRepository;
 
@@ -17,7 +17,7 @@ public class CategoryService {
 	private final CategoryRepository categoryRepository;
 
 	public String addCategory(String categoryName) {
-		if(categoryRepository.existsCategoryByCategoryName(categoryName)){
+		if (categoryRepository.existsCategoryByCategoryName(categoryName)) {
 			return "이미 존재합니다.";
 		} else {
 			Category category = new Category();
@@ -33,17 +33,20 @@ public class CategoryService {
 		return "카테고리 삭제 성공";
 	}
 
-	public Page<Category> getCategories(int page, int size, SortType sortType) {
+	public Page<Category> getCategories(int page, int size, CategorySortType sortType) {
 		Page<Category> categories;
-		switch (sortType){
+		switch (sortType) {
 			case NAME_ASC:
-				categories = categoryRepository.findAll(PageRequest.of(page, size, Sort.by("categoryName").ascending()));
+				categories = categoryRepository.findAll(
+					PageRequest.of(page, size, Sort.by("categoryName").ascending()));
 				break;
 			case NAME_DESC:
-				categories = categoryRepository.findAll(PageRequest.of(page, size,  Sort.by("categoryName").descending()));
+				categories = categoryRepository.findAll(
+					PageRequest.of(page, size, Sort.by("categoryName").descending()));
 				break;
 			case ALL:
-				categories = categoryRepository.findAll(PageRequest.of(0, Integer.MAX_VALUE, Sort.by("categoryName").ascending()));
+				categories = categoryRepository.findAll(
+					PageRequest.of(0, Integer.MAX_VALUE, Sort.by("categoryName").ascending()));
 				break;
 			default:
 				categories = categoryRepository.findAll(PageRequest.of(page, size));

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.srp.constelinkfundraising.db.dto.enums.SortType;
+import com.srp.constelinkfundraising.db.dto.enums.FundraisingSortType;
 import com.srp.constelinkfundraising.db.dto.request.DonateRequest;
 import com.srp.constelinkfundraising.db.dto.request.MakeFundraisingRequest;
 import com.srp.constelinkfundraising.db.dto.response.FundraisingResponse;
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Tag(name = "fundrasings", description = "기부 api")
 @RestController
-@RequestMapping("/api/fundraisings")
+@RequestMapping("/fundraisings")
 @RequiredArgsConstructor
 public class FundraisingController {
 
@@ -35,34 +35,15 @@ public class FundraisingController {
 	public ResponseEntity<Page<FundraisingResponse>> getFundraisingsByDone(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(name = "sort_by", required = false, defaultValue = "ALL") SortType sortType
+		@RequestParam(name = "sort_by", required = false, defaultValue = "ALL") FundraisingSortType sortType
 	) {
-		Page<FundraisingResponse> fundraisingResponsePage;
-		switch(sortType){
-			case FINISHED:
-				fundraisingResponsePage = fundraisingService.getFundraisingsByDone(page-1,size, true);
-				break;
-			case UNFINISHED:
-				fundraisingResponsePage = fundraisingService.getFundraisingsByDone(page-1,size, false);
-				break;
-			case START_DATE_ASC:
-			case START_DATE_DESC:
-				fundraisingResponsePage = fundraisingService.getFundraisingsByStartDate(page-1, size, sortType);
-				break;
-			case END_DATE_ASC:
-			case END_DATE_DESC:
-				fundraisingResponsePage = fundraisingService.getFundraisingsByEndDate(page-1, size, sortType);
-				break;
-			case ALL:
-			default:
-				fundraisingResponsePage = fundraisingService.getFundraisings(page-1, size);
-				break;
-		}
-
+		Page<FundraisingResponse> fundraisingResponsePage
+			= fundraisingService.getFundraisings(page - 1, size, sortType);
 		return ResponseEntity.ok(fundraisingResponsePage);
 	}
+
 	@Operation(summary = "기부하기", description = "cash만큼 해당 기부 id로 더해줌 (id, cash) 기입")
-	@PutMapping ("")
+	@PutMapping("")
 	public ResponseEntity<FundraisingResponse> donateFundraising(
 		@RequestBody DonateRequest donateRequest
 	) {
@@ -71,7 +52,7 @@ public class FundraisingController {
 	}
 
 	@Operation(summary = "기부 만들기", description = "beneficiaryId, categoryId, fundraisingAmountGoal, fundraisingEndTime, fundraisingTitle, fundraisingStory, fundraisingThumbnail 기입")
-	@PostMapping ("")
+	@PostMapping("")
 	public ResponseEntity<Fundraising> makeFundraising(
 		@RequestBody MakeFundraisingRequest makeFundraisingRequest
 	) {

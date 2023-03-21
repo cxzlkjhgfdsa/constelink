@@ -1,7 +1,5 @@
 package com.srp.constelinkfundraising.db.dto.response;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,11 +18,16 @@ public class FundraisingResponse {
 	private String categoryName;
 	private int fundraisingAmountRaised;
 	private int fundraisingAmountGoal;
-	private LocalDateTime fundraisingStartTime;
-	private LocalDateTime fundraisingEndTime;
+	private Long fundraisingStartTime;
+	private Long fundraisingEndTime;
 	private String fundraisingTitle;
 	private String fundraisingStory;
 	private String fundraisingThumbnail;
 	private int fundraisingPeople;
 	private boolean fundraisingIsDone;
+	private String beneficiaryName;
+	private String beneficiaryDisease;
+	private String beneficiaryStatus;
+	private Long beneficiaryBirthday;
+
 }
