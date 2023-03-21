@@ -7,8 +7,7 @@
 .item {
   display: flex;
   flex-direction : column;
-  flex: 1 0 300px;
-  margin: 10px 300px 5px 300px;
+  flex: 1 0;
 }
 
 /* 입력부분 */
@@ -23,11 +22,12 @@
 
 /* 치료일기 */
 .searchBarText {
-  font-size: 25px;
+  font-size: 40px;
   font-weight: bold;
   min-width: 100px;
   padding-left: 10px;
-  position : relative;
+  margin: 15px;
+  /* position : relative; */
   
 }
 
@@ -41,9 +41,10 @@
   border-radius: 32px;
   outline-color: black;
   flex-grow: 1;
-  margin-left: 10px;
+  margin-left: 20%;
   margin-right: 10px;
-  position: relative;
+  position: absolute;
+  max-width: 60%;
 }
 
 /* 입력칸 */
