@@ -16,7 +16,7 @@ public class RecoveryDiaryResponse {
 	private Long id;
 	private Long beneficiaryId;
 	private String beneficiaryName;
-	private LocalDateTime regdate;
+	private Long regdate;
 	private String photo;
 	private String recoveryDiaryTitle;
 	private String content;

@@ -1,6 +1,7 @@
 package com.srp.constelinkbeneficiary.db.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +15,8 @@ public interface BeneficiaryRepository extends JpaRepository<Beneficiary, Long> 
 	@Override
 	<S extends Beneficiary> S saveAndFlush(S entity);
 
-	Beneficiary findBeneficiaryById(Long id);
+	Optional<Beneficiary> findBeneficiaryById(Long id);
 	Page<Beneficiary> findBeneficiariesByHospitalId(Long id, Pageable pageable);
 
-
+	List<Beneficiary> findAllByIdIn(List<Long> idList);
 }

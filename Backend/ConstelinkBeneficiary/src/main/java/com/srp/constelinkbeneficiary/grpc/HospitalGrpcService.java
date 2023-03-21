@@ -3,6 +3,8 @@ package com.srp.constelinkbeneficiary.grpc;
 
 import org.springframework.stereotype.Service;
 
+import com.srp.constelinkbeneficiary.common.exception.CustomException;
+import com.srp.constelinkbeneficiary.common.exception.CustomExceptionType;
 import com.srp.constelinkbeneficiary.db.entity.Hospital;
 import com.srp.constelinkbeneficiary.db.repository.HospitalRepository;
 import com.srp.hospitalrpc.HospitalGrpcServiceGrpc;
@@ -21,7 +23,8 @@ public class HospitalGrpcService extends HospitalGrpcServiceGrpc.HospitalGrpcSer
 	@Override
 	public void getHospitalRpc(HospitalInfoReq request, StreamObserver<HospitalInfoRes> responseObserver) {
 		Long hospitalId = request.getId();
-		Hospital hospital = hospitalRepository.findHospitalById(hospitalId);
+		Hospital hospital = hospitalRepository.findHospitalById(hospitalId).orElseThrow(() -> new CustomException(
+			CustomExceptionType.HOSPITAL_NOT_FOUND));
 		HospitalInfoRes hospitalInfoRes = HospitalInfoRes
 			.newBuilder()
 			.setName(hospital.getHospitalName())

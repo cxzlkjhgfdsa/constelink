@@ -1,7 +1,6 @@
 package com.srp.constelinkbeneficiary.db.dto.enums;
 
-public enum SortType {
-	ALL,
+public enum RecoveryDiarySortType {
 	ID_ASC,
 	ID_DESC,
 

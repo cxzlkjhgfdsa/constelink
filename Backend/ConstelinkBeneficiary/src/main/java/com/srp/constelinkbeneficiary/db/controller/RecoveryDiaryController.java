@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.srp.constelinkbeneficiary.db.dto.enums.SortType;
+import com.srp.constelinkbeneficiary.db.dto.enums.HospitalSortType;
+import com.srp.constelinkbeneficiary.db.dto.enums.RecoveryDiarySortType;
 import com.srp.constelinkbeneficiary.db.dto.request.RecoveryDiaryRequest;
 import com.srp.constelinkbeneficiary.db.dto.response.RecoveryDiaryResponse;
-import com.srp.constelinkbeneficiary.db.entity.RecoveryDiary;
 import com.srp.constelinkbeneficiary.db.service.RecoveryDiaryService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,7 +31,7 @@ public class RecoveryDiaryController {
 	public ResponseEntity<Page<RecoveryDiaryResponse>> getRecoveryDiaries(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(value = "sort_by", required = false, defaultValue = "ID_ASC") SortType sortType) {
+		@RequestParam(value = "sort_by", required = false, defaultValue = "ID_ASC") RecoveryDiarySortType sortType) {
 		Page<RecoveryDiaryResponse> recoveryDiaries = recoveryDiaryService.getRecoveryDiaryList(page-1, size, sortType);
 		return ResponseEntity.ok(recoveryDiaries);
 	}

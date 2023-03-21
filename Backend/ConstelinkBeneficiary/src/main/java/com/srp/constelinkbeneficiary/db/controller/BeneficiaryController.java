@@ -1,7 +1,5 @@
 package com.srp.constelinkbeneficiary.db.controller;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.srp.constelinkbeneficiary.db.dto.enums.SortType;
+import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiarySortType;
+import com.srp.constelinkbeneficiary.db.dto.enums.HospitalSortType;
 import com.srp.constelinkbeneficiary.db.dto.request.BeneficiaryReqeust;
 import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryInfoResponse;
 import com.srp.constelinkbeneficiary.db.service.BeneficiaryService;
@@ -45,7 +44,7 @@ public class BeneficiaryController {
 		@RequestParam(value = "hospitalId") Long hospitalId,
 		@RequestParam(value = "page",required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size",required = false, defaultValue = "5") int size,
-		@RequestParam(value = "sort_by",required = false, defaultValue = "ALL") SortType sortType
+		@RequestParam(value = "sort_by",required = false, defaultValue = "ALL") BeneficiarySortType sortType
 	) {
 		Page<BeneficiaryInfoResponse> beneficiaryInfoList = beneficiaryService.findBeneficiariesByHospitalId(hospitalId, page-1, size);
 		return ResponseEntity.ok(beneficiaryInfoList);

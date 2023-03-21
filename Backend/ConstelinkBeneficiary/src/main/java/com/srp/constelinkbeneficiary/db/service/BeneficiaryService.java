@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.srp.constelinkbeneficiary.common.exception.CustomException;
+import com.srp.constelinkbeneficiary.common.exception.CustomExceptionType;
 import com.srp.constelinkbeneficiary.db.dto.request.BeneficiaryReqeust;
 import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryInfoResponse;
 import com.srp.constelinkbeneficiary.db.entity.Beneficiary;
@@ -26,7 +28,7 @@ public class BeneficiaryService {
 
 	public BeneficiaryInfoResponse findBeneficiaryById(Long id) {
 
-		Beneficiary beneficiary = beneficiaryRepository.findBeneficiaryById(id);
+		Beneficiary beneficiary = beneficiaryRepository.findBeneficiaryById(id).orElseThrow(() -> new CustomException(CustomExceptionType.BENEFICIARY_NOT_FOUND));
 
 		BeneficiaryInfoResponse beneficiaryInfoDto = BeneficiaryInfoResponse.builder()
 			.beneficiaryDisease(beneficiary.getBeneficiaryDisease())
@@ -58,7 +60,8 @@ public class BeneficiaryService {
 
 	public BeneficiaryInfoResponse addBeneficiary(BeneficiaryReqeust beneficiaryReqeust) {
 		Beneficiary beneficiary = new Beneficiary().builder()
-			.hospital(hospitalRepository.findHospitalById(beneficiaryReqeust.getHospitalId()))
+			.hospital(hospitalRepository.findHospitalById(beneficiaryReqeust.getHospitalId()).orElseThrow(() -> new CustomException(
+				CustomExceptionType.HOSPITAL_NOT_FOUND)))
 			.beneficiaryName(beneficiaryReqeust.getName())
 			.beneficiaryDisease(beneficiaryReqeust.getDisease())
 			.beneficiaryPhoto(beneficiaryReqeust.getPhoto())

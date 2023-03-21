@@ -1,12 +1,17 @@
 package com.srp.constelinkbeneficiary.db.service;
 
+import java.time.ZoneId;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.srp.constelinkbeneficiary.db.dto.enums.SortType;
+import com.srp.constelinkbeneficiary.common.exception.CustomException;
+import com.srp.constelinkbeneficiary.common.exception.CustomExceptionType;
+import com.srp.constelinkbeneficiary.db.dto.enums.HospitalSortType;
+import com.srp.constelinkbeneficiary.db.dto.enums.RecoveryDiarySortType;
 import com.srp.constelinkbeneficiary.db.dto.request.RecoveryDiaryRequest;
 import com.srp.constelinkbeneficiary.db.dto.response.RecoveryDiaryResponse;
 import com.srp.constelinkbeneficiary.db.entity.RecoveryDiary;
@@ -22,7 +27,7 @@ public class RecoveryDiaryService {
 	private final RecoveryDiaryRepository recoveryDiaryRepository;
 	private final BeneficiaryRepository beneficiaryRepository;
 
-	public Page<RecoveryDiaryResponse> getRecoveryDiaryList(int page, int size, SortType sortType) {
+	public Page<RecoveryDiaryResponse> getRecoveryDiaryList(int page, int size, RecoveryDiarySortType sortType) {
 		Page<RecoveryDiary> recoveryDiaryPage;
 		switch (sortType) {
 			case ID_ASC:
@@ -43,7 +48,7 @@ public class RecoveryDiaryService {
 			.beneficiaryName(recoveryDiary.getBeneficiary().getBeneficiaryName())
 			.id(recoveryDiary.getId())
 			.amountSpent(recoveryDiary.getRecoveryDiaryAmountSpent())
-			.regdate(recoveryDiary.getRecoveryDiaryRegdate())
+			.regdate(recoveryDiary.getRecoveryDiaryRegdate().now().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
 			.build());
 
 
@@ -52,7 +57,8 @@ public class RecoveryDiaryService {
 
 	public RecoveryDiaryResponse addRecoveryDiary(RecoveryDiaryRequest recoveryDiaryRequest) {
 		RecoveryDiary recoveryDiary = new RecoveryDiary().builder()
-			.beneficiary(beneficiaryRepository.findBeneficiaryById(recoveryDiaryRequest.getBeneficiaryId()))
+			.beneficiary(beneficiaryRepository.findBeneficiaryById(recoveryDiaryRequest.getBeneficiaryId()).orElseThrow(() -> new CustomException(
+				CustomExceptionType.BENEFICIARY_NOT_FOUND)))
 			.recoveryDiaryContent(recoveryDiaryRequest.getContent())
 			.recoveryDiaryPhoto(recoveryDiaryRequest.getPhoto())
 			.recoveryDiaryTitle(recoveryDiaryRequest.getTitle())
@@ -68,7 +74,7 @@ public class RecoveryDiaryService {
 			.content(recoveryDiaryRequest.getContent())
 			.photo(recoveryDiaryRequest.getPhoto())
 			.recoveryDiaryTitle(recoveryDiary.getRecoveryDiaryTitle())
-			.regdate(recoveryDiary.getRecoveryDiaryRegdate())
+			.regdate(recoveryDiary.getRecoveryDiaryRegdate().now().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
 			.build();
 
 	}

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.srp.constelinkbeneficiary.db.dto.enums.SortType;
+import com.srp.constelinkbeneficiary.db.dto.enums.HospitalSortType;
 import com.srp.constelinkbeneficiary.db.dto.response.HospitalInfoResponse;
 import com.srp.constelinkbeneficiary.db.entity.Hospital;
 import com.srp.constelinkbeneficiary.db.service.HospitalService;
@@ -36,7 +36,7 @@ public class HospitalController {
 	public ResponseEntity<Page<Hospital>> getHospitalPage(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(value = "sort_by", required = false, defaultValue = "ID_ASC") SortType sortType) {
+		@RequestParam(value = "sort_by", required = false, defaultValue = "ID_ASC") HospitalSortType sortType) {
 
 		Page<Hospital> hospitalPage = hospitalService.hospitalInfoList(page-1, size, sortType);
 		return ResponseEntity.ok(hospitalPage);

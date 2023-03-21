@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.srp.constelinkbeneficiary.common.exception.CustomException;
 import com.srp.constelinkbeneficiary.common.exception.CustomExceptionType;
-import com.srp.constelinkbeneficiary.db.dto.enums.SortType;
+import com.srp.constelinkbeneficiary.db.dto.enums.HospitalSortType;
 import com.srp.constelinkbeneficiary.db.dto.response.HospitalInfoResponse;
 import com.srp.constelinkbeneficiary.db.entity.Hospital;
 import com.srp.constelinkbeneficiary.db.repository.HospitalRepository;
@@ -23,10 +23,10 @@ public class HospitalService {
 	private final HospitalRepository hospitalRepository;
 
 	public HospitalInfoResponse findHospitalById(Long id) {
-		Hospital hospital = hospitalRepository.findHospitalById(id);
-		if(hospital == null){
-			throw new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND);
-		}
+		// 병원 존재 확인
+		Hospital hospital = hospitalRepository.findHospitalById(id)
+			.orElseThrow(()-> new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND) );
+
 		HospitalInfoResponse hospitalInfoResponse
 			= HospitalInfoResponse.builder()
 			.hospitalLink(hospital.getHospitalLink())
@@ -39,7 +39,7 @@ public class HospitalService {
 		return hospitalInfoResponse;
 	}
 
-	public Page<Hospital> hospitalInfoList(int page, int size, SortType sortBy) {
+	public Page<Hospital> hospitalInfoList(int page, int size, HospitalSortType sortBy) {
 		Page<Hospital> ResponseHospitalInfoList;
 		// 0이면 오름차순+
 		switch(sortBy){
