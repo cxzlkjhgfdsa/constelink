@@ -1,19 +1,16 @@
 .container {
+  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
 }
 
 .item {
-  display: flex;
   flex-direction : column;
-  flex: 1 0 300px;
   border-color : black;
 }
 
 .cardIndex {
-  /* display: flex; */
   width: 100%;
   margin-bottom: 20px;
   background-color: #fff;
@@ -110,15 +107,18 @@
   align-items: flex-start;
 }
 
+
 /* 각 카드 */
 .record {
-  width: calc(33.33% - 10px);
-  margin-right: 10px;
+  margin-top: 20px;
+  width: calc(30%);
   margin-bottom: 20px;
   display: inline-block;
   vertical-align: top;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  border-radius: 0 0 10px 10px;
+  margin-right:1.6%;
+  margin-left:1.6%;
 }
 
 /* 이전버전 */
@@ -149,13 +149,61 @@
 }
 
 /* 치료내용 */
-.recordContent {
+.recordIndex {
   background-color: #fff;
+  padding : 10px;
+  font-size: 32px;
+  font-weight: bolder;
+}
+
+.recordContent {
+  font-size: 16px;
+  line-height: 1.5;
   padding : 10px;
 }
 
 
-.recordContent p {
+
+/* 모달부분 수정 */
+.modalImage {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top : 15%
+}
+
+.modalInfoTitle {
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.modalInfoDate {
+  font-size: 16px;
+  font-weight: bold;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.modalInfoContent {
   font-size: 16px;
   line-height: 1.5;
+}
+
+.hr {
+  margin: 15px;
+  margin-top: 50px;
+  border: none;
+  border-top: 3px solid rgb(0, 0, 0);
+}
+
+.modalHr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid gray;
 }
