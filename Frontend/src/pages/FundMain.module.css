@@ -23,38 +23,35 @@
   left: 0;
 }
 
-.fundMain{
+.mainBanner{
   font-family: "Hahmlet";
   display: flex;
   flex-direction: column;
   height: 15rem;
   overflow: hidden;
   background-image: url("../assets/img/night-sky1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 30%;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
-.fundHeader{
-  height: 6.25rem;
-  width: 48%;
-  
-}
-
-.headerTitle{
-  text-align: center;
+.bannerTitle{
+  font-family: "Hahmlet";
   font-size: 2.5rem;
+  /* font-weight: bold; */
   color: white;
-  margin-top: 10px;
-  margin-bottom: 0px;
 }
 
-.headerSubTitle{
-  text-align: left;
-  font-size: 1.2rem;
+.bannerSubTitle{
+  font-family: "Hahmlet";
+  font-size: large;
   color: white;
-  margin-top: 10px;
+  position: relative;
+  right: 6rem;
 }
-
 
 .fundWrapper{
   display: flex;

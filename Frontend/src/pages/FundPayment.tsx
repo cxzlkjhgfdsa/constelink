@@ -1,6 +1,15 @@
+import { useState } from 'react';
+
 import styles from "./FundPayment.module.css"
 
 const FundPayment: React.FC = () => {
+
+  const max_donation: number = 2000000;
+  
+  const [donation, setDonation] = useState(0);
+  const handleDonation = (e: any): void => {
+    setDonation(e.target.value);
+  }
 
   return (
     <>
@@ -9,6 +18,7 @@ const FundPayment: React.FC = () => {
         <div className={styles.bannerTitle}>여기까지 오신 당신, 당신은 멋집니다.</div>
         <div className={styles.bannerSubTitle}>모금된 자금은 공정하고 투명하게 쓰이게됩니다.</div>
       </div>
+
       <div className={styles.mainArticle}>
         <div className={styles.articleStep}>
           <div className={styles.articleStepTitle}>치료비 후원 신청</div>
@@ -83,13 +93,21 @@ const FundPayment: React.FC = () => {
               <div className={styles.itemPadding} />
               <div className={styles.detailItem}>
                 <div className={styles.itemLongKey}>모금금액 입력</div>
-                <input className={styles.itemInput} />
+                <input 
+                  className={styles.itemInput} 
+                  type="number"
+                  onChange={handleDonation}
+                  min={1}
+                  max={max_donation}
+                />
                 <div>원</div>
               </div>
             </div>
           </div>
           <div className={styles.moneyCheck}>
-            칭챙총
+            <div className={styles.moneyCheckKey}>총 후원금액 |</div>
+            <div className={styles.moneyCheckValue}>{donation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+            <div className={styles.moneyCheckCurrency}>원</div>
           </div>
           <div className={styles.fundingBtn}>
             치료비 결제하기

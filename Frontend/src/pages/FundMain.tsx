@@ -130,11 +130,9 @@ const FundMain: React.FC = () => {
 
   return (
     <div className={styles.mainWrapper}>
-      <div className={styles.fundMain}>
-        <div className={styles.fundHeader}>
-          <p className={styles.headerTitle}>무한한 하늘에 별자리를 만들어 주세요.</p>
-          <p className={styles.headerSubTitle}>그대의 작은 손길 한번이 누군가에겐 인생의 전환점이 됩니다</p>        
-        </div>
+      <div className={styles.mainBanner}>
+        <div className={styles.bannerTitle}>무한한 하늘에 별자리를 만들어 주세요.</div>
+        <div className={styles.bannerSubTitle}>그대의 작은 손길 한번이 누군가에겐 인생의 전환점이 됩니다</div>        
       </div>
 
       <div className={styles.fundWrapper}>
