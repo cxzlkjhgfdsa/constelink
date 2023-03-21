@@ -32,26 +32,25 @@ public class FileUtil {
 
 	public FileDto uploadFile(MultipartFile multipartFile, String originalName, String contentType) {
 		try{
-
 			byte[] fileData = multipartFile.getBytes();
 
 			InputStream inputStream = new ClassPathResource(gcpConfigFile).getInputStream();
 
 			StorageOptions options = StorageOptions.newBuilder().setProjectId(gcpProjectId)
 				.setCredentials(GoogleCredentials.fromStream(inputStream)).build();
-
 			Storage storage = options.getService();
 			Bucket bucket = storage.get(gcpBucketId,Storage.BucketGetOption.fields());
 
 			UUID uuid = UUID.randomUUID();
 			checkFileExtension(originalName);
-			Blob blob = bucket.create(uuid.toString() +  "-" + originalName, fileData, contentType);
+			Blob blob = bucket.create(gcpDirectoryName + "/"+uuid.toString() +  "-" + originalName, fileData, contentType);
 			if(blob != null){
 				System.out.println(blob.getSelfLink());
 				return new FileDto(blob.getName(), blob.getMediaLink());
 			}
 
 		}catch (Exception e){
+			e.printStackTrace();
 			throw new CustomException(CustomExceptionType.GCS_FILE_EXCEPTION);
 		}
 		throw new CustomException(CustomExceptionType.GCS_FILE_EXCEPTION);

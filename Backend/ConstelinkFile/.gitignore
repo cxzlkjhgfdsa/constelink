@@ -38,4 +38,4 @@ out/
 
 ### VS Code ###
 .vscode/
-/src/main/resources/constelinkService.json
+/src/main/resources/constelink-config.json
