@@ -17,7 +17,6 @@
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  
 }
 
 .cardTop {
@@ -28,20 +27,20 @@
 
 .title {
   margin-left : 10px;
-  margin-top : 10px;
+  margin-top : 11px;
   position: absolute;
   font-size: 40px;
   font-weight: bold;
   color : white;
 }
 
-
 .cardContent {
-  direction: row;
   display: flex;
   align-items: center;
+  justify-content: center;
+  /* direction: row; */
+  margin : 0 20%;
 }
-
 
 .imageContainer {
   flex: 1;
@@ -59,15 +58,12 @@
 }
 
 
-
 .content {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 20px;
 }
 
 .contentItem {
-  font-size: 14px;
   font-weight: bold;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -90,12 +86,12 @@
 }
 
 .patientInfoTitle {
-  font-size: 18px;
+  font-size: 20px;
   color: #aaa;
 }
 
 .patientInfoContent {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -162,15 +158,55 @@
   padding : 10px;
 }
 
+/* 하단버튼스타일 */
+.detailButton { 
+  margin : 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.detailCreateButton {
+  font-size: 30px;
+  font-weight: bolder;
+  margin : 0px 5px 0px 5px;
+  padding : 5px 15px 5px 15px;
+  color: white;
+  background-color: #8140f1;
+  border: none;
+  border-radius: 32px;
+  flex-grow: 0;
+  position: relative;
+}
+
+.detailBackButton {
+  font-size: 30px;
+  font-weight: bolder;
+  margin : 0px 5px 0px 5px;
+  padding : 5px 15px 5px 15px;
+  color: white;
+  background-color: #A19FD5;
+  border: none;
+  border-radius: 32px;
+  flex-grow: 0;
+  position: relative;
+}
+
 
 
 /* 모달부분 수정 */
+.modalTop {
+  width: 100%;
+  height: 40px;
+  background-color: #A19FD5;
+  display: flex;
+  margin-bottom: 5%;
+}
+
 .modalImage {
   width: 200px;
   height: 200px;
   object-fit: cover;
   border-radius: 50%;
-  margin-top : 15%
 }
 
 .modalInfoTitle {
@@ -206,4 +242,23 @@
   margin: 20px 0;
   border: none;
   border-top: 1px solid gray;
+}
+
+.modalButton { 
+  margin : 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.modalButtonItem {
+  font-size: 18px;
+  font-weight: bolder;
+  margin : 0px 5px 0px 5px;
+  padding : 5px 15px 5px 15px;
+  color: white;
+  background-color: #A19FD5;
+  border: none;
+  border-radius: 32px;
+  flex-grow: 0;
+  position: relative;
 }
