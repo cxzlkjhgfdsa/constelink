@@ -1,7 +1,5 @@
 package com.srp.constelinkmember.api.service;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,14 +29,14 @@ public class KakaoPayService {
 	private String baseUrl;
 	private KakaoReadyResponse kakaoReady;
 
-	private String uuid;
+	private final String oreder_id = "patient_donation";
 
 	public KakaoReadyResponse kakaoPayReady(KakaoPayRequest kakaoPayRequest) {
-		uuid = UUID.randomUUID().toString();
+
 		// 카카오페이 요청 양식
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 		parameters.add("cid", cid);
-		parameters.add("partner_order_id", uuid);
+		parameters.add("partner_order_id", oreder_id);
 		parameters.add("partner_user_id", "constelink");
 		parameters.add("item_name", kakaoPayRequest.getItemName());
 		parameters.add("quantity", "1");
@@ -69,7 +67,7 @@ public class KakaoPayService {
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 		parameters.add("cid", cid);
 		parameters.add("tid", kakaoReady.getTid());
-		parameters.add("partner_order_id", uuid);
+		parameters.add("partner_order_id", oreder_id);
 		parameters.add("partner_user_id", "constelink");
 		parameters.add("pg_token", pgToken);
 
