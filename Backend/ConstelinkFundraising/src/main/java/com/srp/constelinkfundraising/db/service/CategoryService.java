@@ -52,7 +52,6 @@ public class CategoryService {
 				categories = categoryRepository.findAll(PageRequest.of(page, size));
 				break;
 		}
-
 		return categories;
 	}
 }

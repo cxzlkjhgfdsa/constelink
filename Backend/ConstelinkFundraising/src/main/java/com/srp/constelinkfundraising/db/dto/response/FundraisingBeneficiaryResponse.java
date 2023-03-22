@@ -11,7 +11,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FundraisingResponse {
+public class FundraisingBeneficiaryResponse {
 
 	private Long id;
 	private Long beneficiaryId;
@@ -25,12 +25,6 @@ public class FundraisingResponse {
 	private String fundraisingThumbnail;
 	private int fundraisingPeople;
 	private boolean fundraisingIsDone;
-	private Boolean fundraisingBookmarked;
-	private String hospitalName;
-	private String beneficiaryName;
-	private String beneficiaryDisease;
-	private String beneficiaryStatus;
-	private Long beneficiaryBirthday;
+	private boolean fundraisingBookmared;
 
-	private String photo;
 }
