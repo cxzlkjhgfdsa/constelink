@@ -1,17 +1,16 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/Header';
-import ParentComponent from './components/modal/Modal';
-import CustomerMyPage from './pages/CustomerMyPage';
+
 import Login from './pages/Login';
+import CustomerMyHome from './pages/CustomerMyHome';
 
 function App() {
   return (
     <div className="App">
       {/* <Login/> */}
       <Header/>
-      {/* <ParentComponent/> */}
-      {/* <CustomerMyPage/> */}
+      <CustomerMyHome/>
     </div>
   );
 }
