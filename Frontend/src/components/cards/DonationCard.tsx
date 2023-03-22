@@ -3,6 +3,9 @@ import styles from "./DonationCard.module.css";
 import { DonationData } from '../../models/donatecard';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";;
 interface Props {
     data: DonationData;
 }
@@ -36,15 +39,23 @@ const DonationCard: React.FC<Props> = ({ data }) => {
         return () => clearInterval(intervalIdMoney);
     }, [curMoney]);
 
+    // 북마크 설정
+    const [isMark, setIsMark]= useState(false);
+
+    const bookHandler = ()=>{
+        setIsMark(!isMark);
+    }
 
     return (
         <div className={styles.DonationCard} style={{ background: `linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url(${data.img})`, backgroundSize: "cover" }}>
+            <div className={styles.bookmark}> <FontAwesomeIcon onClick={bookHandler} icon={faStar} color={ !isMark ?'grey':"yellow"} /></div>
+            
             <div className={styles.dona_box}>
+                
                 <div className={styles.dona_type}>{data.type}</div>
                 <div className={styles.dona_title}>{data.title}</div>
                 <div className={styles.dona_hospital}>{data.hospital}</div>
                 <div className={styles.dona_deadline}>D-{demicalDay}</div>
-
                 <div className={styles.progress_box}>
                     <progress value={curValue} max={100} />
 
