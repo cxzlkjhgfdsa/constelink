@@ -30,7 +30,7 @@ public class FundraisingController {
 
 	private final FundraisingService fundraisingService;
 
-	@Operation(summary = "기부 리스트들 열람", description = "page, size, sortType 쿼리문으로 입력가능(default 값은 각각 1, 5, ALL) "
+	@Operation(summary = "기부 리스트들 열람 + Detail", description = "page, size, sortType, memberId 쿼리문으로 입력가능(default 값은 각각 1, 5, ALL) "
 		+ "sort_by는 ALL, FINISHED, UNFINISHED, START_DATE_ASC, START_DATE_DESC, END_DATE_ASC, END_DATE_DESC 이 존재")
 	@GetMapping("")
 	public ResponseEntity<Page<FundraisingResponse>> getFundraisings(
@@ -45,7 +45,7 @@ public class FundraisingController {
 		return ResponseEntity.ok(fundraisingResponses);
 	}
 
-	@Operation(summary = "기부 리스트들 수혜자정보와 함께 열람", description =
+	@Operation(summary = "기부 리스트보기(간단)", description =
 		"page, size, sortType 쿼리문으로 입력가능(default 값은 각각 1, 5, ALL) "
 			+ "sort_by는 ALL, FINISHED, UNFINISHED, START_DATE_ASC, START_DATE_DESC, END_DATE_ASC, END_DATE_DESC 이 존재")
 	@GetMapping("/withbeneficiary")

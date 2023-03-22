@@ -27,7 +27,7 @@ public class BookmarkController {
 	// Bookmark 등록 or 해체
 	@Operation(summary = "북마크 추가/삭제", description = "북마크에 이미 있으면 삭제, 없으면 추가")
 	@PostMapping("")
-	public String bookmarkFundraising(
+	public Boolean bookmarkFundraising(
 		@RequestBody BookmarkFundraisingRequest bookmarkFundraisingRequest
 	) {
 		return bookmarkService.bookmarkFundraising(bookmarkFundraisingRequest);

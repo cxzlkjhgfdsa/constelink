@@ -52,9 +52,6 @@ public class FundraisingService {
 	public Page<FundraisingResponse> getFundraisings(int page, int size,
 		FundraisingSortType sortType, Long memberId) {
 		Page<Fundraising> fundraising;
-		List<Category> categories = categoryRepository.findAll();
-		Map<Long, String> categoriesMap = categories.stream()
-			.collect(Collectors.toMap(Category::getId, Category::getCategoryName));
 		HashSet<Long> memberBookmark =
 			memberId < 1 ? new HashSet<>() : bookmarkRepository.findBookmarksByIdMemberId(memberId);
 
@@ -91,7 +88,6 @@ public class FundraisingService {
 				fundraising = fundraisingRepository.findAll(
 					PageRequest.of(page, size, Sort.by("fundraisingStartTime").descending()));
 				break;
-
 		}
 		HashSet<Long> idList = new HashSet<>();
 		Page<FundraisingResponse> fundraisingResponsePage = fundraising.map(
@@ -114,14 +110,13 @@ public class FundraisingService {
 						fund.getFundraisingEndTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
 					.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
 					.beneficiaryId(fund.getBeneficiaryId())
-					.categoryName((categoriesMap.get(fund.getCategory().getId())))
+					.categoryName(fund.getCategory().getCategoryName())
 					.fundraisingBookmarked(memberBookmark.contains(fund.getId()))
 					.build();
 			}
 		);
 
 		//List 중복제거
-
 		BeneficiariesInfoReq beneficiariesInfoReq = BeneficiariesInfoReq.newBuilder()
 			.addAllId(idList.stream().toList()).build();
 		BeneficiariesInfoRes beneficiariesInfoRes = stub.getBeneficiariesRpc(beneficiariesInfoReq);
@@ -197,7 +192,7 @@ public class FundraisingService {
 					fund.getFundraisingEndTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
 				.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
 				.beneficiaryId(fund.getBeneficiaryId())
-				.categoryName((categoriesMap.get(fund.getCategory().getId())))
+				.categoryName(fund.getCategory().getCategoryName())
 				.fundraisingBookmared(memberBookmark.contains(fund.getId()))
 				.build()
 		);

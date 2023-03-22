@@ -22,6 +22,7 @@ import com.srp.constelinkfundraising.db.dto.response.FundraisingResponse;
 import com.srp.constelinkfundraising.db.entity.Bookmark;
 import com.srp.constelinkfundraising.db.entity.BookmarkId;
 import com.srp.constelinkfundraising.db.entity.Category;
+import com.srp.constelinkfundraising.db.entity.Fundraising;
 import com.srp.constelinkfundraising.db.repository.BookmarkRepository;
 import com.srp.constelinkfundraising.db.repository.CategoryRepository;
 import com.srp.constelinkfundraising.db.repository.FundraisingRepository;
@@ -44,37 +45,41 @@ public class BookmarkService {
 	public BeneficiaryGrpcServiceGrpc.BeneficiaryGrpcServiceBlockingStub stub = BeneficiaryGrpcServiceGrpc.newBlockingStub(
 		channel);
 
-	public String bookmarkFundraising(BookmarkFundraisingRequest bookmarkFundraisingRequest) {
+	public Boolean bookmarkFundraising(BookmarkFundraisingRequest bookmarkFundraisingRequest) {
+		//fundraisingId 검증 필요하면 추가하기(의문)
 		BookmarkId bookmarkId = new BookmarkId(bookmarkFundraisingRequest.getMemberId(),
 			bookmarkFundraisingRequest.getFundraisingId());
-		Bookmark bookmark = bookmarkRepository.findBookmarksById(bookmarkId);
+		Bookmark bookmark = bookmarkRepository.findBookmarkById(bookmarkId);
 
 		if (bookmark == null) {
 			bookmark = new Bookmark(bookmarkId,
 				fundraisingRepository.findFundraisingById(bookmarkId.getFundraisingId()).orElseThrow(()
 					-> new CustomException(CustomExceptionType.FUNDRAISING_NOT_FOUND)));
 			bookmarkRepository.saveAndFlush(bookmark);
-			return "북마크 추가 완료";
+			return true;
 		} else {
 			bookmarkRepository.deleteById(bookmarkId);
-			return "북마크 삭제 완료";
+			return false;
 		}
 	}
 
 	public Page<FundraisingResponse> getBookmarks(Long memberId, int page, int size) {
 
-		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberId(memberId, PageRequest.of(page, size));
-		HashSet<Long> memberBookmark =
-			memberId < 1 ? new HashSet<>() : bookmarkRepository.findBookmarksByIdMemberId(memberId);
-		List<Category> categories = categoryRepository.findAll();
-		Map<Long, String> categoriesMap = categories.stream()
-			.collect(Collectors.toMap(Category::getId, Category::getCategoryName));
+		// Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberId(memberId, PageRequest.of(page, size));
+
+		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberIdForRead(memberId, PageRequest.of(page,size));
+
+		// List<Category> categories = categoryRepository.findAll();
+		System.out.println(bookmarks.getContent().get(0));
+		// HashSet<Fundraising> fundraisings = fundraisingRepository.findFundraisingsByIdIsIn(bookmarks.));
 		HashSet<Long> idList = new HashSet<>();
+		// Map<Long, String> categoriesMap = categories.stream()
+		// 	.collect(Collectors.toMap(Category::getId, Category::getCategoryName));
 
 		Page<FundraisingResponse> bookmarkResponses = bookmarks.map(bookmark -> {
 			idList.add(bookmark.getFundraising().getBeneficiaryId());
 			return new FundraisingResponse().builder()
-				.categoryName(categoriesMap.get(bookmark.getFundraising().getCategory().getId()))
+				.categoryName(bookmark.getFundraising().getCategory().getCategoryName())
 				.beneficiaryId(bookmark.getFundraising().getBeneficiaryId())
 				.fundraisingAmountGoal(bookmark.getFundraising().getFundraisingAmountGoal())
 				.fundraisingEndTime(bookmark.getFundraising()
@@ -112,10 +117,6 @@ public class BookmarkService {
 			item.setBeneficiaryBirthday(beneficiaryInfoRes.getBirthday().getSeconds() * 1000);
 		});
 
-		System.out.println(memberId);
-		System.out.println(memberBookmark);
-		System.out.println(memberBookmark.contains(1L));
-		System.out.println(1111111111);
 		return bookmarkResponses;
 	}
 }

@@ -49,12 +49,12 @@ public class CategoryController {
 		return categoryService.deleteCategory(categoryDeleteRequest.getCategoryId());
 	}
 
-	@Operation(summary = "모든 카테고리 열람", description = "page, size, sort_by 쿼리문으로 입력가능(default 값은 각각 1, 5, ALL), sort_by는 ALL, NAME_ASC, NAME_DESC이 있다.")
+	@Operation(summary = "카테고리 열람", description = "page, size, sort_by 쿼리문으로 입력가능(default 값은 각각 1, 5, NAME_ASC), sort_by는 ALL, NAME_ASC, NAME_DESC이 있다.")
 	@GetMapping("")
 	public Page<Category> getCategories(
 		@RequestParam(name = "page", defaultValue = "1", required = false) int page,
 		@RequestParam(name = "size", defaultValue = "5", required = false) int size,
-		@RequestParam(name = "sort_by", defaultValue = "ALL", required = false) CategorySortType sortType
+		@RequestParam(name = "sort_by", defaultValue = "NAME_ASC", required = false) CategorySortType sortType
 	) {
 		Page<Category> categories = categoryService.getCategories(page - 1, size, sortType);
 		return categories;
