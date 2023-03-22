@@ -14,7 +14,7 @@
 }
 
 .mainWrapper{
-  background-color: aqua;
+  /* background-color: aqua; */
   width: 100%;
   height: max-content;
   padding-bottom: 5rem;
@@ -23,25 +23,18 @@
   flex-direction: column;
   align-items: center;
 }
-/* <div className={styles.mainTitle}>모금 시작하기</div>
-<div className={styles.benWrapper}></div>
-<div className={styles.imgWrapper}></div>
-<div className={styles.titleWrapper}></div>
-<div className={styles.fundWrapper}></div>
-<div className={styles.storyWrapper}></div>
-<div className={styles.timeWrapper}></div>
-<div className={styles.btnsWrapper}></div> */
 
 .mainTitle{
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
   font-family: "Hahmlet";
   font-size: xx-large;
   font-weight: bolder;
 }
 
 .benWrapper{
-  background-color: antiquewhite;
-  height: 5rem;
+  /* background-color: antiquewhite; */
+  height: max-content;
+  padding-bottom: 1rem;
   width:80%;
 }
 
@@ -51,38 +44,100 @@
   font-weight: bold;
 }
 
-.benSelector{
-
+.selectWrapper{
+  margin-top: 0.5rem;
+  width: 20%;
 }
 
 .imgWrapper{
-  background-color: aquamarine;
-  height: 5rem;
+  /* background-color: aquamarine; */
+  height: max-content;
+  padding-bottom: 1rem;
   width: 80%;
+  display: flex;
+  flex-direction: row;
+  font-family: "Hahmlet";
+  font-size: 1rem;
+  color: white;
+}
+
+.imgMain{
+  width: 30rem;
+  height: 9rem;
+  background-color: #A19FD5;
+  margin-right: 4rem;
+  margin-left: 5rem;
+}
+
+.imgThumb{
+  width: 9rem;
+  height: 9rem;
+  background-color: #A19FD5;
 }
 
 .titleWrapper{
-  background-color: azure;
-  height: 5rem;
+  /* background-color: azure; */
+  height: max-content;
+  padding-bottom: 1rem;
   width: 80%;
+}
+
+.titleInput{
+  width: 30rem;
+  height: 2rem;
+  border: 1px solid black;
+  margin-top: 0.5rem;
+}
+
+.inputBox{
+  font-family: "Hahmlet";
+  font-size: 1rem;
+  border: none;
+  background: none;
+  outline: none;
+  padding-top: 0.2rem;
+  width: 98%;
 }
 
 .fundWrapper{
-  background-color: beige;
-  height: 5rem;
+  /* background-color: beige; */
+  height: max-content;
+  padding-bottom: 1rem;
   width: 80%;
+}
+
+.fundInput{
+  width: 15rem;
+  height: 2rem;
+  border: 1px solid black;
+  margin-top: 0.5rem;
 }
 
 .storyWrapper{
-  background-color: bisque;
+  /* background-color: bisque; */
+  height: max-content;
+  padding-bottom: 1rem;
+  width: 80%;
+}
+
+.storyInputTitle{
+  font-family: "Hahmlet";
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.timeWrapper{
+  /* background-color: blanchedalmond; */
   height: 5rem;
   width: 80%;
 }
 
-.timeWrapper{
-  background-color: blanchedalmond;
-  height: 5rem;
-  width: 80%;
+.timeInputTitle{
+  font-family: "Hahmlet";
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .btnsWrapper{
@@ -105,6 +160,7 @@
   text-align: center;
   border-radius: 1.5rem;
   margin-right: 1rem;
+  cursor: pointer;
 }
 
 .btnRegister{
@@ -117,4 +173,5 @@
   line-height: 3rem;
   text-align: center;
   border-radius: 1.5rem;
+  cursor: pointer;
 }

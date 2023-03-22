@@ -1,8 +1,14 @@
 import styles from "./HospitalPage.module.css";
+import { useNavigate } from "react-router-dom";
 
 const HospitalPage: React.FC = () => {
 
+  const navigate = useNavigate();
   const hospitalName: string = '삼성서울병원';
+
+  const toBenRegi = () => {
+    navigate('/benregi');
+  }
 
   return (
     <>
@@ -52,7 +58,7 @@ const HospitalPage: React.FC = () => {
             <div className={styles.menuText}>
               모금 시작하기
             </div>
-            <div className={styles.menuArrow}></div>
+            <div className={styles.menuArrow} onClick={toBenRegi}/>
           </div>
         </div>
       </div> 
