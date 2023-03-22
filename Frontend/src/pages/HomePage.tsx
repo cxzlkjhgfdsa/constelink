@@ -24,41 +24,43 @@ import 'swiper/css/scrollbar';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSackDollar, faHeartPulse, faHandHoldingHeart } from "@fortawesome/free-solid-svg-icons";
 import { faGratipay } from "@fortawesome/free-brands-svg-icons";
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const images = [topbanner1, topbanner2, topbanner3];
 const contents = [["콘스텔링크 Constelink1", "블록체인기반, 치료비 모금 플랫폼1"], ["콘스텔링크 Constelink2", "블로체인기반, 치료비 모금 플랫폼2"], ["콘스텔링크 Constelink3", "블로체인기반, 치료비 모금 플랫폼3"]];
 
 
 
-// 더미데이터
-const infomation: DonationData[] = [
-  {
-    title: '"허리가 아픈 원철에게 치료비를 모금해주세요1"',
-    type: "희귀병",
-    deadline: "2023-05-01",
-    amount: 245000,
-    img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    hospital: "서울 아산병원",
-    goal: 250000
-  }, {
-    title: '"허리가 아픈 원철에게 치료비를 모금해주세요2"',
-    type: "희귀병",
-    deadline: "2023-05-01",
-    amount: 245000,
-    img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    hospital: "서울 아산병원",
-    goal: 260000
-  }, {
-    title: '"허리가 아픈 원철에게 치료비를 모금해주세요3"',
-    type: "희귀병",
-    deadline: "2023-05-01",
-    amount: 245000,
-    img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    hospital: "서울 아산병원",
-    goal: 330000
-  }
+// // 더미데이터
+// const infomation: DonationData[] = [
+//   {
+//     title: '"허리가 아픈 원철에게 치료비를 모금해주세요1"',
+//     type: "희귀병",
+//     deadline: "2023-05-01",
+//     amount: 245000,
+//     img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//     hospital: "서울 아산병원",
+//     goal: 250000
+//   }, {
+//     title: '"허리가 아픈 원철에게 치료비를 모금해주세요2"',
+//     type: "희귀병",
+//     deadline: "2023-05-01",
+//     amount: 245000,
+//     img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//     hospital: "서울 아산병원",
+//     goal: 260000
+//   }, {
+//     title: '"허리가 아픈 원철에게 치료비를 모금해주세요3"',
+//     type: "희귀병",
+//     deadline: "2023-05-01",
+//     amount: 245000,
+//     img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//     hospital: "서울 아산병원",
+//     goal: 330000
+//   }
 
-]
+// ]
 
 
 
@@ -79,6 +81,22 @@ const HomePage: React.FC = () => {
     autoplaySpeed: 4000, // 슬라이드가 자동으로 이동하는 시간을 설정합니다(밀리초).
     arrows: false,
   };
+
+  const [donateCard, setDonateCard] = useState([]);
+
+
+
+useEffect(()=>{
+  axios.get("http://j8a206.p.ssafy.io:8998/fundraisings?page=&size=5&sort_by=ALL").then((res)=>{
+    console.log(res.data.content);
+    setDonateCard(res.data.content);
+  })
+
+
+
+},[])
+
+
 
 
   return (
@@ -131,11 +149,17 @@ const HomePage: React.FC = () => {
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}
           >
+            {
+              donateCard.map(it=>{
+                return <SwiperSlide  style={{}}><DonationCard data={it}  /></SwiperSlide>
+              })
+            }
+            
+            
+            {/* <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
             <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
             <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
-            <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
-            <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
-            <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide>
+            <SwiperSlide style={{}}><DonationCard data={infomation[0]} /></SwiperSlide> */}
           </Swiper>
         </div>
       </section>
