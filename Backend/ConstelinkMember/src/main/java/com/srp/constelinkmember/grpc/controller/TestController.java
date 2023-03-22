@@ -1,8 +1,5 @@
 package com.srp.constelinkmember.grpc.controller;
 
-import java.util.Map;
-import java.util.Objects;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,17 +34,17 @@ public class TestController {
 		return sb.toString();
 	}
 
-	@GetMapping("test/dona")
-	public String getDona() {
-		Map<String, Objects> donationInfo = donationRepository.getDonationInfo(1L);
-		String tf = donationInfo.get("totalFundCount") + "";
-		String td = donationInfo.get("totalDonationPrice") + "";
-		int itf = Integer.parseInt(tf);
-		int itd = Integer.parseInt(td);
-		System.out.println(itd + itf);
-
-		return donationInfo.get("totalFundCount") + " : " + donationInfo.get("totalDonationPrice");
-	}
+	// @GetMapping("test/dona")
+	// public String getDona() {
+	// 	Map<String, Objects> donationInfo = donationRepository.getDonationInfo(1L);
+	// 	String tf = donationInfo.get("totalFundCount") + "";
+	// 	String td = donationInfo.get("totalDonationPrice") + "";
+	// 	int itf = Integer.parseInt(tf);
+	// 	int itd = Integer.parseInt(td);
+	// 	System.out.println(itd + itf);
+	//
+	// 	return donationInfo.get("totalFundCount") + " : " + donationInfo.get("totalDonationPrice");
+	// }
 
 	@GetMapping("test/token")
 	public String getToken() {

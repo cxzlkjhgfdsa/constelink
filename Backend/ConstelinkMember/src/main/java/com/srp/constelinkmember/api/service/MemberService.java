@@ -16,6 +16,7 @@ import com.srp.constelinkmember.db.entity.Member;
 import com.srp.constelinkmember.db.repository.DonationRepository;
 import com.srp.constelinkmember.db.repository.MemberRepository;
 import com.srp.constelinkmember.dto.enums.Role;
+import com.srp.constelinkmember.dto.request.ModifyMemberInfoRequest;
 import com.srp.constelinkmember.dto.response.MemberInfoResponse;
 import com.srp.constelinkmember.grpc.service.HospitalGrpcClientService;
 import com.srp.constelinkmember.security.jwt.TokenProvider;
@@ -83,5 +84,26 @@ public class MemberService {
 			response.setRole(Role.ADMIN);
 		}
 		return response;
+	}
+
+	@Transactional
+	public void modifyMemberInfo(ModifyMemberInfoRequest modifyRequest, String accessToken) {
+		String id = tokenProvider.resolveToken(accessToken);
+		Long memberId = Long.valueOf(id);
+
+		Optional<Member> findMember = memberRepository.findById(memberId);
+		if (findMember.isPresent()) {
+			Member member = findMember.get();
+			if (!modifyRequest.getNickname().equals("")) {
+				member.setUsername(modifyRequest.getNickname());
+			}
+			if (!modifyRequest.getProfileImg().equals("")) {
+				{
+					member.setMemberProfileImg(modifyRequest.getProfileImg());
+				}
+			}
+		} else {
+			throw new CustomException(CustomExceptionType.USER_NOT_FOUND);
+		}
 	}
 }

@@ -64,7 +64,7 @@ public class Donation {
 	@Column(name = "fundraising_title", nullable = false, length = 50)
 	private String fundraisingTitle;
 
-	@Size(max = 100)
+	@Size(max = 300)
 	@Column(name = "fundraising_thumbnail", length = 100)
 	private String fundraisingThumbnail;
 

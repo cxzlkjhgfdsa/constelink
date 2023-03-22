@@ -2,6 +2,7 @@ package com.srp.constelinkmember.api.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.srp.constelinkmember.db.entity.Donation;
+import com.srp.constelinkmember.db.entity.Member;
 import com.srp.constelinkmember.db.repository.DonationRepository;
+import com.srp.constelinkmember.db.repository.MemberRepository;
 import com.srp.constelinkmember.dto.DonationDetailDto;
 import com.srp.constelinkmember.dto.request.SaveDonationRequest;
 import com.srp.constelinkmember.dto.response.DonationDetailsResponse;
@@ -26,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DonationService {
 
 	private final DonationRepository donationRepository;
+	private final MemberRepository memberRepository;
 
 	@Transactional
 	public void saveDonation(SaveDonationRequest saveDonationRequest, Long memberId) {
@@ -41,8 +45,11 @@ public class DonationService {
 			.fundraisingTitle(saveDonationRequest.getFundraisingTitle())
 			.fundraisingThumbnail(saveDonationRequest.getFundraisingThumbnail())
 			.build();
-
 		donationRepository.save(donation);
+
+		Optional<Member> findMember = memberRepository.findById(memberId);
+		findMember.get().addAmountRaised(donation.getDonationPrice());
+		findMember.get().addPoint(donation.getDonationPrice());
 
 	}
 

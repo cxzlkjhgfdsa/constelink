@@ -15,14 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HospitalGrpcClientService {
 
-	private final ManagedChannel channel = ManagedChannelBuilder.forAddress("j8a206.p.ssafy.io", 9090)
+	private final ManagedChannel channel = ManagedChannelBuilder.forAddress("j8a206.p.ssafy.io", 8899)
 		.usePlaintext()
 		.build();
 	private HospitalGrpcServiceGrpc.HospitalGrpcServiceBlockingStub stub = HospitalGrpcServiceGrpc.newBlockingStub(
 		channel);
 
 	public HospitalInfoRes getHospitalInfo(Long id) throws StatusRuntimeException {
-		log.info("여기 왔음?=-==================");
+		log.info("request grpc....");
 		final HospitalInfoRes response = this.stub.getHospitalRpc(HospitalInfoReq.newBuilder().setId(id).build());
 		return response;
 

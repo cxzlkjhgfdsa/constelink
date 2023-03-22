@@ -4,10 +4,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.srp.constelinkmember.api.service.MemberService;
+import com.srp.constelinkmember.dto.request.ModifyMemberInfoRequest;
 import com.srp.constelinkmember.dto.response.MemberInfoResponse;
 import com.srp.constelinkmember.util.CookieUtils;
 
@@ -35,6 +37,16 @@ public class MemberController {
 		log.info("access == " + accessToken);
 		MemberInfoResponse memberInfo = memberService.getMemberInfo(accessToken);
 		return ResponseEntity.ok(memberInfo);
+	}
+
+	@Operation(summary = "회원정보 수정", description = "회원정보 수정 메서드.")
+	@PostMapping("/modify")
+	public ResponseEntity modifyMemberInfo(@RequestBody ModifyMemberInfoRequest modifyRequest,
+		HttpServletRequest request) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		memberService.modifyMemberInfo(modifyRequest, accessToken);
+
+		return ResponseEntity.ok("회원 정보 수정 완료");
 	}
 
 	@Operation(summary = "회원탈퇴", description = "회원탈퇴 메서드입니다.")
