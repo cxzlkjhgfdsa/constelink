@@ -1,6 +1,8 @@
 package com.srp.constelinkbeneficiary.grpc;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -49,18 +51,19 @@ public class BeneficiaryGrpcService extends BeneficiaryGrpcServiceGrpc.Beneficia
 	public void getBeneficiariesRpc(BeneficiariesInfoReq request,
 		StreamObserver<BeneficiariesInfoRes> responseObserver) {
 		List<Beneficiary> beneficiaries = beneficiaryRepository.findAllById(request.getIdList());
-		List<BeneficiaryInfoRes> beneficiaryInfoResList = beneficiaries.stream().map((beneficiary)->BeneficiaryInfoRes.newBuilder()
+		Map<Long, BeneficiaryInfoRes> beneficiaryInfoResMap = new HashMap<>();
+		beneficiaries.stream().forEach((beneficiary)->{
+			beneficiaryInfoResMap.put(beneficiary.getId(),BeneficiaryInfoRes.newBuilder()
 				.setBirthday(Timestamp.newBuilder().setSeconds(beneficiary.getBeneficiaryBirthday().getTime()))
 				.setDisease(beneficiary.getBeneficiaryDisease())
 				.setName(beneficiary.getBeneficiaryName())
 				.setHospital(beneficiary.getHospital().getHospitalName())
 				.setPhoto(beneficiary.getBeneficiaryPhoto())
 				.setStatus(beneficiary.getBeneficiaryStatus())
-				.build()
-			).collect(Collectors.toList());
-
+				.build());
+		});
 		BeneficiariesInfoRes beneficiariesInfoRes = BeneficiariesInfoRes.newBuilder()
-			.addAllBeneficiaries(beneficiaryInfoResList)
+			.putAllBeneficiaries(beneficiaryInfoResMap)
 			.build();
 		responseObserver.onNext(beneficiariesInfoRes);
 		responseObserver.onCompleted();

@@ -10,7 +10,7 @@ import lombok.Data;
 public class BeneficiaryInfoResponse {
 
 	private String beneficiaryName;
-	private Date beneficiaryBirthday;
+	private Long beneficiaryBirthday;
 	private String beneficiaryDisease;
 	private String beneficiaryPhoto;
 	private int beneficiaryAmountRaised;

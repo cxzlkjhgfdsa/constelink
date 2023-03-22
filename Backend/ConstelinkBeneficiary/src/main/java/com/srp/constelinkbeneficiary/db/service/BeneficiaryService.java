@@ -36,7 +36,7 @@ public class BeneficiaryService {
 			.beneficiaryAmountRaised(beneficiary.getBeneficiaryAmountRaised())
 			.beneficiaryName(beneficiary.getBeneficiaryName())
 			.beneficiaryPhoto(beneficiary.getBeneficiaryPhoto())
-			.beneficiaryBirthday(beneficiary.getBeneficiaryBirthday())
+			.beneficiaryBirthday(beneficiary.getBeneficiaryBirthday().getTime())
 			.build();
 		return beneficiaryInfoDto;
 	}
@@ -47,7 +47,7 @@ public class BeneficiaryService {
 
 		Page<BeneficiaryInfoResponse> beneficiaryInfoList = beneficiaryPage.map(m -> BeneficiaryInfoResponse.builder()
 				.beneficiaryName(m.getBeneficiaryName())
-				.beneficiaryBirthday(m.getBeneficiaryBirthday())
+				.beneficiaryBirthday(m.getBeneficiaryBirthday().getTime())
 				.beneficiaryPhoto(m.getBeneficiaryPhoto())
 				.beneficiaryAmountRaised(m.getBeneficiaryAmountRaised())
 				.beneficiaryAmountGoal(m.getBeneficiaryAmountGoal())
@@ -77,7 +77,7 @@ public class BeneficiaryService {
 			.beneficiaryAmountRaised(beneficiary.getBeneficiaryAmountRaised())
 			.beneficiaryName(beneficiary.getBeneficiaryName())
 			.beneficiaryPhoto(beneficiary.getBeneficiaryPhoto())
-			.beneficiaryBirthday(beneficiary.getBeneficiaryBirthday())
+			.beneficiaryBirthday(beneficiary.getBeneficiaryBirthday().getTime())
 			.build();
 		return beneficiaryInfoDto;
 	}
