@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/Header';
+import ParentComponent from './components/modal/Modal';
 import CustomerMyPage from './pages/CustomerMyPage';
 import Login from './pages/Login';
 
@@ -9,7 +10,8 @@ function App() {
     <div className="App">
       {/* <Login/> */}
       <Header/>
-      <CustomerMyPage/>
+      {/* <ParentComponent/> */}
+      {/* <CustomerMyPage/> */}
     </div>
   );
 }
