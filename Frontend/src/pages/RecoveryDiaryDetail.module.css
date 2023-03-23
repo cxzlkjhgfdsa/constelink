@@ -6,12 +6,12 @@
 }
 
 .item {
+  width: 100%;
   flex-direction : column;
   border-color : black;
 }
 
 .cardIndex {
-  width: 100%;
   margin-bottom: 20px;
   background-color: #fff;
   border-radius: 5px;
@@ -137,11 +137,16 @@
   min-height: 30px;
   background-color: #646298;
   color: white;
+  /* 좌상, 우상, 우하, 좌하 */
+  border-radius: 10px 10px 0 0;
 }
 
 /* 치료사진 */
 .recordImage {
   width: 100%;
+  min-height : 300px;
+  /* 이미지를 크기에 맞게 조정 */
+  object-fit : contain;
 }
 
 /* 치료내용 */
