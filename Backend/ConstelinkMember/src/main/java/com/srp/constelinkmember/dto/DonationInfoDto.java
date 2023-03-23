@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DonationInfoDto {
-	int totalFundCount;
-	int totalDonationPrice;
+	private int totalFundCount;
+	private int totalDonationPrice;
 }

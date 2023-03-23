@@ -12,8 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginInfoDto {
-	String accessToken;
-	String refreshToken;
-	String nickname;
-	String profile;
+	private String accessToken;
+	private String refreshToken;
+	private String nickname;
+	private String profile;
 }

@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginRequest {
-	String key;
-	boolean flag;
+	private String key;
+	private boolean flag;
 
 }

@@ -3,12 +3,12 @@ package com.srp.constelinkmember.security.jwt;
 import java.security.Key;
 import java.util.Date;
 
-import com.srp.constelinkmember.common.exception.CustomException;
-import com.srp.constelinkmember.common.exception.CustomExceptionType;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.srp.constelinkmember.common.exception.CustomException;
+import com.srp.constelinkmember.common.exception.CustomExceptionType;
 import com.srp.constelinkmember.dto.enums.Role;
 
 import io.jsonwebtoken.Claims;
@@ -46,7 +46,7 @@ public class TokenProvider implements InitializingBean {
 		return Jwts.builder()
 			.setSubject(String.valueOf(memberId))
 			.setIssuedAt(now)
-			.setExpiration(new Date(now.getTime() + accessTokenValidTime*1000))
+			.setExpiration(new Date(now.getTime() + accessTokenValidTime * 1000))
 			.claim(AUTHORITIES_KEY, role)
 			.signWith(key, SignatureAlgorithm.HS512)
 			.compact();
@@ -57,23 +57,23 @@ public class TokenProvider implements InitializingBean {
 
 		String refreshToken = Jwts.builder()
 			.setIssuedAt(now)
-			.setExpiration(new Date(now.getTime() +refreshTokenValidTime*1000))
+			.setExpiration(new Date(now.getTime() + refreshTokenValidTime * 1000))
 			.signWith(key, SignatureAlgorithm.HS512)
 			.compact();
 
-		return  refreshToken;
+		return refreshToken;
 	}
 
-	public String resolveToken(String token) {
+	public String resolveToken(String token) {  // Token에 들어있는 멤버아이디 얻기
 		String accessToken = isBearerToken(token);
 		return Jwts.parser()
-				.setSigningKey(key)
-				.parseClaimsJws(accessToken)
-				.getBody()
-				.getSubject();
+			.setSigningKey(key)
+			.parseClaimsJws(accessToken)
+			.getBody()
+			.getSubject();
 	}
 
-	public String getRoleByToken(String token){
+	public String getRoleByToken(String token) {  // Token 에 들어있는 role 얻기
 		String accessToken = isBearerToken(token);
 		Claims body = Jwts.parser()
 			.setSigningKey(key)
@@ -82,28 +82,28 @@ public class TokenProvider implements InitializingBean {
 		return (String)body.get(AUTHORITIES_KEY);
 	}
 
-
 	private String isBearerToken(String token) {
 		String[] tokenInfo = token.split(" ");
 
-		if(!"Bearer".equals(tokenInfo[0])){
+		if (!"Bearer".equals(tokenInfo[0])) {
 			throw new CustomException(CustomExceptionType.NULL_TOKEN_EXCEPTION);
-		}else{
+		} else {
 			return tokenInfo[1];
 		}
 	}
+
 	public long getExpiration(String token) {
 
 		String accessToken = isBearerToken(token);
 
-			Date expiration = Jwts
-				.parserBuilder()
-				.setSigningKey(key)
-				.build()
-				.parseClaimsJws(accessToken)
-				.getBody()
-				.getExpiration();
-			return expiration.getTime();
+		Date expiration = Jwts
+			.parserBuilder()
+			.setSigningKey(key)
+			.build()
+			.parseClaimsJws(accessToken)
+			.getBody()
+			.getExpiration();
+		return expiration.getTime();
 	}
 
 }

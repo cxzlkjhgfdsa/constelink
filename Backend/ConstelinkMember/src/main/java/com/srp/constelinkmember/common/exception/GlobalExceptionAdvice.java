@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.srp.constelinkmember.dto.response.ExceptionResponse;
 
 import io.grpc.StatusRuntimeException;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
@@ -16,6 +17,11 @@ public class GlobalExceptionAdvice {
 	@ExceptionHandler(value = CustomException.class)
 	public ResponseEntity<ExceptionResponse> customExceptionHandler(CustomException e) {
 		return getResponseEntity(e.getException());
+	}
+
+	@ExceptionHandler(value = ExpiredJwtException.class)
+	public ResponseEntity<ExceptionResponse> JWTExceptionHandler(ExpiredJwtException e) {
+		return getResponseEntity(CustomExceptionType.JWT_EXPIRED_EXCEPTION);
 	}
 
 	@ExceptionHandler(value = RuntimeException.class)

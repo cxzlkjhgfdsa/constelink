@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -26,6 +27,9 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
 	private final RedisTemplate<String, Object> redisTemplate;
 
+	@Value("${login.redirect-url}")
+	private String redirect;
+
 	/**
 	 * PrincipalOauth2UserService 에서 return 한 OAuthUser 타입의 객체가 ContextHolder에 올라가있기 때문에 Authentication 객체에서 꺼낼 수 있음
 	 *
@@ -38,21 +42,21 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-		Authentication authentication) throws IOException{
+		Authentication authentication) throws IOException {
 		MemberPrincipalDetail principalDetail = (MemberPrincipalDetail)authentication.getPrincipal();
 		Long memberId = principalDetail.getMemberId();
 
 		UUID randomId = UUID.randomUUID();
 
-		String redisKey = "ID:"+randomId;
+		String redisKey = "ID:" + randomId;
 		redisTemplate.opsForValue().set(redisKey, memberId, 10, TimeUnit.SECONDS);
 
-		response.sendRedirect(UriComponentsBuilder.fromUriString("http://localhost:3000/")
-				.queryParam("connect-id", redisKey)
-				.queryParam("flag" , principalDetail.isInactive())
-				.build()
-				.encode(StandardCharsets.UTF_8)
-				.toUriString());
+		response.sendRedirect(UriComponentsBuilder.fromUriString(redirect)
+			.queryParam("connect-id", redisKey)
+			.queryParam("flag", principalDetail.isInactive())
+			.build()
+			.encode(StandardCharsets.UTF_8)
+			.toUriString());
 		log.info("Success Handler 입니다 회원의 PK 값은 ==  " + principalDetail.getMemberId());
 		log.info("OAuth2 Login 성공");
 	}

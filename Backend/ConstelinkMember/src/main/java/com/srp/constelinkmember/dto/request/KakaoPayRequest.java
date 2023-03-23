@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class KakaoPayRequest {
 
-	String itemName;
-	String amount;
+	private String itemName;
+	private String amount;
 }
