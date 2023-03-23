@@ -25,8 +25,14 @@ public class KakaoPayService {
 	static final String cid = "TC0ONETIME"; // 가맹점 테스트 코드
 	@Value("${kakao.admin.key}")
 	private String admin_Key;
-	@Value("${kakao.base.url}")
-	private String baseUrl;
+	@Value("${kakao.base.fail-url}")
+	private String failUrl;
+
+	@Value("${kakao.base.success-url}")
+	private String successUrl;
+
+	@Value("${kakao.base.cancel-url}")
+	private String cancelUrl;
 	private KakaoReadyResponse kakaoReady;
 
 	private final String oreder_id = "patient_donation";
@@ -43,9 +49,9 @@ public class KakaoPayService {
 		parameters.add("total_amount", kakaoPayRequest.getAmount());
 		parameters.add("vat_amount", "0");
 		parameters.add("tax_free_amount", "10000");
-		parameters.add("approval_url", baseUrl + "/payment/success"); // 성공 시 redirect url
-		parameters.add("cancel_url", baseUrl + "/payment/cancel"); // 취소 시 redirect url
-		parameters.add("fail_url", baseUrl + "/payment/fail"); // 실패 시 redirect url
+		parameters.add("approval_url", successUrl); // 성공 시 redirect url
+		parameters.add("cancel_url", cancelUrl); // 취소 시 redirect url
+		parameters.add("fail_url", failUrl); // 실패 시 redirect url
 
 		// 파라미터, 헤더
 		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
