@@ -21,7 +21,7 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, BookmarkId> 
 	HashSet<Long> findBookmarksByIdMemberId(Long memberId);
 
 	@Query(value = "SELECT u FROM Bookmark u JOIN FETCH u.fundraising JOIN FETCH u.fundraising.category WHERE u.id.memberId = :memberId", countQuery = "SELECT count(u) FROM Bookmark u WHERE u.id.memberId = :memberId")
-	Page<Bookmark> findBookmarksByIdMemberIdForRead(@Param(value="memberId") Long memberId, Pageable pageable);
+	Page<Bookmark> findBookmarksByIdMemberIdForRead(@Param(value = "memberId") Long memberId, Pageable pageable);
 	// @Query("SELECT u.id.fundraisingId FROM Bookmark u")
 	// HashSet<Long> findBookmarksByIdMemberId(Long memberId, Pageable pageable);
 

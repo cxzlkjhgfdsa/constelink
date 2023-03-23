@@ -13,7 +13,7 @@ import com.srp.constelinkfundraising.db.entity.Fundraising;
 public interface FundraisingRepository extends JpaRepository<Fundraising, Long> {
 
 	@Query(value = "SELECT u FROM Fundraising u join FETCH u.category",
-	countQuery = "SELECT count(u) FROM Fundraising u")
+		countQuery = "SELECT count(u) FROM Fundraising u")
 	Page<Fundraising> findAll(Pageable pageable);
 
 	Page<Fundraising> findFundraisingsByFundraisingIsDone(Boolean done, Pageable pageable);

@@ -13,7 +13,6 @@ public class MakeFundraisingRequest {
 
 	private Long categoryId;
 
-
 	private int fundraisingAmountGoal;
 
 	private Long fundraisingEndTime;

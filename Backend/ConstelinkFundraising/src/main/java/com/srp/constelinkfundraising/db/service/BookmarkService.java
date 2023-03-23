@@ -68,7 +68,8 @@ public class BookmarkService {
 
 		// Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberId(memberId, PageRequest.of(page, size));
 
-		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberIdForRead(memberId, PageRequest.of(page,size));
+		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberIdForRead(memberId,
+			PageRequest.of(page, size));
 
 		// List<Category> categories = categoryRepository.findAll();
 		System.out.println(bookmarks.getContent().get(0));
