@@ -14,6 +14,7 @@ import com.srp.constelinkmember.dto.request.SaveDonationRequest;
 import com.srp.constelinkmember.dto.response.DonationDetailsResponse;
 import com.srp.constelinkmember.security.jwt.TokenProvider;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class DonationController {
 	private final DonationService donationService;
 	private final TokenProvider tokenProvider;
 
+	@Operation(summary = "기부저장", description = "기부내역 저장 메서드.")
 	@PostMapping("/save")
 	public ResponseEntity saveDonation(@RequestBody SaveDonationRequest saveRequest, HttpServletRequest request) {
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
@@ -40,6 +42,7 @@ public class DonationController {
 		return ResponseEntity.ok("정상적으로 저장 되었습니다");
 	}
 
+	@Operation(summary = "기부내역 조회", description = "기부내역 조회 메서드.")
 	@GetMapping("/list")
 	public ResponseEntity listDonation(@RequestParam("page") int page, HttpServletRequest request) {
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
