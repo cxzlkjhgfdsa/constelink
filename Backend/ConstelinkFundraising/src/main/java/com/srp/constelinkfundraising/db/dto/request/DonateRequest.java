@@ -4,11 +4,11 @@ import lombok.Getter;
 
 @Getter
 public class DonateRequest {
-	private Long id;
+	private Long fundraisingId;
 	private int cash;
 
 	public void setId(Long id) {
-		this.id = id;
+		this.fundraisingId = id;
 	}
 
 	public void setCash(int cash) {

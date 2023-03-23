@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FundraisingBeneficiaryResponse {
 
-	private Long id;
+	private Long fundraisingId;
 	private Long beneficiaryId;
 	private String categoryName;
 	private int fundraisingAmountRaised;

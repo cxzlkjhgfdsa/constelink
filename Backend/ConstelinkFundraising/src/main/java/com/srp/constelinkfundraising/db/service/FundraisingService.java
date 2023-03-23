@@ -54,7 +54,8 @@ public class FundraisingService {
 		Page<Fundraising> fundraising;
 		HashSet<Long> memberBookmark =
 			memberId < 1 ? new HashSet<>() : bookmarkRepository.findBookmarksByIdMemberId(memberId);
-
+		System.out.println(memberId);
+		System.out.println(memberBookmark);
 		switch (sortType) {
 			case ALL:
 				fundraising = fundraisingRepository.findAll(PageRequest.of(page, size));
@@ -105,7 +106,7 @@ public class FundraisingService {
 							.atZone(ZoneId.of("Asia/Seoul"))
 							.toInstant()
 							.toEpochMilli())
-					.id(fund.getId())
+					.fundraisingId(fund.getId())
 					.fundraisingEndTime(
 						fund.getFundraisingEndTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
 					.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
@@ -187,7 +188,7 @@ public class FundraisingService {
 				.fundraisingAmountRaised(fund.getFundraisingAmountRaised())
 				.fundraisingStartTime(
 					fund.getFundraisingStartTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
-				.id(fund.getId())
+				.fundraisingId(fund.getId())
 				.fundraisingEndTime(
 					fund.getFundraisingEndTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
 				.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
@@ -203,7 +204,7 @@ public class FundraisingService {
 	@Transactional
 	public FundraisingResponse donateFundraising(DonateRequest donateRequest) {
 		// 돈 0원 이상 체크, 해당 기부 id 체크
-		Fundraising fundraising = fundraisingRepository.findFundraisingById(donateRequest.getId())
+		Fundraising fundraising = fundraisingRepository.findFundraisingById(donateRequest.getFundraisingId())
 			.orElseThrow(() -> new CustomException(CustomExceptionType.FUNDRAISING_NOT_FOUND));
 		if (donateRequest.getCash() <= 0) {
 			throw new CustomException(CustomExceptionType.DONATION_MONEY_ERROR);
@@ -219,7 +220,7 @@ public class FundraisingService {
 			.fundraisingAmountRaised(fundraising.getFundraisingAmountRaised())
 			.fundraisingStartTime(
 				fundraising.getFundraisingStartTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
-			.id(fundraising.getId())
+			.fundraisingId(fundraising.getId())
 			.fundraisingEndTime(
 				fundraising.getFundraisingEndTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
 			.fundraisingAmountGoal(fundraising.getFundraisingAmountGoal())

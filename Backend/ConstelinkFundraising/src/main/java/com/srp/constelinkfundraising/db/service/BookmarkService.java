@@ -89,7 +89,7 @@ public class BookmarkService {
 					.atZone(ZoneId.of("Asia/Seoul"))
 					.toInstant()
 					.toEpochMilli())
-				.id(bookmark.getFundraising().getId())
+				.fundraisingId(bookmark.getFundraising().getId())
 				.fundraisingStartTime(bookmark.getFundraising()
 					.getFundraisingStartTime()
 					.atZone(ZoneId.of("Asia/Seoul"))

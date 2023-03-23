@@ -38,9 +38,8 @@ public class FundraisingController {
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
 		@RequestParam(name = "sort_by", required = false, defaultValue = "ALL") FundraisingSortType sortType,
-		@RequestParam(name = "memerId", required = false, defaultValue = "0") Long memberId
+		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId
 	) {
-
 		Page<FundraisingResponse> fundraisingResponses
 			= fundraisingService.getFundraisings(page - 1, size, sortType, memberId);
 		return ResponseEntity.ok(fundraisingResponses);
