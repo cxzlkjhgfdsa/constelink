@@ -35,7 +35,7 @@ import io.grpc.ManagedChannelBuilder;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class FundraisingService {
 
@@ -200,6 +200,7 @@ public class FundraisingService {
 		return getFundraisingResponsePage;
 	}
 
+	@Transactional
 	public FundraisingResponse donateFundraising(DonateRequest donateRequest) {
 		// 돈 0원 이상 체크, 해당 기부 id 체크
 		Fundraising fundraising = fundraisingRepository.findFundraisingById(donateRequest.getId())
@@ -228,6 +229,7 @@ public class FundraisingService {
 		return fundraisingResponse;
 	}
 
+	@Transactional
 	public Fundraising makeFundraising(MakeFundraisingRequest makeFundraisingRequest) {
 		Fundraising fundraising = Fundraising.builder()
 			.fundraisingAmountGoal(makeFundraisingRequest.getFundraisingAmountGoal())

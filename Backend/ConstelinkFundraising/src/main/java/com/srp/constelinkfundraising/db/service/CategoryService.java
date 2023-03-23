@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.srp.constelinkfundraising.db.dto.enums.CategorySortType;
 import com.srp.constelinkfundraising.db.entity.Category;
@@ -13,9 +14,11 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CategoryService {
 	private final CategoryRepository categoryRepository;
 
+	@Transactional
 	public String addCategory(String categoryName) {
 		if (categoryRepository.existsCategoryByCategoryName(categoryName)) {
 			return "이미 존재합니다.";
@@ -28,6 +31,7 @@ public class CategoryService {
 		return "카테고리 추가 성공";
 	}
 
+	@Transactional
 	public String deleteCategory(Long categoryId) {
 		categoryRepository.deleteById(categoryId);
 		return "카테고리 삭제 성공";

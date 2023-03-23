@@ -32,7 +32,7 @@ import io.grpc.ManagedChannelBuilder;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BookmarkService {
 	private final BookmarkRepository bookmarkRepository;
@@ -45,6 +45,7 @@ public class BookmarkService {
 	public BeneficiaryGrpcServiceGrpc.BeneficiaryGrpcServiceBlockingStub stub = BeneficiaryGrpcServiceGrpc.newBlockingStub(
 		channel);
 
+	@Transactional
 	public Boolean bookmarkFundraising(BookmarkFundraisingRequest bookmarkFundraisingRequest) {
 		//fundraisingId 검증 필요하면 추가하기(의문)
 		BookmarkId bookmarkId = new BookmarkId(bookmarkFundraisingRequest.getMemberId(),
