@@ -3,6 +3,7 @@ package com.srp.constelinkbeneficiary.common.exception;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import com.srp.constelinkbeneficiary.db.dto.response.ExceptionResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,8 @@ public class GlobalExceptionAdvice {
 	@ExceptionHandler(value = Exception.class)
 	public ResponseEntity<ExceptionResponse> exceptionHandler(Exception e) {
 		log.info(e.getMessage());
-		return getResponseEntity(com.srp.constelinkbeneficiary.common.exception.CustomExceptionType.INTERNAL_SERVER_ERROR);
+		return getResponseEntity(
+			com.srp.constelinkbeneficiary.common.exception.CustomExceptionType.INTERNAL_SERVER_ERROR);
 	}
 
 	private ResponseEntity<ExceptionResponse> getResponseEntity(

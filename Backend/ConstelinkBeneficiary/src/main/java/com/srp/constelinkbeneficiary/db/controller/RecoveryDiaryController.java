@@ -32,10 +32,10 @@ public class RecoveryDiaryController {
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
 		@RequestParam(value = "sort_by", required = false, defaultValue = "ID_ASC") RecoveryDiarySortType sortType) {
-		Page<RecoveryDiaryResponse> recoveryDiaries = recoveryDiaryService.getRecoveryDiaryList(page-1, size, sortType);
+		Page<RecoveryDiaryResponse> recoveryDiaries = recoveryDiaryService.getRecoveryDiaryList(page - 1, size,
+			sortType);
 		return ResponseEntity.ok(recoveryDiaries);
 	}
-
 
 	@Operation(summary = "회복일지 등록", description = "beneficiaryId, title, content, amountSpent, beneficiaryId 기입")
 	@PostMapping("")
@@ -44,6 +44,5 @@ public class RecoveryDiaryController {
 	) {
 		return ResponseEntity.ok(recoveryDiaryService.addRecoveryDiary(recoveryDiaryRequest));
 	}
-
 
 }

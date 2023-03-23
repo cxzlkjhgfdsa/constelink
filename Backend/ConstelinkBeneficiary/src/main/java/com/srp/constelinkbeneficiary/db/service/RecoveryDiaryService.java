@@ -21,7 +21,7 @@ import com.srp.constelinkbeneficiary.db.repository.RecoveryDiaryRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class RecoveryDiaryService {
 	private final RecoveryDiaryRepository recoveryDiaryRepository;
@@ -31,34 +31,43 @@ public class RecoveryDiaryService {
 		Page<RecoveryDiary> recoveryDiaryPage;
 		switch (sortType) {
 			case ID_ASC:
-				recoveryDiaryPage = recoveryDiaryRepository.findAll(PageRequest.of(page,size, Sort.by("id").ascending()));
+				recoveryDiaryPage = recoveryDiaryRepository.findAll(
+					PageRequest.of(page, size, Sort.by("id").ascending()));
 				break;
 			case ID_DESC:
-				recoveryDiaryPage = recoveryDiaryRepository.findAll(PageRequest.of(page,size, Sort.by("id").descending()));
+				recoveryDiaryPage = recoveryDiaryRepository.findAll(
+					PageRequest.of(page, size, Sort.by("id").descending()));
 				break;
 			default:
-				recoveryDiaryPage = recoveryDiaryRepository.findAll(PageRequest.of(page,size, Sort.by("id").ascending()));
+				recoveryDiaryPage = recoveryDiaryRepository.findAll(
+					PageRequest.of(page, size, Sort.by("id").ascending()));
 				break;
 		}
-		Page<RecoveryDiaryResponse> recoveryDiaryResponses = recoveryDiaryPage.map(recoveryDiary -> new RecoveryDiaryResponse().builder()
-			.recoveryDiaryTitle(recoveryDiary.getRecoveryDiaryTitle())
-			.photo(recoveryDiary.getRecoveryDiaryPhoto())
-			.content(recoveryDiary.getRecoveryDiaryContent())
-			.beneficiaryId(recoveryDiary.getBeneficiary().getId())
-			.beneficiaryName(recoveryDiary.getBeneficiary().getBeneficiaryName())
-			.id(recoveryDiary.getId())
-			.amountSpent(recoveryDiary.getRecoveryDiaryAmountSpent())
-			.regdate(recoveryDiary.getRecoveryDiaryRegdate().now().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
-			.build());
-
+		Page<RecoveryDiaryResponse> recoveryDiaryResponses = recoveryDiaryPage.map(
+			recoveryDiary -> new RecoveryDiaryResponse().builder()
+				.recoveryDiaryTitle(recoveryDiary.getRecoveryDiaryTitle())
+				.photo(recoveryDiary.getRecoveryDiaryPhoto())
+				.content(recoveryDiary.getRecoveryDiaryContent())
+				.beneficiaryId(recoveryDiary.getBeneficiary().getId())
+				.beneficiaryName(recoveryDiary.getBeneficiary().getBeneficiaryName())
+				.id(recoveryDiary.getId())
+				.amountSpent(recoveryDiary.getRecoveryDiaryAmountSpent())
+				.regdate(recoveryDiary.getRecoveryDiaryRegdate()
+					.now()
+					.atZone(ZoneId.of("Asia/Seoul"))
+					.toInstant()
+					.toEpochMilli())
+				.build());
 
 		return recoveryDiaryResponses;
 	}
 
+	@Transactional
 	public RecoveryDiaryResponse addRecoveryDiary(RecoveryDiaryRequest recoveryDiaryRequest) {
 		RecoveryDiary recoveryDiary = new RecoveryDiary().builder()
-			.beneficiary(beneficiaryRepository.findBeneficiaryById(recoveryDiaryRequest.getBeneficiaryId()).orElseThrow(() -> new CustomException(
-				CustomExceptionType.BENEFICIARY_NOT_FOUND)))
+			.beneficiary(beneficiaryRepository.findBeneficiaryById(recoveryDiaryRequest.getBeneficiaryId())
+				.orElseThrow(() -> new CustomException(
+					CustomExceptionType.BENEFICIARY_NOT_FOUND)))
 			.recoveryDiaryContent(recoveryDiaryRequest.getContent())
 			.recoveryDiaryPhoto(recoveryDiaryRequest.getPhoto())
 			.recoveryDiaryTitle(recoveryDiaryRequest.getTitle())
@@ -74,10 +83,13 @@ public class RecoveryDiaryService {
 			.content(recoveryDiaryRequest.getContent())
 			.photo(recoveryDiaryRequest.getPhoto())
 			.recoveryDiaryTitle(recoveryDiary.getRecoveryDiaryTitle())
-			.regdate(recoveryDiary.getRecoveryDiaryRegdate().now().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
+			.regdate(recoveryDiary.getRecoveryDiaryRegdate()
+				.now()
+				.atZone(ZoneId.of("Asia/Seoul"))
+				.toInstant()
+				.toEpochMilli())
 			.build();
 
 	}
-
 
 }

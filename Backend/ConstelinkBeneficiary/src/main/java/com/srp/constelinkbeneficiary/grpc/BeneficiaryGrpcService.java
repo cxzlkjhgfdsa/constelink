@@ -20,12 +20,11 @@ import com.srp.constelinkbeneficiary.common.exception.CustomExceptionType;
 import com.srp.constelinkbeneficiary.db.entity.Beneficiary;
 import com.srp.constelinkbeneficiary.db.repository.BeneficiaryRepository;
 
-
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BeneficiaryGrpcService extends BeneficiaryGrpcServiceGrpc.BeneficiaryGrpcServiceImplBase {
 	private final BeneficiaryRepository beneficiaryRepository;
@@ -52,8 +51,8 @@ public class BeneficiaryGrpcService extends BeneficiaryGrpcServiceGrpc.Beneficia
 		StreamObserver<BeneficiariesInfoRes> responseObserver) {
 		List<Beneficiary> beneficiaries = beneficiaryRepository.findAllById(request.getIdList());
 		Map<Long, BeneficiaryInfoRes> beneficiaryInfoResMap = new HashMap<>();
-		beneficiaries.stream().forEach((beneficiary)->{
-			beneficiaryInfoResMap.put(beneficiary.getId(),BeneficiaryInfoRes.newBuilder()
+		beneficiaries.stream().forEach((beneficiary) -> {
+			beneficiaryInfoResMap.put(beneficiary.getId(), BeneficiaryInfoRes.newBuilder()
 				.setBirthday(Timestamp.newBuilder().setSeconds(beneficiary.getBeneficiaryBirthday().getTime()))
 				.setDisease(beneficiary.getBeneficiaryDisease())
 				.setName(beneficiary.getBeneficiaryName())

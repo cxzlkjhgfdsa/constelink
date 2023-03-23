@@ -16,6 +16,7 @@ public interface BeneficiaryRepository extends JpaRepository<Beneficiary, Long> 
 	<S extends Beneficiary> S saveAndFlush(S entity);
 
 	Optional<Beneficiary> findBeneficiaryById(Long id);
+
 	Page<Beneficiary> findBeneficiariesByHospitalId(Long id, Pageable pageable);
 
 	List<Beneficiary> findAllByIdIn(List<Long> idList);

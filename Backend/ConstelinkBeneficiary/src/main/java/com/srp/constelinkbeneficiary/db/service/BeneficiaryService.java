@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class BeneficiaryService {
 
 	private final BeneficiaryRepository beneficiaryRepository;
@@ -28,7 +28,8 @@ public class BeneficiaryService {
 
 	public BeneficiaryInfoResponse findBeneficiaryById(Long id) {
 
-		Beneficiary beneficiary = beneficiaryRepository.findBeneficiaryById(id).orElseThrow(() -> new CustomException(CustomExceptionType.BENEFICIARY_NOT_FOUND));
+		Beneficiary beneficiary = beneficiaryRepository.findBeneficiaryById(id)
+			.orElseThrow(() -> new CustomException(CustomExceptionType.BENEFICIARY_NOT_FOUND));
 
 		BeneficiaryInfoResponse beneficiaryInfoDto = BeneficiaryInfoResponse.builder()
 			.beneficiaryDisease(beneficiary.getBeneficiaryDisease())
@@ -43,25 +44,28 @@ public class BeneficiaryService {
 
 	public Page<BeneficiaryInfoResponse> findBeneficiariesByHospitalId(Long hospitalId, int page, int size) {
 
-		Page<Beneficiary>beneficiaryPage = beneficiaryRepository.findBeneficiariesByHospitalId(hospitalId, PageRequest.of(page, size));
+		Page<Beneficiary> beneficiaryPage = beneficiaryRepository.findBeneficiariesByHospitalId(hospitalId,
+			PageRequest.of(page, size));
 
 		Page<BeneficiaryInfoResponse> beneficiaryInfoList = beneficiaryPage.map(m -> BeneficiaryInfoResponse.builder()
-				.beneficiaryName(m.getBeneficiaryName())
-				.beneficiaryBirthday(m.getBeneficiaryBirthday().getTime())
-				.beneficiaryPhoto(m.getBeneficiaryPhoto())
-				.beneficiaryAmountRaised(m.getBeneficiaryAmountRaised())
-				.beneficiaryAmountGoal(m.getBeneficiaryAmountGoal())
-				.beneficiaryDisease(m.getBeneficiaryDisease())
-				.build()
-			);
+			.beneficiaryName(m.getBeneficiaryName())
+			.beneficiaryBirthday(m.getBeneficiaryBirthday().getTime())
+			.beneficiaryPhoto(m.getBeneficiaryPhoto())
+			.beneficiaryAmountRaised(m.getBeneficiaryAmountRaised())
+			.beneficiaryAmountGoal(m.getBeneficiaryAmountGoal())
+			.beneficiaryDisease(m.getBeneficiaryDisease())
+			.build()
+		);
 
 		return beneficiaryInfoList;
 	}
 
+	@Transactional
 	public BeneficiaryInfoResponse addBeneficiary(BeneficiaryReqeust beneficiaryReqeust) {
 		Beneficiary beneficiary = new Beneficiary().builder()
-			.hospital(hospitalRepository.findHospitalById(beneficiaryReqeust.getHospitalId()).orElseThrow(() -> new CustomException(
-				CustomExceptionType.HOSPITAL_NOT_FOUND)))
+			.hospital(hospitalRepository.findHospitalById(beneficiaryReqeust.getHospitalId())
+				.orElseThrow(() -> new CustomException(
+					CustomExceptionType.HOSPITAL_NOT_FOUND)))
 			.beneficiaryName(beneficiaryReqeust.getName())
 			.beneficiaryDisease(beneficiaryReqeust.getDisease())
 			.beneficiaryPhoto(beneficiaryReqeust.getPhoto())
@@ -69,7 +73,7 @@ public class BeneficiaryService {
 			.beneficiaryStatus("RAISING")
 			.beneficiaryBirthday(beneficiaryReqeust.getBirthday())
 			.build();
-		beneficiary =beneficiaryRepository.saveAndFlush(beneficiary);
+		beneficiary = beneficiaryRepository.saveAndFlush(beneficiary);
 
 		BeneficiaryInfoResponse beneficiaryInfoDto = BeneficiaryInfoResponse.builder()
 			.beneficiaryDisease(beneficiary.getBeneficiaryDisease())
@@ -81,7 +85,5 @@ public class BeneficiaryService {
 			.build();
 		return beneficiaryInfoDto;
 	}
-
-
 
 }

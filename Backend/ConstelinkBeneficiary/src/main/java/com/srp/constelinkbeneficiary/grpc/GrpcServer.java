@@ -14,8 +14,8 @@ public class GrpcServer {
 	public int PORT = 9090;
 	private Server server;
 
-
-	public GrpcServer(HospitalGrpcService hospitalGrpcService, BeneficiaryGrpcService beneficiaryGrpcService) throws IOException{
+	public GrpcServer(HospitalGrpcService hospitalGrpcService, BeneficiaryGrpcService beneficiaryGrpcService) throws
+		IOException {
 		this.server = ServerBuilder.forPort(this.PORT)
 			.addService(beneficiaryGrpcService)
 			.addService(hospitalGrpcService)

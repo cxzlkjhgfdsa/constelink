@@ -1,7 +1,7 @@
 package com.srp.constelinkbeneficiary.grpc;
 
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.srp.constelinkbeneficiary.common.exception.CustomException;
 import com.srp.constelinkbeneficiary.common.exception.CustomExceptionType;
@@ -15,6 +15,7 @@ import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class HospitalGrpcService extends HospitalGrpcServiceGrpc.HospitalGrpcServiceImplBase {
 

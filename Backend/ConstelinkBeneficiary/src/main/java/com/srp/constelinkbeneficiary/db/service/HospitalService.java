@@ -16,7 +16,7 @@ import com.srp.constelinkbeneficiary.db.repository.HospitalRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class HospitalService {
 
@@ -25,7 +25,7 @@ public class HospitalService {
 	public HospitalInfoResponse findHospitalById(Long id) {
 		// 병원 존재 확인
 		Hospital hospital = hospitalRepository.findHospitalById(id)
-			.orElseThrow(()-> new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND) );
+			.orElseThrow(() -> new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND));
 
 		HospitalInfoResponse hospitalInfoResponse
 			= HospitalInfoResponse.builder()
@@ -42,15 +42,18 @@ public class HospitalService {
 	public Page<Hospital> hospitalInfoList(int page, int size, HospitalSortType sortBy) {
 		Page<Hospital> ResponseHospitalInfoList;
 		// 0이면 오름차순+
-		switch(sortBy){
+		switch (sortBy) {
 			case ID_ASC:
-				ResponseHospitalInfoList = hospitalRepository.findAll(PageRequest.of(page,size, Sort.by("id").ascending()));
+				ResponseHospitalInfoList = hospitalRepository.findAll(
+					PageRequest.of(page, size, Sort.by("id").ascending()));
 				break;
 			case ID_DESC:
-				ResponseHospitalInfoList = hospitalRepository.findAll(PageRequest.of(page,size, Sort.by("id").descending()));
+				ResponseHospitalInfoList = hospitalRepository.findAll(
+					PageRequest.of(page, size, Sort.by("id").descending()));
 				break;
 			default:
-				ResponseHospitalInfoList = hospitalRepository.findAll(PageRequest.of(page,size, Sort.by("id").ascending()));
+				ResponseHospitalInfoList = hospitalRepository.findAll(
+					PageRequest.of(page, size, Sort.by("id").ascending()));
 				break;
 		}
 

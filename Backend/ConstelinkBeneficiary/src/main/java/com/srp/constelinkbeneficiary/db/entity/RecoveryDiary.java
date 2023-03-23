@@ -45,7 +45,7 @@ public class RecoveryDiary {
 	@Column(name = "recovery_diary_photo", length = 100)
 	private String recoveryDiaryPhoto;
 
-	@Column(name= "recovery_diary_title")
+	@Column(name = "recovery_diary_title")
 	private String recoveryDiaryTitle;
 	@Lob
 	@Column(name = "recovery_diary_content")

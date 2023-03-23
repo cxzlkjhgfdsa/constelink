@@ -8,9 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.srp.constelinkbeneficiary.db.entity.RecoveryDiary;
 
-public interface RecoveryDiaryRepository extends JpaRepository<RecoveryDiary,Long> {
+public interface RecoveryDiaryRepository extends JpaRepository<RecoveryDiary, Long> {
 	Page<RecoveryDiary> findAll(Pageable pageable);
+
 	List<RecoveryDiary> getRecoveryDiariesByBeneficiaryId(Long id);
-
-
 }

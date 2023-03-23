@@ -9,7 +9,6 @@ public enum CustomExceptionType {
 	BENEFICIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "E104", "해당 ID 수혜자 정보가 존재하지 않습니다."),
 	RECOVERYDIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "E105", "해당 ID 일기 정보가 존재하지 않습니다.");
 
-
 	private final HttpStatus httpStatus;
 	private final String code;
 	private String message;
