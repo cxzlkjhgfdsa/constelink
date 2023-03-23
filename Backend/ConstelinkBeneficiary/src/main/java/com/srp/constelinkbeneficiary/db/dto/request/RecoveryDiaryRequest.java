@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public class RecoveryDiaryRequest {
 	Long beneficiaryId;
-	String photo;
-	String title;
-	String content;
-	int amountSpent;
+	String diaryPhoto;
+	String diaryTitle;
+	String diaryContent;
+	int diaryAmountSpent;
 }

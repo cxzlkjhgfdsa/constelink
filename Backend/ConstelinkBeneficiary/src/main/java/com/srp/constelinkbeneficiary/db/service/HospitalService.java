@@ -34,7 +34,7 @@ public class HospitalService {
 			.hospitalWalletAddress(hospital.getHospitalWalletAddress())
 			.hospitalTotalBeneficiary(hospital.getHospitalTotalBeneficiary())
 			.hospitalTotalAmountRaised(hospital.getHospitalTotalAmountRaised())
-			.id(hospital.getId())
+			.hospitalId(hospital.getId())
 			.build();
 		return hospitalInfoResponse;
 	}

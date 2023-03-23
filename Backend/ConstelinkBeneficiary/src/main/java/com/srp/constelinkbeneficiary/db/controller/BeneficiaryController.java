@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 @Tag(name = "수혜자 API", description = "수혜자 API")
 @RestController
-@RequestMapping("/api/beneficiaries")
+@RequestMapping("/beneficiaries")
 @RequiredArgsConstructor
 public class BeneficiaryController {
 
@@ -37,7 +37,7 @@ public class BeneficiaryController {
 		return ResponseEntity.ok(beneficiary);
 	}
 
-	@Operation(summary = "수혜자 목록 조회", description = "hospitalId, page, size, sort_by 필요. default값 page=1, size=5, sort_by = ALL ")
+	@Operation(summary = "수혜자 목록 조회", description = "hospitalId, page, size, sort_by 필요. default값 page=1, size=5, sort_by = ALL sortType 아직 기능 X 필요하면 말")
 	@GetMapping("")
 	// 하나의 병원에 있는 모든 수혜자 목록 가져오기
 	public ResponseEntity<Page<BeneficiaryInfoResponse>> findBeneficiaryByHospitalId(

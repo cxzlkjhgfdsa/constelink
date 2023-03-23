@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "회복일지 API", description = "회복일지 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/recoverydiaries")
+@RequestMapping("/recoverydiaries")
 public class RecoveryDiaryController {
 	private final RecoveryDiaryService recoveryDiaryService;
 

@@ -66,12 +66,12 @@ public class BeneficiaryService {
 			.hospital(hospitalRepository.findHospitalById(beneficiaryReqeust.getHospitalId())
 				.orElseThrow(() -> new CustomException(
 					CustomExceptionType.HOSPITAL_NOT_FOUND)))
-			.beneficiaryName(beneficiaryReqeust.getName())
-			.beneficiaryDisease(beneficiaryReqeust.getDisease())
-			.beneficiaryPhoto(beneficiaryReqeust.getPhoto())
-			.beneficiaryAmountGoal(beneficiaryReqeust.getAmountGoal())
+			.beneficiaryName(beneficiaryReqeust.getBeneficiaryName())
+			.beneficiaryDisease(beneficiaryReqeust.getBeneficiaryDisease())
+			.beneficiaryPhoto(beneficiaryReqeust.getBeneficiaryPhoto())
+			.beneficiaryAmountGoal(beneficiaryReqeust.getBeneficiaryAmountGoal())
 			.beneficiaryStatus("RAISING")
-			.beneficiaryBirthday(beneficiaryReqeust.getBirthday())
+			.beneficiaryBirthday(beneficiaryReqeust.getBeneficiaryBirthday())
 			.build();
 		beneficiary = beneficiaryRepository.saveAndFlush(beneficiary);
 

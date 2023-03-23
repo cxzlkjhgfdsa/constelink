@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class HospitalInfoResponse {
-	private Long id;
+	private Long hospitalId;
 	private String hospitalName;
 	private int hospitalTotalAmountRaised;
 	private int hospitalTotalBeneficiary;

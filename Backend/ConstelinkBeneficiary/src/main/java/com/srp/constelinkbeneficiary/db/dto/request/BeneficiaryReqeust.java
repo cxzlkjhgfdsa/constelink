@@ -7,9 +7,9 @@ import lombok.Getter;
 @Getter
 public class BeneficiaryReqeust {
 	private Long hospitalId;
-	private String name;
-	private Date birthday;
-	private String disease;
-	private String photo;
-	private int amountGoal;
+	private String beneficiaryName;
+	private Date beneficiaryBirthday;
+	private String beneficiaryDisease;
+	private String beneficiaryPhoto;
+	private int beneficiaryAmountGoal;
 }

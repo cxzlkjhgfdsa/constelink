@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecoveryDiaryResponse {
-	private Long id;
+	private Long diaryId;
 	private Long beneficiaryId;
 	private String beneficiaryName;
-	private Long regdate;
-	private String photo;
-	private String recoveryDiaryTitle;
-	private String content;
-	private int amountSpent;
+	private Long diaryRegisterDate;
+	private String diaryPhoto;
+	private String diaryTitle;
+	private String diaryContent;
+	private int diaryAmountSpent;
 
 }
