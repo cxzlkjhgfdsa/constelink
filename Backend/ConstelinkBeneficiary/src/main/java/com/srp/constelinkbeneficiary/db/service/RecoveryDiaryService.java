@@ -13,7 +13,10 @@ import com.srp.constelinkbeneficiary.common.exception.CustomExceptionType;
 import com.srp.constelinkbeneficiary.db.dto.enums.HospitalSortType;
 import com.srp.constelinkbeneficiary.db.dto.enums.RecoveryDiarySortType;
 import com.srp.constelinkbeneficiary.db.dto.request.RecoveryDiaryRequest;
+import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryInfoResponse;
+import com.srp.constelinkbeneficiary.db.dto.response.RecoveryDiaryBeneficiaryResponse;
 import com.srp.constelinkbeneficiary.db.dto.response.RecoveryDiaryResponse;
+import com.srp.constelinkbeneficiary.db.entity.Beneficiary;
 import com.srp.constelinkbeneficiary.db.entity.RecoveryDiary;
 import com.srp.constelinkbeneficiary.db.repository.BeneficiaryRepository;
 import com.srp.constelinkbeneficiary.db.repository.RecoveryDiaryRepository;
@@ -29,6 +32,7 @@ public class RecoveryDiaryService {
 
 	public Page<RecoveryDiaryResponse> getRecoveryDiaryList(int page, int size, RecoveryDiarySortType sortType) {
 		Page<RecoveryDiary> recoveryDiaryPage;
+
 		switch (sortType) {
 			case ID_ASC:
 				recoveryDiaryPage = recoveryDiaryRepository.findAll(
@@ -38,12 +42,20 @@ public class RecoveryDiaryService {
 				recoveryDiaryPage = recoveryDiaryRepository.findAll(
 					PageRequest.of(page, size, Sort.by("id").descending()));
 				break;
+			case DATE_ASC:
+				recoveryDiaryPage = recoveryDiaryRepository.findAll(
+					PageRequest.of(page, size, Sort.by("recoveryDiaryRegdate").ascending()));
+				break;
+			case DATE_DESC:
+				recoveryDiaryPage = recoveryDiaryRepository.findAll(
+					PageRequest.of(page, size, Sort.by("recoveryDiaryRegdate").descending()));
+				break;
 			default:
 				recoveryDiaryPage = recoveryDiaryRepository.findAll(
 					PageRequest.of(page, size, Sort.by("id").ascending()));
 				break;
 		}
-		Page<RecoveryDiaryResponse> recoveryDiaryResponses = recoveryDiaryPage.map(
+		Page<RecoveryDiaryResponse> recoveryDiaryResponsesPage = recoveryDiaryPage.map(
 			recoveryDiary -> new RecoveryDiaryResponse().builder()
 				.diaryTitle(recoveryDiary.getRecoveryDiaryTitle())
 				.diaryPhoto(recoveryDiary.getRecoveryDiaryPhoto())
@@ -59,9 +71,63 @@ public class RecoveryDiaryService {
 					.toEpochMilli())
 				.build());
 
-		return recoveryDiaryResponses;
+		return recoveryDiaryResponsesPage;
 	}
 
+	public RecoveryDiaryBeneficiaryResponse getRecoveryDiaryBeneficiaryList(int page, int size, Long beneficiaryId, RecoveryDiarySortType sortType) {
+		Beneficiary beneficiary = beneficiaryRepository.findBeneficiaryById(beneficiaryId).orElseThrow(()->new CustomException(CustomExceptionType.BENEFICIARY_NOT_FOUND));
+		BeneficiaryInfoResponse beneficiaryInfoResponse = BeneficiaryInfoResponse.builder()
+			.beneficiaryDisease(beneficiary.getBeneficiaryDisease())
+			.beneficiaryAmountGoal(beneficiary.getBeneficiaryAmountGoal())
+			.beneficiaryAmountRaised(beneficiary.getBeneficiaryAmountRaised())
+			.beneficiaryName(beneficiary.getBeneficiaryName())
+			.beneficiaryPhoto(beneficiary.getBeneficiaryPhoto())
+			.beneficiaryBirthday(beneficiary.getBeneficiaryBirthday().getTime())
+			.build();
+
+		Page<RecoveryDiary> recoveryDiaryPage;
+		switch (sortType) {
+			case ID_ASC:
+				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiaryId(
+					beneficiaryId, PageRequest.of(page, size, Sort.by("id").ascending()));
+				break;
+			case ID_DESC:
+				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiaryId(
+					beneficiaryId, PageRequest.of(page, size, Sort.by("id").descending()));
+				break;
+			case DATE_ASC:
+				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiaryId(
+					beneficiaryId, PageRequest.of(page, size, Sort.by("recoveryDiaryRegdate").ascending()));
+				break;
+			case DATE_DESC:
+				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiaryId(
+					beneficiaryId, PageRequest.of(page, size, Sort.by("recoveryDiaryRegdate").descending()));
+				break;
+			default:
+				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiaryId(
+					beneficiaryId, PageRequest.of(page, size, Sort.by("id").ascending()));
+				break;
+		}
+		Page<RecoveryDiaryResponse> recoveryDiaryResponsesPage = recoveryDiaryPage.map(
+			recoveryDiary -> new RecoveryDiaryResponse().builder()
+				.diaryTitle(recoveryDiary.getRecoveryDiaryTitle())
+				.diaryPhoto(recoveryDiary.getRecoveryDiaryPhoto())
+				.diaryContent(recoveryDiary.getRecoveryDiaryContent())
+				.beneficiaryId(recoveryDiary.getBeneficiary().getId())
+				.beneficiaryName(recoveryDiary.getBeneficiary().getBeneficiaryName())
+				.diaryId(recoveryDiary.getId())
+				.diaryAmountSpent(recoveryDiary.getRecoveryDiaryAmountSpent())
+				.diaryRegisterDate(recoveryDiary.getRecoveryDiaryRegdate()
+					.now()
+					.atZone(ZoneId.of("Asia/Seoul"))
+					.toInstant()
+					.toEpochMilli())
+				.build());
+
+		return RecoveryDiaryBeneficiaryResponse.builder().beneficiaryDiaries(recoveryDiaryResponsesPage)
+			.beneficiaryInfo(beneficiaryInfoResponse)
+			.build();
+	}
 	@Transactional
 	public RecoveryDiaryResponse addRecoveryDiary(RecoveryDiaryRequest recoveryDiaryRequest) {
 		RecoveryDiary recoveryDiary = new RecoveryDiary().builder()
