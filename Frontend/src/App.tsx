@@ -1,7 +1,7 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import React, { useState } from 'react';
 import './App.css';
-import Header from './components/header/Header';
+// import Header from './components/header/Header';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import RecoveryDiary from './pages/RecoveryDiary';
@@ -11,9 +11,8 @@ import LoginTestPage from './pages/LoginTestPage';
  {/* <Header/> */}
 function App() {
   return (
-    <BrowserRouter>
         <div className="App">
-        <Header />
+        {/* <Header /> */}
           <Routes>
               {/* <Login/> */}
               {/* <Route path='/fundmain' element={<FundMain />} />
@@ -26,7 +25,6 @@ function App() {
               <Route path='/diarydetail/:index' element={<RecoveryDiaryDetail/>}/>
           </Routes>
         </div>
-    </BrowserRouter>
   );
 }
 
