@@ -17,6 +17,8 @@ public class SaveDonationRequest {
 	private int donationPrice;
 	private String donationTransactionHash;
 	private String hospitalName;
+	private Long beneficiary_id;
+	private String beneficiaryName;
 	private String beneficiaryDisease;
 	private String fundraisingTitle;
 	private String fundraisingThumbnail;

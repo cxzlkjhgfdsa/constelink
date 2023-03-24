@@ -16,7 +16,6 @@ import com.srp.constelinkmember.dto.LoginInfoDto;
 import com.srp.constelinkmember.dto.enums.Role;
 import com.srp.constelinkmember.dto.request.LoginRequest;
 import com.srp.constelinkmember.security.jwt.TokenProvider;
-import com.srp.constelinkmember.util.CookieUtils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,20 +24,20 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
-public class AuthService{
+public class AuthService {
 	private final MemberRepository memberRepository;
 
 	private final RedisTemplate<String, String> redisTemplate;
 	private final TokenProvider tokenProvider;
 
 	@Transactional
-	public LoginInfoDto login(LoginRequest loginRequest){
+	public LoginInfoDto login(LoginRequest loginRequest) {
 		String key = loginRequest.getKey();
-		log.info("key == " +key);
+		log.info("key == " + key);
 
 		Long memberId = Long.valueOf(redisTemplate.opsForValue().get(key));
 
-		if(memberId == null) {
+		if (memberId == null) {
 			throw new CustomException(CustomExceptionType.ABNORMAL_ACCESS_EXCEPTION);
 		}
 
@@ -46,14 +45,14 @@ public class AuthService{
 
 		LoginInfoDto loginInfoDto;
 
-		if(findMember.isPresent()){
+		if (findMember.isPresent()) {
 			Member member = findMember.get();
-			if(loginRequest.isFlag()){
+			if (loginRequest.isFlag()) {
 				member.setMemberInactive(false);
 			}
 			String accessToken = tokenProvider.createAccessToken(member.getId(), member.getRole());
 			String refreshToken = tokenProvider.createRefreshToken();
-			String redisKey = "RT:"+refreshToken;
+			String redisKey = "RT:" + refreshToken;
 
 			redisTemplate.opsForValue().set(redisKey, Long.toString(member.getId()), 7, TimeUnit.DAYS);
 			loginInfoDto = LoginInfoDto.builder()
@@ -61,8 +60,9 @@ public class AuthService{
 				.refreshToken(refreshToken)
 				.nickname(member.getUsername())
 				.profile(member.getMemberProfileImg())
+				.role(member.getRole())
 				.build();
-		}else{
+		} else {
 			throw new CustomException(CustomExceptionType.USER_NOT_FOUND);
 		}
 
@@ -70,10 +70,10 @@ public class AuthService{
 	}
 
 	public String reGenerateToken(String refreshToken) {
-		String redisKey = "RT:"+refreshToken;
+		String redisKey = "RT:" + refreshToken;
 
 		String saveMemberId = redisTemplate.opsForValue().get(redisKey);
-		if(saveMemberId == null){
+		if (saveMemberId == null) {
 			throw new CustomException(CustomExceptionType.NOT_LOGINED_EXCEPTION);
 		}
 
@@ -83,7 +83,7 @@ public class AuthService{
 	}
 
 	public void logout(String accessToken, String refreshToken) {
-		String redisKey = "RT:"+refreshToken;
+		String redisKey = "RT:" + refreshToken;
 		Boolean isDelete = redisTemplate.delete(redisKey);
 		long expiration = tokenProvider.getExpiration(accessToken);
 		Date now = new Date();

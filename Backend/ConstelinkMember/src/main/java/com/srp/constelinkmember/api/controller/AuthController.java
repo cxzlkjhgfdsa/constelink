@@ -35,7 +35,7 @@ public class AuthController {
 	@Operation(summary = "로그인 메서드", description = "로그인 메서드입니다.")
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
-
+		System.out.println(loginRequest.getKey() + loginRequest.isFlag());
 		LoginInfoDto loginInfoDto = authService.login(loginRequest);
 
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -52,6 +52,7 @@ public class AuthController {
 		LoginResponse loginResponse = LoginResponse.builder()
 			.nickname(loginInfoDto.getNickname())
 			.profile(loginInfoDto.getProfile())
+			.role(loginInfoDto.getRole())
 			.build();
 
 		return ResponseEntity.ok().headers(httpHeaders).body(loginResponse);

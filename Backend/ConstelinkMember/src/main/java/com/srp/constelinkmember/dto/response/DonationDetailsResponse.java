@@ -16,6 +16,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class DonationDetailsResponse {
+	//private List<DonationDetailDto> donations;
+
 	private List<DonationDetailDto> donations;
 	private int totalPages;
 	private long totalElements;

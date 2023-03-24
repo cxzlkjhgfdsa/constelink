@@ -17,6 +17,11 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
 		+ "from Donation d where d.memberId = :memberId")
 	Map<String, Objects> getDonationInfo(@Param("memberId") Long memberId);
 
-	Page<Donation> findByMemberId(Long memberId, Pageable pageable);
+	@Query("select d.beneficiaryId as beneficiaryId,d.beneficiaryName as beneficiaryName"
+		+ ", d.beneficiaryDisease as beneficiaryDisease, d.hospitalName as hospitalName, "
+		+ "sum(d.donationPrice) as totalDonationPrice, max(d.donationTime) as lastDonationTime"
+		+ " from Donation d where d.memberId = :memberId"
+		+ " group by d.beneficiaryId, d.beneficiaryName, d.beneficiaryDisease, d.hospitalName ")
+	Page<Map<String, Object>> findByMemberId(@Param("memberId") Long memberId, Pageable pageable);
 
 }

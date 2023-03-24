@@ -1,6 +1,5 @@
 package com.srp.constelinkmember.api.controller;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,10 +31,12 @@ public class DonationController {
 
 	@Operation(summary = "기부저장", description = "기부내역 저장 메서드.")
 	@PostMapping("/save")
-	public ResponseEntity saveDonation(@RequestBody SaveDonationRequest saveRequest, HttpServletRequest request) {
-		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-		String id = tokenProvider.resolveToken(accessToken);
-		Long memberId = Long.valueOf(id);
+	public ResponseEntity saveDonation(@RequestBody SaveDonationRequest saveRequest,
+		@RequestParam("id") Long memberId,
+		HttpServletRequest request) {
+		// String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		// String id = tokenProvider.resolveToken(accessToken);
+		// Long memberId = Long.valueOf(id);
 
 		donationService.saveDonation(saveRequest, memberId);
 
@@ -44,10 +45,11 @@ public class DonationController {
 
 	@Operation(summary = "기부내역 조회", description = "기부내역 조회 메서드.")
 	@GetMapping("/list")
-	public ResponseEntity listDonation(@RequestParam("page") int page, HttpServletRequest request) {
-		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-		String id = tokenProvider.resolveToken(accessToken);
-		Long memberId = Long.valueOf(id);
+	public ResponseEntity listDonation(@RequestParam("page") int page,
+		@RequestParam("id") Long memberId, HttpServletRequest request) {
+		// String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		// String id = tokenProvider.resolveToken(accessToken);
+		// Long memberId = Long.valueOf(id);
 		DonationDetailsResponse donationDetailsResponse = donationService.listDonation(memberId, page - 1);
 		return ResponseEntity.ok(donationDetailsResponse);
 	}

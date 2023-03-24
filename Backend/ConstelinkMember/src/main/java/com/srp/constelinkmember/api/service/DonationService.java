@@ -2,6 +2,7 @@ package com.srp.constelinkmember.api.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,8 @@ public class DonationService {
 			.donationTime(LocalDateTime.now())
 			.donationTransactionHash(saveDonationRequest.getDonationTransactionHash())
 			.hospitalName(saveDonationRequest.getHospitalName())
+			.beneficiaryId(saveDonationRequest.getBeneficiary_id())
+			.beneficiaryName(saveDonationRequest.getBeneficiaryName())
 			.beneficiaryDisease(saveDonationRequest.getBeneficiaryDisease())
 			.fundraisingTitle(saveDonationRequest.getFundraisingTitle())
 			.fundraisingThumbnail(saveDonationRequest.getFundraisingThumbnail())
@@ -56,17 +59,14 @@ public class DonationService {
 	public DonationDetailsResponse listDonation(Long memberId, int page) {
 		PageRequest pageRequest = PageRequest.of(page, 8,
 			Sort.by(Sort.Direction.DESC, "donationTime"));
-		Page<Donation> donations = donationRepository.findByMemberId(memberId, pageRequest);
-
+		Page<Map<String, Object>> donations = donationRepository.findByMemberId(memberId, pageRequest);
 		List<DonationDetailDto> donationDetails = donations.getContent().stream().map(donation ->
 			new DonationDetailDto().builder()
-				.id(donation.getId())
-				.donationPrice(donation.getDonationPrice())
-				.donationTransactionHash(donation.getDonationTransactionHash())
-				.hospitalName(donation.getHospitalName())
-				.beneficiaryDisease(donation.getBeneficiaryDisease())
-				.fundraisingTitle(donation.getFundraisingTitle())
-				.fundraisingThumbnail(donation.getFundraisingThumbnail())
+				.hospitalName((String)donation.get("hospitalName"))
+				.beneficiaryDisease((String)donation.get("beneficiaryDisease"))
+				.beneficiaryName((String)donation.get("beneficiaryName"))
+				.totalDonationPrice(Integer.parseInt(String.valueOf(donation.get("totalDonationPrice"))))
+				.lastDonationTime((LocalDateTime)donation.get("lastDonationTime"))
 				.build()).collect(Collectors.toList());
 
 		DonationDetailsResponse donationDetailsResponse = DonationDetailsResponse.builder()

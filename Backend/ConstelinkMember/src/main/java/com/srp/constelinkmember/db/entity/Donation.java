@@ -68,4 +68,12 @@ public class Donation {
 	@Column(name = "fundraising_thumbnail", length = 100)
 	private String fundraisingThumbnail;
 
+	@Size(max = 10)
+	@Column(name = "beneficiary_name", length = 10)
+	private String beneficiaryName;
+
+	@NotNull
+	@Column(name = "beneficiary_id", nullable = false)
+	private Long beneficiaryId;
+
 }
