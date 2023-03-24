@@ -8,7 +8,7 @@
     src: url("../../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
 }
 
-header {
+.Header {
     height: 70px;
     width: 100%;
     display: flex;
@@ -16,9 +16,11 @@ header {
     align-items: center;
     box-shadow: 1px 1px 1px 1px lightgray;
     position: fixed;
-    /* top: 0; */
-    /* left: 0; */
-    z-index: 9999;
+    top: 0;
+    left: 0;
+    z-index:1;
+    background-color: #ffff;
+    
 }
 
 .header_logo {
@@ -31,7 +33,12 @@ header {
     padding-left: 1%;
     /* background-color: red; */
 }
-
+.header_profile{
+    width: 55px;
+    height: 55px;
+    border-radius: 50px;
+    cursor: pointer;
+}
 .header_login {
     font-family: "Hahmlet";
     font-weight: bold;
@@ -65,3 +72,4 @@ header {
     align-items: center;
     border-bottom: 3px solid #A19FD5;
 }
+

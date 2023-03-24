@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from "../../store";
 
 const Header: React.FC = () => {
     const [selectedMenu, setSelectedMenu] = useState(localStorage.getItem('selectedMenu') || 'default');
-
+    const authInfo = useSelector((state:RootState)=> state.auth);
+    
     useEffect(() => {
-  
         const path = window.location.pathname;
+        console.log(path);
+        
         switch (path) {
             case '/notice':
                 setSelectedMenu('공지사항');
@@ -18,7 +22,7 @@ const Header: React.FC = () => {
                 setSelectedMenu('치료일지');
                 break;
             case '/finish':
-                setSelectedMenu('치료완료');
+                setSelectedMenu('치료달성');
                 break;
             default:
                 setSelectedMenu('default');
@@ -33,27 +37,27 @@ const Header: React.FC = () => {
         setSelectedMenu(menu);
     };
     return (
-        <div>
-            <header>
+
+            <div className={styles.Header}>
                 <div className={styles.header_logo}>Constelink</div>
 
 
                 <ul className={styles.header_menu} >
                     <li style={{
-                        color: selectedMenu === '공지사항' ? '#A19FD5' : '#A19FD5',
-                        borderBottom: selectedMenu === '공지사항' ? '3px solid #A19FD5' : '3px solid #A19FD5'
+                        color: selectedMenu === '공지사항' ? '#A19FD5' : 'black',
+                        borderBottom: selectedMenu === '공지사항' ? '3px solid #A19FD5' : 'none'
                     }}
                         onClick={() => handleClick('공지사항')} >공지사항</li>
                     <li style={{
-                        color: selectedMenu === '기부하기' ? '#A19FD5' : 'black',
-                        borderBottom: selectedMenu === '기부하기' ? '3px solid #A19FD5' :  'none'
+                        color: selectedMenu === '치료모금' ? '#A19FD5' : 'black',
+                        borderBottom: selectedMenu === '치료모금' ? '3px solid #A19FD5' :  'none'
                     }}
-                        onClick={() => handleClick('기부하기')}>기부하기</li>
+                        onClick={() => handleClick('치료모금')}>치료모금</li>
                     <li style={{
-                        color: selectedMenu === '치료일기' ? '#A19FD5' : 'black',
-                        borderBottom: selectedMenu === '치료일기' ? '3px solid #A19FD5' :  'none'
+                        color: selectedMenu === '치료일지' ? '#A19FD5' : 'black',
+                        borderBottom: selectedMenu === '치료일지' ? '3px solid #A19FD5' :  'none'
                     }}
-                        onClick={() => handleClick('치료일기')}>치료일기</li>
+                        onClick={() => handleClick('치료일지')}>치료일지</li>
                     <li style={{
                         color: selectedMenu === '치료달성' ? '#A19FD5' : 'black',
                         borderBottom: selectedMenu === '치료달성' ? '3px solid #A19FD5' :  'none'
@@ -61,11 +65,13 @@ const Header: React.FC = () => {
                         onClick={() => handleClick('치료달성')}>치료달성</li>
                 </ul>
 
+                {
+                 authInfo.isAuthenticated? <div className={styles.header_login}><img className={styles.header_profile} src={authInfo.profileImg}/></div>:   <div className={styles.header_login}>로그인</div>
+                }
+              
+            </div>
 
-                <div className={styles.header_login}>로그인</div>
-            </header>
-
-        </div>
+      
     )
 }
 
