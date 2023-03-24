@@ -9,6 +9,9 @@ import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css';
 import axios from 'axios';
 
+// axios get으로 선택한 diary에서 선택한 카드정보를 가져오고, axios post로 치료일기를 만들 수 있어야 함
+
+// 선언해주었다.
 interface TreatmentRecord {
   index: number;
   image: string;

@@ -125,8 +125,10 @@
 
 /* 카드 이미지 */
 .card .image {
-  height: 117px;
-  width: 117px;
+  height: 115px;
+  width: 115px;
+  border-radius: 50%;
+  position: absolute;
 }
 
 
