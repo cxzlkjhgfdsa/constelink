@@ -6,10 +6,6 @@ const HospitalPage: React.FC = () => {
   const navigate = useNavigate();
   const hospitalName: string = '삼성서울병원';
 
-  const toBenRegi = () => {
-    navigate('/benregi');
-  }
-
   return (
     <>
       <div className={styles.mainWrapper}>
@@ -39,7 +35,7 @@ const HospitalPage: React.FC = () => {
             <div className={styles.menuText}>
               수혜자 등록하기
             </div>
-            <div className={styles.menuArrow}></div>
+            <div className={styles.menuArrow} onClick={() => navigate('/benregi')} />
           </div>
           <div className={styles.menuBar}>
             <div className={styles.menuIcon}>
@@ -58,7 +54,7 @@ const HospitalPage: React.FC = () => {
             <div className={styles.menuText}>
               모금 시작하기
             </div>
-            <div className={styles.menuArrow} onClick={toBenRegi}/>
+            <div className={styles.menuArrow} onClick={() => navigate('/fundregi')}/>
           </div>
         </div>
       </div> 
