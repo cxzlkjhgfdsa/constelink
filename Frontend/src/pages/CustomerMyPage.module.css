@@ -17,16 +17,8 @@
 .CustomerMyPage{
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
-    padding-top: 50px;
-    /* background-color: rgb(48, 42, 81); */
     height: 900px;
-    /* background-image: url("../assets/logo/star2.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: white; */
-    
 }
 .user_profile{
     display: flex;

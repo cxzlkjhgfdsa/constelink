@@ -6,9 +6,9 @@ import CustomerMyPage from './CustomerMyPage';
 const CustomerMyHome = () => {
     return (
         <div className={styles.CustomerMyHome}>
-            {/* <CustomerMyPage/>
-            <CustomerEditPage/> */}
-            <CustomerFavoritePage/>
+            <CustomerMyPage/>
+            <CustomerEditPage/>
+            {/* <CustomerFavoritePage/> */}
         </div>
     );
 };

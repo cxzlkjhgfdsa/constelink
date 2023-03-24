@@ -31,6 +31,7 @@ const CustomerMyPage: React.FC = () => {
                          <FontAwesomeIcon icon={faChevronRight}/>
                     </li>
                     <li><div className={styles.menu_left}><FontAwesomeIcon className={styles.menu_logo} icon={faStar} /><div>관심 모금</div></div>  <FontAwesomeIcon icon={faChevronRight} /></li>
+                    <li><div className={styles.menu_left}><FontAwesomeIcon className={styles.menu_logo}  icon={faHospitalUser} /><div>모금목록 조회</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
                     <li><div className={styles.menu_left}><FontAwesomeIcon className={styles.menu_logo}  icon={faHospitalUser} /><div>회복일지 조회</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
                     <li><div className={styles.menu_left}><FontAwesomeIcon className={styles.menu_logo} icon={faRightFromBracket} /><div>로그아웃</div></div> </li>
                 </ul>
