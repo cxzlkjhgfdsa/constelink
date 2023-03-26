@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
 
+import com.srp.apigateway.common.exception.CustomException;
+import com.srp.apigateway.common.exception.CustomExceptionType;
 
 @Component
 @Slf4j
@@ -71,6 +73,16 @@ public class JwtUtil
 			.getBody()
 			.getExpiration();
 		return expiration.getTime();
+	}
+
+	public String parseJwt(String authHeader) {
+		if(authHeader == null) {
+			throw new CustomException(CustomExceptionType.NULL_TOKEN_EXCEPTION);
+		}
+		if(!authHeader.startsWith("Bearer ")) {
+			throw new CustomException(CustomExceptionType.JWT_TYPE_EXCEPTION);
+		}
+		return authHeader.substring(7);
 	}
 
 }
