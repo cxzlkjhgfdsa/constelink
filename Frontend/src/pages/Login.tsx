@@ -6,8 +6,6 @@ const Login : React.FC = ()=>{
 
     return(
         <div className={styles.Login}>
-
-
             <header>
                 <div className={styles.logo_title}>Constelink</div>
                 <div className={styles.logo_sub}>블록체인 기반, 치료비 모금 플랫폼</div>
