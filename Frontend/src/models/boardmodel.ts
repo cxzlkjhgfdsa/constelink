@@ -5,4 +5,11 @@ export interface BoardWrite {
         noticeIsPinned: boolean
   }
   
-  
+export interface BoardDetail {
+      id: Number,
+      noticeTitle: string,
+      noticeContent: string,
+      noticeRegDate: string,
+      noticeType: string,
+      noticeIsPinned: boolean
+}

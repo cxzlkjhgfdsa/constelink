@@ -12,8 +12,8 @@ const NoticePage: React.FC = () => {
 
             <header className={styles.notice_title}>공지사항</header>
 
-            <NoticeCreate/>
-            {/* <NoticeList/> */}
+            {/* <NoticeCreate/> */}
+            <NoticeList/>
             {/* <NoticeDetail/> */}
 
        
