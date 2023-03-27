@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.srp.constelinkbeneficiary.common.exception.CustomException;
 import com.srp.constelinkbeneficiary.common.exception.CustomExceptionType;
-import com.srp.constelinkbeneficiary.db.dto.enums.HospitalSortType;
 import com.srp.constelinkbeneficiary.db.dto.enums.RecoveryDiarySortType;
 import com.srp.constelinkbeneficiary.db.dto.request.RecoveryDiaryRequest;
 import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryInfoResponse;
@@ -83,6 +82,9 @@ public class RecoveryDiaryService {
 			.beneficiaryName(beneficiary.getBeneficiaryName())
 			.beneficiaryPhoto(beneficiary.getBeneficiaryPhoto())
 			.beneficiaryBirthday(beneficiary.getBeneficiaryBirthday().getTime())
+			.hospitalId(beneficiary.getHospital().getId())
+			.hospitalName(beneficiary.getHospital().getHospitalName())
+			.hospitalLink(beneficiary.getHospital().getHospitalLink())
 			.build();
 
 		Page<RecoveryDiary> recoveryDiaryPage;

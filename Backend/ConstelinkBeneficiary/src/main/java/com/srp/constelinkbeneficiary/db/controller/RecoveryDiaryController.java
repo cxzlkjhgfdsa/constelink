@@ -28,29 +28,40 @@ import lombok.RequiredArgsConstructor;
 public class RecoveryDiaryController {
 	private final RecoveryDiaryService recoveryDiaryService;
 
-	@Operation(summary = "일반 회복일지 목록 조회", description = "page, size, sort_by 값 필요. dafault값 page=1, size=5, beneficiaryId=0, sort_by=DATE_DESC")
+	@Operation(summary = "모든 회복일지 목록 조회", description = "page = 페이지, "
+		+ "size = 한 페이지 자료 개수, "
+		+ "sortBy = 정렬 타입")
 	@GetMapping("")
 	public ResponseEntity<Page<RecoveryDiaryResponse>> getRecoveryDiaries(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(value = "sort_by", required = false, defaultValue = "DATE_DESC") RecoveryDiarySortType sortType) {
+		@RequestParam(value = "sortBy", required = false, defaultValue = "DATE_DESC") RecoveryDiarySortType sortType) {
 		Page<RecoveryDiaryResponse> recoveryDiaries = recoveryDiaryService.getRecoveryDiaryList(page - 1, size, sortType);
 		return ResponseEntity.ok(recoveryDiaries);
 	}
 
-	@Operation(summary = "해당 수혜자 회복일지 목록 조회", description = "page, size, beneficiaryId, sort_by 값 필요. dafault값 page=1, size=5, sort_by=DATE_DESC")
+	@Operation(summary = "해당 수혜자 회복일지 목록 조회", description = "beneficiaryId = 수혜자 ID, "
+		+ "page = 페이지, "
+		+ "size = 한페이지 자료수, "
+		+ "sortBy = 정렬 타입")
 	@GetMapping("/{beneficiaryId}")
 	public <T> ResponseEntity<RecoveryDiaryBeneficiaryResponse> getRecoveryDiaries(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(value = "sort_by", required = false, defaultValue = "DATE_DESC") RecoveryDiarySortType sortType,
+		@RequestParam(value = "sortBy", required = false, defaultValue = "DATE_DESC") RecoveryDiarySortType sortType,
 		@PathVariable(value = "beneficiaryId") Long beneficiaryId) {
 		RecoveryDiaryBeneficiaryResponse recoveryDiaries = recoveryDiaryService.getRecoveryDiaryBeneficiaryList(page - 1, size, beneficiaryId, sortType);
 
 		return ResponseEntity.ok(recoveryDiaries);
 	}
 
-	@Operation(summary = "회복일지 등록", description = "beneficiaryId, title, content, amountSpent, beneficiaryId 기입")
+	@Operation(summary = "회복일지 등록", description = ""
+		+ "beneficiaryId = 수혜자 아이디, "
+		+ "diaryTitle = 회복일지 제목, "
+		+ "diaryContent = 회복일지 내용, "
+		+ "diaryPhoto = 회복일지 사진, "
+		+ "diaryAmountSpent = 사용한 기부금 "
+		)
 	@PostMapping("")
 	public ResponseEntity<RecoveryDiaryResponse> addRecoveryDiary(
 		@RequestBody RecoveryDiaryRequest recoveryDiaryRequest

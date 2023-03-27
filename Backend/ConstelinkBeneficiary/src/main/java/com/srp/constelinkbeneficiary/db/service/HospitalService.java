@@ -51,6 +51,30 @@ public class HospitalService {
 				ResponseHospitalInfoList = hospitalRepository.findAll(
 					PageRequest.of(page, size, Sort.by("id").descending()));
 				break;
+			case NAME_ASC:
+				ResponseHospitalInfoList = hospitalRepository.findAll(
+					PageRequest.of(page, size, Sort.by("hospitalName").ascending()));
+				break;
+			case NAME_DESC:
+				ResponseHospitalInfoList = hospitalRepository.findAll(
+					PageRequest.of(page, size, Sort.by("hospitalName").descending()));
+				break;
+			case BENEFICIARIES_ASC:
+				ResponseHospitalInfoList = hospitalRepository.findAll(
+					PageRequest.of(page, size, Sort.by("hospitalTotalBeneficiary").ascending()));
+				break;
+			case BENEFICIARIES_DESC:
+				ResponseHospitalInfoList = hospitalRepository.findAll(
+					PageRequest.of(page, size, Sort.by("hospitalTotalBeneficiary").descending()));
+				break;
+			case FUND_RAISED_ASC:
+				ResponseHospitalInfoList = hospitalRepository.findAll(
+					PageRequest.of(page, size, Sort.by("hospitalTotalAmountRaised").ascending()));
+				break;
+			case FUND_RAISED_DESC:
+				ResponseHospitalInfoList = hospitalRepository.findAll(
+					PageRequest.of(page, size, Sort.by("hospitalTotalAmountRaised").descending()));
+				break;
 			default:
 				ResponseHospitalInfoList = hospitalRepository.findAll(
 					PageRequest.of(page, size, Sort.by("id").ascending()));

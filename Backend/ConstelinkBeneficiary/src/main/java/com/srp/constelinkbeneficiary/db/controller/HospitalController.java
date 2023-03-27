@@ -25,19 +25,21 @@ public class HospitalController {
 
 	private final HospitalService hospitalService;
 
-	@Operation(summary = "id로 병원 조회", description = "(id)로 병원 정보 조회")
-	@GetMapping("/{id}")
-	public ResponseEntity<HospitalInfoResponse> findHospital(@PathVariable("id") Long id) {
+	@Operation(summary = "hospitalId로 병원 조회", description = "hospitalId = 병원 Id")
+	@GetMapping("/{hospitalId}")
+	public ResponseEntity<HospitalInfoResponse> findHospital(@PathVariable("hospitalId") Long id) {
 		HospitalInfoResponse hospitalInfoResponse = hospitalService.findHospitalById(id);
 		return ResponseEntity.ok(hospitalInfoResponse);
 	}
 
-	@Operation(summary = "병원 목록 조회", description = "page, size, sort_by 필요. default값 page=1, size=5, defaultValue=ID_ASC")
+	@Operation(summary = "병원 목록 조회", description = "page = 페이지, "
+		+ "size = 한 페이지에 넣을 개수, "
+		+ "sortBy = 솔트 타입")
 	@GetMapping("")
 	public ResponseEntity<Page<Hospital>> getHospitalPage(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(value = "sort_by", required = false, defaultValue = "ID_ASC") HospitalSortType sortType) {
+		@RequestParam(value = "sortBy", required = false, defaultValue = "ID_ASC") HospitalSortType sortType) {
 
 		Page<Hospital> hospitalPage = hospitalService.hospitalInfoList(page - 1, size, sortType);
 		return ResponseEntity.ok(hospitalPage);

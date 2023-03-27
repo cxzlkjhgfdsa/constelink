@@ -28,30 +28,32 @@ public class BeneficiaryController {
 
 	private final BeneficiaryService beneficiaryService;
 
-	@Operation(summary = "수혜자 정보 조회", description = "수혜자 id로 수혜자 정보 가져오기 (id) 기입")
-	@GetMapping("/{id}")
+	@Operation(summary = "한명의 수혜자 정보 조회", description = "beneficiaryId = 수혜자 Id")
+	@GetMapping("/{beneficiaryId}")
 	// 해당 수혜자 정보 가져오기
-	public ResponseEntity<BeneficiaryInfoResponse> findBeneficiaryById(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<BeneficiaryInfoResponse> findBeneficiaryById(
+		@PathVariable(value = "beneficiaryId") Long beneficiaryId) {
 
-		BeneficiaryInfoResponse beneficiary = beneficiaryService.findBeneficiaryById(id);
+		BeneficiaryInfoResponse beneficiary = beneficiaryService.findBeneficiaryById(beneficiaryId);
 		return ResponseEntity.ok(beneficiary);
 	}
 
-	@Operation(summary = "수혜자 목록 조회", description = "hospitalId, page, size, sort_by 필요. default값 page=1, size=5, sort_by = ALL sortType 아직 기능 X 필요하면 말")
-	@GetMapping("")
+	@Operation(summary = "해당 병원의 수혜자 목록 조회", description = "hospitalId = 병원ID, "
+		+ "page = 페이지, "
+		+ "size = 한 페이지 담는 자료 수")
+	@GetMapping("/hospital/{hospitalId}")
 	// 하나의 병원에 있는 모든 수혜자 목록 가져오기
 	public ResponseEntity<Page<BeneficiaryInfoResponse>> findBeneficiaryByHospitalId(
-		@RequestParam(value = "hospitalId") Long hospitalId,
+		@PathVariable(value = "hospitalId") Long hospitalId,
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(value = "sort_by", required = false, defaultValue = "ALL") BeneficiarySortType sortType
+		@RequestParam(value = "size", required = false, defaultValue = "5") int size
 	) {
 		Page<BeneficiaryInfoResponse> beneficiaryInfoList = beneficiaryService.findBeneficiariesByHospitalId(hospitalId,
 			page - 1, size);
 		return ResponseEntity.ok(beneficiaryInfoList);
 	}
 
-	@Operation(summary = "수혜자 등록", description = "hospitalId, name, birthday, disease, photo, amountGoal 기입")
+	@Operation(summary = "수혜자 등록", description = "hospitalId = 병원ID, beneficiaryName = 수혜자 이름, beneficiaryBirthday = 수혜자 생일, beneficiaryDisease = 수혜자 병명, beneficiaryPhoto = 수혜자 사진, beneficiaryAmountGoal = 목표금액 필요")
 	@PostMapping("")
 	public ResponseEntity<BeneficiaryInfoResponse> addBeneficiary(
 		@RequestBody BeneficiaryReqeust beneficiaryReqeust
@@ -59,6 +61,34 @@ public class BeneficiaryController {
 		BeneficiaryInfoResponse beneficiaryInfoResponse = beneficiaryService.addBeneficiary(beneficiaryReqeust);
 
 		return ResponseEntity.ok(beneficiaryInfoResponse);
+	}
+
+	@Operation(summary = "모든 수혜자 목록 조회", description = "page = 페이지, "
+		+ "size = 한 페이지 개수, "
+		+ "sortBy = 정렬 타입")
+	@GetMapping("")
+	public ResponseEntity<Page<BeneficiaryInfoResponse>> findAllBeneficiaries(
+		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
+		@RequestParam(value = "sortBy", required = false, defaultValue = "ALL") BeneficiarySortType sortType
+	) {
+		Page<BeneficiaryInfoResponse> beneficiaryInfoList;
+		switch (sortType) {
+			case DIARY_DATE_ASC:
+				beneficiaryInfoList = beneficiaryService.findBeneficiariesByRegdate(
+					page - 1, size, sortType);
+				break;
+			case DIARY_DATE_DESC:
+				beneficiaryInfoList = beneficiaryService.findBeneficiariesByRegdate(
+					page - 1, size, sortType);
+				break;
+			default:
+				beneficiaryInfoList = beneficiaryService.findAllBeneficiary(
+					page - 1, size, sortType);
+				break;
+		}
+
+		return ResponseEntity.ok(beneficiaryInfoList);
 	}
 
 }
