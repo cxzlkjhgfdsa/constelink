@@ -82,6 +82,23 @@
   left: 1.5rem;
 }
 
+.divWithImg{
+  width: 13rem;
+  height: 13rem;
+  position: relative;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fundImg{
+  width: 13rem;
+  height: 13rem;
+  object-fit: cover;
+}
+
 .imgThumb{
   width: 13rem;
   height: 13rem;
@@ -180,10 +197,13 @@
   height: 2rem;
   border: 1px solid black;
   margin-top: 1.5rem;
+}
 
+.fundCheckPlaceholder{
   font-family: "Hahmlet";
   color: gray;
-  line-height: 1.9rem;
+  margin-top: 0.2rem;
+  margin-left: 0.1rem;
 }
 
 .storyWrapper{

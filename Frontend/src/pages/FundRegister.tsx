@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import styles from "./FundRegister.module.css";
 import Select from "react-select";
 import SunEditor from 'suneditor-react';
@@ -10,7 +10,7 @@ import axios from "axios";
 const titleRegexp = /^[가-힣 ]{1,20}$/; // 공백포함 한글 1~20자
 const goalRegexp = /^[0-9]{1,10}$/; // 숫자만 가능
 const imageRegexp = /(.*?)\.(jpg|jpeg|png)$/; // 확장자는 jpg, jpeg, png
-
+const maxSize = 50 * 1024 * 1024;
 
 const FundRegister: React.FC = () => {
   
@@ -66,6 +66,28 @@ const FundRegister: React.FC = () => {
   }
 
   // 썸네일 설정
+  const [imgURL, setImgURL] = useState('');
+  const [image, setImage] = useState(null);
+  const handleImage = (e: any) => {
+    const file = e.target.files[0];
+    // 사진 확장자 검사
+    if (!imageRegexp.test(file.name)) {
+      setImgErr(true);
+      setImgErrMsg('사진 파일을 올려주세요.');
+      return;
+    }
+    // 사진 용량 검사
+    if (file.size > maxSize) {
+      setImgErr(true);
+      setImgErrMsg('사진 용량이 50MB를 초과했습니다.');
+      return;
+    } else {
+      setImgErr(false);
+      setImgErrMsg('');
+      setImage(file);
+      setImgURL(URL.createObjectURL(file));
+    }
+  };
 
   
   // 제목 설정
@@ -80,7 +102,7 @@ const FundRegister: React.FC = () => {
       setTitleErrMsg('');
       setTitle(title);
     }
-  }
+  };
 
   // 모금액 설정
   // 모금액 상한 설정
@@ -98,13 +120,13 @@ const FundRegister: React.FC = () => {
     } else {
       setGoalErr(false);
       setGoalErrMsg('');
-      console.log(goal);
       // 금액띄워주기
       // setGoalCheckMsg(`${goal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원`);
       setGoal(Number(goal));
     }
   };
   // 확인용 목표금액 설정
+  // const [checkGoal, setCheckGoal]= useMemo()
   
 
 
@@ -153,6 +175,11 @@ const FundRegister: React.FC = () => {
             </div>
           </label> */}
           {/* 썸네일 등록 */}
+          {imgURL ? (
+            <div className={styles.divWithImg}>
+              <img className={styles.fundImg} src={imgURL} alt="" />
+            </div>
+          ) : (
           <label htmlFor="thumbImg">
             <div className={styles.imgThumb}>
               <div className={styles.thumbText}>
@@ -164,9 +191,11 @@ const FundRegister: React.FC = () => {
                 id="thumbImg"
                 className={styles.inputFile}
                 accept="image/jpg, image/png, image/jpeg"
+                onChange={handleImage}
               />
             </div>
           </label>
+          )}
         </div>
         {/* 제목 입력 */}
         <div className={styles.titleWrapper}>
@@ -204,7 +233,7 @@ const FundRegister: React.FC = () => {
           </div>
           {/* 모금액 확인 */}
           <div className={styles.fundCheckInput}>
-            {}모금액을 확인해 주세요
+            <div className={styles.fundCheckPlaceholder}>모금액을 확인해 주세요</div>
           </div>
         </div>
         {/* 사연 입력 */}
