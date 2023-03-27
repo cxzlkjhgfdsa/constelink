@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 
 import React from 'react';
 import './App.css';
@@ -12,9 +12,9 @@ import BenRegister from "./pages/BenRegister";
 import FundRegister from "./pages/FundRegister";
 import HosFundList from "./pages/HosFundList";
 
+ {/* <Header/> */}
 function App() {
   return (
-    <BrowserRouter>
       <div className="App">
         {/* <Login/> */}
         <Routes>
@@ -26,7 +26,6 @@ function App() {
           </Route>
         </Routes>
       </div> 
-    </BrowserRouter>
   );
 }
 
