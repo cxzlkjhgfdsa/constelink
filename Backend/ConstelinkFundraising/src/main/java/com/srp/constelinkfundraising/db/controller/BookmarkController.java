@@ -26,7 +26,7 @@ public class BookmarkController {
 	private final BookmarkService bookmarkService;
 
 	// Bookmark 등록 or 해체
-	@Operation(summary = "북마크 추가/삭제", description = "북마크에 이미 있으면 삭제, 없으면 추가")
+	@Operation(summary = "회원의 북마크 추가/삭제", description = "memberId = 회원 Id, fundraisingId = 모금 Id")
 	@PostMapping("")
 	public ResponseEntity<Boolean> bookmarkFundraising(
 		@RequestBody BookmarkFundraisingRequest bookmarkFundraisingRequest
@@ -34,12 +34,12 @@ public class BookmarkController {
 		return ResponseEntity.ok(bookmarkService.bookmarkFundraising(bookmarkFundraisingRequest));
 	}
 
-	@Operation(summary = "북마크한 목록 조회", description = "query에 memberId 넣으면 해당 member 북마크 목록 조회")
+	@Operation(summary = "회원의 북마크한 목록 조회", description = "page = 페이지, size = 페이지당 데이터 수, memberId = 회원 Id")
 	@GetMapping("")
 	public ResponseEntity<Page<FundraisingResponse>> getBookmarks(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId
+		@RequestParam(name = "memberId", required = true, defaultValue = "1") Long memberId
 	) {
 
 		return ResponseEntity.ok(bookmarkService.getBookmarks(memberId, page - 1, size));

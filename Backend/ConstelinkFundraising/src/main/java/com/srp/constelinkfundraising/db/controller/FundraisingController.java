@@ -30,14 +30,14 @@ public class FundraisingController {
 
 	private final FundraisingService fundraisingService;
 
-	@Operation(summary = "기부 리스트들 열람 + Detail", description =
-		"page, size, sortType, memberId 쿼리문으로 입력가능(default 값은 각각 1, 5, ALL) "
-			+ "sort_by는 ALL, FINISHED, UNFINISHED, START_DATE_ASC, START_DATE_DESC, END_DATE_ASC, END_DATE_DESC 이 존재")
+	@Operation(summary = "기부 리스트 열람 (memberId적으면 bookmark 반영되어 나옴), 병원이름 + 수혜자 이름 다 나옴", description =
+		"page = 페이지, size = 한 페이지당 데이터 수, sortBy = 정렬타입, "
+			+ "☆ memberId 적으면 bookmark가 체크되어서 나옴(나중에는 Header token까서 반영 예정) memberId = 회원 Id ")
 	@GetMapping("")
 	public ResponseEntity<Page<FundraisingResponse>> getFundraisings(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(name = "sort_by", required = false, defaultValue = "ALL") FundraisingSortType sortType,
+		@RequestParam(name = "sortBy", required = false, defaultValue = "ALL") FundraisingSortType sortType,
 		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId
 	) {
 		Page<FundraisingResponse> fundraisingResponses
@@ -45,22 +45,22 @@ public class FundraisingController {
 		return ResponseEntity.ok(fundraisingResponses);
 	}
 
-	@Operation(summary = "기부 리스트보기(간단)", description =
-		"page, size, sortType 쿼리문으로 입력가능(default 값은 각각 1, 5, ALL) "
-			+ "sort_by는 ALL, FINISHED, UNFINISHED, START_DATE_ASC, START_DATE_DESC, END_DATE_ASC, END_DATE_DESC 이 존재")
+	@Operation(summary = "기부 리스트보기(병원 이름, 수혜자이름X)", description =
+		"page = 페이지, size = 한 페이지당 데이터 수, sortBy = 정렬 타입")
 	@GetMapping("/withbeneficiary")
 	public ResponseEntity<Page<FundraisingBeneficiaryResponse>> getFundraisingsBeneficiaries(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(name = "sort_by", required = false, defaultValue = "ALL") FundraisingSortType sortType
+		@RequestParam(name = "sortBy", required = false, defaultValue = "ALL") FundraisingSortType sortType
 	) {
 		Page<FundraisingBeneficiaryResponse> fundraisingBeneficiaryResponses
 			= fundraisingService.getFundraisingsBeneficiaries(page - 1, size, sortType, 0L);
 		return ResponseEntity.ok(fundraisingBeneficiaryResponses);
 	}
 
-	@Operation(summary = "기부하기", description = "cash만큼 해당 기부 id로 더해줌 (id, cash) 기입")
-	@PutMapping("")
+	@Operation(summary = "기부하기", description = "fundraisingId = 기부 Id, cash = 기부금액"
+		+ ", 이 API는 기부내역 테이블에 반영한뒤 함께 반영되길 권장.(백엔드에서 통신 연결 예정)")
+	@PostMapping("/donate")
 	public ResponseEntity<FundraisingResponse> donateFundraising(
 		@RequestBody DonateRequest donateRequest
 	) {
@@ -68,7 +68,9 @@ public class FundraisingController {
 		return ResponseEntity.ok(fundraisingResponse);
 	}
 
-	@Operation(summary = "기부 만들기", description = "beneficiaryId, categoryId, fundraisingAmountGoal, fundraisingEndTime, fundraisingTitle, fundraisingStory, fundraisingThumbnail 기입")
+	@Operation(summary = "기부 만들기", description = "beneficiaryId = 수혜자 Id, categoryId = 카테고리 Id,"
+		+ " fundraisingAmountGoal = 기부 목표 금액, fundraisingEndTime = 기부 마감 시간,"
+		+ " fundraisingTitle = 기부 제목, fundraisingStory = 기부 사연(내용), fundraisingThumbnail = 기부 썸네일")
 	@PostMapping("")
 	public ResponseEntity<Fundraising> makeFundraising(
 		@RequestBody MakeFundraisingRequest makeFundraisingRequest

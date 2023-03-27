@@ -54,8 +54,6 @@ public class FundraisingService {
 		Page<Fundraising> fundraising;
 		HashSet<Long> memberBookmark =
 			memberId < 1 ? new HashSet<>() : bookmarkRepository.findBookmarksByIdMemberId(memberId);
-		System.out.println(memberId);
-		System.out.println(memberBookmark);
 		switch (sortType) {
 			case ALL:
 				fundraising = fundraisingRepository.findAll(PageRequest.of(page, size));

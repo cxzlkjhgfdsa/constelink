@@ -20,22 +20,23 @@ public class CategoryService {
 
 	@Transactional
 	public String addCategory(String categoryName) {
-		if (categoryRepository.existsCategoryByCategoryName(categoryName)) {
-			return "이미 존재합니다.";
-		} else {
-			Category category = new Category();
+		Category category = categoryRepository.findCategoryByCategoryName(categoryName);
+		if (category == null) {
+			category = new Category();
 			category.setCategoryName(categoryName);
 			categoryRepository.saveAndFlush(category);
+			return "카테고리 추가 성공";
+		} else {
+			categoryRepository.delete(category);
+			return "카테고리 삭제 성공";
 		}
-
-		return "카테고리 추가 성공";
 	}
 
-	@Transactional
-	public String deleteCategory(Long categoryId) {
-		categoryRepository.deleteById(categoryId);
-		return "카테고리 삭제 성공";
-	}
+	// @Transactional
+	// public String deleteCategory(Long categoryId) {
+	// 	categoryRepository.deleteById(categoryId);
+	// 	return "카테고리 삭제 성공";
+	// }
 
 	public Page<Category> getCategories(int page, int size, CategorySortType sortType) {
 		Page<Category> categories;
