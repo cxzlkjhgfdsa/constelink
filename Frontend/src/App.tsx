@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import React, { useState } from 'react';
 import './App.css';
-// import Header from './components/header/Header';
+import Header from './components/header/Header';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import RecoveryDiary from './pages/RecoveryDiary';
@@ -12,7 +12,7 @@ import LoginTestPage from './pages/LoginTestPage';
 function App() {
   return (
         <div className="App">
-        {/* <Header /> */}
+        <Header/>
           <Routes>
               {/* <Login/> */}
               {/* <Route path='/fundmain' element={<FundMain />} />
