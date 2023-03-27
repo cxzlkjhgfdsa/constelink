@@ -12,7 +12,7 @@ import BenRegister from "./pages/BenRegister";
 import FundRegister from "./pages/FundRegister";
 import HosFundList from "./pages/HosFundList";
 
- {/* <Header/> */}
+//  {/* <Header/> */}
 function App() {
   return (
       <div className="App">

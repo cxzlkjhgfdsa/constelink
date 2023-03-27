@@ -6,8 +6,10 @@ import styles from "./BenRegister.module.css";
 import axios from "axios";
 
 const nameRegexp = /^[가-힣]{1,5}$/; // 한글 1~5자
-const diseaseRegexp = /^[가-힣]{1,18}$/; // 한글 1~5자
-const imageRegexp = /(.*?)\.(jpg|jpeg|png)$/;
+const diseaseKorRegexp = /^[가-힣 ]{1,18}$/; // 공백포함 한글 1~18자
+const diseaseEngRegexp = /^[a-zA-Z ]{2,36}$/; // 공백포함 영문 2~36자
+const goalRegexp = /^[0-9]{1,10}$/; // 숫자만 가능
+const imageRegexp = /(.*?)\.(jpg|jpeg|png)$/; // 확장자는 jpg, jpeg, png
 const maxSize = 50 * 1024 * 1024;
 
 const BenRegister: React.FC = () => {
@@ -21,9 +23,12 @@ const BenRegister: React.FC = () => {
   const [diseaseErrMsg, setDiseaseErrMsg] = useState('');
   const [goalErr, setGoalErr] = useState(false);
   const [goalErrMsg, setGoalErrMsg] = useState('');
+  // 금액 확인 메시지
+  const [goalCheck, setGoalCheck] = useState(false);
+  const [goalCheckMsg, setGoalCheckMsg] = useState('')
   // 값입력 안되었을 경우 에러
   const [noValErr, setNoValErr] = useState(false);
-  const [noValErrMsg, setNoValErrMsg] = useState('');
+  // const [noValErrMsg, setNoValErrMsg] = useState('');
 
   // 병원 ID
   // 추후에 상태관리로 병원 로그인시 들고다님
@@ -60,7 +65,7 @@ const BenRegister: React.FC = () => {
     const name = e.target.value.slice(0, 5);
     if (!nameRegexp.test(name)) {
       setNameErr(true);
-      setNameErrMsg('이름은 한글 5자 까지 입력가능합니다.');
+      setNameErrMsg('이름은 한글 5자 까지 입력가능');
     } else {
       setNameErr(false);
       setNameErrMsg('');
@@ -75,10 +80,13 @@ const BenRegister: React.FC = () => {
   // 병명 설정
   const [diseaseName, setDiseaseName] = useState('');
   const handleDiseaseName = (e: any) => {
-    const disease = e.target.value.slice(0, 18);
-    if (!diseaseRegexp.test(disease)) {
+    const disease = e.target.value;
+    if (
+      !diseaseKorRegexp.test(disease) &&
+      !diseaseEngRegexp.test(disease)
+    ) {
       setDiseaseErr(true);
-      setDiseaseErrMsg('병명은 한글 18자 까지 입력가능합니다.');
+      setDiseaseErrMsg('병명은 공백포함 한글 18자 혹은 영문 36자까지 입력가능');
     } else {
       setDiseaseErr(false);
       setDiseaseErrMsg('');
@@ -91,17 +99,26 @@ const BenRegister: React.FC = () => {
   const handleGoalFund = (e: any) => {
     const goal = e.target.value.slice(0, 10);
     if (goal < 1 || goal > 1000000000) {
+      setGoalCheck(false);
+      setGoalCheckMsg(''); 
       setGoalErr(true);
-      setGoalErrMsg('목표금액은 10억 까지 입력가능합니다.');
+      setGoalErrMsg('모금액은 숫자로 10억까지 입력가능');
+    } else if (!goalRegexp.test(goal)) {
+      setGoalCheck(false);
+      setGoalCheckMsg('');
+      setGoalErr(true);
+      setGoalErrMsg('모금액은 숫자로 10억까지 입력가능');
     } else {
       setGoalErr(false);
       setGoalErrMsg('');
-      setGoalFund(goal);
+      // 금액띄워주기
+      setGoalCheck(true);
+      setGoalCheckMsg(`${goal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원`);
+      setGoalFund(Number(goal));
     }
   };
 
   // 없는 값 체크
-  // const checkVal
 
   // POST요청 보내기
   const sendPOST = async () => {
@@ -133,11 +150,12 @@ const BenRegister: React.FC = () => {
       !image || !benName || !birthDate || !diseaseName || !goalFund
     ) {
       setNoValErr(true);
-      console.log('값 업쓰')
-      setNoValErrMsg('입력되지 않은 값이 있습니다.');
+      alert('입력되지 않은 값이 있습니다.');
+      // console.log('값 업쓰')
+      // setNoValErrMsg('입력되지 않은 값이 있습니다.');
     } else {
       setNoValErr(false);
-      setNoValErrMsg('');
+      // setNoValErrMsg('');
     }
 
     if (
@@ -216,7 +234,6 @@ const BenRegister: React.FC = () => {
               <input 
                 className={styles.diseaseInput}
                 type="text"
-                maxLength={18}
                 placeholder="병명을 입력해 주세요"
                 onChange={handleDiseaseName}
               />
@@ -240,12 +257,15 @@ const BenRegister: React.FC = () => {
               {goalErr && (
                 <div className={styles.errMsg}>{goalErrMsg}</div>
               )}
+              {goalCheck && (
+                <div className={styles.goalMsg}>{goalCheckMsg}</div>
+              )}
             </div>
           </div>
         </div>
-        {noValErr && (
+        {/* {noValErr && (
           <div className={styles.centerErrMsg}>{noValErrMsg}</div>
-        )}
+        )} */}
         <div 
           className={styles.registerBtn}
           onClick={checkValidity}  

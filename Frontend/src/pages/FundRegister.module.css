@@ -55,13 +55,14 @@
   padding-bottom: 1rem;
   width: 80%;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   font-family: "Hahmlet";
   font-size: 1rem;
   color: white;
 }
 
-.imgMain{
+/* .imgMain{
   width: 40rem;
   height: 13rem;
   background-color: #A19FD5;
@@ -73,7 +74,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .imgText{
   position: absolute;
@@ -174,6 +175,17 @@
   margin-top: 0.5rem;
 }
 
+.fundCheckInput{
+  width: 15rem;
+  height: 2rem;
+  border: 1px solid black;
+  margin-top: 1.5rem;
+
+  font-family: "Hahmlet";
+  color: gray;
+  line-height: 1.9rem;
+}
+
 .storyWrapper{
   /* background-color: bisque; */
   height: max-content;
@@ -235,4 +247,10 @@
   text-align: center;
   border-radius: 1.5rem;
   cursor: pointer;
+}
+
+.errMsg{
+  font-family: "Hahmlet";
+  color: red;
+  margin-bottom: 0.5rem;
 }

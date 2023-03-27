@@ -9,7 +9,7 @@ const Header: React.FC = () => {
     
     useEffect(() => {
         const path = window.location.pathname;
-        console.log(path);
+        // console.log(path);
         
         switch (path) {
             case '/notice':
