@@ -11,15 +11,9 @@ const NoticePage: React.FC = () => {
         <div className={styles.NoticePage}>
 
             <header className={styles.notice_title}>공지사항</header>
-
             {/* <NoticeCreate/> */}
             <NoticeList/>
             {/* <NoticeDetail/> */}
-
-       
-
-
-
         </div>
     );
 };

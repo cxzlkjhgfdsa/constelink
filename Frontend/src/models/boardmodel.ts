@@ -1,4 +1,5 @@
 export interface BoardWrite {
+            id?:Number|string,
         noticeTitle: string
         noticeContent: string,
         noticeType: string,

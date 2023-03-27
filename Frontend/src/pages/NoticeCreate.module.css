@@ -17,21 +17,8 @@
 
 }
 
-
-
-
-
-
-
-
-
-/* 공지사항 작성 페이지 */
-
 .write_section{
-        /* background-color: blueviolet; */
         width: 920px;
-        /* height: 400px; */
-        /* background-color: red; */
 }
 
 .write_title{
@@ -49,11 +36,9 @@
     outline: none;
     border-radius: 5px;
     border-style: none;
-    /* background-color: red; */
     outline:1px solid #A19FD5;
     padding-left: 5px;
     font-size: 20px;
-    /* color: #C6C5C5; */
 }
 
 .write_input:focus{
@@ -64,7 +49,6 @@
     font-size: 20px;
     color: #C6C5C5 ;
     font-family: "Hahmlet";
-   
 }
 
 
@@ -74,30 +58,21 @@
     border-bottom: 1px solid #D6D6D6 ;
     align-items: center;
     padding-left: 5px;
-    /* background-color: red; */
-    
 }
 
 .category_select{
     display: flex;
-    /* background-color: pink; */
-    /* padding-right: 15px; */
-    /* background-color: blue; */
     width: 200px;
     justify-content: space-between;
-    /* background-color:blue; */
 }
 .category_fixed{
     display: flex;
-    /* background-color: blue; */
-    /* background-color: red; */
     width: 120px;
     justify-content: space-between;
     margin-left: 20px;
 }
 
 .write_content{
-    /* background-color: red; */
     
 }
 
@@ -106,9 +81,6 @@ width: 80px;
 border-radius: 5px; 
 border: 1px solid #BDBADC;
 font-size: 13px;
-/* -webkit-appearance: none; 
--moz-appearance: none;
-appearance: none; */
 }
 
 .category_fixed input[type="button"] {
@@ -119,18 +91,12 @@ appearance: none; */
     font-size: 15px;
 }
 
-/* .category_fixed input[type="button"]:hover {
-   background-color: #BDBADC;
-   color: #ffffff;
-   font-weight: bold;
-} */
-
 .fbtn{
     background-color: grey;
     color: #ffffff;
     font-weight: bold;
     cursor: pointer;
- 
+
  }
 
  .fbtnOn{
@@ -141,7 +107,6 @@ appearance: none; */
  }
 
  .write_finish{
-    /* background-color: red; */
     width: 920px;
     display: flex;
     justify-content: right;
@@ -166,62 +131,4 @@ appearance: none; */
  }
  /* 공지사항 상세페이지 */
 
- .board_detail{
-    width: 920px;
- }
- .detail_title{
-    height: 50px;
-    /* background-color: red; */
-    border-bottom: 1px solid #D6D6D6;
-    /* background-color: red; */
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    justify-content: space-between;
-    
- }
-.detail_content{
-    height: 400px;
-    /* background-color: red; */
-}
-.title_left{
-    display: flex;
-    /* background-color: red; */
-    width: 450px;
-    justify-content: space-between;
-}
-
-.write_finish{
-    /* background-color: red; */
-    height: 50px;
-    display: flex;
-    align-items: center;
-    border-top: 1px solid #BDBADC;
-}
-
-.modi_btn{
-    border-style: none;
-    width: 80px;
-    height: 35px;
-    border-radius: 5px;
-    font-size: 15px;
-    background-color: grey;
-    color: #ffffff;
-    font-weight: bold;
-    cursor: pointer;
-    
-}
-
-.back_btn{
-    border-style: none;
-    width: 80px;
-    height: 35px;
-    border-radius: 5px;
-    font-size: 15px;
-    background-color: #A19FD5;
-    color: #ffffff;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
-}
+ 
