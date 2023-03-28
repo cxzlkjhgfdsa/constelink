@@ -55,7 +55,6 @@ const RecoveryDiaryDetail: React.FC = () => {
       setTreatmentRecords(res.data.beneficiaryInfo)
       setRecoveryCard(res.data.beneficiaryDiaries.content)
 
-      const today = new Date();
       console.log(today)
       
     })
@@ -217,7 +216,7 @@ const RecoveryDiaryDetail: React.FC = () => {
         {/* 생성된 치료일기 */}
         {recoveryCard.map((record, index) => (
           <div key={index} className={styles.record} onClick={() => onClickRecord(index)}>
-          <div className={styles.recordDate}>날짜{today}</div>
+          <div className={styles.recordDate}>날짜</div>
           <img className={styles.recordImage} src={record.diaryPhoto} alt="treatment" />
           <div className={styles.recordIndex}>{record.diaryId}. 치료일기</div>
           <div className={styles.recordContent}>
