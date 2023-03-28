@@ -1,6 +1,7 @@
 package com.srp.constelinkfundraising.db.repository;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -29,4 +30,7 @@ public interface FundraisingRepository extends JpaRepository<Fundraising, Long> 
 
 	// Page<Fundraising> findFundraisingsByFundraisingEndTimeBefore(Timestamp timestamp, Pageable pageable);
 	HashSet<Fundraising> findFundraisingsByIdIsIn(HashSet<Long> idList);
+
+	@Query("select count(b) as totalFundraisings, (select count(c) from Fundraising c where c.fundraisingIsDone = true) as totalFundraisingsFinished , sum(b.fundraisingAmountRaised) as totalAmountedCash from Fundraising b")
+	Map<String, Long> findFundraisingsStatistics();
 }

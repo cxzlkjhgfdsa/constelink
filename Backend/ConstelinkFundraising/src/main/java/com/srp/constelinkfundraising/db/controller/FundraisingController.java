@@ -15,17 +15,20 @@ import com.srp.constelinkfundraising.db.dto.request.DonateRequest;
 import com.srp.constelinkfundraising.db.dto.request.MakeFundraisingRequest;
 import com.srp.constelinkfundraising.db.dto.response.FundraisingBeneficiaryResponse;
 import com.srp.constelinkfundraising.db.dto.response.FundraisingResponse;
+import com.srp.constelinkfundraising.db.dto.response.StatisticsResponse;
 import com.srp.constelinkfundraising.db.entity.Fundraising;
 import com.srp.constelinkfundraising.db.service.FundraisingService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Tag(name = "fundrasings", description = "기부 api")
 @RestController
 @RequestMapping("/fundraisings")
 @RequiredArgsConstructor
+@Slf4j
 public class FundraisingController {
 
 	private final FundraisingService fundraisingService;
@@ -58,14 +61,15 @@ public class FundraisingController {
 		return ResponseEntity.ok(fundraisingBeneficiaryResponses);
 	}
 
-	@Operation(summary = "기부하기", description = "fundraisingId = 기부 Id, cash = 기부금액"
+	@Operation(summary = "기부하기 (서버간 통신 전용)", description = "fundraisingId = 기부 Id, cash = 기부금액"
 		+ ", 이 API는 기부내역 테이블에 반영한뒤 함께 반영되길 권장.(백엔드에서 통신 연결 예정)")
 	@PostMapping("/donate")
-	public ResponseEntity<FundraisingResponse> donateFundraising(
+	public ResponseEntity<String> donateFundraising(
 		@RequestBody DonateRequest donateRequest
 	) {
-		FundraisingResponse fundraisingResponse = fundraisingService.donateFundraising(donateRequest);
-		return ResponseEntity.ok(fundraisingResponse);
+		log.info("요청 도착 == " + donateRequest.getFundraisingId() + " 확인 " + donateRequest.getCash());
+		Boolean check = fundraisingService.donateFundraising(donateRequest);
+		return ResponseEntity.ok("ok");
 	}
 
 	@Operation(summary = "기부 만들기", description = "beneficiaryId = 수혜자 Id, categoryId = 카테고리 Id,"
@@ -77,5 +81,12 @@ public class FundraisingController {
 	) {
 		Fundraising fundraisingResponse = fundraisingService.makeFundraising(makeFundraisingRequest);
 		return ResponseEntity.ok(fundraisingResponse);
+	}
+
+	@Operation(summary = "기부 통계 가져오기", description = "기부 통계 가져오기")
+	@GetMapping("/statistics")
+	public ResponseEntity<StatisticsResponse> donateFundraising() {
+		StatisticsResponse statisticsResponse = fundraisingService.getFundraisingStatistics();
+		return ResponseEntity.ok(statisticsResponse);
 	}
 }

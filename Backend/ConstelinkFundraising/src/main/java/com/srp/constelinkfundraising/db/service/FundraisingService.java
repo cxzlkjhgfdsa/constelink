@@ -24,6 +24,7 @@ import com.srp.constelinkfundraising.db.dto.request.DonateRequest;
 import com.srp.constelinkfundraising.db.dto.request.MakeFundraisingRequest;
 import com.srp.constelinkfundraising.db.dto.response.FundraisingBeneficiaryResponse;
 import com.srp.constelinkfundraising.db.dto.response.FundraisingResponse;
+import com.srp.constelinkfundraising.db.dto.response.StatisticsResponse;
 import com.srp.constelinkfundraising.db.entity.Category;
 import com.srp.constelinkfundraising.db.entity.Fundraising;
 import com.srp.constelinkfundraising.db.repository.BookmarkRepository;
@@ -200,7 +201,7 @@ public class FundraisingService {
 	}
 
 	@Transactional
-	public FundraisingResponse donateFundraising(DonateRequest donateRequest) {
+	public Boolean donateFundraising(DonateRequest donateRequest) {
 		// 돈 0원 이상 체크, 해당 기부 id 체크
 		Fundraising fundraising = fundraisingRepository.findFundraisingById(donateRequest.getFundraisingId())
 			.orElseThrow(() -> new CustomException(CustomExceptionType.FUNDRAISING_NOT_FOUND));
@@ -209,23 +210,8 @@ public class FundraisingService {
 		}
 
 		fundraising.setFundraisingAmountRaised(fundraising.getFundraisingAmountRaised() + donateRequest.getCash());
-		FundraisingResponse fundraisingResponse = FundraisingResponse.builder()
-			.fundraisingIsDone(fundraising.isFundraisingIsDone())
-			.fundraisingPeople(fundraising.getFundraisingPeople())
-			.fundraisingStory(fundraising.getFundraisingStory())
-			.fundraisingThumbnail(fundraising.getFundraisingThumbnail())
-			.fundraisingTitle(fundraising.getFundraisingTitle())
-			.fundraisingAmountRaised(fundraising.getFundraisingAmountRaised())
-			.fundraisingStartTime(
-				fundraising.getFundraisingStartTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
-			.fundraisingId(fundraising.getId())
-			.fundraisingEndTime(
-				fundraising.getFundraisingEndTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
-			.fundraisingAmountGoal(fundraising.getFundraisingAmountGoal())
-			.beneficiaryId(fundraising.getBeneficiaryId())
-			.categoryName(fundraising.getCategory().getCategoryName())
-			.build();
-		return fundraisingResponse;
+
+		return true;
 	}
 
 	@Transactional
@@ -245,5 +231,16 @@ public class FundraisingService {
 
 		return fundraising;
 	}
+
+	public StatisticsResponse getFundraisingStatistics() {
+		Map<String,Long> fundraisingStatistics = fundraisingRepository.findFundraisingsStatistics();
+		StatisticsResponse statisticsResponse = new StatisticsResponse().builder()
+			.totalFundraisings(fundraisingStatistics.get("totalFundraisings"))
+			.totalAmountedCash(fundraisingStatistics.get("totalAmountedCash"))
+			.totalFundraisingsFinished(fundraisingStatistics.get("totalFundraisingsFinished"))
+			.build();
+		return statisticsResponse;
+	}
+
 
 }
