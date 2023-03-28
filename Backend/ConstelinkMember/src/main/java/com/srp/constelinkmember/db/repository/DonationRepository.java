@@ -24,4 +24,10 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
 		+ " group by d.beneficiaryId, d.beneficiaryName, d.beneficiaryDisease, d.hospitalName ")
 	Page<Map<String, Object>> findByMemberId(@Param("memberId") Long memberId, Pageable pageable);
 
+	@Query(value = "SELECT COUNT(*) AS allDonation, " +
+		"(SELECT COUNT(*) FROM Member WHERE role = 'MEMBER') AS allMember, " +
+		"(SELECT COUNT(*) FROM Member WHERE role = 'HOSPITAL') AS allHospital " +
+		"FROM Donation")
+	Map<String, Long> statsData();
+
 }

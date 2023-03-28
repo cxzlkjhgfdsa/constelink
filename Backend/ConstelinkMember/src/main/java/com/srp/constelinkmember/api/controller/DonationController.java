@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.srp.constelinkmember.api.service.DonationService;
 import com.srp.constelinkmember.dto.request.SaveDonationRequest;
 import com.srp.constelinkmember.dto.response.DonationDetailsResponse;
+import com.srp.constelinkmember.dto.response.StatsDataResponse;
 import com.srp.constelinkmember.security.jwt.TokenProvider;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,6 +53,14 @@ public class DonationController {
 		// Long memberId = Long.valueOf(id);
 		DonationDetailsResponse donationDetailsResponse = donationService.listDonation(memberId, page - 1);
 		return ResponseEntity.ok(donationDetailsResponse);
+	}
+
+	@Operation(summary = "기부통계 자료 반환", description = "기부통계 자료 반환 메서드.")
+	@GetMapping("/data")
+	public ResponseEntity responseData() {
+		StatsDataResponse response = donationService.getStatsData();
+
+		return ResponseEntity.ok(response);
 	}
 
 }

@@ -76,8 +76,9 @@ public class AuthService {
 		if (saveMemberId == null) {
 			throw new CustomException(CustomExceptionType.NOT_LOGINED_EXCEPTION);
 		}
-
-		String accessToken = tokenProvider.createAccessToken(Long.valueOf(saveMemberId), Role.MEMBER);
+		Optional<Member> findMember = memberRepository.findById(Long.valueOf(saveMemberId));
+		Role role = findMember.get().getRole();
+		String accessToken = tokenProvider.createAccessToken(Long.valueOf(saveMemberId), role);
 		return accessToken;
 
 	}

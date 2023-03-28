@@ -60,7 +60,7 @@ public class MemberService {
 		MemberInfoResponse response = new MemberInfoResponse();
 
 		if (roleByToken.equals("MEMBER")) {
-			log.info("MEMBER 에용");
+			log.info("MEMBER 입니다");
 			Map<String, Objects> donationInfo = donationRepository.getDonationInfo(memberId);
 			Optional<Member> findMember = memberRepository.findById(memberId);
 			String tf = donationInfo.get("totalFundCount") + "";
