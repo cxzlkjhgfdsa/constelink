@@ -144,16 +144,75 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-top: 20px
 }
 .addbox_item{
-    display: flex;
-    justify-content: center;
     width: 890px;
-    height: 230px;
+    height: 240px;
     background-color: #CFE5F6;
     border-radius: 10px;
 }
 
+.addbox_box{
+    width: 100%;
+    padding-left: 40px;
+    padding-top: 15px;
+    display: flex;
+    cursor: pointer;
+}
+
+.addbox_left{
+    width: 12%;
+}
+.addbox_ad{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.addbox_right{
+    
+}
+.addbox_verses{
+    display: flex;
+    font-family: "Hahmlet" ;
+}
+
+.addbox_verses>img{
+    width: 120px;
+    height: 120px;
+}
+
+.addbox_verses>div{
+   display: flex;
+   align-items: center;
+   font-size: 36px;
+   font-weight: bold;
+   color: #3D3D3D;
+   padding-top: 25px;
+}
+.addbox_comment{
+    font-size: 16px;
+    font-family: "Hahmlet";
+}
+.addbox_finish{
+    font-size: 28px;
+    font-weight: bold;
+    font-family: "Hahmlet";
+    color: #3D3D3D;
+    display: flex;
+    align-items: center;
+}
+.addbox_finish button{
+    border-style: none;
+    width: 130px;
+    height: 45px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 20px;
+    background-color: white;
+    margin-left: 20px;
+    cursor: pointer;
+}
 .result_box{
     /* background-color: red; */
     display: flex;
@@ -166,6 +225,7 @@
     display: flex;
     justify-content: space-around;
     width: 900px;
+    padding-left: 0;
     /* background-color: blue; */
 }
 
@@ -208,17 +268,16 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
     height: 330px;
-   
+    margin-top: 20px;
+
 }
 
 
 
 .slide_cardItem{
-    margin-top: 20px;
-    width: 920px;
+    padding-top: 10px;
+    width: 900px;
+    margin-bottom: 20px;
     height: 100%;
-  
-    
 }
