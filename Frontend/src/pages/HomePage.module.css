@@ -19,6 +19,7 @@
     height: 350px;
     position: absolute;
     word-break: keep-all;
+    
 }
 
 .slide_list {
@@ -26,6 +27,8 @@
 }
 
 .slide_item {
+    padding-left: 10px;
+    padding-right: 10px;
     height: 350px;
     width: 100%;
     background-repeat: no-repeat;
@@ -198,4 +201,24 @@
     font-family: "NotoSans";
     font-weight: bold !important;
     color: #272727;
+}
+
+.slide_card{
+    /* background-color: red; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    height: 330px;
+   
+}
+
+
+
+.slide_cardItem{
+    margin-top: 20px;
+    width: 920px;
+    height: 100%;
+  
+    
 }

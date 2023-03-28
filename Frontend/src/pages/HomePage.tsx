@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import topbanner1 from '../assets/img/topbanner_1.jpg';
 import topbanner2 from '../assets/img/topbanner_2.jpg';
-import topbanner3 from '../assets/img/topbanner_3.jpeg';
+import topbanner3 from '../assets/img/topbanner_3.jpg';
 import DonationCard from '../components/cards/DonationCard';
 import { DonationData } from '../models/donatecard';
 import { SliderSettings } from '../models/slidemodel';
@@ -120,15 +120,13 @@ const HomePage: React.FC = () => {
 
 
 
-        <div style={{ zIndex: "0", position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
-          <Swiper style={{ width: "930px", paddingRight: "3%", position: "relative" }}
-            // install Swiper modules
+        <div className={styles.slide_card}style={{  }}>
+          <Swiper className={styles.slide_cardItem} style={{ width:"900px"}}
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={0}
             slidesPerView={4}
             navigation
             pagination={{ clickable: true }}
-            // scrollbar={{ draggable: true }}
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}
           >

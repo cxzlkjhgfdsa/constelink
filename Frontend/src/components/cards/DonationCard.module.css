@@ -6,14 +6,16 @@
 
 /*컴포넌트 전체 */
 .DonationCard {
-    margin: 50px;
-    width: 200px;
+    
+    width: 91%;
     height: 290px;
+    margin-left: 10px;
     border-radius: 5px;
     font-weight: bold;
     color: #ffffff;
     cursor: pointer;
     word-break: keep-all;
+    background-color: blue;
 
 }
 
@@ -24,7 +26,7 @@
     padding: 14px;
     padding-top:75%;
     word-break: keep-all;
-
+    margin: 5px;
 }
 
 /* 병명 */
