@@ -10,8 +10,12 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import com.srp.beneficiaryrpc.BeneficiariesInfoReq;
 import com.srp.beneficiaryrpc.BeneficiariesInfoRes;
@@ -25,6 +29,7 @@ import com.srp.constelinkfundraising.db.dto.request.MakeFundraisingRequest;
 import com.srp.constelinkfundraising.db.dto.response.FundraisingBeneficiaryResponse;
 import com.srp.constelinkfundraising.db.dto.response.FundraisingResponse;
 import com.srp.constelinkfundraising.db.dto.response.StatisticsResponse;
+import com.srp.constelinkfundraising.db.dto.response.StatsDataResponse;
 import com.srp.constelinkfundraising.db.entity.Category;
 import com.srp.constelinkfundraising.db.entity.Fundraising;
 import com.srp.constelinkfundraising.db.repository.BookmarkRepository;
@@ -34,15 +39,18 @@ import com.srp.constelinkfundraising.db.repository.FundraisingRepository;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class FundraisingService {
 
 	private final FundraisingRepository fundraisingRepository;
 	private final CategoryRepository categoryRepository;
 	private final BookmarkRepository bookmarkRepository;
+	private final RestTemplate restTemplate;
 	private final ManagedChannel channel = ManagedChannelBuilder.forAddress(
 			"j8a206.p.ssafy.io", 8899)
 		.usePlaintext()
@@ -80,7 +88,6 @@ public class FundraisingService {
 					PageRequest.of(page, size, Sort.by("fundraisingEndTime").ascending()));
 				break;
 			case END_DATE_DESC:
-				System.out.println("DESC");
 				fundraising = fundraisingRepository.findAll(
 					PageRequest.of(page, size, Sort.by("fundraisingEndTime").descending()));
 				break;
@@ -167,7 +174,6 @@ public class FundraisingService {
 					PageRequest.of(page, size, Sort.by("fundraisingEndTime").ascending()));
 				break;
 			case END_DATE_DESC:
-				System.out.println("DESC");
 				fundraising = fundraisingRepository.findAll(
 					PageRequest.of(page, size, Sort.by("fundraisingEndTime").descending()));
 				break;
@@ -233,12 +239,21 @@ public class FundraisingService {
 	}
 
 	public StatisticsResponse getFundraisingStatistics() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		StatsDataResponse response = restTemplate.getForObject("http://j8a206.p.ssafy.io:8997/donations/data",
+			StatsDataResponse.class);
 		Map<String,Long> fundraisingStatistics = fundraisingRepository.findFundraisingsStatistics();
+
 		StatisticsResponse statisticsResponse = new StatisticsResponse().builder()
 			.totalFundraisings(fundraisingStatistics.get("totalFundraisings"))
 			.totalAmountedCash(fundraisingStatistics.get("totalAmountedCash"))
 			.totalFundraisingsFinished(fundraisingStatistics.get("totalFundraisingsFinished"))
+			.allDonation(response.getAllDonation())
+			.allMember(response.getAllMember())
+			.allHospital(response.getAllHospital())
 			.build();
+
 		return statisticsResponse;
 	}
 

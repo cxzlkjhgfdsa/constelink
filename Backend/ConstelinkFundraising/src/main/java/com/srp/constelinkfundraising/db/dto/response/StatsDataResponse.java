@@ -8,14 +8,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StatisticsResponse {
-	private Long totalFundraisings;
-	private Long totalFundraisingsFinished;
-	private Long totalAmountedCash;
+@Builder
+public class StatsDataResponse {
 	private int allDonation;
 	private int allMember;
 	private int allHospital;
+
 }
