@@ -1,5 +1,5 @@
 import styles from './NoticeEdit.module.css'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import React, { useRef, useEffect, useState } from 'react';
 import axios from 'axios';
 import { BoardWrite } from '../models/boardmodel'
@@ -16,7 +16,7 @@ const NoticeEdit = () => {
     const [contents, setContents] = useState('');
     const [boforeContent, setBeforeContent] = useState('');
     const { id } = useParams<{ id: string }>();
-
+    const navigate = useNavigate();
     useEffect(()=>{
         axios.get(`http://j8a206.p.ssafy.io:8995/notices/detail?id=${id}`).then(res=>{
             console.log(res);
@@ -41,6 +41,8 @@ const NoticeEdit = () => {
             alert("공지사항 내용을 작성해주세요.");
             return;
         }
+
+        
         const boardContent: BoardWrite = {
             id:id,
             noticeTitle: title,
@@ -53,9 +55,14 @@ const NoticeEdit = () => {
 
         axios.post("/notices/modify", boardContent).then(res => {
             console.log(res);
-
+            alert("수정이 완료되었습니다")
+            navigate(`/notice/${id}`);
+        }).catch(err=>{
+            alert("수정도중 오류가 발생했습니다. 다시 시도해주세요.");
+            navigate(`/notice/${id}/edit`);
         })
     };
+
     const handleEditorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value);
         setTitle(e.target.value);
@@ -73,7 +80,7 @@ const NoticeEdit = () => {
         console.log(editor.current);
     };
     return (
-        <div className={styles.NoticeCreate}>
+        <div className={styles.NoticeEdit}>
             <section className={styles.write_section} >
 
                 <div className={styles.write_title}>
@@ -136,6 +143,7 @@ const NoticeEdit = () => {
 
             <div className={styles.write_finish} >
                 <button className={styles.write_btn} onClick={submitHandler}>공지사항 수정</button>
+                <button className={styles.back_btn} onClick={()=> navigate(-1)}>뒤로가기</button>
             </div>
         </div>
     );

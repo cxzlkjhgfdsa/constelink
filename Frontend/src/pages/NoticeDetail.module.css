@@ -30,12 +30,11 @@
     
  }
 .detail_content{
-    height: 400px;
+    padding: 15px;
 }
 .title_left{
     display: flex;
     width: 450px;
-    /* justify-content: space-between; */
 }
 .left_content{
     margin-left: 40px;
@@ -61,7 +60,6 @@
     color: #ffffff;
     font-weight: bold;
     cursor: pointer;
-    
 }
 
 .back_btn{

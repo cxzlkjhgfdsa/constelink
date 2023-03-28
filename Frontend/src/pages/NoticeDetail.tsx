@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './NoticeDetail.module.css'
 import { BoardDetail } from './../models/boardmodel';
+
 const NoticeDetail = () => {
      const [contents, setContents] = useState<BoardDetail| null>(null);
      const navigate= useNavigate();
      const { id } = useParams<{ id: string }>();
      useEffect(()=> {
         axios.get(`http://j8a206.p.ssafy.io:8995/notices/detail?id=${id}`).then(res=>{
-            console.log(res.data);
+            console.log(res.data.noticeContent);
             setContents(res.data)
             
         })
@@ -33,7 +34,7 @@ const NoticeDetail = () => {
     };
     return (
         <div className={styles.NoticeDetail}>
-            
+      
             <section className={styles.board_detail}>
                 <header className={styles.detail_title}>
                     <div className={styles.title_left}>
@@ -53,7 +54,7 @@ const NoticeDetail = () => {
 
             <div className={styles.write_finish} >
             <button className={styles.modi_btn} onClick={()=> navigate(`/notice/${contents?.id}/edit`)}>글 수정</button>
-            <button className={styles.back_btn} onClick={()=> navigate(-1)}>돌아가기</button>
+            <button className={styles.back_btn} onClick={()=> navigate('/notice/')}>글 목록</button>
             </div>
         </div>
     );

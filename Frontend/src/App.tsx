@@ -10,15 +10,12 @@ import NoticeEdit from './pages/NoticeEdit';
 function App() {
   return (
     <div className="App">
-      {/* <Login/> */}
+  
       <Header/>
-
       <Routes>
-        <Route path="/notice" element={<NoticePage/>}/>
-        <Route path="/notice/:id" element={<NoticeDetail/>}/>
-        <Route path="/notice/:id/edit" element={<NoticeEdit/>}/>
+        <Route path="/notice/*" element={<NoticePage/>}/>
       </Routes>
-      {/* <NoticePage/> */}
+ 
     </div>
   );
 }

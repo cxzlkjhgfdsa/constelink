@@ -131,4 +131,15 @@ font-size: 13px;
  }
  /* 공지사항 상세페이지 */
 
- 
+ .back_btn{
+    border-style: none;
+    width: 80px;
+    height: 35px;
+    border-radius: 5px;
+    font-size: 15px;
+    background-color: grey;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+}

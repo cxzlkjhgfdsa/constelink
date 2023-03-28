@@ -25,7 +25,15 @@
     margin-bottom: 5px;
     color: #ffffff;
     font-weight: bold;
+    height: 80px;
+    display: flex;
+    align-items: center;   
 }
+
+.notice_title >div {
+  padding-left: 20px;
+}
+
 .notice_section{
     /* background-color: blueviolet; */
     width: 920px;

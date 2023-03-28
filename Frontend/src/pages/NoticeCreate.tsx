@@ -5,6 +5,7 @@ import { BoardWrite } from '../models/boardmodel'
 import SunEditor from 'suneditor-react';
 import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css';
+import Header from '../components/header/Header';
 
 
 const NoticeCreate = () => {
@@ -61,6 +62,7 @@ const NoticeCreate = () => {
     };
     return (
         <div className={styles.NoticeCreate}>
+            <Header/>
             <section className={styles.write_section} >
 
                 <div className={styles.write_title}>
