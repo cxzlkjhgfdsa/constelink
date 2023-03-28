@@ -4,28 +4,24 @@ import styles from './RecoveryDiary.module.css';
 import { RecoveryDiaryData } from './../models/recoveryData';
 import axios from "axios";
 
-
 const RecoveryDiary: React.FC = () => {
   const [diaryList, setDiaryList] = useState<RecoveryDiaryData[]>([]);
+  
   const navigate = useNavigate();
   const handleCardClick = (beneficiaryId: number) => {
-    const diaryData = diaryList.find(data => data.beneficiaryId === beneficiaryId);
-    if (diaryData) {
-      navigate(`/diarydetail/${diaryData.diaryId}`);
-    }
+      navigate(`/diarydetail/${beneficiaryId}`);
   }
 
   // axios 처리
   useEffect(() => {
     // getRecoveryDiaryData();
-    let params: any ={page:1, size:5, sort_by:'All'};
-    axios.get('http://j8a206.p.ssafy.io:8999/recoveryDiaries')
+    let params: any ={page:1, size:5, sortBy:'DATE_DESC'};
+    axios.get('http://j8a206.p.ssafy.io:8999/beneficiaries?page=1&size=5&sortBy=DIARY_DATE_ASC')
     .then(res =>setDiaryList(res.data.content)
     );
-    
-    
   }, []);
-
+  // console.log(diaryList)
+  
   return (
       <div className={styles.container}>
         <div className={styles.item}>
@@ -53,9 +49,9 @@ const RecoveryDiary: React.FC = () => {
             {content.beneficiaryName}
             </p>
               <div className={styles.content}>
-                {content.beneficiaryDisease.split(",").map((content, index) => (
+                {content.beneficiaryDisease.split(",").map((disease, index) => (
                   <div className={styles.contentItem} key={index}>
-                    {content}
+                    {disease}
                   </div>
                 ))}
               </div>

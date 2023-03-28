@@ -10,20 +10,21 @@ export interface RecoveryDiaryData {
 }
 
 export interface RecoveryDiaryDetailData {
-  // beneficiaryInfo
   beneficiaryName: string,
   beneficiaryBirthday : number,
   beneficiaryDisease: string,
   beneficiaryPhoto: string,
   beneficiaryAmountRaised : number,
   beneficiaryAmountGoal: number,
-
+  hospitalName: string,
+  
   // beneficiaryDiaries
-  diaryId : number,
-  beneficiaryId : number,
-  diaryRegisterDate : number,
-  diaryPhoto: string,
-  diaryTitle: string,
-  diaryContent : string,
-  diaryAmountSpent: number,
+  // beneficiaryName: string,
+  diaryId: number;
+  beneficiaryId: number;
+  diaryRegisterDate: number;
+  diaryPhoto: string;
+  diaryTitle: string;
+  diaryContent: string;
+  diaryAmountSpent: number;
 }
