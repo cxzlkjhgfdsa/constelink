@@ -24,6 +24,7 @@ import 'swiper/css/scrollbar';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSackDollar, faHeartPulse, faHandHoldingHeart } from "@fortawesome/free-solid-svg-icons";
 import { faGratipay } from "@fortawesome/free-brands-svg-icons";
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const images = [topbanner1, topbanner2, topbanner3];
 const contents = [["콘스텔링크 Constelink1", "블록체인기반, 치료비 모금 플랫폼1"], ["콘스텔링크 Constelink2", "블로체인기반, 치료비 모금 플랫폼2"], ["콘스텔링크 Constelink3", "블로체인기반, 치료비 모금 플랫폼3"]];
@@ -96,7 +97,7 @@ const HomePage: React.FC = () => {
 
               <div className={styles.slide_linkbox}>
                 <div className={styles.linkbox_title}>블록체인기반, 치료비 모금 플랫폼</div>
-                <div className={styles.linkbox_sub}>우리의 별자지를 확인해보세요!</div>
+                <div className={styles.linkbox_sub}>우리의 별자리를 확인해보세요!</div>
                 <div className={styles.linkbox_link}>바로가기 {">"}</div>
               </div>
             </div>
@@ -156,7 +157,7 @@ const HomePage: React.FC = () => {
       <div className={styles.result_box}>
         <ul className={styles.result_list} >
           <li className={styles.result_item}>
-            <FontAwesomeIcon icon={faSackDollar} className={styles.result_icon} />
+            <FontAwesomeIcon icon={faSackDollar as IconProp} className={styles.result_icon} />
             <div className={styles.result_content}>
               <div className={styles.content_title}>총 모금액</div>
               <div className={styles.content_curval}>{"2,400,000"} 원</div>
@@ -164,15 +165,15 @@ const HomePage: React.FC = () => {
           </li>
 
 
-          <li className={styles.result_item}>  <FontAwesomeIcon icon={faHeartPulse} className={styles.result_icon} />             <div className={styles.result_content}>
+          <li className={styles.result_item}>  <FontAwesomeIcon icon={faHeartPulse  as IconProp} className={styles.result_icon} />             <div className={styles.result_content}>
             <div className={styles.content_title}>총 모금액</div>
             <div className={styles.content_curval}>{"2,400,000"} 원</div>
           </div></li>
-          <li className={styles.result_item}>  <FontAwesomeIcon icon={faHandHoldingHeart} className={styles.result_icon} />             <div className={styles.result_content}>
+          <li className={styles.result_item}>  <FontAwesomeIcon icon={faHandHoldingHeart  as IconProp} className={styles.result_icon} />             <div className={styles.result_content}>
             <div className={styles.content_title}>총 모금액</div>
             <div className={styles.content_curval}>{"2,400,000"} 원</div>
           </div></li>
-          <li className={styles.result_item}>  <FontAwesomeIcon icon={faGratipay} className={styles.result_icon} />             <div className={styles.result_content}>
+          <li className={styles.result_item}>  <FontAwesomeIcon icon={faGratipay  as IconProp} className={styles.result_icon} />             <div className={styles.result_content}>
             <div className={styles.content_title}>총 모금액</div>
             <div className={styles.content_curval}>{"2,400,000"} 원</div>
           </div></li>
