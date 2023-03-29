@@ -43,6 +43,10 @@ public class HospitalService {
 		Page<Hospital> ResponseHospitalInfoList;
 		// 0이면 오름차순+
 		switch (sortBy) {
+			case NONE:
+				ResponseHospitalInfoList = hospitalRepository.findAll(
+					PageRequest.of(page, size));
+				break;
 			case ID_ASC:
 				ResponseHospitalInfoList = hospitalRepository.findAll(
 					PageRequest.of(page, size, Sort.by("id").ascending()));

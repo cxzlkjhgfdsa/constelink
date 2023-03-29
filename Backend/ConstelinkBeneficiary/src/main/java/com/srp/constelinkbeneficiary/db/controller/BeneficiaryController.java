@@ -14,6 +14,7 @@ import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiaryMemberDonate;
 import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiarySortType;
 import com.srp.constelinkbeneficiary.db.dto.enums.HospitalSortType;
 import com.srp.constelinkbeneficiary.db.dto.request.BeneficiaryReqeust;
+import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryByDiaryDateResponse;
 import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryInfoResponse;
 import com.srp.constelinkbeneficiary.db.service.BeneficiaryService;
 
@@ -66,28 +67,16 @@ public class BeneficiaryController {
 
 	@Operation(summary = "모든 수혜자 목록 조회", description = "page = 페이지, "
 		+ "size = 한 페이지 개수, "
-		+ "sortBy = 정렬 타입")
+		+ "sortBy = 정렬 타입"
+		+ ", ☆DIARY_DATE_DESC, DIARY_DATE_ASC는 DIARY 있는 것들만 출력☆")
 	@GetMapping("")
 	public ResponseEntity<Page<BeneficiaryInfoResponse>> findAllBeneficiaries(
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(value = "sortBy", required = false, defaultValue = "ALL") BeneficiarySortType sortType
+		@RequestParam(value = "sortBy", required = false, defaultValue = "NONE") BeneficiarySortType sortType
 	) {
-		Page<BeneficiaryInfoResponse> beneficiaryInfoList;
-		switch (sortType) {
-			case DIARY_DATE_ASC:
-				beneficiaryInfoList = beneficiaryService.findBeneficiariesByRegdate(
-					page - 1, size, sortType);
-				break;
-			case DIARY_DATE_DESC:
-				beneficiaryInfoList = beneficiaryService.findBeneficiariesByRegdate(
-					page - 1, size, sortType);
-				break;
-			default:
-				beneficiaryInfoList = beneficiaryService.findAllBeneficiary(
-					page - 1, size, sortType);
-				break;
-		}
+		Page<BeneficiaryInfoResponse> beneficiaryInfoList = beneficiaryService.findAllBeneficiary(
+			page - 1, size, sortType);
 
 		return ResponseEntity.ok(beneficiaryInfoList);
 	}
@@ -99,13 +88,13 @@ public class BeneficiaryController {
 		+ "sortBy = 정렬타입")
 	@GetMapping("/donate/{memberId}")
 	// 하나의 병원에 있는 모든 수혜자 목록 가져오기
-	public ResponseEntity<Page<BeneficiaryInfoResponse>> findBeneficiaryByMemberDonate(
+	public ResponseEntity<Page<BeneficiaryByDiaryDateResponse>> findBeneficiaryByMemberDonate(
 		@PathVariable(value = "memberId") Long memberId,
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
 		@RequestParam(value = "sortBy", required = false, defaultValue = "NONE") BeneficiaryMemberDonate sortType
 	) {
-		Page<BeneficiaryInfoResponse> beneficiaryInfoList = beneficiaryService.getBeneficiaryDonatedByMember(
+		Page<BeneficiaryByDiaryDateResponse> beneficiaryInfoList = beneficiaryService.getBeneficiaryDonatedByMember(
 			page - 1, size, memberId, sortType);
 		return ResponseEntity.ok(beneficiaryInfoList);
 	}

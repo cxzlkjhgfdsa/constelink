@@ -1,6 +1,7 @@
 package com.srp.constelinkbeneficiary.db.dto.enums;
 
 public enum HospitalSortType {
+	NONE,
 	ID_ASC,
 	ID_DESC,
 	NAME_ASC,

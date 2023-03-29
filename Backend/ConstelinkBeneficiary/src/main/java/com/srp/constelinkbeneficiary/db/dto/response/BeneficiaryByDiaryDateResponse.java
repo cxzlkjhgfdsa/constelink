@@ -1,13 +1,13 @@
 package com.srp.constelinkbeneficiary.db.dto.response;
 
-import java.sql.Date;
-
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Builder
-public class BeneficiaryInfoResponse {
+public class BeneficiaryByDiaryDateResponse {
 	private Long beneficiaryId;
 	private String beneficiaryName;
 	private Long beneficiaryBirthday;
@@ -19,5 +19,4 @@ public class BeneficiaryInfoResponse {
 	private String hospitalName;
 	private String hospitalLink;
 	private Long diaryFinishedDate;
-
 }

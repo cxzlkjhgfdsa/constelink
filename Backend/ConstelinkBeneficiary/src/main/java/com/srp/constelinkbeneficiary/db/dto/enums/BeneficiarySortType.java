@@ -1,7 +1,7 @@
 package com.srp.constelinkbeneficiary.db.dto.enums;
 
 public enum BeneficiarySortType {
-	ALL,
+	NONE,
 	NAME_ASC,
 	NAME_DESC,
 	AGE_ASC,

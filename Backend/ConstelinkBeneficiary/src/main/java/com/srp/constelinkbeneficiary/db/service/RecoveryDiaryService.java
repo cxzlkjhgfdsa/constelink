@@ -195,12 +195,12 @@ public class RecoveryDiaryService {
 			case DATE_ASC:
 				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiary_IdIsIn(
 					response.getBeneficiaryIds()
-					, PageRequest.of(page, size, Sort.by("recoveryDiaryRegdate").ascending()));
+					, PageRequest.of(page, size, Sort.by("recoveryDiaryRegDate").ascending()));
 				break;
 			case DATE_DESC:
 				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiary_IdIsIn(
 					response.getBeneficiaryIds()
-					, PageRequest.of(page, size, Sort.by("recoveryDiaryRegdate").descending()));
+					, PageRequest.of(page, size, Sort.by("recoveryDiaryRegDate").descending()));
 				break;
 			default:
 				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiary_IdIsIn(

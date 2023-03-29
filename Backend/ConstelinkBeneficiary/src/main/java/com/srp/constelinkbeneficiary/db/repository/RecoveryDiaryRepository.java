@@ -18,19 +18,6 @@ public interface RecoveryDiaryRepository extends JpaRepository<RecoveryDiary, Lo
 
 	Page<RecoveryDiary> getRecoveryDiariesByBeneficiaryId(Long id, Pageable pageable);
 
-	@Query(value = "select distinct d.id, b as beneficiary, h as hospital"
-		+ " from RecoveryDiary d join Beneficiary b on d.id = b.id "
-		+ "join Hospital h on h.id = b.id"
-		+ " group by d.id"
-		+ " order by max(d.recoveryDiaryRegdate) desc")
-	Page<Map<String,Object>> findAlltoPageDesc(Pageable pageable);
-
-	@Query(value = "select distinct d.id, b as beneficiary, h as hospital"
-		+ " from RecoveryDiary d join Beneficiary b on d.id = b.id"
-		+ " join Hospital h on h.id = b.id"
-		+ " group by d.id"
-		+ " order by max(d.recoveryDiaryRegdate) asc")
-	Page<Map<String,Object>> findAlltoPageAsc(Pageable pageable);
 
 	// @Query(value = "SELECT r from RecoveryDiary r join fetch Beneficiary where r.beneficiary.id in :id")
 	Page<RecoveryDiary> getRecoveryDiariesByBeneficiary_IdIsIn(List<Long> id, Pageable pageable);

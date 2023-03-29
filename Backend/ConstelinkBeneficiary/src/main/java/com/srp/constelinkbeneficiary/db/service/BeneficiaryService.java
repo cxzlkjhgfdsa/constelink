@@ -1,6 +1,7 @@
 package com.srp.constelinkbeneficiary.db.service;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +26,7 @@ import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiaryMemberDonate;
 import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiarySortType;
 import com.srp.constelinkbeneficiary.db.dto.enums.RecoveryDiaryMemberDonatedType;
 import com.srp.constelinkbeneficiary.db.dto.request.BeneficiaryReqeust;
+import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryByDiaryDateResponse;
 import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryInfoResponse;
 import com.srp.constelinkbeneficiary.db.dto.response.RecoveryDiaryResponse;
 import com.srp.constelinkbeneficiary.db.entity.Beneficiary;
@@ -48,10 +50,8 @@ public class BeneficiaryService {
 	private final RestTemplate restTemplate;
 
 	public BeneficiaryInfoResponse findBeneficiaryById(Long id) {
-		System.out.println("확인1");
 		Beneficiary beneficiary = beneficiaryRepository.findBeneficiaryById(id)
 			.orElseThrow(() -> new CustomException(CustomExceptionType.BENEFICIARY_NOT_FOUND));
-		System.out.println("확인2");
 		BeneficiaryInfoResponse beneficiaryInfoDto = BeneficiaryInfoResponse.builder()
 			.beneficiaryDisease(beneficiary.getBeneficiaryDisease())
 			.beneficiaryAmountGoal(beneficiary.getBeneficiaryAmountGoal())
@@ -64,7 +64,6 @@ public class BeneficiaryService {
 			.hospitalLink(beneficiary.getHospital().getHospitalLink())
 			.beneficiaryId(beneficiary.getId())
 			.build();
-		System.out.println("확인3");
 		return beneficiaryInfoDto;
 	}
 
@@ -121,75 +120,44 @@ public class BeneficiaryService {
 
 	public Page<BeneficiaryInfoResponse> findAllBeneficiary(int page, int size, BeneficiarySortType beneficiarySortType) {
 
-		Page<Beneficiary> beneficiaryPage;
+		Page<Object[]> beneficiariesByRegDateDTOPage;
+
 		switch (beneficiarySortType) {
-			case ALL:
-				beneficiaryPage = beneficiaryRepository.findAll(PageRequest.of(page, size, Sort.by("id").ascending()));
+			case NONE:
+				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPage(PageRequest.of(page, size, Sort.by("id").ascending()));
 				break;
 			case NAME_ASC:
-				beneficiaryPage = beneficiaryRepository.findAll(PageRequest.of(page, size, Sort.by("beneficiaryName").ascending()));
+				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPage(PageRequest.of(page, size, Sort.by("beneficiaryName").ascending()));
 				break;
 			case NAME_DESC:
-				beneficiaryPage = beneficiaryRepository.findAll(PageRequest.of(page, size, Sort.by("beneficiaryName").descending()));
+				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPage(PageRequest.of(page, size, Sort.by("beneficiaryName").descending()));
 				break;
 			case AGE_ASC:
-				beneficiaryPage = beneficiaryRepository.findAll(PageRequest.of(page, size, Sort.by("beneficiaryBirthday").ascending()));
+				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPage(PageRequest.of(page, size, Sort.by("beneficiaryBirthday").ascending()));
 				break;
 			case AGE_DESC:
-				beneficiaryPage = beneficiaryRepository.findAll(PageRequest.of(page, size, Sort.by("beneficiaryBirthday").descending()));
+				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPage(PageRequest.of(page, size, Sort.by("beneficiaryBirthday").descending()));
 				break;
 			case FUND_RAISED_ASC:
-				beneficiaryPage = beneficiaryRepository.findAll(PageRequest.of(page, size, Sort.by("beneficiaryAmountRaised").ascending()));
+				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPage(PageRequest.of(page, size, Sort.by("beneficiaryAmountRaised").ascending()));
 				break;
 			case FUND_RAISED_DESC:
-				beneficiaryPage = beneficiaryRepository.findAll(PageRequest.of(page, size, Sort.by("beneficiaryAmountRaised").descending()));
-				break;
-			default:
-				beneficiaryPage = beneficiaryRepository.findAll(PageRequest.of(page, size, Sort.by("id").ascending()));
-				break;
-		}
-		Page<BeneficiaryInfoResponse> beneficiaryInfoResponsePage = beneficiaryPage.map(beneficiary ->
-			BeneficiaryInfoResponse.builder()
-				.beneficiaryDisease(beneficiary.getBeneficiaryDisease())
-				.beneficiaryAmountGoal(beneficiary.getBeneficiaryAmountGoal())
-				.beneficiaryAmountRaised(beneficiary.getBeneficiaryAmountRaised())
-				.beneficiaryName(beneficiary.getBeneficiaryName())
-				.beneficiaryPhoto(beneficiary.getBeneficiaryPhoto())
-				.beneficiaryBirthday(beneficiary.getBeneficiaryBirthday().getTime())
-				.hospitalId(beneficiary.getHospital().getId())
-				.hospitalName(beneficiary.getHospital().getHospitalName())
-				.hospitalLink(beneficiary.getHospital().getHospitalLink())
-				.beneficiaryId(beneficiary.getId())
-				.build()
-			);
-		return beneficiaryInfoResponsePage;
-	}
-
-	public Page<BeneficiaryInfoResponse> findBeneficiariesByRegdate(int page, int size, BeneficiarySortType beneficiarySortType) {
-
-		Page<Map<String,Object>> beneficiariesByRegDateDTOPage;
-		switch (beneficiarySortType) {
-			case DIARY_DATE_DESC:
-				beneficiariesByRegDateDTOPage = recoveryDiaryRepository.findAlltoPageDesc(PageRequest.of(page,size));
-
+				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPage(PageRequest.of(page, size, Sort.by("beneficiaryAmountRaised").descending()));
 				break;
 			case DIARY_DATE_ASC:
+				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPageByRegdate(PageRequest.of(page,size,Sort.by("recoveryDiaryRegdate").ascending()));
+				break;
+			case DIARY_DATE_DESC:
+				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPageByRegdate(PageRequest.of(page,size,Sort.by("recoveryDiaryRegdate").descending()));
+				break;
 			default:
-				beneficiariesByRegDateDTOPage = recoveryDiaryRepository.findAlltoPageAsc(PageRequest.of(page,size));
+				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPage(PageRequest.of(page, size, Sort.by("id").ascending()));
 				break;
 		}
-		// Page<BeneficiaryInfoResponse> beneficiaryInfoResponsePage = null;
-		// System.out.println(beneficiariesByRegDateDTOPage);
-		// System.out.println(beneficiariesByRegDateDTOPage.getContent().get(0));
-		// System.out.println("값 ======= " + beneficiariesByRegDateDTOPage.getContent().get(0).get("beneficiary"));
-		// Beneficiary beneficiary = (Beneficiary)beneficiariesByRegDateDTOPage.getContent().get(0).get("beneficiary");
-		// System.out.println(beneficiary.getId());
-		// System.out.println(beneficiariesByRegDateDTOPage.getContent().get(0).get("beneficiary"));
-
-		Page<BeneficiaryInfoResponse> beneficiaryInfoResponsePage = beneficiariesByRegDateDTOPage.map(item ->
-			{
-				Beneficiary beneficiary = (Beneficiary)item.get("beneficiary");
-				Hospital hospital = (Hospital)item.get("hospital");
+		System.out.println("11");
+		Page<BeneficiaryInfoResponse> beneficiaryInfoResponsePage = beneficiariesByRegDateDTOPage.map(item -> {
+			Beneficiary beneficiary = (Beneficiary)item[0];
+			LocalDateTime time = (LocalDateTime)item[1];
 				return BeneficiaryInfoResponse.builder()
 					.beneficiaryDisease(beneficiary.getBeneficiaryDisease())
 					.beneficiaryAmountGoal(beneficiary.getBeneficiaryAmountGoal())
@@ -197,22 +165,23 @@ public class BeneficiaryService {
 					.beneficiaryName(beneficiary.getBeneficiaryName())
 					.beneficiaryPhoto(beneficiary.getBeneficiaryPhoto())
 					.beneficiaryBirthday(beneficiary.getBeneficiaryBirthday().getTime())
-					.hospitalId(hospital.getId())
-					.hospitalName(hospital.getHospitalName())
-					.hospitalLink(hospital.getHospitalLink())
+					.hospitalId(beneficiary.getHospital().getId())
+					.hospitalName(beneficiary.getHospital().getHospitalName())
+					.hospitalLink(beneficiary.getHospital().getHospitalLink())
 					.beneficiaryId(beneficiary.getId())
+					.diaryFinishedDate(time!=null?time.atZone(ZoneId.of("Asia/Seoul"))
+						.toInstant()
+						.toEpochMilli():null)
 					.build();
-			}
+			});
 
-		);
-		// System.out.println("123123");
 		return beneficiaryInfoResponsePage;
 	}
 
 
-	public Page<BeneficiaryInfoResponse> getBeneficiaryDonatedByMember(int page, int size, Long memberId,
+	public Page<BeneficiaryByDiaryDateResponse> getBeneficiaryDonatedByMember(int page, int size, Long memberId,
 		BeneficiaryMemberDonate sortType) {
-		Page<Beneficiary> beneficiaryPage;
+		Page<Object[]> beneficiaryPage;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		URI uri = UriComponentsBuilder
@@ -250,9 +219,12 @@ public class BeneficiaryService {
 		}
 
 
+		Page<BeneficiaryByDiaryDateResponse> beneficiaryInfoResponsePage = beneficiaryPage.map(item ->
+			{
 
-		Page<BeneficiaryInfoResponse> beneficiaryInfoResponsePage = beneficiaryPage.map(beneficiary ->
-				BeneficiaryInfoResponse.builder()
+				Beneficiary beneficiary = (Beneficiary)item[0];
+				LocalDateTime time = (LocalDateTime)item[1];
+				return BeneficiaryByDiaryDateResponse.builder()
 					.beneficiaryDisease(beneficiary.getBeneficiaryDisease())
 					.beneficiaryAmountGoal(beneficiary.getBeneficiaryAmountGoal())
 					.beneficiaryAmountRaised(beneficiary.getBeneficiaryAmountRaised())
@@ -263,7 +235,11 @@ public class BeneficiaryService {
 					.hospitalName(beneficiary.getHospital().getHospitalName())
 					.hospitalLink(beneficiary.getHospital().getHospitalLink())
 					.beneficiaryId(beneficiary.getId())
-					.build()
+					.diaryFinishedDate(time.atZone(ZoneId.of("Asia/Seoul"))
+						.toInstant()
+						.toEpochMilli())
+					.build();
+			}
 		);
 
 		return beneficiaryInfoResponsePage;
