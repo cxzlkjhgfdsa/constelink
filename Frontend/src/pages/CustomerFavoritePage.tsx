@@ -8,7 +8,7 @@ const CustomerFavoritePage = () => {
     
     useEffect(()=>{
         let params:any={page:1,size:8,memberId:1}
-        axios.get("/bookmarks",{params}).then(res=>{
+        axios.post("/bookmarks",params).then(res=>{
             console.log(res.data.content);
             setBookedList(res.data.content)
         }).catch((err) => console.log(err.response.data)

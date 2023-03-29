@@ -31,15 +31,20 @@
 
 .fav_box {
     /* background-color: red; */
+    /* background-color: red; */
+    width: 900px;
 }
 
 .fav_list {
     list-style: none;
     padding-left: 0;
+    width: 900px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px;
-
+}
+.fav_item{
+    /* width: 100%; */
 }
 
 @media only screen and (max-width: 768px) {
@@ -51,12 +56,12 @@
 .fav_item {
     /* background-color: #f2f2f2; */
     /* border: 1px solid #ddd; */
-    padding: 20px;
+    /* padding: 20px; */
     /* text-align: center; */
     font-size: 30px;
     list-style: none;
-    width: 150px;
-    height: 270px;
+    /* width: 150px; */
+    /* height: 270px; */
     word-break: break-all;
 
 }

@@ -18,6 +18,8 @@ import NoticePage from './pages/NoticePage';
 
 import NoticeDetail from './pages/NoticeDetail';
 import NoticeEdit from './pages/NoticeEdit';
+import CustomerMyPage from "./pages/CustomerMyPage";
+import CustomerMyHome from './pages/CustomerMyHome';
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
             <Route path='/hosfundlist' element={<HosFundList />} />
             <Route path="/notice/*" element={<NoticePage/>}/>
             <Route path='/fundregi' element={<FundRegister />}/>
+            <Route path="/mypage/*" element={<CustomerMyHome/>}/>
           </Route >
          
            <Route path='/login' element={<Login />}/>
