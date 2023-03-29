@@ -7,7 +7,6 @@
       "dom.iterable",
       "esnext"
     ],
-    "types": ["ckeditor"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
