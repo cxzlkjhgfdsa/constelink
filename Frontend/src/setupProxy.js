@@ -2,15 +2,13 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function(app) {
   app.use(
-    ["/fundraisings","/bookmarks"],
+    ["/files/saveimg"],
     createProxyMiddleware({
-      target: 'http://j8a206.p.ssafy.io:8998',
+      target: 'http://j8a206.p.ssafy.io:8996',
       changeOrigin: true,
     })
   );
-};
-
-module.exports = function(app) {
+  
   app.use(
     ["/auth"],
     createProxyMiddleware({
@@ -18,34 +16,20 @@ module.exports = function(app) {
       changeOrigin: true,
     })
   );
-};
 
-// module.exports = function(app) {
-//   app.use(
-//     ["/beneficiaries"],
-//     createProxyMiddleware({
-//       target: "http://j8a206.p.ssafy.io:8999",
-//       changeOrigin: true
-//     })
-//   );
-// };
-
-module.exports = function(app) {
   app.use(
-    ["/beneficiaries"],
+    ["/fundraisings","/bookmarks"],
     createProxyMiddleware({
-      target: "http://70.12.245.26:8080",
-      changeOrigin: true
-    })
-  );
-};
-
-module.exports = function(app) {
-  app.use(
-    ["/files/saveimg"],
-    createProxyMiddleware({
-      target: 'http://j8a206.p.ssafy.io:8996',
+      target: 'http://j8a206.p.ssafy.io:8998',
       changeOrigin: true,
     })
   );
-};
+
+  app.use(
+    ["/beneficiaries"],
+    createProxyMiddleware({
+      target: "http://j8a206.p.ssafy.io:8999",
+      changeOrigin: true,
+    })
+  );
+}

@@ -137,6 +137,7 @@ const BenRegister: React.FC = () => {
     await axios
       .post('/files/saveimg', formData)
       .then((res) => {
+        console.log('변환성공');
         setImgUrl(res.data.fileUrl);
       })
       .catch((err) => {
@@ -149,40 +150,28 @@ const BenRegister: React.FC = () => {
   // const [imgUpload, setImgUpload] = useState(false);
   const sendPOST = async () => {
     
-    // const ben = {
-    //   hospitalId: hospitalId,
-    //   beneficiaryName: benName,
-    //   beneficiaryBirthday: birthDate.getTime(),
-    //   beneficiaryDisease: diseaseName,
-    //   beneficiaryPhoto: imgPreUrl,
-    //   beneficiaryAmountGoal: goalFund
-    // };
-
-    // const ben
-
-
-    // console.log(ben);
+    const ben = {
+      hospitalId: hospitalId,
+      beneficiaryAmountGoal: goalFund,
+      beneficiaryBirthday: birthDate.getTime(),
+      beneficiaryDisease: diseaseName,
+      beneficiaryName: benName,
+      beneficiaryPhoto: imgUrl,
+    };
+    console.log(ben);
 
     await axios
-      .post('/beneficiaries', {
-        "hospitalId": 10,
-        "beneficiaryAmountGoal": 2000000,
-        "beneficiaryBirthday": 1141098428000,
-        "beneficiaryDisease": "우아아아",
-        "beneficiaryName": "전전전",
-        "beneficiaryPhoto" : "https://storage.googleapis.com/download/storage/v1/b/carrot_box555/o/img%2Fe18dcf54-cdbc-4540-89d4-549989845bb4-%EC%A0%84%EC%9E%AC%EC%A4%80.png?generation=1680061693308470&alt=media"
-      })
+      .post('/beneficiaries', ben)
       .then((res) => {
-        console.log('여이굥')
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       })
   };
-  // useEffect(() => {
-  //   sendPOST();
-  // }, [imgUrl]);
+  useEffect(() => {
+    sendPOST();
+  }, [imgUrl]);
 
   // 유효성 검사
   const checkValidity = () => {
@@ -198,9 +187,7 @@ const BenRegister: React.FC = () => {
     if (
       !imgErr && !noValErr && !nameErr && !diseaseErr && !goalErr
     ) {
-      sendPOST();
-      // getImgUrI();
-      // console.log(imgUrl);
+      getImgUrI();
     }
   };
 
