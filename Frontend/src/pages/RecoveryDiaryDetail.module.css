@@ -1,3 +1,14 @@
+@font-face {
+  font-family: "Hahmlet";
+  src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "ClimateCrisis";
+  src: url("../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
+}
+
+
 .container {
   margin-top: 30px;
   display: flex;
@@ -26,6 +37,7 @@
 }
 
 .title {
+  font-family: "Hahmlet";
   margin-left : 10px;
   margin-top : 11px;
   position: absolute;
@@ -80,17 +92,20 @@
 }
 
 .patientInfoItem {
+  font-family: "Hahmlet";
   width: calc(30% - 10px);
   min-width: 150px;
   margin-bottom: 10px;
 }
 
 .patientInfoTitle {
+  font-family: "Hahmlet";
   font-size: 20px;
   color: #aaa;
 }
 
 .patientInfoContent {
+  font-family: "Hahmlet";
   font-size: 20px;
   font-weight: bold;
 }
@@ -132,6 +147,7 @@
 /* 치료일자 */
 .recordDate {
   text-align: center;
+  font-family: "Hahmlet";
   font-size: 18px;
   font-weight: 700;
   min-height: 30px;
@@ -153,11 +169,13 @@
 .recordIndex {
   background-color: #fff;
   padding : 10px;
+  font-family: "Hahmlet";
   font-size: 32px;
   font-weight: bolder;
 }
 
 .recordContent {
+  font-family: "Hahmlet";
   font-size: 16px;
   line-height: 1.5;
   padding : 10px;
@@ -171,6 +189,7 @@
 }
 
 .detailCreateButton {
+  font-family: "Hahmlet";
   font-size: 30px;
   font-weight: bolder;
   margin : 0px 5px 0px 5px;
@@ -184,6 +203,7 @@
 }
 
 .detailBackButton {
+  font-family: "Hahmlet";
   font-size: 30px;
   font-weight: bolder;
   margin : 0px 5px 0px 5px;
@@ -205,6 +225,12 @@
   background-color: #A19FD5;
   display: flex;
   margin-bottom: 5%;
+  padding-top: 1%;
+  font-family: "Hahmlet";
+  font-size: 22px;
+  font-weight: bold;
+  color : black;
+  justify-content: center;
 }
 
 .modalImage {
@@ -215,16 +241,18 @@
 }
 
 .modalInfoTitle {
-  margin-top: 10px;
-  font-size: 30px;
+  font-family: "Hahmlet";
+  font-size: 22px;
   font-weight: bold;
-  margin-bottom: 10px;
+
+  margin-bottom: 20px;
   display: flex;
   justify-content: center;
 
 }
 
 .modalInfoDate {
+  font-family: "Hahmlet";
   font-size: 16px;
   font-weight: bold;
   color: gray;
@@ -232,6 +260,7 @@
 }
 
 .modalInfoContent {
+  font-family: "Hahmlet";
   font-size: 16px;
   line-height: 1.5;
 }

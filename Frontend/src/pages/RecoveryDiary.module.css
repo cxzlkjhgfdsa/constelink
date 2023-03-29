@@ -24,6 +24,7 @@
 
 /* 치료일기 */
 .searchBarText {
+  font-family: "Hahmlet";
   font-size: 40px;
   font-weight: bold;
   min-width: 100px;
@@ -51,6 +52,7 @@
 
 /* 입력칸 */
 .searchInput {
+  font-family: "Hahmlet";
   flex-grow: 1;
   font-size: 16px;
   line-height: 1.5;
@@ -78,6 +80,7 @@
   margin: 10px;
   padding-bottom: 20px;
   font-weight: lighter;
+  font-family: "Hahmlet";
   color : darkgray;
 }
 
@@ -86,6 +89,7 @@
   min-width: auto;
   font-size: 30px;
   font-weight: bold;
+  font-family: "Hahmlet";
   color: black;
   justify-content: center;
 }
@@ -146,6 +150,7 @@
 }
 
 .card .name {
+  font-family: "Hahmlet";
   font-size: 28px;
   margin-top: 12px;
   /* margin-bottom : 12px; */
@@ -153,6 +158,7 @@
 }
 
 .card .content {
+  font-family: "Hahmlet";
   display: flex;
   direction: row;
   overflow-x: auto;
@@ -165,6 +171,7 @@
 .card .contentItem {
   color: white;
   background-color: #A19FD5;
+  font-family: "Hahmlet";
   font-size: 15px;
   display: flex;
   /* align-items: center; */
@@ -187,6 +194,7 @@
   color: white;
   background-color: #A19FD5;
   font-size: 15px;
+  font-family: "Hahmlet";
   display: flex;
   align-items: center;
   padding: 7px 16px;

@@ -9,7 +9,7 @@
 
 .DialogBox {
   width: 500px;
-  height: 500px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;

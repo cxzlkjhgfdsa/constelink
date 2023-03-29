@@ -17,10 +17,10 @@ const RecoveryDiary: React.FC = () => {
     // getRecoveryDiaryData();
     let params: any ={page:1, size:5, sortBy:'DATE_DESC'};
     axios.get('http://j8a206.p.ssafy.io:8999/beneficiaries?page=1&size=5&sortBy=DIARY_DATE_ASC')
-    .then(res =>setDiaryList(res.data.content)
-    );
-  }, []);
-  // console.log(diaryList)
+    .then(res =>setDiaryList(res.data.content))
+    .catch((err) => console.log(err))}
+    ,[]);
+  console.log(diaryList)
   
   return (
       <div className={styles.container}>

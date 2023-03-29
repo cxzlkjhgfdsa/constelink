@@ -20,11 +20,19 @@ export interface RecoveryDiaryDetailData {
   
   // beneficiaryDiaries
   // beneficiaryName: string,
-  diaryId: number;
-  beneficiaryId: number;
-  diaryRegisterDate: number;
-  diaryPhoto: string;
-  diaryTitle: string;
-  diaryContent: string;
-  diaryAmountSpent: number;
+  diaryId: number,
+  beneficiaryId: number,
+  diaryRegisterDate: number,
+  diaryPhoto: string,
+  diaryTitle: string,
+  diaryContent: string,
+  diaryAmountSpent: number,
+}
+
+export interface RecoveryDiaryCreate {
+  beneficiaryId:Number|string;
+  diaryPhoto: string,
+  diaryTitle: string,
+  diaryContent: string,
+  diaryAmountSpent: number,
 }

@@ -22,7 +22,7 @@ function App() {
               <Route path="/donate" element={ <LoginTestPage/>} />
               <Route path='/' element={<HomePage/>}/>
               <Route path='/diary' element={<RecoveryDiary/>}/>
-              <Route path='/diarydetail/:index' element={<RecoveryDiaryDetail/>}/>
+              <Route path='/diarydetail/:id' element={<RecoveryDiaryDetail/>}/>
           </Routes>
         </div>
   );

@@ -5,8 +5,13 @@ import Modal from "../components/Modal/Modal";
 import SunEditor from 'suneditor-react';
 import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css';
-import { RecoveryDiaryDetailData } from './../models/recoveryData';
+import { RecoveryDiaryDetailData, RecoveryDiaryCreate } from './../models/recoveryData';
 import axios from 'axios';
+
+// 리커버리 카드 import 해야함
+// 리커버리 카드 -> 생성버튼 -> 모달을 통해 create -> 카드로 생성 
+// 병원 -> 하단 (생성버튼 목록이동버튼) , 카드클릭 시 수정, 삭제 가능 
+// 기부자 -> 하단 목록이동버튼, 카드클릭 시 조회
 
 // axios get으로 선택한 diary에서 선택한 카드정보를 가져오고, axios post로 치료일기를 만들 수 있어야 함
 const RecoveryDiaryDetail: React.FC = () => {
@@ -16,7 +21,6 @@ const RecoveryDiaryDetail: React.FC = () => {
 
   // 치료카드
   const [recoveryCard, setRecoveryCard] = useState<RecoveryDiaryDetailData[]>([]);
-  const id = 1;
   // const { beneficiaryId: id } = useParams<{ beneficiaryId :string }>();
   // const params = useParams<{ id: string }>();
   // const id = Number(params.id);
@@ -25,14 +29,12 @@ const RecoveryDiaryDetail: React.FC = () => {
   const [isChecked, setChecked] = useState<boolean>(true);
   
   // 치료일지 생성 
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [date, setDate] = useState('');
-  
-  // get 컨텐츠
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { id } = useParams<{ id: string }>();
+  const [imageFile, setImageFile] = useState('');
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  
-  // 수정된 컨텐츠
-  const [contents, setContents] = useState('');
+  const [totalGive, setTotalGive] = useState(0);
   
   // 모달이 열려있는지 여부 확인
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -55,7 +57,6 @@ const RecoveryDiaryDetail: React.FC = () => {
       setTreatmentRecords(res.data.beneficiaryInfo)
       setRecoveryCard(res.data.beneficiaryDiaries.content)
 
-      console.log(today)
       
     })
     .catch((err) => {
@@ -67,22 +68,17 @@ const RecoveryDiaryDetail: React.FC = () => {
 
   // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출
   const [selectedRecordIndex, setSelectedRecordIndex] = useState<number | null>(null);
-  const contentChangeHandler = (e: string) => {
-    console.log(e);
-    setContents(e)
-}
 
   const editor = useRef<SunEditorCore>();
   // The sunEditor parameter will be set to the core suneditor instance when this function is called
   const getSunEditorInstance = (sunEditor: SunEditorCore) => {
     editor.current = sunEditor;
-    console.log(1)
     console.log(editor.current);
     
   };
   
   // 모달 관련 함수 시작
-  // 생성되어있는 카드를 클릭할 때 선택한 인덱스 저장
+  // 생성된 카드 조회
   const onClickRecord = useCallback((index :number) => {
     setOpenModal(true);
     setChecked(false);
@@ -90,32 +86,61 @@ const RecoveryDiaryDetail: React.FC = () => {
   }, []);
   
   
-  // 치료일지 생성 버튼
+  // 하단 치료일지 생성 버튼
   const onClickCreateRecord = useCallback(() => {
     setOpenModal(true);
     setChecked(true);
   }, []);
   
-  // 모달 속 생성버튼
-//   const onAddRecord = useCallback(() => {
-//     if (!imageFile || !content) {
-//       alert('내용을 입력해주세요.');
-//       return;
-//     }
+  // 모달 속 생성완료버튼
+  const onAddRecord = () => {
+    if (!imageFile) {
+      alert('사진을 저장해주세요!');
+      return;
+    } else if (!content) {
+      alert("내용을 작성해주세요!")
+      return;
+    } else if (!title) {
+      alert("제목을 입력해주세요!")
+      return
+    }
+    const Record: RecoveryDiaryCreate = {
+      beneficiaryId: 1,
+      diaryPhoto: imageFile,
+      diaryTitle: title,
+      diaryContent: content,
+      diaryAmountSpent: totalGive,
+      // beneficiaryId: 1,
+      // diaryPhoto: "사진",
+      // diaryTitle: "제목",
+      // diaryContent: "내용",
+      // diaryAmountSpent: 1,
+    }
+    console.log(Record)
 
-//     // const newRecord: RecoveryDiaryDetailData = {
-//     //   diaryId: treatmentRecords.length + 1,
-//     //   diaryPhoto: URL.createObjectURL(imageFile),
-//     // };
+    axios.post(`/recoverydiaries/${id}?page=1&size=5&sortBy=DATE_DESC`, Record)
+    .then((res) => {console.log(res)})
+  };
+  
+  //   // 모달 속 취소버튼
+  const onCancelRecord = useCallback(() => {
+    setImageFile('');
+    setContent('');
+    setOpenModal(false);
+    }, []);
 
-//     // setTreatmentRecords(prev => [...prev, newRecord]);
-//     setTreatmentRecords(prev => [...prev]);
-//     setImageFile(null);
-//     setDate('');
-//     setContent('');
-//     setOpenModal(false);
-//   }, [imageFile, content, treatmentRecords]);
-    
+    const handleEditorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log(e.target.value);
+      setTitle(e.target.value);
+  };
+
+  const contentChangeHandler = (e: string) => {
+      console.log(e);
+      setImageFile(e);
+      setContent(e)
+  }
+
+
 // // 모달 내용 수정
 // const onEditRecord = useCallback(() => {
 //   if (!imageFile || !date || !content) {
@@ -145,13 +170,6 @@ const RecoveryDiaryDetail: React.FC = () => {
 //   setOpenModal(false);
 //     }, [selectedRecordIndex, imageFile, date, content, treatmentRecords]);
 
-//   // 모달 속 취소버튼
-//   const onCancelRecord = useCallback(() => {
-//     setImageFile(null);
-//     setDate('');
-//     setContent('');
-//     setOpenModal(false);
-//   }, []);
   
 //   // 데이터 삭제 메서드
 //   const onRemoveRecord = useCallback(() => {
@@ -234,7 +252,7 @@ const RecoveryDiaryDetail: React.FC = () => {
       </div>
     
 
-        {/* 모달 crud */}
+        {/* 모달 확인, 조회 */}
         {isOpenModal && selectedRecordIndex !== null && (
           <Modal onClickToggleModal={onClickToggleModal}>
             <div className={styles.modalTop}></div> 
@@ -258,35 +276,41 @@ const RecoveryDiaryDetail: React.FC = () => {
           </Modal>
           )}
             
+          {/* 생성버튼 클릭 -> 치료일지 생성 */}
           {isOpenModal && isChecked == true && (
           <Modal onClickToggleModal={onClickToggleModal}>
-            <div className={styles.modalTop}></div>
-            <div className={styles.modalInfoTitle}>병원 치료일지 생성</div>
+            <div className={styles.modalTop}>치료일지 작성</div>
+            <input type="text" className={styles.modalInfoTitle} placeholder={"제목"} ref={inputRef} onChange={handleEditorChange} />
             <div className={styles.modalInfo}> 
-            <SunEditor
-            getSunEditorInstance={getSunEditorInstance}
-            lang="ko"
-            width="300px"
-            height="300px"
-            autoFocus={false}
-            onChange={contentChangeHandler}
-            setDefaultStyle="font-family:Hahmlet;color:darkgrey;font-size: 20px;"
-            placeholder="환자의 치료일지를 적어주세요"
-            setOptions={{
-              buttonList: [
-                [
-                  "image",
+              <SunEditor
+              getSunEditorInstance={getSunEditorInstance}
+              lang="ko"
+              width="300px"
+              height="300px"
+              autoFocus={false}
+              onChange={contentChangeHandler}
+              setDefaultStyle="font-family:Hahmlet;color:darkgrey;font-size: 20px;"
+              placeholder="환자의 치료일지를 적어주세요"
+              setOptions={{
+                buttonList: [
+                  [
+                    "bold",
+                    "underline",
+                    "table",
+                    "image",
+                    "list",
+                    "fontColor"                  ]
                 ]
-              ]
             }}
-            />
+            // SunEditor 끝 
+            /> 
         <div className={styles.modalButton}>
-          {/* <button className={styles.modalButtonItem} onClick={onAddRecord}>
+          <button className={styles.modalButtonItem} onClick={onAddRecord}>
               생성완료
           </button>
           <button className={styles.modalButtonItem} onClick={onCancelRecord}>
               취소
-          </button> */}
+          </button>
         </div>
         </div>
       </Modal>
