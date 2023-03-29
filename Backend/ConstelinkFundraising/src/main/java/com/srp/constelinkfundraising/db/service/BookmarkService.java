@@ -48,6 +48,12 @@ public class BookmarkService {
 	@Transactional
 	public Boolean bookmarkFundraising(BookmarkFundraisingRequest bookmarkFundraisingRequest) {
 		//fundraisingId 검증 필요하면 추가하기(의문)
+		if(bookmarkFundraisingRequest.getFundraisingId() < 1) {
+			throw new CustomException(CustomExceptionType.FUNDRAISING_NOT_FOUND);
+		}
+		if(bookmarkFundraisingRequest.getMemberId()<1) {
+			throw new CustomException(CustomExceptionType.MEMBER_NOT_FOUND);
+		}
 		BookmarkId bookmarkId = new BookmarkId(bookmarkFundraisingRequest.getMemberId(),
 			bookmarkFundraisingRequest.getFundraisingId());
 		Bookmark bookmark = bookmarkRepository.findBookmarkById(bookmarkId);
@@ -69,7 +75,7 @@ public class BookmarkService {
 		// Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberId(memberId, PageRequest.of(page, size));
 
 		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberIdForRead(memberId, PageRequest.of(page, size));
-
+		System.out.println(memberId);
 		// List<Category> categories = categoryRepository.findAll();
 		// HashSet<Fundraising> fundraisings = fundraisingRepository.findFundraisingsByIdIsIn(bookmarks.));
 		HashSet<Long> idList = new HashSet<>();
@@ -115,7 +121,7 @@ public class BookmarkService {
 			item.setBeneficiaryDisease(beneficiaryInfoRes.getDisease());
 			item.setBeneficiaryBirthday(beneficiaryInfoRes.getBirthday().getSeconds() * 1000);
 		});
-
+		System.out.println("12323232323");
 		return bookmarkResponses;
 	}
 }

@@ -222,6 +222,20 @@ public class FundraisingService {
 
 	@Transactional
 	public Fundraising makeFundraising(MakeFundraisingRequest makeFundraisingRequest) {
+		//fundraising 무결성 검사 필요(제대로 하려면 다른 서비스와 통신 필요)
+		if(makeFundraisingRequest.getBeneficiaryId()<1) {
+			throw new CustomException(CustomExceptionType.BENEFICIARY_NOT_FOUND);
+		}
+		if(makeFundraisingRequest.getFundraisingAmountGoal()<1) {
+			throw new CustomException(CustomExceptionType.GOAL_AMOUNT_ERROR);
+		}
+		if(makeFundraisingRequest.getCategoryId()<1) {
+			throw new CustomException(CustomExceptionType.CATEGORY_NOT_FOUND);
+		}
+		if(makeFundraisingRequest.getFundraisingTitle() == "") {
+			throw new CustomException(CustomExceptionType.TITLE_NOT_FOUND);
+		}
+
 		Fundraising fundraising = Fundraising.builder()
 			.fundraisingAmountGoal(makeFundraisingRequest.getFundraisingAmountGoal())
 			.fundraisingThumbnail(makeFundraisingRequest.getFundraisingThumbnail())
@@ -234,7 +248,6 @@ public class FundraisingService {
 			.category(categoryRepository.findCategoryById(makeFundraisingRequest.getCategoryId()))
 			.build();
 		fundraisingRepository.saveAndFlush(fundraising);
-
 		return fundraising;
 	}
 
