@@ -36,7 +36,7 @@ public class FundraisingController {
 	@Operation(summary = "기부 리스트 열람 (memberId적으면 bookmark 반영되어 나옴), 병원이름 + 수혜자 이름 다 나옴", description =
 		"page = 페이지, size = 한 페이지당 데이터 수, sortBy = 정렬타입, "
 			+ "☆ memberId 적으면 bookmark가 체크되어서 나옴(나중에는 Header token까서 반영 예정) memberId = 회원 Id ")
-	@GetMapping("")
+	@GetMapping("/withbeneficiaryinfo")
 	public ResponseEntity<Page<FundraisingResponse>> getFundraisings(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
@@ -50,7 +50,7 @@ public class FundraisingController {
 
 	@Operation(summary = "기부 리스트보기(병원 이름, 수혜자이름X)", description =
 		"page = 페이지, size = 한 페이지당 데이터 수, sortBy = 정렬 타입")
-	@GetMapping("/withbeneficiary")
+	@GetMapping("")
 	public ResponseEntity<Page<FundraisingBeneficiaryResponse>> getFundraisingsBeneficiaries(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
