@@ -55,26 +55,13 @@
   padding-bottom: 1rem;
   width: 80%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: "Hahmlet";
   font-size: 1rem;
   color: white;
 }
-
-/* .imgMain{
-  width: 40rem;
-  height: 13rem;
-  background-color: #A19FD5;
-  margin-right: 4rem;
-  margin-left: 6rem;
-  position: relative;
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 
 .imgText{
   position: absolute;
@@ -86,11 +73,22 @@
   width: 13rem;
   height: 13rem;
   position: relative;
-  cursor: pointer;
-
+  /* cursor: pointer; */
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.editIcon{
+  width: 3rem;
+  height: 3rem;
+  background-image: url('../assets/img/edit.png');
+  position: absolute;
+  /* background-color: black; */
+  right: -1rem;
+  bottom: 0rem;
+  background-size: cover;
+  cursor: pointer;
 }
 
 .fundImg{
@@ -202,6 +200,13 @@
 .fundCheckPlaceholder{
   font-family: "Hahmlet";
   color: gray;
+  margin-top: 0.2rem;
+  margin-left: 0.1rem;
+}
+
+.fundCheckPlacefiller{
+  font-family: "Hahmlet";
+  color: black;
   margin-top: 0.2rem;
   margin-left: 0.1rem;
 }

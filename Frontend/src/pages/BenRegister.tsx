@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { getYear, getMonth } from "date-fns"
+import ko from 'date-fns/locale/ko' // 한국어 적용
 import styles from "./BenRegister.module.css";
 import axios from "axios";
 
@@ -10,9 +12,12 @@ const diseaseKorRegexp = /^[가-힣 ]{1,18}$/; // 공백포함 한글 1~18자
 const diseaseEngRegexp = /^[a-zA-Z ]{2,36}$/; // 공백포함 영문 2~36자
 const goalRegexp = /^[0-9]{1,10}$/; // 숫자만 가능
 const imageRegexp = /(.*?)\.(jpg|jpeg|png)$/; // 확장자는 jpg, jpeg, png
-const maxSize = 50 * 1024 * 1024;
+const maxSize = 50 * 1024 * 1024; // 사진파일크기 50mb
+registerLocale("ko", ko); // 한국어 적용
+const _ = require('lodash');
 
 const BenRegister: React.FC = () => {
+
 
   // 에러 설정
   const [imgErr, setImgErr] = useState(false);
@@ -32,10 +37,10 @@ const BenRegister: React.FC = () => {
 
   // 병원 ID
   // 추후에 상태관리로 병원 로그인시 들고다님
-  const hospitalId = 1;
+  const hospitalId = 10;
 
   // 사진 설정
-  const [imgURL, setImgURL] = useState('');
+  const [imgPreUrl, setImgPreUrl] = useState('');
   const [image, setImage] = useState(null);
 
   const handleImage = (e: any) => {
@@ -55,7 +60,7 @@ const BenRegister: React.FC = () => {
       setImgErr(false);
       setImgErrMsg('');
       setImage(file);
-      setImgURL(URL.createObjectURL(file));
+      setImgPreUrl(URL.createObjectURL(file));
     }
   };
 
@@ -76,6 +81,9 @@ const BenRegister: React.FC = () => {
   // 생일 설정
   const [birthDate, setBirthDate] = useState(new Date());
   const today = new Date()
+  // 생일 선택 범위 설정
+  const years = _.range(1900, getYear(new Date()) + 1, 1);
+  const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 
   // 병명 설정
   const [diseaseName, setDiseaseName] = useState('');
@@ -118,51 +126,81 @@ const BenRegister: React.FC = () => {
     }
   };
 
-  // 없는 값 체크
-
-  // POST요청 보내기
-  const sendPOST = async () => {
-
-    const ben = {
-      hospitalId: hospitalId,
-      beneficiaryName: benName,
-      beneficiaryBirthday: birthDate,
-      beneficiaryDisease: diseaseName,
-      beneficiaryPhoto: imgURL,
-      beneficiaryAmountGoal: goalFund
+  // 사진 Url 가져오기
+  const [imgUrl, setImgUrl] = useState('');
+  const getImgUrI = async () => {
+    const formData = new FormData();
+    if (image) {
+      formData.append("file", image);
     };
 
     await axios
-      .post('/beneficiaries', ben)
+      .post('/files/saveimg', formData)
       .then((res) => {
+        setImgUrl(res.data.fileUrl);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+
+  // POST요청 보내기
+  // const [imgUpload, setImgUpload] = useState(false);
+  const sendPOST = async () => {
+    
+    // const ben = {
+    //   hospitalId: hospitalId,
+    //   beneficiaryName: benName,
+    //   beneficiaryBirthday: birthDate.getTime(),
+    //   beneficiaryDisease: diseaseName,
+    //   beneficiaryPhoto: imgPreUrl,
+    //   beneficiaryAmountGoal: goalFund
+    // };
+
+    // const ben
+
+
+    // console.log(ben);
+
+    await axios
+      .post('/beneficiaries', {
+        "hospitalId": 10,
+        "beneficiaryAmountGoal": 2000000,
+        "beneficiaryBirthday": 1141098428000,
+        "beneficiaryDisease": "우아아아",
+        "beneficiaryName": "전전전",
+        "beneficiaryPhoto" : "https://storage.googleapis.com/download/storage/v1/b/carrot_box555/o/img%2Fe18dcf54-cdbc-4540-89d4-549989845bb4-%EC%A0%84%EC%9E%AC%EC%A4%80.png?generation=1680061693308470&alt=media"
+      })
+      .then((res) => {
+        console.log('여이굥')
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       })
   };
+  // useEffect(() => {
+  //   sendPOST();
+  // }, [imgUrl]);
 
   // 유효성 검사
   const checkValidity = () => {
-    console.log('댐?')
-    console.log(goalFund)
     if (
       !image || !benName || !birthDate || !diseaseName || !goalFund
     ) {
       setNoValErr(true);
       alert('입력되지 않은 값이 있습니다.');
-      // console.log('값 업쓰')
-      // setNoValErrMsg('입력되지 않은 값이 있습니다.');
     } else {
       setNoValErr(false);
-      // setNoValErrMsg('');
     }
 
     if (
       !imgErr && !noValErr && !nameErr && !diseaseErr && !goalErr
     ) {
-      console.log('보낸다!');
       sendPOST();
+      // getImgUrI();
+      // console.log(imgUrl);
     }
   };
 
@@ -174,9 +212,9 @@ const BenRegister: React.FC = () => {
           {/* 이미지 입력 */}
           <div className={styles.imgInput}>
             {/* 이미지 선택하면 해당 이미지 띄우고 없으면 기본 이미지 */}
-            {imgURL ? (
+            {imgPreUrl ? (
               <div className={styles.withImgCircle}>
-                <img className={styles.benImg} src={imgURL} alt=""/>
+                <img className={styles.benImg} src={imgPreUrl} alt=""/>
               </div>
             ) : (
               <div className={styles.imgCircle} />   
@@ -216,13 +254,67 @@ const BenRegister: React.FC = () => {
           <div className={styles.birthInputWrapper}>
             <div className={styles.inputTitle}>수혜자 탄신일</div>
             <div className={styles.inputDiv}>
-              <div className={styles.birthInput}>
+              <div className={styles.datepicker}>
+                {/* 달력 */}
                 <DatePicker 
-                  dateFormat="yyyy/MM/dd"
+                  dateFormat="yyyy년 MM월 dd일"
                   selected={birthDate}
                   onChange={(d: Date) => setBirthDate(d)}
                   maxDate={today}
                   todayButton={"Today"}
+                  locale="ko"
+                  renderCustomHeader={({
+                    date,
+                    changeYear,
+                    changeMonth,
+                    decreaseMonth,
+                    increaseMonth,
+                    prevMonthButtonDisabled,
+                    nextMonthButtonDisabled,
+                   }) => (
+                     <div
+                      style={{
+                        margin: 10,
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                     >
+                      <button
+                        onClick={decreaseMonth}
+                        disabled={prevMonthButtonDisabled}
+                      >{"<"}</button>
+                      <select
+                        value={getYear(date)}
+                        onChange={({ target: { value } }) =>
+                      changeYear(Number(value))}
+                      >
+                        {years.map((option: number) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+
+                      <select
+                        value={months[getMonth(date)]}
+                        onChange={({ target: { value } }) =>
+                          changeMonth(months.indexOf(value))
+                        }
+                      >
+                        {months.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        onClick={increaseMonth}
+                        disabled={nextMonthButtonDisabled}
+                      >
+                        {">"}
+                      </button>
+                     </div>
+                   )}
                 />
               </div>
             </div>

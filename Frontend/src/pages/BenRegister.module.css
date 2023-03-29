@@ -136,10 +136,10 @@
   align-items: center;
 }
 
-.birthInput{
-  /* background-color: blue; */
+.datepicker{
   margin-top: 0.5rem;
   margin-left: 5rem;
+  font-family: "Hahmlet";
 }
 
 .diseaseInputWrapper{
