@@ -35,9 +35,12 @@
 .user_img img{
     width: 100px;
     height: 100px;
-    /* border-radius: 50px; */
+    transition: transform 0.1s ease;
 }
-
+.user_img img:hover{
+    transform: translateY(-5px);
+    animation: bounce 1.5s;
+}
 .user_log{
     display: flex;
     /* background-color: red; */
@@ -49,7 +52,6 @@
     padding-bottom: 10px;
     background-image: url("../assets/img/login-banner.jpeg");
     color: #ffffff
-
 }
 
 .user_menu{
@@ -132,3 +134,14 @@
 }
 
 /* 개인정보 변경 */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }

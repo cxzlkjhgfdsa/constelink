@@ -7,11 +7,12 @@ const CustomerFavoritePage = () => {
     const [bookedList, setBookedList] = useState([]);
     
     useEffect(()=>{
-        let params:any={page:1,size:8,memberId:2, sort_by:"END_DATE_ASC"}
+        let params:any={page:1,size:8,memberId:1}
         axios.get("/bookmarks",{params}).then(res=>{
             console.log(res.data.content);
             setBookedList(res.data.content)
-        })
+        }).catch((err) => console.log(err.response.data)
+        )
     },[])
 
 
