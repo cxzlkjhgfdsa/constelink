@@ -65,7 +65,7 @@ const FundRegister: React.FC = () => {
   }
 
   // 썸네일 설정
-  const [imgURL, setImgURL] = useState('');
+  const [imgPreUrl, setImgPreUrl] = useState('');
   const [image, setImage] = useState(null);
   const handleImage = (e: any) => {
     const file = e.target.files[0];
@@ -84,7 +84,7 @@ const FundRegister: React.FC = () => {
       setImgErr(false);
       setImgErrMsg('');
       setImage(file);
-      setImgURL(URL.createObjectURL(file));
+      setImgPreUrl(URL.createObjectURL(file));
     }
   };
   
@@ -148,6 +148,25 @@ const FundRegister: React.FC = () => {
   const years = _.range(getYear(new Date()) + 1, 2140, 1);
   const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 
+  // 사진 Url 백에서 가져오기
+  const [imgUrl, setImgUrl] = useState('');
+  const getImgUrI = async () => {
+    const formData = new FormData();
+    if (image) {
+      formData.append("file", image);
+    };
+
+    await axios
+      .post('/files/saveimg', formData)
+      .then((res) => {
+        console.log('변환성공');
+        setImgUrl(res.data.fileUrl);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   // POST 요청 보내기
   const sendPost = async () => {
 
@@ -155,10 +174,10 @@ const FundRegister: React.FC = () => {
       beneficiaryId: Number(benId),
       categoryId: 2,
       fundraisingAmountGoal: goal,
-      fundraisingEndTime: endTime.getTime()/1000,
+      fundraisingEndTime: endTime.getTime(),
       fundraisingTitle: title,
       fundraisingStory: content,
-      fundrasingThumbnail: imgURL,
+      fundrasingThumbnail: imgUrl,
     }
 
     console.log(funding);
@@ -172,24 +191,27 @@ const FundRegister: React.FC = () => {
         console.log(err);
       })
   };
+  useEffect(() => {
+    sendPost();
+  }, [imgUrl])
 
   // 요청 보내도 되는지 검사
   const checkValidity = () => {
-    // if (
-    //   !image || !benId || !title || !goal || !content || !endTime
-    // ) {
-    //   setNoValErr(true);
-    //   alert('입력하지 않은 값이 있습니다.');
-    // } else {
-    //   setNoValErr(false);
-    // };
+    if (
+      !image || !benId || !title || !goal || !content || !endTime
+    ) {
+      setNoValErr(true);
+      alert('입력하지 않은 값이 있습니다.');
+    } else {
+      setNoValErr(false);
+    };
 
-    // if (
-    //   !imgErr && !titleErr && !goalErr && !noValErr
-    // ) {
-    //   console.log('보내자');
-      sendPost();
-    // };
+    if (
+      !imgErr && !titleErr && !goalErr && !noValErr
+    ) {
+      console.log('보내자');
+      getImgUrI();
+    };
   };
 
   return(
@@ -211,9 +233,9 @@ const FundRegister: React.FC = () => {
         </div>
         <div className={styles.imgWrapper}>
           {/* 썸네일 등록 */}
-          {imgURL ? (
+          {imgPreUrl ? (
             <div className={styles.divWithImg}>
-              <img className={styles.fundImg} src={imgURL} alt="" />
+              <img className={styles.fundImg} src={imgPreUrl} alt="" />
               <label htmlFor="thumbImg">
                 <div className={styles.editIcon} />
               </label>

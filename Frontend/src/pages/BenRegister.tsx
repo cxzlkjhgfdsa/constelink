@@ -42,7 +42,6 @@ const BenRegister: React.FC = () => {
   // 사진 설정
   const [imgPreUrl, setImgPreUrl] = useState('');
   const [image, setImage] = useState(null);
-
   const handleImage = (e: any) => {
     const file = e.target.files[0];
     // 사진 확장자 검사
@@ -126,7 +125,7 @@ const BenRegister: React.FC = () => {
     }
   };
 
-  // 사진 Url 가져오기
+  // 사진 Url 백에서 가져오기
   const [imgUrl, setImgUrl] = useState('');
   const getImgUrI = async () => {
     const formData = new FormData();
