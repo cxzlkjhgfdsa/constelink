@@ -22,15 +22,18 @@ import NoticeEdit from './pages/NoticeEdit';
 function App() {
   return (
       <div className="App">
-        <Header/>
+       
         <Routes>
-          <Route element={<MainLayout />}>
+          <Route element={<MainLayout/>}>
+            <Route path='/' element={<HomePage/>}/>
             <Route path='/hospage' element={<HospitalPage />}/>
             <Route path='/benregi' element={<BenRegister />}/>
             <Route path='/hosfundlist' element={<HosFundList />} />
             <Route path="/notice/*" element={<NoticePage/>}/>
             <Route path='/fundregi' element={<FundRegister />}/>
-          </Route>
+          </Route >
+         
+           <Route path='/login' element={<Login />}/>
         </Routes>
       </div> 
 

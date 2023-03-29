@@ -15,8 +15,10 @@
     color: #ffffff;
     cursor: pointer;
     word-break: keep-all;
-    background-color: blue;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease;
 }
 
 .DonationCard:hover {
@@ -32,11 +34,10 @@
 /* 1. 컨텐츠 박스 */
 .dona_box {
     padding: 14px;
-    padding-top:54%;
+    /* padding-top:75%; */
     word-break: keep-all;
-    margin: 5px;
-}
 
+}
 
 /* 병명 */
 .dona_type {
