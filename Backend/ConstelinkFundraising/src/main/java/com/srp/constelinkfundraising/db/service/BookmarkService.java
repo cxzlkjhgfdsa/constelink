@@ -68,11 +68,9 @@ public class BookmarkService {
 
 		// Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberId(memberId, PageRequest.of(page, size));
 
-		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberIdForRead(memberId,
-			PageRequest.of(page, size));
+		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberIdForRead(memberId, PageRequest.of(page, size));
 
 		// List<Category> categories = categoryRepository.findAll();
-		System.out.println(bookmarks.getContent().get(0));
 		// HashSet<Fundraising> fundraisings = fundraisingRepository.findFundraisingsByIdIsIn(bookmarks.));
 		HashSet<Long> idList = new HashSet<>();
 		// Map<Long, String> categoriesMap = categories.stream()
@@ -103,7 +101,6 @@ public class BookmarkService {
 				.fundraisingBookmarked(true)
 				.build();
 		});
-
 		BeneficiariesInfoReq beneficiariesInfoReq = BeneficiariesInfoReq.newBuilder()
 			.addAllId(idList.stream().toList()).build();
 		BeneficiariesInfoRes beneficiariesInfoRes = stub.getBeneficiariesRpc(beneficiariesInfoReq);

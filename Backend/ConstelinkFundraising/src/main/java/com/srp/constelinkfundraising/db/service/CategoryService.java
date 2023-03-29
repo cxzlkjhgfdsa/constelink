@@ -30,6 +30,7 @@ public class CategoryService {
 			categoryRepository.delete(category);
 			return "카테고리 삭제 성공";
 		}
+
 	}
 
 	// @Transactional
