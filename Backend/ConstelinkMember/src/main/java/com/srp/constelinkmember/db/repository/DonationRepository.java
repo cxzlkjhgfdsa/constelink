@@ -1,5 +1,6 @@
 package com.srp.constelinkmember.db.repository;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -29,5 +30,8 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
 		"(SELECT COUNT(*) FROM Member WHERE role = 'HOSPITAL') AS allHospital " +
 		"FROM Donation")
 	Map<String, Long> statsData();
+
+	@Query("select distinct(d.beneficiaryId) as beneficiaryId from Donation d where d.memberId = :memberId")
+	List<Long> getBeneficiaryIds(@Param("memberId") Long memberId);
 
 }

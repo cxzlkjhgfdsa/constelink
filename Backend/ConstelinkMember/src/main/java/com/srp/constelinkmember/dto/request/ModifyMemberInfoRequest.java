@@ -6,6 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ModifyMemberInfoRequest {
+
+	private Long memberId;
 	private String nickname;
 	private String profileImg;
 }

@@ -22,6 +22,7 @@ import com.srp.constelinkmember.db.repository.DonationRepository;
 import com.srp.constelinkmember.db.repository.MemberRepository;
 import com.srp.constelinkmember.dto.DonationDetailDto;
 import com.srp.constelinkmember.dto.request.SaveDonationRequest;
+import com.srp.constelinkmember.dto.response.BeneficiaryResponse;
 import com.srp.constelinkmember.dto.response.DonationDetailsResponse;
 import com.srp.constelinkmember.dto.response.StatsDataResponse;
 
@@ -104,5 +105,14 @@ public class DonationService {
 			.allMember(statsData.get("allMember").intValue())
 			.build();
 		return statsDataResponse;
+	}
+
+	public BeneficiaryResponse getBeneficiaryIds(Long memberId) {
+		List<Long> beneficiaryIds = donationRepository.getBeneficiaryIds(memberId);
+		BeneficiaryResponse beneficiaryResponse = BeneficiaryResponse.builder()
+			.beneficiaryIds(beneficiaryIds)
+			.build();
+
+		return beneficiaryResponse;
 	}
 }

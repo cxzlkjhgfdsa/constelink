@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.srp.constelinkmember.api.service.DonationService;
 import com.srp.constelinkmember.dto.request.SaveDonationRequest;
+import com.srp.constelinkmember.dto.response.BeneficiaryResponse;
 import com.srp.constelinkmember.dto.response.DonationDetailsResponse;
 import com.srp.constelinkmember.dto.response.StatsDataResponse;
 import com.srp.constelinkmember.security.jwt.TokenProvider;
@@ -61,6 +62,14 @@ public class DonationController {
 		StatsDataResponse response = donationService.getStatsData();
 
 		return ResponseEntity.ok(response);
+	}
+
+	@Operation(summary = "수혜자 번호 반환", description = "사용자가 기부한 회복일지를 보기위한 데이터 반환")
+	@GetMapping("/beneficiarys")
+	public ResponseEntity getBeneficiaryIds(@RequestParam("id") Long memberId) {
+		BeneficiaryResponse beneficiaryResponse = donationService.getBeneficiaryIds(memberId);
+
+		return ResponseEntity.ok(beneficiaryResponse);
 	}
 
 }
