@@ -29,4 +29,14 @@ public interface BeneficiaryRepository extends JpaRepository<Beneficiary, Long> 
 	Page<Beneficiary> findAll(Pageable pageable);
 
 	List<Beneficiary> findAllByIdIn(List<Long> idList);
+
+	@Query("select distinct(u.id) as benficiaryId, u.beneficiaryName as beneficiaryName "
+		+ ", u.beneficiaryPhoto as beneficiaryPhoto, u.beneficiaryDisease as beneficiaryDisease "
+		+ ", h.hospitalName as hospitalName "
+		+ "from Beneficiary u join RecoveryDiary r "
+		+ "on r.beneficiary.id = u.id "
+		+ "join Hospital h on h.id = u.hospital.id "
+		+ "group by benficiaryId "
+		+ "order by max(r.recoveryDiaryRegdate)")
+	Page<Beneficiary> findBeneficiariesByIdIsIn(List<Long> idList, Pageable pageable);
 }

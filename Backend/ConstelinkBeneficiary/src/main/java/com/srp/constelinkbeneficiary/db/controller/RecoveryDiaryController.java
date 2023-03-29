@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.srp.constelinkbeneficiary.db.dto.enums.RecoveryDiaryMemberDonatedType;
 import com.srp.constelinkbeneficiary.db.dto.enums.RecoveryDiarySortType;
 import com.srp.constelinkbeneficiary.db.dto.request.RecoveryDiaryRequest;
 import com.srp.constelinkbeneficiary.db.dto.response.RecoveryDiaryBeneficiaryResponse;
@@ -67,6 +67,21 @@ public class RecoveryDiaryController {
 		@RequestBody RecoveryDiaryRequest recoveryDiaryRequest
 	) {
 		return ResponseEntity.ok(recoveryDiaryService.addRecoveryDiary(recoveryDiaryRequest));
+	}
+
+	@Operation(summary = "사용자가 기부한 수혜자들의 회복일지 목록 조회", description = "memberId = 사용자 ID, "
+		+ "page = 페이지, "
+		+ "size = 한페이지 자료수, "
+		+ "sortBy = 정렬 타입")
+	@GetMapping("/donated/{memberId}")
+	public <T> ResponseEntity<Page<RecoveryDiaryResponse>> getMyDonatedRecoveryDiaries(
+		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
+		@RequestParam(value = "sortBy", required = false, defaultValue = "DATE_DESC") RecoveryDiaryMemberDonatedType sortType,
+		@PathVariable(value = "memberId") Long memberId) {
+		Page<RecoveryDiaryResponse> recoveryDiaries = recoveryDiaryService.getRecoveryDiaryDonatedByMember(page - 1, size, memberId, sortType);
+
+		return ResponseEntity.ok(recoveryDiaries);
 	}
 
 }

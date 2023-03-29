@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiaryMemberDonate;
 import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiarySortType;
 import com.srp.constelinkbeneficiary.db.dto.enums.HospitalSortType;
 import com.srp.constelinkbeneficiary.db.dto.request.BeneficiaryReqeust;
@@ -88,6 +89,24 @@ public class BeneficiaryController {
 				break;
 		}
 
+		return ResponseEntity.ok(beneficiaryInfoList);
+	}
+
+
+	@Operation(summary = "해당 회원이 기부했던 수혜자 목록 조회(일기 있는 사람만)", description = "memberId = 회원ID, "
+		+ "page = 페이지, "
+		+ "size = 한 페이지 담는 자료 수"
+		+ "sortBy = 정렬타입")
+	@GetMapping("/donate/{memberId}")
+	// 하나의 병원에 있는 모든 수혜자 목록 가져오기
+	public ResponseEntity<Page<BeneficiaryInfoResponse>> findBeneficiaryByMemberDonate(
+		@PathVariable(value = "memberId") Long memberId,
+		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
+		@RequestParam(value = "sortBy", required = false, defaultValue = "NONE") BeneficiaryMemberDonate sortType
+	) {
+		Page<BeneficiaryInfoResponse> beneficiaryInfoList = beneficiaryService.getBeneficiaryDonatedByMember(
+			page - 1, size, memberId, sortType);
 		return ResponseEntity.ok(beneficiaryInfoList);
 	}
 
