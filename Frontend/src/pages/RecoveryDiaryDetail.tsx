@@ -31,6 +31,7 @@ const RecoveryDiaryDetail: React.FC = () => {
   // 치료일지 생성 
   const inputRef = useRef<HTMLInputElement>(null);
   const { id } = useParams<{ id: string }>();
+  // const [patientId, setPatientId] = useState('');
   const [imageFile, setImageFile] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -49,14 +50,13 @@ const RecoveryDiaryDetail: React.FC = () => {
   
   // axios
   useEffect(() => {
-    let params: any ={beneficiaryId: id, page:1, size:5, sortBy:"DATE_DESC"};
-    axios.get(`http://j8a206.p.ssafy.io:8999/recoverydiaries/${id}?page=1&size=5&sortBy=DATE_DESC`)
+    let params: any ={page:1, size:5, sortBy:"DATE_DESC"};
+    axios.get(`/recoverydiaries/${id}`, params)
     .then((res) => {
       console.log(res.data);
       console.log(treatmentRecords)
       setTreatmentRecords(res.data.beneficiaryInfo)
       setRecoveryCard(res.data.beneficiaryDiaries.content)
-
       
     })
     .catch((err) => {
@@ -64,11 +64,10 @@ const RecoveryDiaryDetail: React.FC = () => {
     }) 
   }, [id]);
 
-  const today = new Date();
+  // const today = new Date();
 
   // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출
   const [selectedRecordIndex, setSelectedRecordIndex] = useState<number | null>(null);
-
   const editor = useRef<SunEditorCore>();
   // The sunEditor parameter will be set to the core suneditor instance when this function is called
   const getSunEditorInstance = (sunEditor: SunEditorCore) => {
@@ -94,6 +93,7 @@ const RecoveryDiaryDetail: React.FC = () => {
   
   // 모달 속 생성완료버튼
   const onAddRecord = () => {
+
     if (!imageFile) {
       alert('사진을 저장해주세요!');
       return;
@@ -105,7 +105,7 @@ const RecoveryDiaryDetail: React.FC = () => {
       return
     }
     const Record: RecoveryDiaryCreate = {
-      beneficiaryId: 1,
+      beneficiaryId : id,
       diaryPhoto: imageFile,
       diaryTitle: title,
       diaryContent: content,
@@ -115,27 +115,41 @@ const RecoveryDiaryDetail: React.FC = () => {
       // diaryTitle: "제목",
       // diaryContent: "내용",
       // diaryAmountSpent: 1,
-    }
-    console.log(Record)
-
-    axios.post(`/recoverydiaries/${id}?page=1&size=5&sortBy=DATE_DESC`, Record)
+    } 
+    axios.post(`/recoverydiaries/${id}`, Record)
     .then((res) => {console.log(res)})
-  };
-  
-  //   // 모달 속 취소버튼
-  const onCancelRecord = useCallback(() => {
+
+    const newCard: RecoveryDiaryDetailData = {
+      beneficiaryId: id,
+      diaryPhoto: imageFile,
+      diaryTitle: title,
+      diaryContent: content,
+      diaryAmountSpent: totalGive,
+      // diaryCreatedAt: today.toISOString(),
+      // diaryUpdatedAt: today.toISOString(),
+    };
+    setRecoveryCard([newCard, ...recoveryCard]);
+    setOpenModal(false);
+    setImageFile('');
+    setTitle('');
+    setContent('');
+    setTotalGive(0);
+   
+  }
+    //   // 모달 속 취소버튼
+    const onCancelRecord = useCallback(() => {
     setImageFile('');
     setContent('');
     setOpenModal(false);
-    }, []);
-
+  }, []);
+  
     const handleEditorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(e.target.value);
+      // console.log(e.target.value);
       setTitle(e.target.value);
   };
 
   const contentChangeHandler = (e: string) => {
-      console.log(e);
+      // console.log(e);
       setImageFile(e);
       setContent(e)
   }

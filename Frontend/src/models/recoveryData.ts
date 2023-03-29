@@ -21,7 +21,7 @@ export interface RecoveryDiaryDetailData {
   // beneficiaryDiaries
   // beneficiaryName: string,
   diaryId: number,
-  beneficiaryId: number,
+  beneficiaryId?: number | string ,
   diaryRegisterDate: number,
   diaryPhoto: string,
   diaryTitle: string,
@@ -30,7 +30,7 @@ export interface RecoveryDiaryDetailData {
 }
 
 export interface RecoveryDiaryCreate {
-  beneficiaryId:Number|string;
+  beneficiaryId?: number | string;
   diaryPhoto: string,
   diaryTitle: string,
   diaryContent: string,

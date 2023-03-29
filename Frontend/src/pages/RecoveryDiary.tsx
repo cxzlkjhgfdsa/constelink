@@ -16,7 +16,7 @@ const RecoveryDiary: React.FC = () => {
   useEffect(() => {
     // getRecoveryDiaryData();
     let params: any ={page:1, size:5, sortBy:'DATE_DESC'};
-    axios.get('http://j8a206.p.ssafy.io:8999/beneficiaries?page=1&size=5&sortBy=DIARY_DATE_ASC')
+    axios.get('/beneficiaries')
     .then(res =>setDiaryList(res.data.content))
     .catch((err) => console.log(err))}
     ,[]);
