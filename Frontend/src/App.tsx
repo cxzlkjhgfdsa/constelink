@@ -22,7 +22,7 @@ import NoticeEdit from './pages/NoticeEdit';
 function App() {
   return (
       <div className="App">
-        {/* <Login/> */}
+        <Header/>
         <Routes>
           <Route element={<MainLayout />}>
             <Route path='/hospage' element={<HospitalPage />}/>

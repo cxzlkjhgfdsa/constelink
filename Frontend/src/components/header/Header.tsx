@@ -71,12 +71,6 @@ const Header: React.FC = () => {
               
             </div>
 
-<<<<<<< HEAD
-=======
-                <div className={styles.header_login}>로그인</div>
-            </div>
-
->>>>>>> feature-front/notice
       
     )
 }
