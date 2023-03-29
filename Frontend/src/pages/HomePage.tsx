@@ -10,7 +10,7 @@ import topbanner2 from '../assets/img/topbanner_2.jpg';
 import topbanner3 from '../assets/img/topbanner_3.jpg';
 import ssafy from '../assets/logo/ssafy_logo.png';
 import DonationCard from '../components/cards/DonationCard';
-import { DonationData } from '../models/donatecard';
+import { DonationData, Statistics } from '../models/donatecard';
 import { SliderSettings } from '../models/slidemodel';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
@@ -29,7 +29,7 @@ import { faGratipay } from "@fortawesome/free-brands-svg-icons";
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 const images = [topbanner1, topbanner2, topbanner3];
-const contents = [["콘스텔링크 Constelink1", "블록체인기반, 치료비 모금 플랫폼1"], ["콘스텔링크 Constelink2", "블로체인기반, 치료비 모금 플랫폼2"], ["콘스텔링크 Constelink3", "블로체인기반, 치료비 모금 플랫폼3"]];
+const contents = [["콘스텔링크 Constelink", "블록체인기반, 치료비 모금 플랫폼"], ["콘스텔링크 Constelink", "여러분의 관심이 많은이들에게 도움이 됩니다."], ["콘스텔링크 Constelink", "블로체인기반, 치료비 모금 플랫폼 당신의 별자리"]];
 
 const HomePage: React.FC = () => {
   const settings: SliderSettings = {
@@ -47,10 +47,18 @@ const HomePage: React.FC = () => {
   };
 
   const [donateCard, setDonateCard] = useState<DonationData[]>([]);
+  const [statistics, setStatistics] = useState<Statistics>();
   useEffect(() => {
-    axios.get("http://j8a206.p.ssafy.io:8998/fundraisings?page=&size=5&sort_by=ALL").then((res) => {
+    axios.get("http://j8a206.p.ssafy.io:8998/fundraisings?page=1&size=5&sortBy=START_DATE_DESC").then((res) => {
       console.log(res.data.content);
       setDonateCard(res.data.content);
+    })
+  }, [])
+
+  useEffect(() => {
+    axios.get("http://j8a206.p.ssafy.io:8998/fundraisings/statistics").then((res) => {
+      console.log(res.data);
+      setStatistics(res.data)
     })
   }, [])
 
@@ -92,7 +100,7 @@ const HomePage: React.FC = () => {
 
 
 
-        <div className={styles.slide_card} style={{}}>
+        <div className={styles.slide_card} >
           <Swiper className={styles.slide_cardItem}
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={0}
@@ -104,7 +112,7 @@ const HomePage: React.FC = () => {
           >
             {
               donateCard.map(it => {
-                return <SwiperSlide key={it.fundraisingId.toString()}><DonationCard data={it} /></SwiperSlide>
+                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}}><DonationCard data={it} /></SwiperSlide>
               })
             }
           </Swiper>
@@ -136,22 +144,22 @@ const HomePage: React.FC = () => {
             <FontAwesomeIcon icon={faSackDollar as IconProp} className={styles.result_icon} />
             <div className={styles.result_content}>
               <div className={styles.content_title}>총 모금액</div>
-              <div className={styles.content_curval}>{"2,400,000"} 원</div>
+              <div className={styles.content_curval}>{statistics?.totalAmountedCash.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</div>
             </div>
           </li>
 
 
           <li className={styles.result_item}>  <FontAwesomeIcon icon={faHeartPulse as IconProp} className={styles.result_icon} />             <div className={styles.result_content}>
             <div className={styles.content_title}>기부 횟수</div>
-            <div className={styles.content_curval}>{"2,400,000"} 원</div>
+            <div className={styles.content_curval}>{statistics?.allDonation} 회</div>
           </div></li>
           <li className={styles.result_item}>  <FontAwesomeIcon icon={faHandHoldingHeart as IconProp} className={styles.result_icon} />             <div className={styles.result_content}>
             <div className={styles.content_title}>열린 캠페인수</div>
-            <div className={styles.content_curval}>{"2,400,000"} 원</div>
+            <div className={styles.content_curval}>{statistics?.totalFundraisings} 회</div>
           </div></li>
           <li className={styles.result_item}>  <FontAwesomeIcon icon={faGratipay as IconProp} className={styles.result_icon} style={{}} />             <div className={styles.result_content}>
             <div className={styles.content_title}>완료된 캠페인수</div>
-            <div className={styles.content_curval}>{"2,400,000"} 원</div>
+            <div className={styles.content_curval}>{statistics?.totalFundraisingsFinished} 회</div>
           </div></li>
         </ul>
       </div>

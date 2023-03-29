@@ -18,3 +18,12 @@ export interface DonationData {
 }
 
 
+export interface Statistics {
+  totalFundraisings: number,
+  totalFundraisingsFinished: number,
+  totalAmountedCash: number,
+  allDonation: number,
+  allMember: number,
+  allHospital: number,
+}
+

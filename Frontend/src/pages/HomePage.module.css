@@ -41,7 +41,7 @@
     margin-right: 20%;
     font-family: "Hahmlet";
     color: aliceblue;
-    width: 450px;
+    width: 600px;
     
 }
 
@@ -53,6 +53,7 @@
 
 .slide_content {
     font-size: 28px;
+    width: 600px;
     /* word-break: keep-all */
 }
 
@@ -123,11 +124,11 @@
 }
 
 .heal_title{
-    /* background-color: red; */
     display: flex;
     align-items: center;
     flex-direction: column;
     font-family: Hahmlet;
+    
 }
 
 .heal_title>h1{
@@ -270,6 +271,7 @@
     justify-content: center;
     height: 330px;
     margin-top: 20px;
+   
 
 }
 
