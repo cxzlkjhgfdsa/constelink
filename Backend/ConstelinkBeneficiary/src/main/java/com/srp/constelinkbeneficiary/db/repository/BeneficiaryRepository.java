@@ -16,16 +16,15 @@ public interface BeneficiaryRepository extends JpaRepository<Beneficiary, Long> 
 	@Override
 	<S extends Beneficiary> S saveAndFlush(S entity);
 
-	@Query("SELECT u, h from Beneficiary u join fetch Hospital h on u.hospital.id = h.id where u.id = :id")
+	@Query("SELECT u from Beneficiary u join fetch Hospital h on u.hospital.id = h.id where u.id = :id")
 	Optional<Beneficiary> findBeneficiaryById(Long id);
-
 
 	// Optional<Beneficiary> getBeneficiariesById(Long id);
 
-	@Query(value = "SELECT u, h from Beneficiary u join fetch Hospital h on u.hospital.id = h.id where u.hospital.id = :id",countQuery = "SELECT count(u) from Beneficiary u where u.hospital.id = :id")
-	Page<Beneficiary> findBeneficiariesByHospitalId(Long id, Pageable pageable);
+	@Query(value = "SELECT u from Beneficiary u join fetch Hospital h on u.hospital.id = h.id where u.hospital.id = :hospitalId",countQuery = "SELECT count(u) from Beneficiary u where u.hospital.id = :hospitalId")
+	Page<Beneficiary> findBeneficiariesByHospitalId(Long hospitalId, Pageable pageable);
 
-	@Query(value = "SELECT u, h from Beneficiary u join fetch Hospital h on u.hospital.id = h.id",countQuery = "SELECT count(u) from Beneficiary u")
+	@Query(value = "SELECT u from Beneficiary u join fetch Hospital h on u.hospital.id = h.id",countQuery = "SELECT count(u) from Beneficiary u")
 	Page<Beneficiary> findAll(Pageable pageable);
 
 	List<Beneficiary> findAllByIdIn(List<Long> idList);

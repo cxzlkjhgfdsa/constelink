@@ -81,9 +81,9 @@ public class BeneficiaryService {
 			.hospitalId(m.getHospital().getId())
 			.hospitalName(m.getHospital().getHospitalName())
 			.beneficiaryId(m.getId())
+			.diaryFinishedDate(null)
 			.build()
 		);
-
 		return beneficiaryInfoList;
 	}
 
