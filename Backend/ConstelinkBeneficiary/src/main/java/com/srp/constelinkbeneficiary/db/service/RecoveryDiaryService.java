@@ -1,6 +1,7 @@
 package com.srp.constelinkbeneficiary.db.service;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -151,6 +152,7 @@ public class RecoveryDiaryService {
 			.recoveryDiaryContent(recoveryDiaryRequest.getDiaryContent())
 			.recoveryDiaryPhoto(recoveryDiaryRequest.getDiaryPhoto())
 			.recoveryDiaryTitle(recoveryDiaryRequest.getDiaryTitle())
+			.recoveryDiaryRegdate(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
 			.recoveryDiaryAmountSpent(recoveryDiaryRequest.getDiaryAmountSpent())
 			.build();
 		recoveryDiary = recoveryDiaryRepository.saveAndFlush(recoveryDiary);
