@@ -35,6 +35,7 @@ const RecoveryDiaryDetail: React.FC = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [totalGive, setTotalGive] = useState(0);
+  const [createDate, setCreateDate] = useState(0);
   
   // 모달이 열려있는지 여부 확인
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
@@ -47,9 +48,6 @@ const RecoveryDiaryDetail: React.FC = () => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]); 
   
-  // Use `id` to get the cardIndex data from the backend
-  
-  
   // axios
   useEffect(() => {
     let params: any ={page:page, size:10, sortBy:"DATE_DESC"};
@@ -60,14 +58,12 @@ const RecoveryDiaryDetail: React.FC = () => {
       setPage(page);
       setTreatmentRecords(res.data.beneficiaryInfo)
       setRecoveryCard(res.data.beneficiaryDiaries.content)
-      
     })
     .catch((err) => {
       console.log(err)
     }) 
   }, [page]);
   
-  // const today = new Date();
   
   // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출
   const [selectedRecordIndex, setSelectedRecordIndex] = useState<number | null>(null);
@@ -151,7 +147,6 @@ const RecoveryDiaryDetail: React.FC = () => {
       console.log(res)
       console.log('요청이 갔어요~')
       window.location.replace(`/diarydetail/${id}`)
-      console.log(Record)
     })
     .catch((err) => {
       console.log(err);
@@ -163,18 +158,29 @@ const RecoveryDiaryDetail: React.FC = () => {
       diaryTitle: title,
       diaryContent: content,
       diaryAmountSpent: totalGive,
+      diaryRegisterDate : createDate,
     };
+    
     getImgUrl();
-    setImageFile(imageFile);
+    // setImageFile(imageFile);
     setTitle(title);
     setContent(content);
     setTotalGive(totalGive);
+    // setCreateDate(createDate);
     // recoverycard는 RecoveryDiaryDetailData + 
     // setRecoveryCard((recoveryCard) => [...recoveryCard, newCard]);
     setOpenModal(false);
     console.log('새로운카드 만들었어요~~~')
   };
-  
+
+  function formatDate(dateString : any) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}년 ${month}월 ${day}일`;
+  }
+
 
   // 모달 속 취소버튼
   const onCancelRecord = useCallback(() => {
@@ -237,7 +243,7 @@ const RecoveryDiaryDetail: React.FC = () => {
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>생년월일</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryBirthday}</p>
+                <p className={styles.patientInfoContent}>{formatDate(treatmentRecords.beneficiaryBirthday)}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>병명</p>
@@ -260,7 +266,8 @@ const RecoveryDiaryDetail: React.FC = () => {
         {/* 생성된 치료일기 */}
         {recoveryCard.map((record, index) => (
           <div key={index} className={styles.record} onClick={() => onClickRecord(index)}>
-            <div className={styles.recordDate}>{record.diaryRegisterDate} 날짜로 변경 제발 </div>
+            <div className={styles.recordDate}>
+              {formatDate(record.diaryRegisterDate)}</div>
             <img className={styles.recordImage} src={record.diaryPhoto} alt={imgPreUrl} />
             <div className={styles.recordIndex}>{record.diaryTitle}</div>
             <div className={styles.recordContent}>
@@ -290,7 +297,9 @@ const RecoveryDiaryDetail: React.FC = () => {
             <div className={styles.modalInfo}>
               <div className={styles.modalInfoTitle}>{recoveryCard[selectedRecordIndex].diaryTitle}</div>
               <hr className={styles.modalHr} />
-              <div className={styles.modalInfoDate}>작성일 : {recoveryCard[selectedRecordIndex].diaryRegisterDate}</div>
+              <div className={styles.modalInfoDate}>
+                {formatDate(recoveryCard[selectedRecordIndex].diaryRegisterDate)}
+              </div>
               <div className={styles.modalInfoContent}>{recoveryCard[selectedRecordIndex].diaryContent}</div>
               <div className={styles.modalButton}>
               {/* <button className={styles.modalButtonItem} onClick={() => onEditRecord()}>수정</button> */}
