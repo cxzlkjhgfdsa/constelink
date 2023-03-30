@@ -22,6 +22,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 600px;
 }
 
 .mainTitle{
@@ -64,4 +65,24 @@
 .div4{
   background-color: blue;
   height:2rem;
+}
+/* div 다음에 나오는 li 스타일 제거 */
+div > li {
+  list-style: none; 
+  padding-left: 0px; 
+}
+
+.subTitleBox {
+  font-family: "Hahmlet";
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.grid_col4{
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 3fr;
+  width: 100%;
+  
+  align-items: center;
+  justify-items: center;
 }
