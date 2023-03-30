@@ -7,9 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAddressCard, faStar, faHospitalUser, faRightFromBracket, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 const CustomerMyPage: React.FC = () => {
-
+    const authInfo = useSelector((state:RootState)=> state.auth);
     const navigate = useNavigate();
     const logoutHandler = ()=>{
         const accessToken = localStorage.getItem('access_token');
@@ -25,10 +27,10 @@ const CustomerMyPage: React.FC = () => {
         <div className={styles.CustomerMyPage}>
 
             <div className={styles.user_profile}>
-                <div className={styles.user_img}><img src={image} /></div>
+                <div className={styles.user_img}><img src={authInfo.profileImg} /></div>
                 <div className={styles.user_name}>
-                    <div className={styles.comment_greet}>반갑습니다. 정원철님!</div>
-                    <div className={styles.comment_mypage}>기부왕정원철 님의 마이페이지</div>
+                    <div className={styles.comment_greet}>반갑습니다. {authInfo.nickname}님!</div>
+                    <div className={styles.comment_mypage}>기부왕{authInfo.nickname} 님의 마이페이지</div>
                 </div>
             </div>
 

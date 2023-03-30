@@ -5,6 +5,7 @@ import { useState,useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import axios from 'axios';
 
 interface Props {
     data: DonationData; 
@@ -42,11 +43,20 @@ const DonationCard: React.FC<Props> = ({ data }) => {
     }, [curMoney]);
 
     // 북마크 설정
-    const [isMark, setIsMark]= useState(false);
+    const [isMark, setIsMark]= useState(data.fundraisingBookmarked);
 
     const bookHandler = ()=>{
-        setIsMark(!isMark);
+        setIsMark(!isMark)
+        axios.post("/bookmarks",{
+            "memberId": 1,
+            "fundraisingId": data.fundraisingId,
+        }).then(res=> console.log(res)
+        )
     }
+
+    useEffect(()=>{
+        
+    },[setIsMark])
 
     return (
         <div className={styles.DonationCard} style={{ background: `linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url(${data.fundraisingThumbnail})`, backgroundSize: "cover" }}>

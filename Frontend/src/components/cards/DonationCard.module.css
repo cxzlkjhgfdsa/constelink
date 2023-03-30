@@ -14,7 +14,7 @@
     font-weight: bold;
     color: #ffffff;
     cursor: pointer;
-    word-break: keep-all;
+    word-break: break-all;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -26,7 +26,7 @@
 }
 .bookmark{
     padding: 14px;
-
+    font-size: 17px;
 }
 
 
