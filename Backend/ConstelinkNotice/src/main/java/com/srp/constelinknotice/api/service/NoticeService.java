@@ -16,9 +16,11 @@ import com.srp.constelinknotice.common.exception.CustomExceptionType;
 import com.srp.constelinknotice.db.entity.Notice;
 import com.srp.constelinknotice.db.repository.NoticeRepository;
 import com.srp.constelinknotice.dto.NoticeInfoDto;
+import com.srp.constelinknotice.dto.enums.NoticeType;
 import com.srp.constelinknotice.dto.request.DeleteNoticeRequest;
 import com.srp.constelinknotice.dto.request.ModifyNoticeRequest;
 import com.srp.constelinknotice.dto.request.SaveNoticeRequest;
+import com.srp.constelinknotice.dto.response.NoticeIdResponse;
 import com.srp.constelinknotice.dto.response.NoticeListResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -33,7 +35,7 @@ public class NoticeService {
 	private final NoticeRepository noticeRepository;
 
 	@Transactional
-	public void saveNotice(SaveNoticeRequest saveNoticeRequest) {
+	public NoticeIdResponse saveNotice(SaveNoticeRequest saveNoticeRequest) {
 		Notice notice = Notice.builder()
 			.noticeTitle(saveNoticeRequest.getNoticeTitle())
 			.noticeContent(saveNoticeRequest.getNoticeContent())
@@ -42,7 +44,12 @@ public class NoticeService {
 			.noticePinned(saveNoticeRequest.isNoticeIsPinned())
 			.build();
 
-		noticeRepository.save(notice);
+		Notice saveNotice = noticeRepository.save(notice);
+		NoticeIdResponse response = NoticeIdResponse.builder()
+			.id(saveNotice.getId())
+			.build();
+
+		return response;
 	}
 
 	public NoticeListResponse noticeList(int page){
@@ -50,6 +57,9 @@ public class NoticeService {
 			Sort.by(Sort.Direction.DESC, "noticeRegdate"));
 
 		Page<Notice> notices = noticeRepository.findAll(pageRequest);
+		for(Notice n : notices.getContent()){
+			System.out.println(n.getNoticeTitle());
+		}
 
 		List<NoticeInfoDto> noticeInfoList = notices.getContent().stream().map(notice ->
 			new NoticeInfoDto().builder()
@@ -57,6 +67,7 @@ public class NoticeService {
 				.noticeTitle(notice.getNoticeTitle())
 				.noticeContent(notice.getNoticeContent())
 				.noticeRegDate(notice.getNoticeRegdate())
+				.noticeType(notice.getNoticeType())
 				.noticeIsPinned(notice.isNoticePinned())
 				.build()).collect(Collectors.toList());
 
@@ -75,12 +86,11 @@ public class NoticeService {
 
 		if(findNotice.isPresent()){
 			Notice notice = findNotice.get();
-			if(!modifyNoticeRequest.getNoticeTitle().equals("")) {
-				notice.setNoticeTitle(modifyNoticeRequest.getNoticeTitle());
-			}
-			if(!modifyNoticeRequest.getNoticeContent().equals("")) {
-				notice.setNoticeContent(modifyNoticeRequest.getNoticeContent());
-			}
+			notice.setNoticeTitle(modifyNoticeRequest.getNoticeTitle());
+			notice.setNoticeContent(modifyNoticeRequest.getNoticeContent());
+			notice.setNoticeType(modifyNoticeRequest.getNoticeType());
+			notice.setNoticePinned(modifyNoticeRequest.isNoticeIsPinned());
+
 		}else{
 			throw new CustomException(CustomExceptionType.NOTICE_NOT_FOUND);
 		}
@@ -90,5 +100,23 @@ public class NoticeService {
 	@Transactional
 	public void deleteNotice(DeleteNoticeRequest deleteNoticeRequest) {
 		noticeRepository.deleteById(deleteNoticeRequest.getId());
+	}
+
+	public NoticeInfoDto noticeDetail(Long id) {
+		Optional<Notice> findNotice = noticeRepository.findById(id);
+		if(!findNotice.isPresent()){
+			throw new CustomException(CustomExceptionType.NOTICE_NOT_FOUND);
+		}
+		Notice notice = findNotice.get();
+		NoticeInfoDto noticeInfoDto = NoticeInfoDto.builder()
+			.id(notice.getId())
+			.noticeTitle(notice.getNoticeTitle())
+			.noticeContent(notice.getNoticeContent())
+			.noticeRegDate(notice.getNoticeRegdate())
+			.noticeType(notice.getNoticeType())
+			.noticeIsPinned(notice.isNoticePinned())
+			.build();
+
+		return noticeInfoDto;
 	}
 }

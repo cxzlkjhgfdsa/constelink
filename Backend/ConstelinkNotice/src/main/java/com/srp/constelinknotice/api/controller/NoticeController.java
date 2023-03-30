@@ -1,6 +1,7 @@
 package com.srp.constelinknotice.api.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.srp.constelinknotice.api.service.NoticeService;
+import com.srp.constelinknotice.dto.NoticeInfoDto;
 import com.srp.constelinknotice.dto.request.DeleteNoticeRequest;
 import com.srp.constelinknotice.dto.request.ModifyNoticeRequest;
 import com.srp.constelinknotice.dto.request.SaveNoticeRequest;
+import com.srp.constelinknotice.dto.response.NoticeIdResponse;
 import com.srp.constelinknotice.dto.response.NoticeListResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,9 +33,9 @@ public class NoticeController {
 	@Operation(summary = "공지사항 저장", description = "공지사항 저장 메서드.")
 	@PostMapping("/save")	
 	public ResponseEntity saveNotice(@RequestBody SaveNoticeRequest saveNoticeRequest){
-		noticeService.saveNotice(saveNoticeRequest);
+		NoticeIdResponse response = noticeService.saveNotice(saveNoticeRequest);
 
-		return ResponseEntity.ok("공지사항 등록 완료!");
+		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/list")
@@ -41,6 +44,14 @@ public class NoticeController {
 		NoticeListResponse noticeListResponse = noticeService.noticeList(page-1);
 
 		return ResponseEntity.ok(noticeListResponse);
+	}
+
+	@GetMapping("/detail")
+	public ResponseEntity detailNotice(@RequestParam("id")Long id){
+
+		NoticeInfoDto noticeInfoDto = noticeService.noticeDetail(id);
+
+		return ResponseEntity.ok(noticeInfoDto);
 	}
 
 	@PostMapping("/modify")

@@ -11,6 +11,7 @@ import lombok.Setter;
 public class SaveNoticeRequest {
 
 	private String noticeTitle;
+	@Lob
 	private String noticeContent;
 	private NoticeType noticeType;
 	private boolean noticeIsPinned;
