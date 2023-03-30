@@ -175,9 +175,6 @@ const RecoveryDiaryDetail: React.FC = () => {
     console.log('새로운카드 만들었어요~~~')
   };
   
-  useEffect(() => {
-    onAddRecord();
-  }, []);
 
   // 모달 속 취소버튼
   const onCancelRecord = useCallback(() => {
