@@ -1,6 +1,36 @@
 import React from 'react';
 import styles from "./CustomerEditPage.module.css"
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { useRef, useState } from 'react';
+import axios  from 'axios';
 const CustomerEditPage:React.FC = () => {
+    const authNickname = useSelector((state:RootState)=> state.auth.nickname);
+    const [limit, setLimit] = useState<string>("");
+    const inputRef = useRef<HTMLInputElement>(null);
+    const nickNameChangeHandler=(e:any)=>{
+        setLimit(e.target.value);
+    }
+    const loginHandler = ()=>{
+        const access_token = localStorage.getItem('access_token');
+        // 회원탈퇴랑, 그거는 리프레시 토큰, 로그아웃할때 , 토크 재발급 받을때만 보내면 된다.
+        let editData ={
+            memberId: "",
+            nickname: limit,
+            profileImg: ""
+        }
+        axios.post("/members/modify", editData, {
+            headers: {
+              Authorization: access_token,
+            }
+          }).then(res=>{
+            console.log(res);
+            
+          })
+        
+    }
+    
+    
     return (
         <div className={styles.CustomerEditPage}>
             
@@ -12,17 +42,20 @@ const CustomerEditPage:React.FC = () => {
 
             <div className={styles.modify_nickname}>
                 <div className={styles.modify_nick}>현재 닉네임</div>
-                <div className={styles.modify_before}><div className={styles.modify_name}>gksrud316</div> </div>
+                <div className={styles.modify_before}><div className={styles.modify_name}>{authNickname}</div> </div>
             </div>
 
             <div className={styles.modify_nickname}>
                 <div className={styles.modify_nick}>새 닉네임</div>
-                <div className={styles.modify_after}><input  placeholder='2자 이상 30자 이하' className={styles.modify_input} type="text" /></div>
+                <div className={styles.modify_after}><input ref={inputRef} maxLength={30} onChange={nickNameChangeHandler}  placeholder='2자 이상 30자 이하' className={styles.modify_input} type="text" /></div>
             </div>
             
 
             <div className={styles.modify_finish}>
-                <button  className={styles.modify_btn} disabled >수정하기</button>
+                {
+                    limit.length>2?  <button  className={styles.modify_btn} onClick={loginHandler} >수정하기</button>   :<button  className={styles.modify_btn} disabled >수정하기</button>
+                }
+               
                 <div className={styles.modify_end}>탈퇴하기</div>
             </div>
 

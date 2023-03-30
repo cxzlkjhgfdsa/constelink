@@ -19,6 +19,8 @@ const NoticeList = () => {
     useEffect(() => {
         let params: any = { page: page };
         axios.get("/notices/list", {params}).then(res => {
+            console.log(res);
+            
             setTotalPage(res.data.totalElements)   
             setBoardList(res.data.noticeList);
         })
@@ -67,6 +69,8 @@ const NoticeList = () => {
                     nextPageText={"›"}
                     onChange={handlePageChange}
                 />
+                <div className={styles.create_btn}><button onClick={()=> navigate("create")}>글 작성</button></div>
+              
             </div>
         </div>
     );

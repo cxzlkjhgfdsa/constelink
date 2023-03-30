@@ -32,10 +32,11 @@
      /* background-color: red; */
 }
 
-.user_img img{
+.user_img>img{
     width: 100px;
     height: 100px;
     transition: transform 0.1s ease;
+    border-radius: 50px;
 }
 .user_img img:hover{
     transform: translateY(-5px);

@@ -16,6 +16,7 @@ const NoticePage: React.FC = () => {
                 <Route path="/" element={<NoticeList />}/>
                 <Route path=":id" element={<NoticeDetail />} />
                 <Route path=":id/edit" element={<NoticeEdit />} />
+                <Route path="/create" element={<NoticeCreate />} />
             </Routes>
         </div>
     );

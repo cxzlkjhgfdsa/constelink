@@ -6,6 +6,7 @@ import SunEditor from 'suneditor-react';
 import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css';
 import Header from '../components/header/Header';
+import { useNavigate } from 'react-router-dom';
 
 
 const NoticeCreate = () => {
@@ -15,7 +16,7 @@ const NoticeCreate = () => {
     const [selectedValue, setSelectedValue] = useState<string>('COMMON');
     const [title, setTitle] = useState('');
     const [contents, setContents] = useState('');
-
+    const navigate = useNavigate();
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedValue(event.target.value);
@@ -41,7 +42,7 @@ const NoticeCreate = () => {
 
         axios.post("/notices/save", boardContent).then(res => {
             console.log(res);
-
+            navigate(`/notice/${54}`);
         })
     };
     const handleEditorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
