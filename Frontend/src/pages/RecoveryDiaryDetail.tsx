@@ -224,7 +224,7 @@ const RecoveryDiaryDetail: React.FC = () => {
         
         <div className={styles.cardIndex}>
           <div className={styles.cardTop}>
-          <p className={styles.title}>제목</p>
+          <p className={styles.title}>"{treatmentRecords.beneficiaryName}" 님의 치료일지</p>
           </div>
           <div className={styles.cardContent}>
             <div className={styles.imageContainer}>
@@ -260,12 +260,12 @@ const RecoveryDiaryDetail: React.FC = () => {
         {/* 생성된 치료일기 */}
         {recoveryCard.map((record, index) => (
           <div key={index} className={styles.record} onClick={() => onClickRecord(index)}>
-          <div className={styles.recordDate}>날짜</div>
-          <img className={styles.recordImage} src={record.diaryPhoto} alt={imgPreUrl} />
-          <div className={styles.recordIndex}>{record.diaryId}. 치료일기</div>
-          <div className={styles.recordContent}>
-          {record.diaryTitle.length > 10 ? `${record.diaryTitle.substring(0, 10)}...` : record.diaryTitle}
-          </div>
+            <div className={styles.recordDate}>{record.diaryRegisterDate} 날짜로 변경 제발 </div>
+            <img className={styles.recordImage} src={record.diaryPhoto} alt={imgPreUrl} />
+            <div className={styles.recordIndex}>{record.diaryTitle}</div>
+            <div className={styles.recordContent}>
+            {record.diaryTitle.length > 10 ? `${record.diaryTitle.substring(0, 10)}...` : record.diaryTitle}
+            </div>
           </div>
         ))}
 
@@ -288,7 +288,7 @@ const RecoveryDiaryDetail: React.FC = () => {
             </div> 
             <img src={recoveryCard[selectedRecordIndex].diaryPhoto} alt={imgPreUrl} className={styles.modalImage} />
             <div className={styles.modalInfo}>
-              <div className={styles.modalInfoTitle}>{recoveryCard[selectedRecordIndex].diaryId}번째 글</div>
+              <div className={styles.modalInfoTitle}>{recoveryCard[selectedRecordIndex].diaryTitle}</div>
               <hr className={styles.modalHr} />
               <div className={styles.modalInfoDate}>작성일 : {recoveryCard[selectedRecordIndex].diaryRegisterDate}</div>
               <div className={styles.modalInfoContent}>{recoveryCard[selectedRecordIndex].diaryContent}</div>
@@ -309,10 +309,12 @@ const RecoveryDiaryDetail: React.FC = () => {
           {/* 생성버튼 클릭 -> 치료일지 생성 */}
           {isOpenModal && isChecked == true && (
             <Modal onClickToggleModal={onClickToggleModal}>
-            <div className={styles.modalTop}>치료일지 작성
-              <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
-            </div>
-            <input type="text" className={styles.modalInfoTitle} placeholder={"제목"} ref={inputRef} onChange={handleEditorChange} />
+            <div className={styles.modalTop}>
+              <div className={styles.modalText}> 
+                치료일지 작성
+                <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
+              </div>
+            </div> 
             {/* 이미지 입력 */}
             <div className={styles.imgInput}>
               {/* 이미지 선택하면 해당 이미지 띄우고 없으면 기본 이미지 */}

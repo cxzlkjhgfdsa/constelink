@@ -34,7 +34,7 @@ const RecoveryDiary: React.FC = () => {
 
           {/* 결과들 도출 */}
           {diaryList.map((content, index) => (
-          <div className={styles.card} key={index}>
+          <div className={styles.cardWhat} key={index}>
             <div className={styles.cardTop}></div>
             <div className={styles.imageContainer}>
               <img src={content.beneficiaryPhoto} alt="profile" className={styles.image} />
