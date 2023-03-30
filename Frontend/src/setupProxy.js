@@ -7,15 +7,12 @@ module.exports = function(app) {
       changeOrigin: true,
     })
   );
-}  
 
-// module.exports = function(app) {
-//   app.use(
-//     ["/fundraisings","/bookmarks"],
-//     createProxyMiddleware({
-//       target: 'http://j8a206.p.ssafy.io:8998',
-//       changeOrigin: true,
-//     })
-//   );
-// }  
-
+  app.use(
+    ["/files/saveimg"],
+    createProxyMiddleware({
+      target: 'http://j8a206.p.ssafy.io:8996',
+      changeOrigin: true,
+    })
+  );
+}
