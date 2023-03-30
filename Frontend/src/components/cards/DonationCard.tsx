@@ -1,21 +1,27 @@
 import React from 'react';
 import styles from "./DonationCard.module.css";
 import { DonationData } from '../../models/donatecard';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState,useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import axios from 'axios';
+
 interface Props {
-    data: DonationData;
-}
+    data: DonationData; 
+};
+
+
 const DonationCard: React.FC<Props> = ({ data }) => {
     const [curValue, setCurValue] = useState(0);
     const [curMoney, setCurMoney] = useState(0);
-    // const [goalMoney, setGoalMoney] =useState(data.goal);
+    const [percentage, setPercentage] =useState(data.fundraisingAmountRaised / data.fundraisingAmountGoal * 100);
+    const [demicalDay, setDemicalDay] = useState(Math.floor((data.fundraisingEndTime-
+        new Date().getTime())/(3600*24*1000)));
+    const [goalMoney, setGoalMoney] =useState(data.fundraisingAmountRaised)
 
-    const today: number = new Date().getTime();
-    const goalDay: number = new Date(data.deadline).getTime();
-    const demicalDay: number = Math.floor((goalDay - today) / (3600 * 24 * 1000));
-    const percentage: number = data.amount / data.goal * 100;
-    const goalMoney: number = data.goal;
+
+
     useEffect(() => {
         const intervalIdPercent = setInterval(() => {
             if (curValue < percentage) setCurValue(curValue => curValue + 1);
@@ -27,7 +33,7 @@ const DonationCard: React.FC<Props> = ({ data }) => {
     useEffect(() => {
         const intervalIdMoney = setInterval(() => {
             if (curMoney < goalMoney) {
-                setCurMoney(curMoney => curMoney + 500);
+                setCurMoney(curMoney => curMoney + 14124);
             } else {
                 setCurMoney(goalMoney)
             }
@@ -36,15 +42,32 @@ const DonationCard: React.FC<Props> = ({ data }) => {
         return () => clearInterval(intervalIdMoney);
     }, [curMoney]);
 
+    // 북마크 설정
+    const [isMark, setIsMark]= useState(data.fundraisingBookmarked);
+
+    const bookHandler = ()=>{
+        setIsMark(!isMark)
+        axios.post("/bookmarks",{
+            "memberId": 1,
+            "fundraisingId": data.fundraisingId,
+        }).then(res=> console.log(res)
+        )
+    }
+
+    useEffect(()=>{
+        
+    },[setIsMark])
 
     return (
-        <div className={styles.DonationCard} style={{ background: `linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url(${data.img})`, backgroundSize: "cover" }}>
+        <div className={styles.DonationCard} style={{ background: `linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url(${data.fundraisingThumbnail})`, backgroundSize: "cover" }}>
+            <div className={styles.bookmark}> <FontAwesomeIcon onClick={bookHandler} icon={faStar as IconProp} color={ !isMark ?'grey':"yellow"} /></div>
+            
             <div className={styles.dona_box}>
-                <div className={styles.dona_type}>{data.type}</div>
-                <div className={styles.dona_title}>{data.title}</div>
-                <div className={styles.dona_hospital}>{data.hospital}</div>
-                <div className={styles.dona_deadline}>D-{demicalDay}</div>
-
+                
+                <div className={styles.dona_type}>{data.categoryName}</div>
+                <div className={styles.dona_title}>{data.fundraisingTitle}</div>
+                <div className={styles.dona_hospital}>{"서울아산병원"}</div>
+                <div className={styles.dona_deadline}>D-{demicalDay+1}</div>
                 <div className={styles.progress_box}>
                     <progress value={curValue} max={100} />
 

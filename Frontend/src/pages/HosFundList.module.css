@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "noto-sans";
+  src: url("../assets/fonts/NotoSerifKR-Regular.otf");
+}
+
+@font-face {
+  font-family: "Crisis";
+  src: url("../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
+}
+
+@font-face {
+  font-family: "Hahmlet";
+  src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
+}
+
+.mainWrapper{
+  background-color: coral;
+  width: 100%;
+  height: max-content;
+  padding-bottom: 5rem;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainTitle{
+  font-family: "Hahmlet";
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.listWrapper{
+  padding-top: 2rem;
+  background-color: aqua;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.indexWrapper{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.5fr 3fr;
+  width: 100%;
+}
+
+.div1{
+  background-color: aliceblue;
+  height:2rem;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.div2{
+  background-color: red;
+  height:2rem;
+}
+
+.div3{
+  background-color: aliceblue;
+  height:2rem;
+}
+
+.div4{
+  background-color: blue;
+  height:2rem;
+}

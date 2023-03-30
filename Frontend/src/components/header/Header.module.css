@@ -18,7 +18,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index:1;
+    z-index:99;
     background-color: #ffff;
     
 }
@@ -47,7 +47,8 @@
     /* background-color: red; */
     padding-right: 1%;
     text-align: right;
-    word-break: keep-all
+    word-break: keep-all;
+    cursor: pointer;
 }
 
 .header_menu {
@@ -58,9 +59,7 @@
     justify-content: space-between;
     font-weight: bold;
     font-size: 16px;
-    /* width: 25%; */
     width: 500px;
-    /* background-color: red; */
     height: 100%;
 }
 
@@ -72,4 +71,3 @@
     align-items: center;
     border-bottom: 3px solid #A19FD5;
 }
-

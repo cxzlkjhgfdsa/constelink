@@ -3,12 +3,15 @@ interface AuthState {
   isAuthenticated: boolean;
   nickname: string,
   profileImg: string,
+  role: string
 }
 
 const initialAuthState: AuthState = {
   isAuthenticated: false,
   nickname: "",
-  profileImg: ""
+  profileImg: "",
+  role: ""
+
 };
 
 const authSlice = createSlice({
@@ -19,6 +22,7 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.nickname = action.payload.name;
       state.profileImg = action.payload.profileImg;
+      state.role = action.payload.role;
     },
     logout(state) {
       state.isAuthenticated = false;

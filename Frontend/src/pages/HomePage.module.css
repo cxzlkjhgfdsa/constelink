@@ -7,6 +7,10 @@
     font-family: "Tilt";
     src: url("../assets/fonts/TiltWarp-Regular-VariableFont_XROT\,YROT.ttf");
 }
+@font-face {
+    font-family: "NotoSans";
+    src: url("../assets/fonts/NotoSerifKR-Regular.otf");
+}
 
 
 .Test {
@@ -15,6 +19,7 @@
     height: 350px;
     position: absolute;
     word-break: keep-all;
+    
 }
 
 .slide_list {
@@ -22,6 +27,8 @@
 }
 
 .slide_item {
+    padding-left: 10px;
+    padding-right: 10px;
     height: 350px;
     width: 100%;
     background-repeat: no-repeat;
@@ -34,7 +41,7 @@
     margin-right: 20%;
     font-family: "Hahmlet";
     color: aliceblue;
-    width: 450px;
+    width: 600px;
     
 }
 
@@ -46,6 +53,7 @@
 
 .slide_content {
     font-size: 28px;
+    width: 600px;
     /* word-break: keep-all */
 }
 
@@ -88,7 +96,7 @@
 .with_box{
     background: linear-gradient(to bottom right, #a4a3cb, #ffff );
     height: 110px;
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     align-items: center;
     padding-left: 20%;
@@ -113,4 +121,165 @@
     font-family: "Hahmlet";
     font-size: 14px;
     
+}
+
+.heal_title{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: Hahmlet;
+    
+}
+
+.heal_title>h1{
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.heal_title>div{
+    font-size: 13px;
+}
+
+.addbox{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px
+}
+.addbox_item{
+    width: 890px;
+    height: 240px;
+    background-color: #CFE5F6;
+    border-radius: 10px;
+}
+
+.addbox_box{
+    width: 100%;
+    padding-left: 40px;
+    padding-top: 15px;
+    display: flex;
+    cursor: pointer;
+}
+
+.addbox_left{
+    width: 12%;
+}
+.addbox_ad{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.addbox_right{
+    
+}
+.addbox_verses{
+    display: flex;
+    font-family: "Hahmlet" ;
+}
+
+.addbox_verses>img{
+    width: 120px;
+    height: 120px;
+}
+
+.addbox_verses>div{
+   display: flex;
+   align-items: center;
+   font-size: 36px;
+   font-weight: bold;
+   color: #3D3D3D;
+   padding-top: 25px;
+}
+.addbox_comment{
+    font-size: 16px;
+    font-family: "Hahmlet";
+}
+.addbox_finish{
+    font-size: 28px;
+    font-weight: bold;
+    font-family: "Hahmlet";
+    color: #3D3D3D;
+    display: flex;
+    align-items: center;
+}
+.addbox_finish button{
+    border-style: none;
+    width: 130px;
+    height: 45px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 20px;
+    background-color: white;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.result_box{
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.result_list{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    width: 900px;
+    padding-left: 0;
+    /* background-color: blue; */
+}
+
+.result_icon{
+    width: 46px;
+    height: 46px;
+    color: #6F6D8F;
+}
+
+.result_item{
+    /* background-color: red; */
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result_content{
+    /* background-color: beige; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.content_title{
+    font-family: "Hahmlet";
+    font-size: 16px;
+    font-size: #797777;
+}
+.content_curval{
+    font-size: 20px;
+    font-family: "NotoSans";
+    font-weight: bold !important;
+    color: #272727;
+}
+
+.slide_card{
+    /* background-color: red; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 330px;
+    margin-top: 20px;
+   
+
+}
+
+
+
+.slide_cardItem{
+    padding-top: 10px;
+    width: 900px;
+    margin-bottom: 20px;
+    height: 100%;
 }
