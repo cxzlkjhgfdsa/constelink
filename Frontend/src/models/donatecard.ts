@@ -7,7 +7,8 @@ export interface DonationData {
   fundraisingAmountGoal: number;
   fundraisingAmountRaised: number;
   fundraisingEndTime:number;
-  fundraisingIsDone: boolean
+  fundraisingIsDone: boolean;
+  fundraisingBookmarked: boolean;
   fundraisingPeople:number
   fundraisingStartTime: number;
   fundraisingStory: string;

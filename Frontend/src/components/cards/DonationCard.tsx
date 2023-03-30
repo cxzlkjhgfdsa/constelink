@@ -43,7 +43,7 @@ const DonationCard: React.FC<Props> = ({ data }) => {
     }, [curMoney]);
 
     // 북마크 설정
-    const [isMark, setIsMark]= useState(false);
+    const [isMark, setIsMark]= useState(data.fundraisingBookmarked);
 
     const bookHandler = ()=>{
         setIsMark(!isMark)
