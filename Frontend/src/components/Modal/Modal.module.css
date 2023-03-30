@@ -19,6 +19,7 @@
   box-sizing: border-box;
   background-color: white;
   z-index: 10000;
+  margin-bottom: 10%;
 }
   
 .Backdrop {

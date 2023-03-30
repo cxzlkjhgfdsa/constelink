@@ -23,7 +23,7 @@ export interface RecoveryDiaryDetailData {
   // beneficiaryName: string,
   diaryId?: number,
   beneficiaryId? : number | string,
-  diaryRegisterDate?: number | string,
+  diaryRegisterDate?: number | string,  
   diaryPhoto?: string,
   diaryTitle: string,
   diaryContent: string,
