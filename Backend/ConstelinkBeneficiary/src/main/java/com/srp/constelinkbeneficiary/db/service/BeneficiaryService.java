@@ -63,6 +63,7 @@ public class BeneficiaryService {
 			.hospitalName(beneficiary.getHospital().getHospitalName())
 			.hospitalLink(beneficiary.getHospital().getHospitalLink())
 			.beneficiaryId(beneficiary.getId())
+			.beneficiaryStatus(beneficiary.getBeneficiaryStatus())
 			.build();
 		return beneficiaryInfoDto;
 	}
@@ -82,6 +83,7 @@ public class BeneficiaryService {
 			.hospitalName(m.getHospital().getHospitalName())
 			.beneficiaryId(m.getId())
 			.diaryFinishedDate(null)
+			.beneficiaryStatus(m.getBeneficiaryStatus())
 			.build()
 		);
 		return beneficiaryInfoList;
@@ -114,6 +116,7 @@ public class BeneficiaryService {
 			.hospitalId(beneficiary.getHospital().getId())
 			.hospitalLink(beneficiary.getHospital().getHospitalLink())
 			.beneficiaryId(beneficiary.getId())
+			.beneficiaryStatus(beneficiary.getBeneficiaryStatus())
 			.build();
 		return beneficiaryInfoDto;
 	}
@@ -172,6 +175,7 @@ public class BeneficiaryService {
 					.diaryFinishedDate(time!=null?time.atZone(ZoneId.of("Asia/Seoul"))
 						.toInstant()
 						.toEpochMilli():null)
+					.beneficiaryStatus(beneficiary.getBeneficiaryStatus())
 					.build();
 			});
 

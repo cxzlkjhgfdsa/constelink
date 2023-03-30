@@ -19,5 +19,6 @@ public class BeneficiaryInfoResponse {
 	private String hospitalName;
 	private String hospitalLink;
 	private Long diaryFinishedDate;
+	private String beneficiaryStatus;
 
 }

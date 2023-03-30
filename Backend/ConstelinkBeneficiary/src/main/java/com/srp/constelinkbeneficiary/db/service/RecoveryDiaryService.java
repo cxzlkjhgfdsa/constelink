@@ -99,6 +99,7 @@ public class RecoveryDiaryService {
 			.hospitalName(beneficiary.getHospital().getHospitalName())
 			.hospitalLink(beneficiary.getHospital().getHospitalLink())
 			.beneficiaryId(beneficiary.getId())
+			.beneficiaryStatus(beneficiary.getBeneficiaryStatus())
 			.build();
 
 		Page<RecoveryDiary> recoveryDiaryPage;
