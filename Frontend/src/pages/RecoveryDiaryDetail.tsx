@@ -173,6 +173,7 @@ const RecoveryDiaryDetail: React.FC = () => {
     console.log('새로운카드 만들었어요~~~')
   };
 
+  // 날짜스타일 변경함수
   function formatDate(dateString : any) {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -181,6 +182,12 @@ const RecoveryDiaryDetail: React.FC = () => {
     return `${year}년 ${month}월 ${day}일`;
   }
 
+  // 기부액 스타일 변경함수
+  function addCommas(num : number | string) {
+    const unformatDate = ''+num;
+    return unformatDate.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  //   return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   // 모달 속 취소버튼
   const onCancelRecord = useCallback(() => {
@@ -255,7 +262,8 @@ const RecoveryDiaryDetail: React.FC = () => {
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>총 모금액</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryAmountRaised}</p>
+                <p className={styles.patientInfoContent}>{addCommas(treatmentRecords.beneficiaryAmountRaised)}원</p>
+                {/* <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryAmountRaised}원</p> */}
               </div>
             </div>
           </div>
@@ -288,10 +296,8 @@ const RecoveryDiaryDetail: React.FC = () => {
         {isOpenModal && selectedRecordIndex !== null && (
           <Modal onClickToggleModal={onClickToggleModal}>
             <div className={styles.modalTop}>
-              <div className={styles.modalText}> 
-                치료일기 조회
-                <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
-              </div>
+              <div className={styles.modalText}>치료일기 조회</div>
+              <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
             </div> 
             <img src={recoveryCard[selectedRecordIndex].diaryPhoto} alt={imgPreUrl} className={styles.modalImage} />
             <div className={styles.modalInfo}>
@@ -321,13 +327,11 @@ const RecoveryDiaryDetail: React.FC = () => {
           {/* 생성버튼 클릭 -> 치료일지 생성 */}
           {isOpenModal && isChecked == true && (
             <Modal onClickToggleModal={onClickToggleModal}>
-            <div className={styles.modalTop}>
-              <div className={styles.modalText}> 
-                치료일지 작성
-                <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
-              </div>
+            <div className={styles.modalTopCreate}>
+              <div className={styles.modalText}>치료일기 생성</div>
+              <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
             </div> 
-            <input type="text" className={styles.modalInfoTitle} placeholder={"제목"} ref={inputRef} onChange={handleEditorChange}/>
+            <input type="text" className={styles.modalInfoTitle} placeholder={"제목"} ref={inputRef} onChange={handleEditorChange} />
             {/* 이미지 입력 */}
             <div className={styles.imgInput}>
               {/* 이미지 선택하면 해당 이미지 띄우고 없으면 기본 이미지 */}
@@ -349,7 +353,7 @@ const RecoveryDiaryDetail: React.FC = () => {
                 onChange={handleImage}
               />
             </div>
-            <hr className={styles.hr}/>
+            <hr className={styles.modalHr} />
             <div className={styles.modalInfo}> 
               <SunEditor
               getSunEditorInstance={getSunEditorInstance}
@@ -366,8 +370,6 @@ const RecoveryDiaryDetail: React.FC = () => {
                     "bold",
                     "underline",
                     "table",
-                    "image",
-                    "list",
                     "fontColor"                  ]
                 ]
             }}
