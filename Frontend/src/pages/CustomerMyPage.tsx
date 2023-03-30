@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import { useEffect } from 'react';
 
 const CustomerMyPage: React.FC = () => {
     const authInfo = useSelector((state:RootState)=> state.auth);
@@ -22,6 +23,17 @@ const CustomerMyPage: React.FC = () => {
             console.log(err);
         })
     }
+
+    useEffect(()=>{
+        const accessToken = localStorage.getItem('access_token');
+        console.log(accessToken);
+        
+        axios.defaults.headers.common['authorization'] = accessToken;
+        axios.get("http://j8a206.p.ssafy.io:8997/members/info").then(res=>{
+            console.log(res);
+            
+        })
+    },[])
 
     return (
         <div className={styles.CustomerMyPage}>
