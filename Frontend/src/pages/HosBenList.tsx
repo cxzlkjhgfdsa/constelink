@@ -1,58 +1,70 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import styles from "./HosBenList.module.css";
+import { useEffect, useState } from "react";
+import Pagination from "react-js-pagination";
+import { useLocation, useNavigate } from "react-router-dom";
+import HosBeneficiaryCard from "../components/cards/HosBeneficiaryCard";
 import { HosBenInfo } from "../models/hospitalmodels";
-import { BoardDetail } from "../models/boardmodel";
+import styles from "./HosBenList.module.css";
 
 
-const HosBenList: React.FC = () => {
+const HosBenList= () => {
 
-  const hospitalId = 10;
+  const navigator = useNavigate();
+  const location = useLocation();
 
-  // 페이지네이션 기본 설정
-  const [boardList, setBoardList] = useState<HosBenInfo[]>([]);
+  const [fundraisingData, setFundraisingData] = useState<HosBenInfo[]>();
   const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
-  const navigate= useNavigate();
-  const handlePageChange = (page: number) => {
-      console.log(page);
-      setPage(page);
-  };
-  // 페이지 불러오기
+  const [hospitalId, setHospitalId] = useState(3);
+  const size:number = 8;
+  const [totalElements, setTotalElements] = useState(0);
+  const URL_PATH : string = "/beneficiaries/hospital/";
+
   useEffect(() => {
-    const params: any = { 
-      hospitalId: hospitalId,
-      page: page,
-      size: 5
-     };
-    axios
-    .get(`/beneficiaries/hospital/${hospitalId}`, {params})
-    .then((res) => {
-      console.log(res);
-      setTotalPage(res.data.totalPages);
-      setBoardList(res.data.content);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }, [page])
+    axios.get(URL_PATH+hospitalId, {params : {page, size}}).then((res) => {
+      setFundraisingData(res.data.content);
+      setTotalElements(res.data.totalElements)
+     })
+   }
+   , [page]);
+
+  const handlePageChange = (page:number) => {
+    setPage(page);
+    window.scrollTo(0,0);
+  }
 
 
   return(
-    <>
-      <div className={styles.mainWrapper}>
+
+    <div className={styles.mainWrapper}>
         <div className={styles.mainTitle}>수혜자 목록</div>
-        <div className={styles.listWrapper}>
-          <div className={styles.indexWrapper}>
-            {/* <div className={styles.div1}/>
-            <div className={styles.div2}/>
-            <div className={styles.div3}/>
-            <div className={styles.div4}/> */}
-          </div>
+        <div className={`${styles.subtitle_box} ${styles.grid_col_8}`}>
+          <li>사진</li>
+          <li>이름</li>
+          <li>출생일자</li>
+          <li>병명</li>
+          <li>금액 현황</li>
+          <li>현황</li>
+          <li></li>
+          <li></li>
         </div>
-      </div>
-    </>
+        <div className={`${styles.grid_row_8}`}>
+            {fundraisingData?.map(data => 
+              <HosBeneficiaryCard key={`fundraising-${data.beneficiaryId}`} data={data}/>
+             )}
+
+        </div>
+        <div className={styles.sticky_box}>
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={size}
+            totalItemsCount={totalElements}
+            pageRangeDisplayed={size}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+            onChange={handlePageChange}
+          />
+        </div>
+    </div>
   );
 }
 
