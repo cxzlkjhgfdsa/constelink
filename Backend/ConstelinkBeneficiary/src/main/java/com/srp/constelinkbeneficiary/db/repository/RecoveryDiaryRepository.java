@@ -19,6 +19,6 @@ public interface RecoveryDiaryRepository extends JpaRepository<RecoveryDiary, Lo
 	Page<RecoveryDiary> getRecoveryDiariesByBeneficiaryId(Long id, Pageable pageable);
 
 
-	// @Query(value = "SELECT r from RecoveryDiary r join fetch Beneficiary where r.beneficiary.id in :id")
+	// @Query(value = "SELECT r from RecoveryDiary r join fetch Beneficiary b on r.beneficiary.id=b.id where r.beneficiary.id in :id")
 	Page<RecoveryDiary> getRecoveryDiariesByBeneficiary_IdIsIn(List<Long> id, Pageable pageable);
 }

@@ -41,6 +41,7 @@ public class BeneficiaryGrpcService extends BeneficiaryGrpcServiceGrpc.Beneficia
 			.setPhoto(beneficiary.getBeneficiaryPhoto())
 			.setStatus(beneficiary.getBeneficiaryStatus())
 			.setBirthday(Timestamp.newBuilder().setSeconds(beneficiary.getBeneficiaryBirthday().getTime()).build())
+			.setHospitalId(beneficiary.getHospital().getId())
 			.build();
 		responseObserver.onNext(beneficiaryInfoRes);
 		responseObserver.onCompleted();

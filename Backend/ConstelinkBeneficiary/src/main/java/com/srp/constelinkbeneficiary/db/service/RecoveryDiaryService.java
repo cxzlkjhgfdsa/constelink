@@ -98,6 +98,7 @@ public class RecoveryDiaryService {
 			.hospitalId(beneficiary.getHospital().getId())
 			.hospitalName(beneficiary.getHospital().getHospitalName())
 			.hospitalLink(beneficiary.getHospital().getHospitalLink())
+			.beneficiaryId(beneficiary.getId())
 			.build();
 
 		Page<RecoveryDiary> recoveryDiaryPage;
@@ -197,12 +198,12 @@ public class RecoveryDiaryService {
 			case DATE_ASC:
 				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiary_IdIsIn(
 					response.getBeneficiaryIds()
-					, PageRequest.of(page, size, Sort.by("recoveryDiaryRegDate").ascending()));
+					, PageRequest.of(page, size, Sort.by("recoveryDiaryRegdate").ascending()));
 				break;
 			case DATE_DESC:
 				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiary_IdIsIn(
 					response.getBeneficiaryIds()
-					, PageRequest.of(page, size, Sort.by("recoveryDiaryRegDate").descending()));
+					, PageRequest.of(page, size, Sort.by("recoveryDiaryRegdate").descending()));
 				break;
 			default:
 				recoveryDiaryPage = recoveryDiaryRepository.getRecoveryDiariesByBeneficiary_IdIsIn(
