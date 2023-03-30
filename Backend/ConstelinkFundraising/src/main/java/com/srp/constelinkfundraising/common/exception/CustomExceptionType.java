@@ -12,7 +12,8 @@ public enum CustomExceptionType {
 	GOAL_AMOUNT_ERROR(HttpStatus.NOT_ACCEPTABLE, "E207", "모금 목표금액은 0원 이상이어야 합니다."),
 	BENEFICIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "E208", "수혜자 id값이 0이하거나 못찾습니다."),
 	TITLE_NOT_FOUND(HttpStatus.NOT_FOUND, "E209", "제목이 빈칸입니다."),
-	MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "E210", "사용자 Id가 0이하거나 찾이 못찾습니다.")
+	MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "E210", "사용자 Id가 0이하거나 찾이 못찾습니다."),
+	HOSPITAL_NOT_FOUND(HttpStatus.NOT_FOUND, "E211", "병원 Id가 0이하거나 찾이 못찾습니다.")
 
 	;
 

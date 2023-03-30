@@ -114,7 +114,7 @@ public class BookmarkService {
 		bookmarkResponses.getContent().stream().forEach(item -> {
 			BeneficiaryInfoRes beneficiaryInfoRes = beneficiariesInfoRes.getBeneficiariesMap()
 				.get(item.getBeneficiaryId());
-			item.setPhoto(beneficiaryInfoRes.getPhoto());
+			item.setBeneficiaryPhoto(beneficiaryInfoRes.getPhoto());
 			item.setBeneficiaryStatus(beneficiaryInfoRes.getStatus());
 			item.setHospitalName(beneficiaryInfoRes.getHospital());
 			item.setBeneficiaryName(beneficiaryInfoRes.getName());

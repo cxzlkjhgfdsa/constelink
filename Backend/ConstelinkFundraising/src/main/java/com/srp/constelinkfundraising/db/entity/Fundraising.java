@@ -69,4 +69,7 @@ public class Fundraising {
 	@Column(name = "fundraising_is_done")
 	private boolean fundraisingIsDone;
 
+	@Column(name = "hospital_name", length = 20)
+	private String hospitalName;
+
 }

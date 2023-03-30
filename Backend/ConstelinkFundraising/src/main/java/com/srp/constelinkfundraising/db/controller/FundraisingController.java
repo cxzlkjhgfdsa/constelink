@@ -3,6 +3,7 @@ package com.srp.constelinkfundraising.db.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -88,5 +89,17 @@ public class FundraisingController {
 	public ResponseEntity<StatisticsResponse> donateFundraising() {
 		StatisticsResponse statisticsResponse = fundraisingService.getFundraisingStatistics();
 		return ResponseEntity.ok(statisticsResponse);
+	}
+
+	@Operation(summary = "기부 데이터 카테고리 아이디로 찾기 나중에 Header 데이터 기반 북마크 체크 예정(categoryId가 0이면 전체 가져옴)", description =
+		"page = 페이지, size = 한 페이지당 데이터 수, categoryId = 카테고리 아이디")
+	@GetMapping("/bycategory")
+	public ResponseEntity<Page<FundraisingResponse>> getFundraisingByCategory(
+		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Long categoryId
+	) {
+		Page<FundraisingResponse> fundraisingResponses = fundraisingService.fundraisingByCategory(categoryId,0L, page-1, size);
+		return ResponseEntity.ok(fundraisingResponses);
 	}
 }

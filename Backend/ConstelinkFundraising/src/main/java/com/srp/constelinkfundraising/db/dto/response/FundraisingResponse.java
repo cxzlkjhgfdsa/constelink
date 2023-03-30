@@ -31,6 +31,5 @@ public class FundraisingResponse {
 	private String beneficiaryDisease;
 	private String beneficiaryStatus;
 	private Long beneficiaryBirthday;
-
-	private String photo;
+	private String beneficiaryPhoto;
 }

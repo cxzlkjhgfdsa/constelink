@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import com.srp.beneficiaryrpc.BeneficiariesInfoReq;
 import com.srp.beneficiaryrpc.BeneficiariesInfoRes;
 import com.srp.beneficiaryrpc.BeneficiaryGrpcServiceGrpc;
+import com.srp.beneficiaryrpc.BeneficiaryInfoReq;
 import com.srp.beneficiaryrpc.BeneficiaryInfoRes;
 import com.srp.constelinkfundraising.common.exception.CustomException;
 import com.srp.constelinkfundraising.common.exception.CustomExceptionType;
@@ -135,7 +136,7 @@ public class FundraisingService {
 			item.setBeneficiaryDisease(beneficiaryInfoRes.getDisease());
 			item.setBeneficiaryBirthday(beneficiaryInfoRes.getBirthday().getSeconds() * 1000);
 			item.setBeneficiaryStatus(beneficiaryInfoRes.getStatus());
-			item.setPhoto(beneficiaryInfoRes.getPhoto());
+			item.setBeneficiaryPhoto(beneficiaryInfoRes.getPhoto());
 			item.setHospitalName(beneficiaryInfoRes.getHospital());
 		});
 		return fundraisingResponsePage;
@@ -235,7 +236,14 @@ public class FundraisingService {
 		if(makeFundraisingRequest.getFundraisingTitle() == "") {
 			throw new CustomException(CustomExceptionType.TITLE_NOT_FOUND);
 		}
-
+		BeneficiaryInfoReq beneficiariesInfoReq = BeneficiaryInfoReq.newBuilder()
+			.setId(makeFundraisingRequest.getBeneficiaryId()).build();
+		BeneficiaryInfoRes beneficiaryInfoRes;
+		try {
+			beneficiaryInfoRes = stub.getBeneficiaryRpc(beneficiariesInfoReq);
+		} catch(Exception e) {
+			throw new CustomException(CustomExceptionType.BENEFICIARY_NOT_FOUND);
+		}
 		Fundraising fundraising = Fundraising.builder()
 			.fundraisingAmountGoal(makeFundraisingRequest.getFundraisingAmountGoal())
 			.fundraisingThumbnail(makeFundraisingRequest.getFundraisingThumbnail())
@@ -246,8 +254,9 @@ public class FundraisingService {
 				.toLocalDateTime())
 			.beneficiaryId(makeFundraisingRequest.getBeneficiaryId())
 			.category(categoryRepository.findCategoryById(makeFundraisingRequest.getCategoryId()))
+			.hospitalName(beneficiaryInfoRes.getHospital())
 			.build();
-		fundraisingRepository.saveAndFlush(fundraising);
+			fundraisingRepository.saveAndFlush(fundraising);
 		return fundraising;
 	}
 
@@ -270,5 +279,59 @@ public class FundraisingService {
 		return statisticsResponse;
 	}
 
+	public Page<FundraisingResponse> fundraisingByCategory(Long categoryId, Long memberId, int page, int size) {
+		Page<Fundraising> fundraisingPage;
+		if(categoryId<1) {
+			fundraisingPage = fundraisingRepository.findAll(PageRequest.of(page,size));
+		} else {
+			fundraisingPage = fundraisingRepository.getFundraisingsByCategory_Id(categoryId, PageRequest.of(page,size));
+		}
+
+
+		HashSet<Long> memberBookmark =
+			memberId < 1 ? new HashSet<>() : bookmarkRepository.findBookmarksByIdMemberId(memberId);
+		HashSet<Long> idList = new HashSet<>();
+		Page<FundraisingResponse> fundraisingResponsePage = fundraisingPage.map(
+			fund -> {
+				idList.add(fund.getBeneficiaryId());
+				return new FundraisingResponse().builder()
+					.fundraisingIsDone(fund.isFundraisingIsDone())
+					.fundraisingPeople(fund.getFundraisingPeople())
+					.fundraisingStory(fund.getFundraisingStory())
+					.fundraisingThumbnail(fund.getFundraisingThumbnail())
+					.fundraisingTitle(fund.getFundraisingTitle())
+					.fundraisingAmountRaised(fund.getFundraisingAmountRaised())
+					.fundraisingStartTime(
+						fund.getFundraisingStartTime()
+							.atZone(ZoneId.of("Asia/Seoul"))
+							.toInstant()
+							.toEpochMilli())
+					.fundraisingId(fund.getId())
+					.fundraisingEndTime(
+						fund.getFundraisingEndTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
+					.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
+					.beneficiaryId(fund.getBeneficiaryId())
+					.categoryName(fund.getCategory().getCategoryName())
+					.fundraisingBookmarked(memberBookmark.contains(fund.getId()))
+					.hospitalName(fund.getHospitalName())
+					.build();
+			});
+		BeneficiariesInfoReq beneficiariesInfoReq = BeneficiariesInfoReq.newBuilder()
+			.addAllId(idList.stream().toList()).build();
+		BeneficiariesInfoRes beneficiariesInfoRes = stub.getBeneficiariesRpc(beneficiariesInfoReq);
+
+
+		fundraisingResponsePage.getContent().stream().forEach(item -> {
+			BeneficiaryInfoRes beneficiaryInfoRes = beneficiariesInfoRes.getBeneficiariesMap()
+				.get(item.getBeneficiaryId());
+			item.setBeneficiaryName(beneficiaryInfoRes.getName());
+			item.setBeneficiaryDisease(beneficiaryInfoRes.getDisease());
+			item.setBeneficiaryBirthday(beneficiaryInfoRes.getBirthday().getSeconds() * 1000);
+			item.setBeneficiaryStatus(beneficiaryInfoRes.getStatus());
+			item.setBeneficiaryPhoto(beneficiaryInfoRes.getPhoto());
+		});
+		return fundraisingResponsePage;
+
+	}
 
 }
