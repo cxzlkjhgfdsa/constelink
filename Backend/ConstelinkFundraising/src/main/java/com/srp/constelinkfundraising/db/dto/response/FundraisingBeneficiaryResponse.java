@@ -25,6 +25,6 @@ public class FundraisingBeneficiaryResponse {
 	private String fundraisingThumbnail;
 	private int fundraisingPeople;
 	private boolean fundraisingIsDone;
-	private boolean fundraisingBookmared;
+	private boolean fundraisingBookmarked;
 
 }

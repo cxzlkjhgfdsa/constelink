@@ -199,7 +199,7 @@ public class FundraisingService {
 				.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
 				.beneficiaryId(fund.getBeneficiaryId())
 				.categoryName(fund.getCategory().getCategoryName())
-				.fundraisingBookmared(memberBookmark.contains(fund.getId()))
+				.fundraisingBookmarked(memberBookmark.contains(fund.getId()))
 				.build()
 		);
 
