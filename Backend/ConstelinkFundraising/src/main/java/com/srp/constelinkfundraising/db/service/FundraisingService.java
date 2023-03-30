@@ -24,6 +24,7 @@ import com.srp.beneficiaryrpc.BeneficiaryInfoReq;
 import com.srp.beneficiaryrpc.BeneficiaryInfoRes;
 import com.srp.constelinkfundraising.common.exception.CustomException;
 import com.srp.constelinkfundraising.common.exception.CustomExceptionType;
+import com.srp.constelinkfundraising.db.dto.enums.FundraisingByHopitalType;
 import com.srp.constelinkfundraising.db.dto.enums.FundraisingSortType;
 import com.srp.constelinkfundraising.db.dto.request.DonateRequest;
 import com.srp.constelinkfundraising.db.dto.request.MakeFundraisingRequest;
@@ -255,6 +256,7 @@ public class FundraisingService {
 			.beneficiaryId(makeFundraisingRequest.getBeneficiaryId())
 			.category(categoryRepository.findCategoryById(makeFundraisingRequest.getCategoryId()))
 			.hospitalName(beneficiaryInfoRes.getHospital())
+			.hospitalId(beneficiaryInfoRes.getHospitalId())
 			.build();
 			fundraisingRepository.saveAndFlush(fundraising);
 		return fundraising;
@@ -334,4 +336,66 @@ public class FundraisingService {
 
 	}
 
+	public Page<FundraisingResponse> getFundraisingsByHospital(int page, int size,
+		FundraisingByHopitalType sortType, Long hospitalId, Long memberId) {
+		Page<Fundraising> fundraising;
+		HashSet<Long> memberBookmark =
+			memberId < 1 ? new HashSet<>() : bookmarkRepository.findBookmarksByIdMemberId(memberId);
+		switch (sortType) {
+			case FINISHED:
+				fundraising = fundraisingRepository.getFundraisingsByHospitalIdAndFundraisingIsDone(hospitalId,true,
+					PageRequest.of(page, size));
+				break;
+			case UNFINISHED:
+				fundraising = fundraisingRepository.getFundraisingsByHospitalIdAndFundraisingIsDone(hospitalId,false,
+					PageRequest.of(page, size));
+				break;
+			default:
+				fundraising = fundraisingRepository.getFundraisingsByHospitalId(hospitalId,PageRequest.of(page, size));
+				break;
+		}
+		HashSet<Long> idList = new HashSet<>();
+		Page<FundraisingResponse> fundraisingResponsePage = fundraising.map(
+			fund -> {
+				idList.add(fund.getBeneficiaryId());
+				return new FundraisingResponse().builder()
+					.fundraisingIsDone(fund.isFundraisingIsDone())
+					.fundraisingPeople(fund.getFundraisingPeople())
+					.fundraisingStory(fund.getFundraisingStory())
+					.fundraisingThumbnail(fund.getFundraisingThumbnail())
+					.fundraisingTitle(fund.getFundraisingTitle())
+					.fundraisingAmountRaised(fund.getFundraisingAmountRaised())
+					.fundraisingStartTime(
+						fund.getFundraisingStartTime()
+							.atZone(ZoneId.of("Asia/Seoul"))
+							.toInstant()
+							.toEpochMilli())
+					.fundraisingId(fund.getId())
+					.fundraisingEndTime(
+						fund.getFundraisingEndTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
+					.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
+					.beneficiaryId(fund.getBeneficiaryId())
+					.categoryName(fund.getCategory().getCategoryName())
+					.fundraisingBookmarked(memberBookmark.contains(fund.getId()))
+					.build();
+			}
+		);
+
+		//List 중복제거
+		BeneficiariesInfoReq beneficiariesInfoReq = BeneficiariesInfoReq.newBuilder()
+			.addAllId(idList.stream().toList()).build();
+		BeneficiariesInfoRes beneficiariesInfoRes = stub.getBeneficiariesRpc(beneficiariesInfoReq);
+
+		fundraisingResponsePage.getContent().stream().forEach(item -> {
+			BeneficiaryInfoRes beneficiaryInfoRes = beneficiariesInfoRes.getBeneficiariesMap()
+				.get(item.getBeneficiaryId());
+			item.setBeneficiaryName(beneficiaryInfoRes.getName());
+			item.setBeneficiaryDisease(beneficiaryInfoRes.getDisease());
+			item.setBeneficiaryBirthday(beneficiaryInfoRes.getBirthday().getSeconds() * 1000);
+			item.setBeneficiaryStatus(beneficiaryInfoRes.getStatus());
+			item.setBeneficiaryPhoto(beneficiaryInfoRes.getPhoto());
+			item.setHospitalName(beneficiaryInfoRes.getHospital());
+		});
+		return fundraisingResponsePage;
+	}
 }

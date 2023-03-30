@@ -38,4 +38,7 @@ public interface FundraisingRepository extends JpaRepository<Fundraising, Long> 
 
 	@Query("select f from Fundraising f join Category c on f.category.id = c.id  where f.category.id = :categoryId")
 	Page<Fundraising> getFundraisingsByCategory_Id(Long categoryId, Pageable pageable);
+
+	Page<Fundraising> getFundraisingsByHospitalIdAndFundraisingIsDone(Long hospitalId, Boolean done,Pageable pageable);
+	Page<Fundraising> getFundraisingsByHospitalId(Long hospitalId, Pageable pageable);
 }

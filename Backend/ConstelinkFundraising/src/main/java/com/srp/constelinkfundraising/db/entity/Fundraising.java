@@ -72,4 +72,6 @@ public class Fundraising {
 	@Column(name = "hospital_name", length = 20)
 	private String hospitalName;
 
+	@Column(name = "hospital_id", nullable = false)
+	private Long hospitalId;
 }

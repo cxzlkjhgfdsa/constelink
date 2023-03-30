@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.srp.constelinkfundraising.common.exception.CustomException;
+import com.srp.constelinkfundraising.common.exception.CustomExceptionType;
+import com.srp.constelinkfundraising.db.dto.enums.FundraisingByHopitalType;
 import com.srp.constelinkfundraising.db.dto.enums.FundraisingSortType;
 import com.srp.constelinkfundraising.db.dto.request.DonateRequest;
 import com.srp.constelinkfundraising.db.dto.request.MakeFundraisingRequest;
@@ -100,6 +103,26 @@ public class FundraisingController {
 		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Long categoryId
 	) {
 		Page<FundraisingResponse> fundraisingResponses = fundraisingService.fundraisingByCategory(categoryId,0L, page-1, size);
+		return ResponseEntity.ok(fundraisingResponses);
+	}
+
+	@Operation(summary = "병원 Id로 찾기", description =
+		"page = 페이지, size = 한 페이지당 데이터 수, hospitalId = 병원 아이디, memberId = 사용자 Id(북마크용 0하면 비로그인 임시.)")
+	@GetMapping("/byhospital")
+	public ResponseEntity<Page<FundraisingResponse>> getFundraisingByHospital(
+		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
+		@RequestParam(name = "sortBy", required = false, defaultValue = "NONE") FundraisingByHopitalType sortType,
+		@RequestParam(name = "hospitalId", required = true) Long hospitalId,
+		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId
+	) {
+		if(hospitalId <1) {
+			throw new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND);
+		}
+		if(memberId <0) {
+			throw new CustomException(CustomExceptionType.MEMBER_NOT_FOUND);
+		}
+		Page<FundraisingResponse> fundraisingResponses = fundraisingService.getFundraisingsByHospital(page-1,size, sortType, hospitalId, memberId);
 		return ResponseEntity.ok(fundraisingResponses);
 	}
 }

@@ -25,6 +25,7 @@ message BeneficiaryInfoRes{
   string status = 4;
   google.protobuf.Timestamp birthday = 5;
   string hospital = 6;
+  int64 hospitalId = 7;
 }
 
 message BeneficiariesInfoReq {
