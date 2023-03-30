@@ -300,15 +300,18 @@ const RecoveryDiaryDetail: React.FC = () => {
               <div className={styles.modalInfoDate}>
                 {formatDate(recoveryCard[selectedRecordIndex].diaryRegisterDate)}
               </div>
-              <div className={styles.modalInfoContent}>{recoveryCard[selectedRecordIndex].diaryContent}</div>
+              <div
+              className={styles.modalInfoContent}
+              dangerouslySetInnerHTML={{ __html: recoveryCard[selectedRecordIndex].diaryContent || '' }}
+              />
               <div className={styles.modalButton}>
               {/* <button className={styles.modalButtonItem} onClick={() => onEditRecord()}>수정</button> */}
             
               {/* <button className={styles.modalButtonItem} onClick={() => onRemoveRecord()}>삭제</button> */}
                 </div>
-                {isChecked && (
+                {(
                   <div className={styles.modalButton}>
-                  <button className={styles.modalButtonItem}>확인</button>
+                  <button className={styles.modalButtonItem} onClick={() => onCancelRecord()}>확인</button>
                   </div>
                   )}
             </div>
@@ -324,6 +327,7 @@ const RecoveryDiaryDetail: React.FC = () => {
                 <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
               </div>
             </div> 
+            <input type="text" className={styles.modalInfoTitle} placeholder={"제목"} ref={inputRef} onChange={handleEditorChange}/>
             {/* 이미지 입력 */}
             <div className={styles.imgInput}>
               {/* 이미지 선택하면 해당 이미지 띄우고 없으면 기본 이미지 */}
@@ -345,6 +349,7 @@ const RecoveryDiaryDetail: React.FC = () => {
                 onChange={handleImage}
               />
             </div>
+            <hr className={styles.hr}/>
             <div className={styles.modalInfo}> 
               <SunEditor
               getSunEditorInstance={getSunEditorInstance}
