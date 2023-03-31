@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import { useLocation, useNavigate } from "react-router-dom";
 import HosFundraisingCard from "../components/cards/HosFundraisingCard";
-import { HosFundraisingData } from "../models/hospitalfundraisingmodel";
+import { HosFundraisingData } from "../models/hospitalmodels";
 import styles from "./HosFundList.module.css";
 
 const HosFundList = (props:object) => {

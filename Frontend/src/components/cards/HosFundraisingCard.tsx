@@ -1,5 +1,5 @@
 import styles from "./HosFundraisingCard.module.css";
-import { HosFundraisingData } from "../../models/hospitalfundraisingmodel";
+import { HosFundraisingData } from "../../models/hospitalmodels";
 import { floor } from "lodash";
 
 interface Props {
