@@ -15,6 +15,9 @@ import BenRegister from "./pages/BenRegister";
 import FundRegister from "./pages/FundRegister";
 import HosFundList from "./pages/HosFundList";
 import NoticePage from './pages/NoticePage';
+import Mint from "./pages/Mint";
+import StartDonate from "./pages/StartDonate";
+import Donate from "./pages/Donate";
 
 import NoticeDetail from './pages/NoticeDetail';
 import NoticeEdit from './pages/NoticeEdit';
@@ -35,8 +38,10 @@ function App() {
             <Route path='/fundregi' element={<FundRegister />}/>
             <Route path="/mypage/*" element={<CustomerMyHome/>}/>
           </Route >
-         
-           <Route path='/login' element={<Login />}/>
+          <Route path='/mint' element={<Mint />} />
+          <Route path='/startdonate' element={<StartDonate />} />
+          <Route path='/donate' element={<Donate />} />
+          <Route path='/login' element={<Login />}/>
         </Routes>
       </div> 
 

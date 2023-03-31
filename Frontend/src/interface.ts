@@ -1,4 +1,3 @@
-export type Option = {
-  label: string;
-  value: string;
+export interface Window {
+  ethereum: any
 }
