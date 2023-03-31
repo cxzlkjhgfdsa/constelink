@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom"
-
 import React from 'react';
 import './App.css';
 import Header from './components/header/Header';
@@ -24,6 +23,9 @@ import NoticeEdit from './pages/NoticeEdit';
 import CustomerMyPage from "./pages/CustomerMyPage";
 import CustomerMyHome from './pages/CustomerMyHome';
 
+import RecoveryDiary from './pages/RecoveryDiary';
+import RecoveryDiaryDetail from './pages/RecoveryDiaryDetail';
+
 function App() {
   return (
       <div className="App">
@@ -37,6 +39,8 @@ function App() {
             <Route path="/notice/*" element={<NoticePage/>}/>
             <Route path='/fundregi' element={<FundRegister />}/>
             <Route path="/mypage/*" element={<CustomerMyHome/>}/>
+            <Route path='/diary' element={<RecoveryDiary/>}/>
+            <Route path='/diarydetail/:id' element={<RecoveryDiaryDetail/>}/>
           </Route >
           <Route path='/mint' element={<Mint />} />
           <Route path='/startdonate' element={<StartDonate />} />
@@ -44,9 +48,6 @@ function App() {
           <Route path='/login' element={<Login />}/>
         </Routes>
       </div> 
-
-
-
   )}
 export default App;
 

@@ -1,0 +1,368 @@
+@font-face {
+  font-family: "Hahmlet";
+  src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "ClimateCrisis";
+  src: url("../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
+}
+
+
+.container {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.item {
+  width: 100%;
+  flex-direction : column;
+  border-color : black;
+}
+
+.cardIndex {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cardTop {
+  height: 80px;
+  background-color: #A19FD5;
+  display: flex;
+}
+
+.title {
+  font-family: "Hahmlet";
+  margin-left : 10px;
+  margin-top : 11px;
+  position: absolute;
+  font-size: 40px;
+  font-weight: bold;
+  color : white;
+}
+
+.cardContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* direction: row; */
+  margin : 0 20%;
+}
+
+.imageContainer {
+  flex: 1;
+  min-width: 180px;
+  margin-left: 10px;
+}
+
+
+.image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contentItem {
+  font-weight: bold;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  background-color: #f7f7f7;
+  border-radius: 20px;
+}
+
+.patientInfo {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 10px;
+}
+
+.patientInfoItem {
+  font-family: "Hahmlet";
+  width: calc(30% - 10px);
+  min-width: 150px;
+  margin-bottom: 10px;
+}
+
+.patientInfoTitle {
+  font-family: "Hahmlet";
+  font-size: 20px;
+  color: #aaa;
+}
+
+.patientInfoContent {
+  font-family: "Hahmlet";
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+/* 병원이 작성한 카드 */
+.treatmentRecords {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+
+/* 각 카드 */
+.record {
+  margin-top: 20px;
+  width: calc(30%);
+  margin-bottom: 20px;
+  display: inline-block;
+  vertical-align: top;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 10px 10px;
+  margin-right:1.6%;
+  margin-left:1.6%;
+}
+
+/* 이전버전 */
+/* 
+.record { 
+  border-radius: 0 0 10px 10px;
+  flex-basis: calc(30% - 10px);
+  margin-bottom: 20px;
+ border-radius: 100px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: black;
+}
+*/
+
+/* 치료일자 */
+.recordDate {
+  text-align: center;
+  font-family: "Hahmlet";
+  font-size: 18px;
+  font-weight: 700;
+  min-height: 30px;
+  background-color: #646298;
+  color: white;
+  /* 좌상, 우상, 우하, 좌하 */
+  border-radius: 10px 10px 0 0;
+}
+
+/* 치료사진 */
+.recordImage {
+  width: 100%;
+  height:100%;
+  min-width: none;
+  min-height: none;
+  max-width: 100%;
+  max-height: 100%;
+
+  /* 이미지를 크기에 맞게 조정 */
+  object-fit : contain;
+}
+
+/* 치료내용 */
+.recordIndex {
+  background-color: #fff;
+  padding : 10px;
+  font-family: "Hahmlet";
+  font-size: 32px;
+  font-weight: bolder;
+}
+
+.recordContent {
+  font-family: "Hahmlet";
+  font-size: 16px;
+  line-height: 1.5;
+  padding : 10px;
+}
+
+/* 하단버튼스타일 */
+.detailButton { 
+  margin : 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.detailCreateButton {
+  font-family: "Hahmlet";
+  font-size: 30px;
+  font-weight: bolder;
+  margin : 0px 5px 0px 5px;
+  padding : 5px 15px 5px 15px;
+  color: white;
+  background-color: #8140f1;
+  border: none;
+  border-radius: 32px;
+  flex-grow: 0;
+  position: relative;
+}
+
+.detailBackButton {
+  font-family: "Hahmlet";
+  font-size: 30px;
+  font-weight: bolder;
+  margin : 0px 5px 0px 5px;
+  padding : 5px 15px 5px 15px;
+  color: white;
+  background-color: #A19FD5;
+  border: none;
+  border-radius: 32px;
+  flex-grow: 0;
+  position: relative;
+}
+
+/* 모달부분 수정 */
+.modalTop {
+  width: 100%;
+  height: 40px;
+  background-color: #A19FD5;
+  margin-bottom: 5%;
+  padding-top: 1%;
+  font-family: "Hahmlet";
+  font-size: 22px;
+  font-weight: bold;
+  color : black;
+}
+
+.modalText {
+  display: flex;
+  justify-content: center;
+}
+
+.modalClose {
+  border: 0;
+  background-color: transparent;
+} 
+
+.modalClose:after {
+  content: "\00d7"; font-size:40px;
+  border: 0;
+  background-color: transparent;
+}
+
+.modalImage {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.modalInfoTitle {
+  font-family: "Hahmlet";
+  font-size: 22px;
+  font-weight: bold;
+
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.modalInfoDate {
+  font-family: "Hahmlet";
+  font-size: 16px;
+  font-weight: bold;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.modalInfoContent {
+  font-family: "Hahmlet";
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.hr {
+  margin: 15px;
+  margin-top: 50px;
+  border: none;
+  border-top: 3px solid rgb(0, 0, 0);
+}
+
+.modalHr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid gray;
+}
+
+.modalButton { 
+  margin : 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.modalButtonItem {
+  font-size: 18px;
+  font-weight: bolder;
+  margin : 0px 5px 0px 5px;
+  padding : 5px 15px 5px 15px;
+  color: white;
+  background-color: #A19FD5;
+  border: none;
+  border-radius: 32px;
+  flex-grow: 0;
+  position: relative;
+}
+
+.imgInput{
+  width: 11rem;
+  height: 11rem;
+  padding-bottom: 1rem;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.withImgCircle{
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  border: 0.2rem solid #A19FD5;
+}
+
+.benImg{
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.imgCircle{
+  background-color: transparent;
+  height: 10rem;
+  width: 10rem;
+  background-image: url("../assets/img/circleuser.png");
+  background-size: auto;
+  background-position: 50% 50%;
+
+  border-radius: 50%;
+  border: 0.2rem solid #A19FD5;
+}
+
+.plusIcon{
+  width: 3rem;
+  height: 3rem;
+  background-image: url("../assets/img/plus.png");
+  background-size: contain;
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 0rem;
+  right: -1rem;
+}
+
+.inputFile{
+  display: none;
+}

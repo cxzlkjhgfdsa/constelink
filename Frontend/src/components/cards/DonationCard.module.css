@@ -3,10 +3,8 @@
     src: url("../../assets/fonts/NotoSerifKR-Regular.otf");
 }
 
-
 /*컴포넌트 전체 */
 .DonationCard {
-   
     width: 91%;
     height: 290px;
     margin-left: 10px;
