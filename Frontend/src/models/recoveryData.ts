@@ -11,20 +11,20 @@ export interface RecoveryDiaryData {
 
 export interface RecoveryDiaryDetailData {
   // beneficiaryInfo
-  beneficiaryName?: string,
-  beneficiaryBirthday? : number,
-  beneficiaryDisease?: string,
-  beneficiaryPhoto?: string,
-  beneficiaryAmountRaised? : number,
-  beneficiaryAmountGoal?: number,
-  hospitalName?: string,
+  beneficiaryName: string,
+  beneficiaryBirthday : number,
+  beneficiaryDisease: string,
+  beneficiaryPhoto: string,
+  beneficiaryAmountRaised : number,
+  beneficiaryAmountGoal: number,
+  hospitalName: string,
   
   // beneficiaryDiaries
   // beneficiaryName: string,
-  diaryId?: number,
-  beneficiaryId? : number | string,
-  diaryRegisterDate?: number | string,  
-  diaryPhoto?: string,
+  diaryId: number,
+  beneficiaryId : number | string,
+  diaryRegisterDate: number | string,  
+  diaryPhoto: string,
   diaryTitle: string,
   diaryContent: string,
   diaryAmountSpent: number,
@@ -32,8 +32,8 @@ export interface RecoveryDiaryDetailData {
 
 export interface RecoveryDiaryCreate {
   beneficiaryId? : number | string;
-  diaryPhoto?: string,
-  diaryTitle?: string | number,
+  diaryPhoto: string,
+  diaryTitle: string | number,
   diaryContent: string,
   diaryAmountSpent: number,
 }

@@ -119,13 +119,14 @@
 }
 
 
-/* 각 카드 */
+/* 치료일지 카드  */
 .recordCard {
   margin-top: 20px;
   width: calc(30%);
   margin-bottom: 20px;
   display: inline-block;
   vertical-align: top;
+  cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 10px 10px;
   margin-right:1.6%;
@@ -397,4 +398,17 @@
 
 .inputFile{
   display: none;
+}
+
+.pagination{
+  /* background-color: red; */
+  width: 100%;
+}
+
+
+.recoveryCardList{
+  font-family: "Hahmlet";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -20,7 +20,6 @@ const NoticeList = () => {
         let params: any = { page: page };
         axios.get("/notices/list", {params}).then(res => {
             console.log(res);
-            
             setTotalPage(res.data.totalElements)   
             setBoardList(res.data.noticeList);
         })

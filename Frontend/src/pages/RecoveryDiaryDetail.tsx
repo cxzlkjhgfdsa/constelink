@@ -1,12 +1,19 @@
+import axios from 'axios';
 import React, { useState, useCallback, useRef, useEffect }  from 'react';
 import styles from './RecoveryDiaryDetail.module.css';
+import { RecoveryDiaryDetailData, RecoveryDiaryCreate } from './../models/recoveryData';
 import { useParams, useNavigate } from 'react-router-dom';
+
+import Pagination from "react-js-pagination";
+import './paging.css'
+
 import Modal from "../components/Modal/Modal";
 import SunEditor from 'suneditor-react';
 import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css';
-import { RecoveryDiaryDetailData, RecoveryDiaryCreate } from './../models/recoveryData';
-import axios from 'axios';
+
+
+
 
 // 리커버리 카드 import 해야함
 // 리커버리 카드 -> 생성버튼 -> 모달을 통해 create -> 카드로 생성 
@@ -31,35 +38,42 @@ const RecoveryDiaryDetail: React.FC = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [totalGive, setTotalGive] = useState(0);
-  const [createDate, setCreateDate] = useState(0);
+  // const [createDate, setCreateDate] = useState(0);
   
   // 모달이 열려있는지 여부 확인
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   
   // 페이지네이션을 위한 설정
   const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
   
-  // 카드 클릭했을 때 모달 열고 닫기
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-    setImgPreUrl('');
-  }, [isOpenModal]); 
+  const handlePageChange = (page: number) => {
+    console.log(page);
+    setPage(page);
+};
   
-  // axios
-  useEffect(() => {
-    let params: any ={page:page, size:10, sortBy:"DATE_DESC"};
-    axios.get(`/recoverydiaries/${id}`, {params})
-    .then((res) => {
-      console.log(res.data)
-      setPage(page);
-      setTreatmentRecords(res.data.beneficiaryInfo)
-      setRecoveryCard(res.data.beneficiaryDiaries.content)
-    })
-    .catch((err) => {
-      console.log(err)
-    }) 
-  }, [page]);
-  
+
+// axios
+useEffect(() => {
+  let params: any ={page:page, size:6, sortBy:'DATE_DESC'};
+  axios.get(`/recoverydiaries/${id}`,{params})
+  .then(res => {
+    console.log(res)
+    // setPage(page);
+    setTreatmentRecords(res.data.beneficiaryInfo)
+    setRecoveryCard(res.data.beneficiaryDiaries.content)
+    setTotalPage(res.data.totalElements)
+  })
+  .catch((err) => {
+    console.log(err)
+  }) 
+}, [page]);
+
+// 카드 클릭했을 때 모달 열고 닫기
+const onClickToggleModal = useCallback(() => {
+  setOpenModal(!isOpenModal);
+  setImgPreUrl('');
+}, [isOpenModal]); 
   
   // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출
   const [selectedRecordIndex, setSelectedRecordIndex] = useState<any>(null);
@@ -114,14 +128,6 @@ const RecoveryDiaryDetail: React.FC = () => {
     })
   };
   
-// asnyc promise로 안들어오게하려고
-// react 라이프사이클 / useState 
-// useRef / useEffect / useState
-// 계속 렌더링하는 걸 막기 위해서 (set 될때마다 반영하는 게아니라 다 끝나고 나서 반영하려고한다.)
-// 
-// 지금은 빈 값이 가는 함수
-
-  
   // 모달 속 생성완료버튼 -> POST 
   const onAddRecord = async () => {   
     
@@ -138,6 +144,7 @@ const RecoveryDiaryDetail: React.FC = () => {
       return;
     }
 
+    // 카드생성 interface
     const Record: RecoveryDiaryCreate = {
       beneficiaryId : id,
       diaryPhoto: imgurl2,
@@ -221,10 +228,7 @@ const RecoveryDiaryDetail: React.FC = () => {
 
   // 목록으로 이동하는 버튼
   const navigate = useNavigate();
-  const handleBackButton = () => {
-    navigate(`/diary`);
-  }
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -267,31 +271,47 @@ const RecoveryDiaryDetail: React.FC = () => {
         <hr className={styles.hr}/>
 
         {/* 생성된 치료일기 */}
-        {recoveryCard.map((record, index) => (
-          <div key={index} className={styles.recordCard} onClick={() => onClickRecord(index)}>
-            <div className={styles.recordDate}>
-              {formatDate(record.diaryRegisterDate)}
+        <div> 
+
+          {recoveryCard.map((record, index) => (
+            <div key={index} className={styles.recordCard} onClick={() => onClickRecord(index)}>
+              <div className={styles.recordDate}>
+                {formatDate(record.diaryRegisterDate)}
+              </div>
+              {/* {imgUrl && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>} */}
+              {record.diaryPhoto && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>}
+              <div className={styles.recordIndex}>
+              {record.diaryTitle.length > 10 ? `${record.diaryTitle.substring(0, 10)}...` : record.diaryTitle}
+              </div>
+              <div className={styles.recordContent}
+                dangerouslySetInnerHTML={
+                  { __html: record.diaryContent && record.diaryContent.length > 10 
+                    ? `${record.diaryContent.substring(0, 30)}...` 
+                    : record.diaryContent
+                    || ''}
+                  }>
+              </div>
             </div>
-            {/* {imgUrl && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>} */}
-            {record.diaryPhoto && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>}
-            <div className={styles.recordIndex}>
-            {record.diaryTitle.length > 10 ? `${record.diaryTitle.substring(0, 10)}...` : record.diaryTitle}
-            </div>
-            <div className={styles.recordContent}
-              dangerouslySetInnerHTML={
-                { __html: record.diaryContent && record.diaryContent.length > 10 
-                  ? `${record.diaryContent.substring(0, 30)}...` 
-                  : record.diaryContent
-                  || ''}
-              }>
-            </div>
+          ))}
+
+          <div className={styles.pagination}>
+            <Pagination 
+                        
+                        activePage={page}
+                        itemsCountPerPage={6}
+                        totalItemsCount={totalPage}
+                        pageRangeDisplayed={6}
+                        prevPageText={"‹"}
+                        nextPageText={"›"}
+                        onChange={handlePageChange}
+                        />
           </div>
-        ))}
+        </div>
 
         {/* 치료일기생성버튼 */}
         <div className={styles.detailButton}>
             <button className={styles.detailCreateButton} onClick={() => onClickCreateRecord()}>치료일지 생성</button>
-            <button className={styles.detailBackButton} onClick={()=>handleBackButton()}>목록보기</button>
+            <button className={styles.detailBackButton} onClick={()=>navigate(`/diary`)}>목록보기</button>
         </div>
       </div>
 
