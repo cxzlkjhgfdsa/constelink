@@ -32,7 +32,7 @@ export interface RecoveryDiaryDetailData {
 
 export interface RecoveryDiaryCreate {
   beneficiaryId? : number | string;
-  diaryPhoto: string,
+  diaryPhoto?: string,
   diaryTitle?: string | number,
   diaryContent: string,
   diaryAmountSpent: number,

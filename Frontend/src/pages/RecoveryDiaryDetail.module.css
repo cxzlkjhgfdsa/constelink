@@ -92,7 +92,7 @@
 
 .patientInfoItem {
   font-family: "Hahmlet";
-  width: 210px;
+  width: 300px;
   min-width: 150px;
   margin-bottom: 10px;
 }
@@ -120,7 +120,7 @@
 
 
 /* 각 카드 */
-.record {
+.recordCard {
   margin-top: 20px;
   width: calc(30%);
   margin-bottom: 20px;
@@ -130,8 +130,13 @@
   border-radius: 0 0 10px 10px;
   margin-right:1.6%;
   margin-left:1.6%;
+  transition: transform 0.4s ease;
 }
 
+.recordCard:hover {
+  transform: translateY(-5px);
+}
+ 
 /* 이전버전 */
 /* 
 .record { 
@@ -233,6 +238,7 @@
   display: flex;
   justify-content: center; /* 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
+  border-radius: 10px 10px 0 0;
 }
 
 .modalTopCreate {
@@ -247,6 +253,7 @@
   display: flex;
   justify-content: center; /* 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
+  border-radius: 10px 10px 0 0;
 }
 
 .modalText {
@@ -296,7 +303,13 @@
   font-family: "Hahmlet";
   font-size: 16px;
   line-height: 1.5;
+  margin:20px;
 }
+
+.modalContent {
+  display:block;
+  justify-content: center;
+  }
 
 .hr {
   margin: 15px;
@@ -330,6 +343,8 @@
   position: relative;
 }
 
+
+
 .imgInput{
   width: 11rem;
   height: 11rem;
@@ -362,9 +377,10 @@
   background-image: url("../assets/img/circleuser.png");
   background-size: auto;
   background-position: 50% 50%;
-
   border-radius: 50%;
   border: 0.2rem solid #A19FD5;
+  display: flex;
+  justify-content: center;
 }
 
 .plusIcon{

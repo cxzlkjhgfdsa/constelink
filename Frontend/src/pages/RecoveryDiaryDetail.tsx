@@ -21,9 +21,6 @@ const RecoveryDiaryDetail: React.FC = () => {
 
   // 치료카드
   const [recoveryCard, setRecoveryCard] = useState<RecoveryDiaryDetailData[]>([]);
-  // const { beneficiaryId: id } = useParams<{ beneficiaryId :string }>();
-  // const params = useParams<{ id: string }>();
-  // const id = Number(params.id);
 
   // 병원계정일 때 -> 설정 필요
   const [isChecked, setChecked] = useState<boolean>(true);
@@ -31,7 +28,6 @@ const RecoveryDiaryDetail: React.FC = () => {
   // 치료일지 생성 
   const inputRef = useRef<HTMLInputElement>(null);
   const { id } = useParams<{ id: string }>();
-  // const [patientId, setPatientId] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [totalGive, setTotalGive] = useState(0);
@@ -46,15 +42,15 @@ const RecoveryDiaryDetail: React.FC = () => {
   // 카드 클릭했을 때 모달 열고 닫기
   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
+    setImgPreUrl('');
   }, [isOpenModal]); 
   
   // axios
   useEffect(() => {
     let params: any ={page:page, size:10, sortBy:"DATE_DESC"};
-    axios.get(`/recoverydiaries/${id}`, params)
+    axios.get(`/recoverydiaries/${id}`, {params})
     .then((res) => {
-      console.log(res.data);
-      console.log(treatmentRecords)
+      console.log(res.data)
       setPage(page);
       setTreatmentRecords(res.data.beneficiaryInfo)
       setRecoveryCard(res.data.beneficiaryDiaries.content)
@@ -66,13 +62,11 @@ const RecoveryDiaryDetail: React.FC = () => {
   
   
   // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출
-  const [selectedRecordIndex, setSelectedRecordIndex] = useState<number | null>(null);
+  const [selectedRecordIndex, setSelectedRecordIndex] = useState<any>(null);
   const editor = useRef<SunEditorCore>();
   // The sunEditor parameter will be set to the core suneditor instance when this function is called
   const getSunEditorInstance = (sunEditor: SunEditorCore) => {
     editor.current = sunEditor;
-    console.log(editor.current);
-    
   };
   
   // 모달 관련 함수 시작
@@ -90,9 +84,8 @@ const RecoveryDiaryDetail: React.FC = () => {
     setChecked(true);
   }, []);
   
-  // 이미지 백에서 가져오기 
+  // 이미지미리보기(썸네일)
   const [imgPreUrl, setImgPreUrl] = useState('');
-  const [imageFile, setImageFile] = useState('');
   const [image, setImage] = useState(null);
   const handleImage = (e : any) => {
     const file = e.target.files[0];
@@ -100,78 +93,81 @@ const RecoveryDiaryDetail: React.FC = () => {
     setImgPreUrl(URL.createObjectURL(file));
     return;
   };
-
+  
+  // 이미지 백에서 가져오기 (완)
+  const [imgUrl, setImgUrl] = useState('');
   const getImgUrl = async () => {
     const formData = new FormData();
     if (image) {
       formData.append('file', image);
     }
     
-    await axios
+    return await axios
     .post('/files/saveimg', formData)
     .then((res) => {
-      console.log('성공')
-      console.log(imageFile)
-      setImageFile(res.data.fileUrl);
+      setImgUrl(res.data.fileUrl);
+      return res.data.fileUrl;
+      // 전체가 끝났을 때 반영
     })
     .catch((err) => {
       console.log(err);
     })
   };
+  
+// asnyc promise로 안들어오게하려고
+// react 라이프사이클 / useState 
+// useRef / useEffect / useState
+// 계속 렌더링하는 걸 막기 위해서 (set 될때마다 반영하는 게아니라 다 끝나고 나서 반영하려고한다.)
+// 
+// 지금은 빈 값이 가는 함수
 
+  
   // 모달 속 생성완료버튼 -> POST 
-  const onAddRecord = () => {
+  const onAddRecord = async () => {   
+    
+    let imgurl2 = await getImgUrl();
+    
     if (!content) {
       alert("내용을 작성해주세요!")
       return;
     } else if (!title) {
       alert("제목을 입력해주세요!")
-      return
+      return; 
+    } else if (!imgurl2) {
+      alert('이미지를 넣어주세요!')
+      return;
     }
 
     const Record: RecoveryDiaryCreate = {
       beneficiaryId : id,
-      diaryPhoto: imageFile,
+      diaryPhoto: imgurl2,
       diaryTitle: title,
       diaryContent: content,
       diaryAmountSpent: totalGive,
-      // beneficiaryId: 1,
-      // diaryPhoto: "사진",
-      // diaryTitle: "제목",
-      // diaryContent: "내용",
-      // diaryAmountSpent: 1,
     } 
 
-    axios.post(`/recoverydiaries`, Record)
+    await axios
+    .post(`/recoverydiaries`, Record ,
+        {headers: {Authorization: "oo"}})
     .then((res) => {
-      console.log(res)
       console.log('요청이 갔어요~')
+      console.log(res)
       window.location.replace(`/diarydetail/${id}`)
     })
     .catch((err) => {
       console.log(err);
     })
-
-    const newCard: RecoveryDiaryDetailData = {
-      beneficiaryId: id,
-      diaryPhoto: imageFile,
-      diaryTitle: title,
-      diaryContent: content,
-      diaryAmountSpent: totalGive,
-      diaryRegisterDate : createDate,
-    };
     
-    getImgUrl();
-    // setImageFile(imageFile);
-    setTitle(title);
-    setContent(content);
-    setTotalGive(totalGive);
-    // setCreateDate(createDate);
-    // recoverycard는 RecoveryDiaryDetailData + 
-    // setRecoveryCard((recoveryCard) => [...recoveryCard, newCard]);
+    setImage(null);
+    setTitle('');
+    setContent('');
+    setTotalGive(0);
     setOpenModal(false);
-    console.log('새로운카드 만들었어요~~~')
   };
+
+  // useEffect(() => {
+  //   getImgUrl();
+  // }, [imgUrl])
 
   // 날짜스타일 변경함수
   function formatDate(dateString : any) {
@@ -186,12 +182,12 @@ const RecoveryDiaryDetail: React.FC = () => {
   function addCommas(num : number | string) {
     const unformatDate = ''+num;
     return unformatDate.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  //   return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
 
   // 모달 속 취소버튼
   const onCancelRecord = useCallback(() => {
-  setImageFile('');
+  setImgPreUrl('');
+  setImage(null);
   setContent('');
   setOpenModal(false);
   }, []);
@@ -204,7 +200,6 @@ const RecoveryDiaryDetail: React.FC = () => {
 
   // 내용 변경 함수
   const contentChangeHandler = (e: string) => {
-      // console.log(e);
       setContent(e)
   }
   
@@ -273,13 +268,22 @@ const RecoveryDiaryDetail: React.FC = () => {
 
         {/* 생성된 치료일기 */}
         {recoveryCard.map((record, index) => (
-          <div key={index} className={styles.record} onClick={() => onClickRecord(index)}>
+          <div key={index} className={styles.recordCard} onClick={() => onClickRecord(index)}>
             <div className={styles.recordDate}>
-              {formatDate(record.diaryRegisterDate)}</div>
-            <img className={styles.recordImage} src={record.diaryPhoto} alt={imgPreUrl} />
-            <div className={styles.recordIndex}>{record.diaryTitle}</div>
-            <div className={styles.recordContent}>
+              {formatDate(record.diaryRegisterDate)}
+            </div>
+            {/* {imgUrl && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>} */}
+            {record.diaryPhoto && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>}
+            <div className={styles.recordIndex}>
             {record.diaryTitle.length > 10 ? `${record.diaryTitle.substring(0, 10)}...` : record.diaryTitle}
+            </div>
+            <div className={styles.recordContent}
+              dangerouslySetInnerHTML={
+                { __html: record.diaryContent && record.diaryContent.length > 10 
+                  ? `${record.diaryContent.substring(0, 30)}...` 
+                  : record.diaryContent
+                  || ''}
+              }>
             </div>
           </div>
         ))}
@@ -299,28 +303,27 @@ const RecoveryDiaryDetail: React.FC = () => {
               <div className={styles.modalText}>치료일기 조회</div>
               <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
             </div> 
-            <img src={recoveryCard[selectedRecordIndex].diaryPhoto} alt={imgPreUrl} className={styles.modalImage} />
-            <div className={styles.modalInfo}>
-              <div className={styles.modalInfoTitle}>{recoveryCard[selectedRecordIndex].diaryTitle}</div>
-              <hr className={styles.modalHr} />
-              <div className={styles.modalInfoDate}>
-                {formatDate(recoveryCard[selectedRecordIndex].diaryRegisterDate)}
-              </div>
-              <div
-              className={styles.modalInfoContent}
-              dangerouslySetInnerHTML={{ __html: recoveryCard[selectedRecordIndex].diaryContent || '' }}
-              />
-              <div className={styles.modalButton}>
-              {/* <button className={styles.modalButtonItem} onClick={() => onEditRecord()}>수정</button> */}
-            
-              {/* <button className={styles.modalButtonItem} onClick={() => onRemoveRecord()}>삭제</button> */}
+              <img src={recoveryCard[selectedRecordIndex].diaryPhoto} alt={imgPreUrl} className={styles.modalImage} />
+                <hr className={styles.modalHr} />
+                <div className={styles.modalInfoTitle}>{recoveryCard[selectedRecordIndex].diaryTitle}</div>
+                <div className={styles.modalInfoContent}>
+
+                <div className={styles.modalInfoDate}>
+                  {formatDate(recoveryCard[selectedRecordIndex].diaryRegisterDate)}
                 </div>
-                {(
-                  <div className={styles.modalButton}>
-                  <button className={styles.modalButtonItem} onClick={() => onCancelRecord()}>확인</button>
+                <div
+                className={styles.modalContent}
+                dangerouslySetInnerHTML={{ __html: recoveryCard[selectedRecordIndex].diaryContent || '' }}
+                />
+                <div className={styles.modalButton}>
+                {/* <button className={styles.modalButtonItem} onClick={() => onEditRecord()}>수정</button> */}
+                  </div>
+                  {(
+                    <div className={styles.modalButton}>
+                    <button className={styles.modalButtonItem} onClick={() => onCancelRecord()}>확인</button>
                   </div>
                   )}
-            </div>
+                </div>
           </Modal>
           )}
             
