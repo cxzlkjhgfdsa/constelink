@@ -12,3 +12,25 @@ export interface HosBenInfo {
   hospitalLink: string,
   hospitalName: string
 }
+
+export interface HosFundraisingData {
+  fundraisingId : number,
+  beneficiaryId : number,
+  categoryName : string,
+  fundraisingAmountRaised : number,
+  fundraisingAmountGoal : number,
+  fundraisingStartTime : number,
+  fundraisingEndTime : number,
+  fundraisingTitle : string,
+  fundraisingStory : string,
+  fundraisingThumbnail : string,
+  fundraisingPeople : number,
+  fundraisingIsDone : boolean,
+  fundraisingBookmarked : boolean,
+  hospitalName : string,
+  beneficiaryName : string,
+  beneficiaryDisease : string,
+  beneficiaryStatus : string,
+  beneficiaryBirthday : number,
+  beneficiaryPhoto : string
+}
