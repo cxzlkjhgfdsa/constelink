@@ -7,7 +7,9 @@ public enum CustomExceptionType {
 	INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "E102", "서버 오류 입니다."),
 	HOSPITAL_NOT_FOUND(HttpStatus.NOT_FOUND, "E103", "해당 ID 병원 정보가 존재하지 않습니다."),
 	BENEFICIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "E104", "해당 ID 수혜자 정보가 존재하지 않습니다."),
-	RECOVERYDIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "E105", "해당 ID 일기 정보가 존재하지 않습니다.");
+	RECOVERYDIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "E105", "해당 ID 일기 정보가 존재하지 않습니다."),
+	AUTHORIZATION_ERROR(HttpStatus.FORBIDDEN, "E106", "권한이 없습니다."),
+	MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "E107", "사용자 ID 정보가 존재하지 않습니다."),;
 
 	private final HttpStatus httpStatus;
 	private final String code;
