@@ -20,33 +20,45 @@
     align-items: center;
     height: 900px;
 }
-.user_profile{
-    display: flex;
-    /* background-color: red; */
-    /* justify-content: center; */
-    align-items: center;
-     /* width: 600px; */
-     width: 100%;
-     /* margin-left: 17%; */
-     justify-content: center;
-     /* background-color: red; */
+
+.user_img{
+  width: 110px;
+  height: 110px;
+  background-image: url("../assets/logo/crown.png");
+  background-size: cover;
+  padding-top: 5px;
+  /* display: flex;
+  justify-content: center;
+  align-items: end; */
+  /* margin-right: 10px; */
 }
 
 .user_img>img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+}
+.user_profile{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    
+}
+
+.user_icon>img{
     width: 100px;
     height: 100px;
     transition: transform 0.1s ease;
     border-radius: 50px;
 }
-.user_img img:hover{
+.user_icon img:hover{
     transform: translateY(-5px);
     animation: bounce 1.5s;
 }
 .user_log{
     display: flex;
-    /* background-color: red; */
     justify-content: space-around;
-    /* background-color: red; */
     width: 600px;
     background-color: red;
     padding-top: 10px;

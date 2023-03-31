@@ -7,18 +7,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAddressCard, faStar, faHospitalUser, faRightFromBracket, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { authActions } from './../store/auth';
+
 
 const CustomerMyPage: React.FC = () => {
-    const authInfo = useSelector((state:RootState)=> state.auth);
     const navigate = useNavigate();
+    const [userName, setUserName]= useState("");
+    const dispatch= useDispatch();
     const logoutHandler = ()=>{
         const accessToken = localStorage.getItem('access_token');
         axios.defaults.headers.common['authorization'] = accessToken;
-        axios.post("http://j8a206.p.ssafy.io:8997/auth/logout").then(res=>{
+        axios.post("/auth/logout").then(res=>{
             console.log(res);
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("refresh_token");
+            dispatch(authActions.logout());
+            navigate("/")
+        
         }).catch((err)=>{
             console.log(err);
         })
@@ -26,23 +33,20 @@ const CustomerMyPage: React.FC = () => {
 
     useEffect(()=>{
         const accessToken = localStorage.getItem('access_token');
-        console.log(accessToken);
-        
         axios.defaults.headers.common['authorization'] = accessToken;
-        axios.get("http://j8a206.p.ssafy.io:8997/members/info").then(res=>{
-            console.log(res);
-            
+        axios.get("/members/info").then(res=>{
+        const updateName = res.data.name;
+        setUserName(updateName)
         })
-    },[])
+    },[userName])
 
     return (
-        <div className={styles.CustomerMyPage}>
-
+        <div className={styles.CustomerMyPage}> 
             <div className={styles.user_profile}>
-                <div className={styles.user_img}><img src={authInfo.profileImg} /></div>
+                <div className={styles.user_img} ></div>
                 <div className={styles.user_name}>
-                    <div className={styles.comment_greet}>반갑습니다. {authInfo.nickname}님!</div>
-                    <div className={styles.comment_mypage}>기부왕{authInfo.nickname} 님의 마이페이지</div>
+                    <div className={styles.comment_greet}>반갑습니다. {userName}님!</div>
+                    <div className={styles.comment_mypage}>기부왕{userName} 님의 마이페이지</div>
                 </div>
             </div>
 
@@ -66,14 +70,14 @@ const CustomerMyPage: React.FC = () => {
             <div className={styles.user_log}>
 
                 <div className={styles.user_donate}>
-                    <div className={styles.user_img}><img src={image1} /></div>
+                    <div className={styles.user_icon}><img src={image1} /></div>
                     <div className={styles.donate_title} >누적 기부액</div>
                     <div className={styles.donate_amount}>2,000,000원</div>
                 </div>
 
 
                 <div className={styles.user_donate}>
-                    <div className={styles.user_img}><img src={image2} /></div>
+                    <div className={styles.user_icon}><img src={image2} /></div>
                     <div className={styles.donate_title}>기부 횟수</div>
                     <div className={styles.donate_amount}>45회</div>
                 </div>

@@ -49,14 +49,14 @@ const HomePage: React.FC = () => {
   const [donateCard, setDonateCard] = useState<DonationData[]>([]);
   const [statistics, setStatistics] = useState<Statistics>();
   useEffect(() => {
-    axios.get("http://j8a206.p.ssafy.io:8998/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=1").then((res) => {
+    axios.get("/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=1").then((res) => {
       console.log(res.data.content);
       setDonateCard(res.data.content);
     })
   }, [])
 
   useEffect(() => {
-    axios.get("http://j8a206.p.ssafy.io:8998/fundraisings/statistics").then((res) => {
+    axios.get("/fundraisings/statistics").then((res) => {
       console.log(res.data);
       setStatistics(res.data)
     })

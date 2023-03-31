@@ -11,8 +11,7 @@ const Login : React.FC = ()=>{
     const isAuth = useSelector((state:RootState)=> state.auth.isAuthenticated);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const xhr = new XMLHttpRequest();
-    // xhr.withCredentials = true;
+
     useEffect(()=>{
         const param = new URLSearchParams(window.location.search);
         const connect_id = param.get("connect-id");
@@ -23,6 +22,7 @@ const Login : React.FC = ()=>{
             axios.post("http://j8a206.p.ssafy.io:8997/auth/login",params, {withCredentials:true}).then(res=>{
                 console.log(res);
                 localStorage.setItem("access_token", res.headers.authorization);
+                localStorage.setItem("refresh_token", res.headers.refresh);
                 const [name, profileImg, role]:string[] = [res.data.nickname, res.data.profile, res.data.role];
                 dispatch(authActions.login({name, profileImg,role}));
                 navigate("/")

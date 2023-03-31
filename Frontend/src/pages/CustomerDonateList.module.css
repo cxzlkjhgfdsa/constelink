@@ -27,7 +27,7 @@
     /* background-color: skyblue; */
     width: 900px;
     display: grid;
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(6,1fr);
     border-bottom: 1px solid black;
     padding-bottom: 10px;
 }
@@ -39,7 +39,7 @@
 
 .amount_log{
     display: grid;
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(6,1fr);
     width: 900px;
     border: 1px solid #d7d7d7;
     height: 60px;

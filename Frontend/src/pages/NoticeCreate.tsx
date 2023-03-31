@@ -42,6 +42,7 @@ const NoticeCreate = () => {
 
         axios.post("/notices/save", boardContent).then(res => {
             console.log(res);
+            // 받아온 id값 
             navigate(`/notice/${54}`);
         })
     };

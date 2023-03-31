@@ -27,6 +27,10 @@ const authSlice = createSlice({
     logout(state) {
       state.isAuthenticated = false;
     },
+    update(state, action){
+      state.nickname = action.payload.name;
+      state.role = initialAuthState.role
+    }
   },
 });
 
