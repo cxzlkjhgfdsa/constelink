@@ -47,7 +47,9 @@ pipeline {
                 branch 'dev-front'
             }
             steps {
-                def gitCommitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+                script {
+                    def gitCommitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+                }
                 echo "Front Image Build Step"
                 dir('Frontend') {
                     container('kaniko') {
