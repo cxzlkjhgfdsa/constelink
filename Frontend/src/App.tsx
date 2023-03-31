@@ -17,6 +17,7 @@ import NoticePage from './pages/NoticePage';
 import Mint from "./pages/Mint";
 import StartDonate from "./pages/StartDonate";
 import Donate from "./pages/Donate";
+import MMLoading from "./pages/MMLoading";
 
 import NoticeDetail from './pages/NoticeDetail';
 import NoticeEdit from './pages/NoticeEdit';
@@ -46,6 +47,7 @@ function App() {
           <Route path='/startdonate' element={<StartDonate />} />
           <Route path='/donate' element={<Donate />} />
           <Route path='/login' element={<Login />}/>
+          <Route path='/mmload' element={<MMLoading />} />
         </Routes>
       </div> 
   )}
