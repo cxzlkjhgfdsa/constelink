@@ -6,13 +6,28 @@
 
 /*컴포넌트 전체 */
 .DonationCard {
-    /* margin: 50px; */
-    width: 200px;
+   
+    width: 91%;
     height: 290px;
+    margin-left: 10px;
     border-radius: 5px;
     font-weight: bold;
     color: #ffffff;
     cursor: pointer;
+    word-break: break-all;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease;
+    z-index: 1px;
+}
+
+.DonationCard:hover {
+    transform: translateY(-5px);
+}
+.bookmark{
+    padding: 14px;
+    font-size: 17px;
 }
 
 
@@ -20,7 +35,9 @@
 /* 1. 컨텐츠 박스 */
 .dona_box {
     padding: 14px;
-    padding-top:75%;
+    /* padding-top:75%; */
+    word-break: keep-all;
+
 }
 
 /* 병명 */

@@ -122,22 +122,20 @@
 .cardsTitle{
   margin-top: 2rem;
   float: left;
-  width: 60%;
+  width: 900px;
   font-family: "Crisis";
   font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 .cardsWrapper{
-  width: 70%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  width: 900px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 15px;
 }
 
-.cardWrapper{
-  margin: 20px;
-}
+
 
 .pagination{
   font-family: "Hahmlet";

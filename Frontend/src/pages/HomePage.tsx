@@ -18,38 +18,6 @@ const contents = [["콘스텔링크 Constelink1", "블록체인기반, 치료비
 
 
 
-// 더미데이터
-const infomation:DonationData[] =[
-  {
-    title: '"허리가 아픈 원철에게 치료비를 모금해주세요1"',
-    type: "희귀병",
-    deadline: "2023-05-01",
-    amount: 245000,
-    img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    hospital: "서울 아산병원",
-    goal: 250000
-  },{
-    title: '"허리가 아픈 원철에게 치료비를 모금해주세요2"',
-    type: "희귀병",
-    deadline: "2023-05-01",
-    amount: 245000,
-    img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    hospital: "서울 아산병원",
-    goal: 260000
-  },{
-    title: '"허리가 아픈 원철에게 치료비를 모금해주세요3"',
-    type: "희귀병",
-    deadline: "2023-05-01",
-    amount: 245000,
-    img: "https://images.pexels.com/photos/5264914/pexels-photo-5264914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    hospital: "서울 아산병원",
-    goal: 330000
-  }
-
-]
-
-
-
 
 
 
@@ -91,7 +59,7 @@ const HomePage: React.FC = () => {
             </div>
           ))}
         </Slider>
-        {/* 2. 상단 바로가기 바 */}
+        2. 상단 바로가기 바
         <nav className={styles.with_box}>
           <img src="" alt="" />
           <div className={styles.with_title}>너네 별따러 갈때, 우린 달러가!</div>
@@ -103,7 +71,7 @@ const HomePage: React.FC = () => {
               return <DonationCard data={it}  />
             })
           } */}
-           <DonationCard data={infomation[0]}  />
+           {/* <DonationCard data={infomation[0]}  /> */}
         </section>
   
       </div>
