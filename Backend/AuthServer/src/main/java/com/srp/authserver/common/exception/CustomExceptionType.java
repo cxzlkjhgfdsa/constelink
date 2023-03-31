@@ -9,7 +9,8 @@ public enum CustomExceptionType {
 	NULL_TOKEN_EXCEPTION(HttpStatus.NOT_FOUND, "E504", "토큰이 존재하지 않습니다"),
 	JWT_EXPIRED_EXCEPTION(HttpStatus.UNAUTHORIZED, "E505", "JWT 토큰이 만료됐습니다"),
 	JWT_TYPE_EXCEPTION(HttpStatus.UNAUTHORIZED, "E506", "JWT 토큰 타입이 다릅니다."),
-	JWT_ROLE_EXCEPTION(HttpStatus.FORBIDDEN, "E507", "해당 요청에 대한 권한이 존재하지 않습니다");
+	JWT_ROLE_EXCEPTION(HttpStatus.FORBIDDEN, "E507", "해당 요청에 대한 권한이 존재하지 않습니다"),
+	JWT_SIGNATURE_EXCEPTION(HttpStatus.BAD_REQUEST, "E508", "잘못 생성되 JWT 토큰입니다");
 
 	private final HttpStatus httpStatus;
 	private final String code;

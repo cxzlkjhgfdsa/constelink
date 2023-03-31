@@ -1,5 +1,7 @@
 package com.srp.authserver.common.exception;
 
+import java.security.SignatureException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -21,6 +23,11 @@ public class GlobalExceptionAdvice {
 	@ExceptionHandler(value = ExpiredJwtException.class)
 	public ResponseEntity<ExceptionResponse> JWTExceptionHandler(ExpiredJwtException e) {
 		return getResponseEntity(CustomExceptionType.JWT_EXPIRED_EXCEPTION);
+	}
+
+	@ExceptionHandler(value = SignatureException.class)
+	public ResponseEntity<ExceptionResponse> JWTSignatureExceptionHandler(SignatureException e){
+		return getResponseEntity(CustomExceptionType.JWT_SIGNATURE_EXCEPTION);
 	}
 
 	@ExceptionHandler(value = RuntimeException.class)

@@ -15,14 +15,17 @@ public class AuthController {
 
 	@GetMapping("/member")
 	public ResponseEntity checkRoleMember(){
+		log.info("member 인증 컨트롤러에 도착했습니다");
 		return ResponseEntity.ok("인증 완료");
 	}
 	@GetMapping("/hospital")
 	public ResponseEntity checkRoleHospital(){
+		log.info("hospital 인증 컨트롤러에 도착했습니다");
 		return ResponseEntity.ok("인증 완료");
 	}
 	@GetMapping("/admin")
 	public ResponseEntity checkRoleAdmin(){
+		log.info("admin 인증 컨트롤러에 도착했습니다");
 		return ResponseEntity.ok("인증 완료");
 	}
 

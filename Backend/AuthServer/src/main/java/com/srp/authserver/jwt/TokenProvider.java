@@ -1,6 +1,7 @@
 package com.srp.authserver.jwt;
 
 import java.security.Key;
+import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.beans.factory.InitializingBean;
@@ -16,6 +17,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -37,6 +40,7 @@ public class TokenProvider implements InitializingBean {
 	public void afterPropertiesSet() {
 		byte[] keyBytes = Decoders.BASE64.decode(secret);
 		this.key = Keys.hmacShaKeyFor(keyBytes);
+
 	}
 
 	public String createAccessToken(Long memberId, Role role) {
@@ -73,13 +77,15 @@ public class TokenProvider implements InitializingBean {
 			.getSubject();
 	}
 
-	public String getRoleByToken(String token) {  // Token 에 들어있는 role 얻기
+	public String getRoleByToken(String token) throws SignatureException{  // Token 에 들어있는 role 얻기
 		String accessToken = isBearerToken(token);
+
 		Claims body = Jwts.parser()
-			.setSigningKey(key)
-			.parseClaimsJws(accessToken)
-			.getBody();
+				.setSigningKey(key)
+				.parseClaimsJws(accessToken)
+				.getBody();
 		return (String)body.get(AUTHORITIES_KEY);
+
 	}
 
 	private String isBearerToken(String token) {
