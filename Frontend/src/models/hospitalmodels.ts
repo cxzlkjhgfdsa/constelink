@@ -6,6 +6,7 @@ export interface HosBenInfo {
   beneficiaryDisease: string,
   beneficiaryAmountGoal: number,
   beneficiaryAmountRaised: number,
+  beneficiaryStatus: string,
 
   hospitalId: number,
   hospitalLink: string,

@@ -18,6 +18,10 @@ const HosBenList= () => {
   const size:number = 8;
   const [totalElements, setTotalElements] = useState(0);
   const URL_PATH : string = "/beneficiaries/hospital/";
+  const handlePageChange = (page:number) => {
+    setPage(page);
+    window.scrollTo(0,0);
+  }
 
   useEffect(() => {
     axios.get(URL_PATH+hospitalId, {params : {page, size}}).then((res) => {
@@ -27,10 +31,6 @@ const HosBenList= () => {
    }
    , [page]);
 
-  const handlePageChange = (page:number) => {
-    setPage(page);
-    window.scrollTo(0,0);
-  }
 
 
   return(
@@ -47,13 +47,13 @@ const HosBenList= () => {
           <li></li>
           <li></li>
         </div>
-        <div className={`${styles.grid_row_8}`}>
+        <div className={`${styles.grid_row_8} ${styles.pd_top_10}`}>
             {fundraisingData?.map(data => 
               <HosBeneficiaryCard key={`fundraising-${data.beneficiaryId}`} data={data}/>
              )}
 
         </div>
-        <div className={styles.sticky_box}>
+        <div className={styles.sticky_pagenation_box}>
           <Pagination
             activePage={page}
             itemsCountPerPage={size}
