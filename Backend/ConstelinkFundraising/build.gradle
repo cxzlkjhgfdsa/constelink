@@ -46,6 +46,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
     runtimeOnly 'io.grpc:grpc-netty-shaded:1.52.1'
     implementation 'io.grpc:grpc-protobuf:1.52.1'
     implementation 'io.grpc:grpc-stub:1.52.1'

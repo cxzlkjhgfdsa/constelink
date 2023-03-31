@@ -15,6 +15,7 @@ import com.srp.constelinkfundraising.db.dto.request.CategoryAddRequest;
 import com.srp.constelinkfundraising.db.dto.request.CategoryDeleteRequest;
 import com.srp.constelinkfundraising.db.entity.Category;
 import com.srp.constelinkfundraising.db.service.CategoryService;
+import com.srp.constelinkfundraising.jwt.JWTParser;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -29,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 public class CategoryController {
 
 	private final CategoryService categoryService;
-
+	private final JWTParser jwtParser;
 	private final ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9093)
 		.usePlaintext()
 		.build();

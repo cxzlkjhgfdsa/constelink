@@ -1,6 +1,7 @@
 package com.srp.constelinkfundraising.db.controller;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +23,11 @@ import com.srp.constelinkfundraising.db.dto.response.FundraisingResponse;
 import com.srp.constelinkfundraising.db.dto.response.StatisticsResponse;
 import com.srp.constelinkfundraising.db.entity.Fundraising;
 import com.srp.constelinkfundraising.db.service.FundraisingService;
+import com.srp.constelinkfundraising.jwt.JWTParser;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,32 +39,45 @@ import lombok.extern.slf4j.Slf4j;
 public class FundraisingController {
 
 	private final FundraisingService fundraisingService;
-
+	private final JWTParser jwtParser;
 	@Operation(summary = "기부 리스트 열람 (memberId적으면 bookmark 반영되어 나옴), 병원이름 + 수혜자 이름 다 나옴", description =
 		"page = 페이지, size = 한 페이지당 데이터 수, sortBy = 정렬타입, "
-			+ "☆ memberId 적으면 bookmark가 체크되어서 나옴(나중에는 Header token까서 반영 예정) memberId = 회원 Id ")
+			+ "☆ memberId 적으면 bookmark가 체크되어서 나옴 memberId = 회원 Id "
+			+ "헤더값 있으면 그 값으로 북마크 체크")
 	@GetMapping("/withbeneficiaryinfo")
 	public ResponseEntity<Page<FundraisingResponse>> getFundraisings(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
 		@RequestParam(name = "sortBy", required = false, defaultValue = "ALL") FundraisingSortType sortType,
-		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId
+		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId,
+		HttpServletRequest request
 	) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if(accessToken != null) {
+			memberId = jwtParser.resolveToken(accessToken);
+		}
 		Page<FundraisingResponse> fundraisingResponses
 			= fundraisingService.getFundraisings(page - 1, size, sortType, memberId);
 		return ResponseEntity.ok(fundraisingResponses);
 	}
 
 	@Operation(summary = "기부 리스트보기(병원 이름, 수혜자이름X)", description =
-		"page = 페이지, size = 한 페이지당 데이터 수, sortBy = 정렬 타입")
+		"page = 페이지, size = 한 페이지당 데이터 수, sortBy = 정렬 타입 ☆ memberId "
+			+ "적으면 bookmark가 체크되어서 나옴, 현재 header값 있으면 그 값을 기준으로 체크")
 	@GetMapping("")
 	public ResponseEntity<Page<FundraisingBeneficiaryResponse>> getFundraisingsBeneficiaries(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(name = "sortBy", required = false, defaultValue = "ALL") FundraisingSortType sortType
+		@RequestParam(name = "sortBy", required = false, defaultValue = "ALL") FundraisingSortType sortType,
+		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId,
+		HttpServletRequest request
 	) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if(accessToken != null) {
+			memberId = jwtParser.resolveToken(accessToken);
+		}
 		Page<FundraisingBeneficiaryResponse> fundraisingBeneficiaryResponses
-			= fundraisingService.getFundraisingsBeneficiaries(page - 1, size, sortType, 0L);
+			= fundraisingService.getFundraisingsBeneficiaries(page - 1, size, sortType, memberId);
 		return ResponseEntity.ok(fundraisingBeneficiaryResponses);
 	}
 
@@ -71,18 +87,27 @@ public class FundraisingController {
 	public ResponseEntity<String> donateFundraising(
 		@RequestBody DonateRequest donateRequest
 	) {
-		log.info("요청 도착 == " + donateRequest.getFundraisingId() + " 확인 " + donateRequest.getCash());
-		Boolean check = fundraisingService.donateFundraising(donateRequest);
+
+		fundraisingService.donateFundraising(donateRequest);
 		return ResponseEntity.ok("ok");
 	}
 
 	@Operation(summary = "기부 만들기", description = "beneficiaryId = 수혜자 Id, categoryId = 카테고리 Id,"
 		+ " fundraisingAmountGoal = 기부 목표 금액, fundraisingEndTime = 기부 마감 시간,"
-		+ " fundraisingTitle = 기부 제목, fundraisingStory = 기부 사연(내용), fundraisingThumbnail = 기부 썸네일")
+		+ " fundraisingTitle = 기부 제목, fundraisingStory = 기부 사연(내용), fundraisingThumbnail = 기부 썸네일, "
+		+ "hospitalId는 header값있으면 그 값으로 확인, 헤더 없으면 hospitalId는 꼭 넣어서 사용")
 	@PostMapping("")
 	public ResponseEntity<Fundraising> makeFundraising(
-		@RequestBody MakeFundraisingRequest makeFundraisingRequest
+		@RequestBody MakeFundraisingRequest makeFundraisingRequest,
+		@RequestParam(name = "hospitalId", required = false, defaultValue = "0") Long hospitalId,
+		HttpServletRequest request
 	) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if(accessToken == null) {
+			if(hospitalId==0) {
+				throw new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND);
+			}
+		}
 		Fundraising fundraisingResponse = fundraisingService.makeFundraising(makeFundraisingRequest);
 		return ResponseEntity.ok(fundraisingResponse);
 	}
@@ -95,27 +120,40 @@ public class FundraisingController {
 	}
 
 	@Operation(summary = "기부 데이터 카테고리 아이디로 찾기 나중에 Header 데이터 기반 북마크 체크 예정(categoryId가 0이면 전체 가져옴)", description =
-		"page = 페이지, size = 한 페이지당 데이터 수, categoryId = 카테고리 아이디")
+		"page = 페이지, size = 한 페이지당 데이터 수, categoryId = 카테고리 아이디"
+			+ "memberId는 header값 있으면 해더값으로 작동.")
 	@GetMapping("/bycategory")
 	public ResponseEntity<Page<FundraisingResponse>> getFundraisingByCategory(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Long categoryId
+		@RequestParam(name = "categoryId", required = false, defaultValue = "0") Long categoryId,
+		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId,
+		HttpServletRequest request
 	) {
-		Page<FundraisingResponse> fundraisingResponses = fundraisingService.fundraisingByCategory(categoryId,0L, page-1, size);
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if(accessToken != null) {
+			memberId = jwtParser.resolveToken(accessToken);
+		}
+		Page<FundraisingResponse> fundraisingResponses = fundraisingService.fundraisingByCategory(categoryId,memberId, page-1, size);
 		return ResponseEntity.ok(fundraisingResponses);
 	}
 
 	@Operation(summary = "병원 Id로 찾기", description =
-		"page = 페이지, size = 한 페이지당 데이터 수, hospitalId = 병원 아이디, memberId = 사용자 Id(북마크용 0하면 비로그인 임시.)")
+		"page = 페이지, size = 한 페이지당 데이터 수, hospitalId = 병원 아이디, "
+			+ "memberId = memberId는 header값 있으면 그 값으로 작용.")
 	@GetMapping("/byhospital")
 	public ResponseEntity<Page<FundraisingResponse>> getFundraisingByHospital(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
 		@RequestParam(name = "sortBy", required = false, defaultValue = "NONE") FundraisingByHopitalType sortType,
 		@RequestParam(name = "hospitalId", required = true) Long hospitalId,
-		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId
+		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId,
+		HttpServletRequest request
 	) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if(accessToken != null) {
+			memberId = jwtParser.resolveToken(accessToken);
+		}
 		if(hospitalId <1) {
 			throw new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND);
 		}
