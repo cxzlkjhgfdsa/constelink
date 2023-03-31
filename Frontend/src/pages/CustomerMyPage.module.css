@@ -87,7 +87,7 @@
 
 }
 
-.user_list li{
+.user_list>li{
     border-bottom: 2px solid gray;
     height: 70px;
     display: flex;
@@ -146,6 +146,8 @@
     font-weight: bold;
 }
 
+
+
 /* 개인정보 변경 */
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
@@ -158,3 +160,4 @@
       transform: translateY(-5px);
     }
   }
+

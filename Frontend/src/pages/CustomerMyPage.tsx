@@ -18,7 +18,9 @@ const CustomerMyPage: React.FC = () => {
     const dispatch= useDispatch();
     const logoutHandler = ()=>{
         const accessToken = localStorage.getItem('access_token');
+        const refreshToken = localStorage.getItem('refresh_token');
         axios.defaults.headers.common['authorization'] = accessToken;
+        axios.defaults.headers.common['authorization'] = refreshToken;
         axios.post("/auth/logout").then(res=>{
             console.log(res);
             localStorage.removeItem("access_token");
@@ -52,7 +54,7 @@ const CustomerMyPage: React.FC = () => {
 
             <nav className={styles.user_menu}>
                 <ul className={styles.user_list}>
-                    <li onClick={()=> navigate("edit")}>
+                    <li   onClick={()=> navigate("edit")}>
                         <div className={styles.menu_left}>
                             <FontAwesomeIcon className={styles.menu_logo} icon={faAddressCard} />
                             <div>개인정보 수정</div>
