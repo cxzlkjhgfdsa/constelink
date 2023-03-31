@@ -32,65 +32,22 @@ pipeline {
     }
 
     stages {
-        stage('Project Build') {
-            steps {
-                echo "Build front-end and APIs"
-            }
+        stage('Front Project Build') {
             when {
                 branch 'dev-front'
             }
             steps {
-                echo "Front Step"
+                echo "Front Project Build Step"
                 sh 'npm install'
                 sh 'npm run build'
             }
-            when {
-                branch 'feature-back/auth-server'
-            }
-            steps {
-                echo "Auth-Server Step"
-            }
-            when {
-                branch 'feature-back/fundraising'
-            }
-            steps {
-                echo "Fundraising Step"
-            }
-            when {
-                branch 'feature-back/beneficiary'
-            }
-            steps {
-                echo "Beneficiary Step"
-            }
-            when {
-                branch 'feature-back/member'
-            }
-            steps {
-                echo "Member Step"
-            }
-            when {
-                branch 'feature-back/notice'
-            }
-            steps {
-                echo "Notice Step"
-            }
-            when {
-                branch 'feature-back/file'
-            }
-            steps {
-                echo "File Step"
-            }
         }
-
-        stage('Image Build') {
-            steps {
-                echo "Build front-end and APIs"
-            }
+        stage('Front Image Build') {
             when {
                 branch 'dev-front'
             }
             steps {
-                echo "Front Step"
+                echo "Front Image Build Step"
                 dir('Frontend') {
                     def gitCommitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                     container('kaniko') {
@@ -100,36 +57,102 @@ pipeline {
                     }
                 }
             }
+        }
+
+        stage('Auth-Server Project Build') {
             when {
                 branch 'feature-back/auth-server'
             }
             steps {
                 echo "Auth-Server Step"
             }
+        }
+        stage('Auth-Server Image Build') {
+            when {
+                branch 'feature-back/auth-server'
+            }
+            steps {
+                echo "Auth-Server Step"
+            }
+        }
+
+        stage('Fundraising Project Build') {
             when {
                 branch 'feature-back/fundraising'
             }
             steps {
                 echo "Fundraising Step"
             }
+        }
+        stage('Fundraising Image Build') {
+            when {
+                branch 'feature-back/fundraising'
+            }
+            steps {
+                echo "Fundraising Step"
+            }
+        }
+
+        stage('Beneficiary Project Build') {
             when {
                 branch 'feature-back/beneficiary'
             }
             steps {
                 echo "Beneficiary Step"
             }
+        }
+        stage('Beneficiary Image Build') {
+            when {
+                branch 'feature-back/beneficiary'
+            }
+            steps {
+                echo "Beneficiary Step"
+            }
+        }
+
+        stage('Member Project Build') {
             when {
                 branch 'feature-back/member'
             }
             steps {
                 echo "Member Step"
             }
+        }
+        stage('Member Image Build') {
+            when {
+                branch 'feature-back/member'
+            }
+            steps {
+                echo "Member Step"
+            }
+        }
+
+        stage('Notice Project Build') {
             when {
                 branch 'feature-back/notice'
             }
             steps {
                 echo "Notice Step"
             }
+        }
+        stage('Notice Image Build') {
+            when {
+                branch 'feature-back/notice'
+            }
+            steps {
+                echo "Notice Step"
+            }
+        }
+
+        stage('File Project Build') {
+            when {
+                branch 'feature-back/file'
+            }
+            steps {
+                echo "File Step"
+            }
+        }
+        stage('File Image Build') {
             when {
                 branch 'feature-back/file'
             }
