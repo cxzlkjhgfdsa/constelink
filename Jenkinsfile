@@ -47,9 +47,9 @@ pipeline {
                 branch 'dev-front'
             }
             steps {
+                def gitCommitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                 echo "Front Image Build Step"
                 dir('Frontend') {
-                    def gitCommitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                     container('kaniko') {
                         sh '''#!/busybox/sh
                         /kaniko/executor --context=${WORKSPACE} --dockerfile=${WORKSPACE}/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
@@ -162,7 +162,9 @@ pipeline {
         }
 
         stage('Deploy') {
-
+            steps {
+                echo "Deploy Step"
+            }
         }
     }
 }
