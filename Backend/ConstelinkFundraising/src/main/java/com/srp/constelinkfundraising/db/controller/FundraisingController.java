@@ -163,4 +163,25 @@ public class FundraisingController {
 		Page<FundraisingResponse> fundraisingResponses = fundraisingService.getFundraisingsByHospital(page-1,size, sortType, hospitalId, memberId);
 		return ResponseEntity.ok(fundraisingResponses);
 	}
+
+
+	@GetMapping("/{fundraisingid}")
+	public ResponseEntity<FundraisingResponse> getFundraisingByHospital(
+		@PathVariable(value = "fundraisingid", required = true) Long fundraisingId,
+		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId,
+		HttpServletRequest request
+	) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if(accessToken != null) {
+			memberId = jwtParser.resolveToken(accessToken);
+		}
+		if(fundraisingId <1) {
+			throw new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND);
+		}
+		if(memberId <0) {
+			throw new CustomException(CustomExceptionType.MEMBER_NOT_FOUND);
+		}
+		FundraisingResponse fundraisingResponses = fundraisingService.getFundraising(fundraisingId, memberId);
+		return ResponseEntity.ok(fundraisingResponses);
+	}
 }

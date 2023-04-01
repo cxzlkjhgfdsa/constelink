@@ -32,6 +32,7 @@ import com.srp.constelinkfundraising.db.dto.response.FundraisingBeneficiaryRespo
 import com.srp.constelinkfundraising.db.dto.response.FundraisingResponse;
 import com.srp.constelinkfundraising.db.dto.response.StatisticsResponse;
 import com.srp.constelinkfundraising.db.dto.response.StatsDataResponse;
+import com.srp.constelinkfundraising.db.entity.Bookmark;
 import com.srp.constelinkfundraising.db.entity.Category;
 import com.srp.constelinkfundraising.db.entity.Fundraising;
 import com.srp.constelinkfundraising.db.repository.BookmarkRepository;
@@ -222,6 +223,7 @@ public class FundraisingService {
 		return true;
 	}
 
+
 	@Transactional
 	public Fundraising makeFundraising(MakeFundraisingRequest makeFundraisingRequest) {
 		//fundraising 무결성 검사 필요(제대로 하려면 다른 서비스와 통신 필요)
@@ -397,5 +399,46 @@ public class FundraisingService {
 			item.setHospitalName(beneficiaryInfoRes.getHospital());
 		});
 		return fundraisingResponsePage;
+	}
+
+
+	public FundraisingResponse getFundraising(Long fundraisingId,Long memberId) {
+		Map<String, Object> data = fundraisingRepository.getfund(fundraisingId,memberId)
+			.orElseThrow(()-> new CustomException(CustomExceptionType.FUNDRAISING_NOT_FOUND));
+		Fundraising fund = (Fundraising)data.get("fond");
+		Boolean bookmarked = (Boolean)data.get("bookmarked");
+
+		FundraisingResponse fundraisingResponse = new FundraisingResponse().builder()
+			.fundraisingIsDone(fund.isFundraisingIsDone())
+			.fundraisingPeople(fund.getFundraisingPeople())
+			.fundraisingStory(fund.getFundraisingStory())
+			.fundraisingThumbnail(fund.getFundraisingThumbnail())
+			.fundraisingTitle(fund.getFundraisingTitle())
+			.fundraisingAmountRaised(fund.getFundraisingAmountRaised())
+			.fundraisingStartTime(
+				fund.getFundraisingStartTime()
+					.atZone(ZoneId.of("Asia/Seoul"))
+					.toInstant()
+					.toEpochMilli())
+			.fundraisingId(fund.getId())
+			.fundraisingEndTime(
+				fund.getFundraisingEndTime().atZone(ZoneId.of("Asia/Seoul")).toInstant().toEpochMilli())
+			.fundraisingAmountGoal(fund.getFundraisingAmountGoal())
+			.beneficiaryId(fund.getBeneficiaryId())
+			.categoryName(fund.getCategory().getCategoryName())
+			.fundraisingBookmarked(bookmarked)
+			.build();
+		//List 중복제거
+		BeneficiaryInfoReq beneficiaryInfoReq = BeneficiaryInfoReq.newBuilder().setId(1).build();
+		BeneficiaryInfoRes beneficiaryInfoRes = stub.getBeneficiaryRpc(beneficiaryInfoReq);
+
+		fundraisingResponse.setBeneficiaryName(beneficiaryInfoRes.getName());
+		fundraisingResponse.setBeneficiaryDisease(beneficiaryInfoRes.getDisease());
+		fundraisingResponse.setBeneficiaryStatus(beneficiaryInfoRes.getStatus());
+		fundraisingResponse.setBeneficiaryPhoto(beneficiaryInfoRes.getPhoto());
+		fundraisingResponse.setBeneficiaryBirthday(beneficiaryInfoRes.getBirthday().getSeconds() * 1000);
+		fundraisingResponse.setHospitalName(beneficiaryInfoRes.getHospital());
+
+		return fundraisingResponse;
 	}
 }

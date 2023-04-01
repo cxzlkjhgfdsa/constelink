@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.srp.constelinkfundraising.db.entity.Fundraising;
 
@@ -24,7 +25,12 @@ public interface FundraisingRepository extends JpaRepository<Fundraising, Long> 
 
 	Page<Fundraising> findFundraisingsByBeneficiaryId(Long beneficiary, Pageable pageable);
 
+
 	Optional<Fundraising> findFundraisingById(Long id);
+	@Query("select f as fond, "
+		+ "exists (select b from Bookmark b where b.id.memberId = :memberId and b.id.fundraisingId=f.id) as bookmarked "
+		+ "from Fundraising f where f.id = :id")
+	Optional<Map<String, Object>> getfund(Long id, Long memberId);
 	// Page<Fundraising> findFundraisingsByFundraisingTitleContaining(String search, Pageable pageable);
 
 	// Page<Fundraising> findFundraisingsByFundraisingEndTimeAfter(Timestamp timestamp, Pageable pageable);
