@@ -1,31 +1,9 @@
 pipeline {
     agent {
-            kubernetes {
-                label 'kaniko'
-                yaml '''
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      labels:
-        some-label: some-label-value
-    spec:
-      containers:
-      - name: kaniko
-        image: gcr.io/kaniko-project/executor:latest
-        imagePullPolicy: Always
-        command:
-        - /bin/cat
-        tty: true
-        volumeMounts:
-          - name: docker-config
-            mountPath: /kaniko/.docker
-      volumes:
-      - name: docker-config
-        secret:
-          secretName: regcred
-    '''
-            }
+        kubernetes {
+            inheritFrom 'kaniko'
         }
+    }
 
     tools {
         nodejs "nodejs"
