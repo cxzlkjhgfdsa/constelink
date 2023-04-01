@@ -158,7 +158,6 @@ public class BeneficiaryService {
 				beneficiariesByRegDateDTOPage = beneficiaryRepository.findAlltoPage(PageRequest.of(page, size, Sort.by("id").ascending()));
 				break;
 		}
-		System.out.println("11");
 		Page<BeneficiaryInfoResponse> beneficiaryInfoResponsePage = beneficiariesByRegDateDTOPage.map(item -> {
 			Beneficiary beneficiary = (Beneficiary)item[0];
 			LocalDateTime time = (LocalDateTime)item[1];
@@ -250,11 +249,15 @@ public class BeneficiaryService {
 		return beneficiaryInfoResponsePage;
 	}
 
+	@Transactional
 	public Long editBeneficiary(BeneficiaryEditRequest beneficiaryEditRequest, Long beneficiaryId, Long hospitalId) {
 		Beneficiary beneficiary = beneficiaryRepository.findBeneficiaryById(beneficiaryId)
 			.orElseThrow(()->new CustomException(CustomExceptionType.BENEFICIARY_NOT_FOUND));
 		if(hospitalId != beneficiary.getHospital().getId()){
 			throw new CustomException(CustomExceptionType.HOSPITAL_AUTHORIZATION_ERROR);
+		}
+		if(beneficiaryEditRequest.getBeneficiaryStatus().name()==beneficiary.getBeneficiaryStatus()) {
+			return beneficiary.getId();
 		}
 		beneficiary.setBeneficiaryStatus(beneficiaryEditRequest.getBeneficiaryStatus().name());
 		beneficiaryRepository.saveAndFlush(beneficiary);
