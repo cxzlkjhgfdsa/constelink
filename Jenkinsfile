@@ -50,17 +50,10 @@ pipeline {
                         ''') {
                         node(POD_LABEL) {
                             container('kaniko') {
-                                if(env.BRANCH_NAME == 'dev-front') {
-                                    echo "Front Image Build Step"
-                                    sh '''
-                                    /kaniko/executor --context=$(pwd)/Frontend --dockerfile=$(pwd)/Frontend/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
-                                    '''
-                                } else if(env.BRANCH_NAME == 'feature-back/auth-server') {
-                                    echo "Auth Server Image Build Step"
-                                    sh '''
-                                    /kaniko/executor --context=$(pwd)/Backend/AuthServer --dockerfile=$(pwd)/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash} --verbosity=debug
-                                    '''
-                                }
+                                echo "Auth Server Image Build Step"
+                                sh '''
+                                /kaniko/executor --context=$(pwd)/Backend/AuthServer --dockerfile=$(pwd)/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash} --verbosity=debug
+                                '''
                             }
                         }
                     }
