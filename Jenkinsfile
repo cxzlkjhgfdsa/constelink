@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            cloud 'kubernetes'
+            label 'kaniko'
+        }
+    }
 
     tools {
         nodejs "nodejs"
@@ -30,19 +35,17 @@ pipeline {
                 script {
                     def gitCommitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
                     echo "${gitCommitHash}"
-                    node("kubernetes") {
-                        container('kaniko') {
-                            if(env.BRANCH_NAME == 'dev-front') {
-                                echo "Front Image Build Step"
-                                sh '''
-                                /kaniko/executor --context=$(pwd)/Frontend --dockerfile=$(pwd)/Frontend/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
-                                '''
-                            } else if(env.BRANCH_NAME == 'feature-back/auth-server') {
-                                echo "Auth Server Image Build Step"
-                                sh '''
-                                /kaniko/executor --context=$(pwd)/Backend/AuthServer --dockerfile=$(pwd)/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash}
-                                '''
-                            }
+                    container('kaniko') {
+                        if(env.BRANCH_NAME == 'dev-front') {
+                            echo "Front Image Build Step"
+                            sh '''
+                            /kaniko/executor --context=$(pwd)/Frontend --dockerfile=$(pwd)/Frontend/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
+                            '''
+                        } else if(env.BRANCH_NAME == 'feature-back/auth-server') {
+                            echo "Auth Server Image Build Step"
+                            sh '''
+                            /kaniko/executor --context=$(pwd)/Backend/AuthServer --dockerfile=$(pwd)/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash}
+                            '''
                         }
                     }
                 }
