@@ -39,7 +39,9 @@ pipeline {
                           image: gcr.io/kaniko-project/executor:latest
                           imagePullPolicy: Always
                           command:
-                          - /bin/cat
+                          - sleep
+                          args:
+                          - 99d
                           volumeMounts:
                           - name: docker-config
                             mountPath: /kaniko/.docker
