@@ -25,6 +25,7 @@ import com.srp.constelinkbeneficiary.db.dto.common.GetBeneficiaryIds;
 import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiaryMemberDonate;
 import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiarySortType;
 import com.srp.constelinkbeneficiary.db.dto.enums.RecoveryDiaryMemberDonatedType;
+import com.srp.constelinkbeneficiary.db.dto.request.BeneficiaryEditRequest;
 import com.srp.constelinkbeneficiary.db.dto.request.BeneficiaryReqeust;
 import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryByDiaryDateResponse;
 import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryInfoResponse;
@@ -249,5 +250,15 @@ public class BeneficiaryService {
 		return beneficiaryInfoResponsePage;
 	}
 
+	public Long editBeneficiary(BeneficiaryEditRequest beneficiaryEditRequest, Long beneficiaryId, Long hospitalId) {
+		Beneficiary beneficiary = beneficiaryRepository.findBeneficiaryById(beneficiaryId)
+			.orElseThrow(()->new CustomException(CustomExceptionType.BENEFICIARY_NOT_FOUND));
+		if(hospitalId != beneficiary.getHospital().getId()){
+			throw new CustomException(CustomExceptionType.HOSPITAL_AUTHORIZATION_ERROR);
+		}
+		beneficiary.setBeneficiaryStatus(beneficiaryEditRequest.getBeneficiaryStatus().name());
+		beneficiaryRepository.saveAndFlush(beneficiary);
+		return beneficiary.getId();
+	}
 
 }

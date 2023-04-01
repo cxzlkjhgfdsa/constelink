@@ -15,6 +15,7 @@ import com.srp.constelinkbeneficiary.common.exception.CustomException;
 import com.srp.constelinkbeneficiary.common.exception.CustomExceptionType;
 import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiaryMemberDonate;
 import com.srp.constelinkbeneficiary.db.dto.enums.BeneficiarySortType;
+import com.srp.constelinkbeneficiary.db.dto.request.BeneficiaryEditRequest;
 import com.srp.constelinkbeneficiary.db.dto.request.BeneficiaryReqeust;
 import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryByDiaryDateResponse;
 import com.srp.constelinkbeneficiary.db.dto.response.BeneficiaryInfoResponse;
@@ -122,6 +123,28 @@ public class BeneficiaryController {
 		Page<BeneficiaryByDiaryDateResponse> beneficiaryInfoList = beneficiaryService.getBeneficiaryDonatedByMember(
 			page - 1, size, memberId, sortType);
 		return ResponseEntity.ok(beneficiaryInfoList);
+	}
+
+	@Operation(summary = "수혜자 정보 수정 (수혜자의 병원id 같아야함, header에 있으면 검사안함)", description = "beneficiaryId = 수혜자 Id "
+		+ "/ hospitalId = 해당 수혜자의 병원 Id"
+		+ "/ beneficiaryStatus 3가지 [RAISING, DONE, RECOVERING]")
+	@PostMapping("/edit/{beneficiaryId}")
+	// 해당 수혜자 정보 가져오기
+	public ResponseEntity<Long> findBeneficiaryById(
+		@PathVariable(value = "beneficiaryId") Long beneficiaryId,
+		@RequestBody BeneficiaryEditRequest beneficiaryEditRequest,
+		@RequestParam(value="hospitalId", required = false, defaultValue = "3") Long hospitalId,
+		HttpServletRequest request) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if(accessToken == null) {
+			if(hospitalId<1){
+				throw new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND);
+			}
+		} else {
+			hospitalId = jwtParser.resolveToken(accessToken);
+		}
+		Long beneficiary = beneficiaryService.editBeneficiary(beneficiaryEditRequest, beneficiaryId, hospitalId);
+		return ResponseEntity.ok(beneficiary);
 	}
 
 }
