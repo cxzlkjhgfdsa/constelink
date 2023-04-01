@@ -58,7 +58,7 @@ pipeline {
                                 } else if(env.BRANCH_NAME == 'feature-back/auth-server') {
                                     echo "Auth Server Image Build Step"
                                     sh '''
-                                    /kaniko/executor --context=$(pwd)/Backend/AuthServer --dockerfile=$(pwd)/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash}
+                                    /kaniko/executor --context=$(pwd)/Backend/AuthServer --dockerfile=$(pwd)/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash} --verbosity=debug
                                     '''
                                 }
                             }
