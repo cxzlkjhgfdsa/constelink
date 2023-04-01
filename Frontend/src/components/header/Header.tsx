@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from "../../store";
 import { useNavigate } from 'react-router-dom';
 
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
                 </ul>
 
                 {
-                 authInfo.isAuthenticated? <div className={styles.header_login} onClick={()=>navigate("/mypage")}><img className={styles.header_profile} src={authInfo.profileImg}/></div>:   <div className={styles.header_login} onClick={()=> navigate('/login')}>로그인</div>
+                 authInfo.isAuthenticated? <div className={styles.header_login} onClick={()=>navigate("/mypage")}><img className={styles.header_profile} src={authInfo.profileImg} alt="profile"/></div>:   <div className={styles.header_login} onClick={()=> navigate('/login')}>로그인</div>
                 }
               
             </div>

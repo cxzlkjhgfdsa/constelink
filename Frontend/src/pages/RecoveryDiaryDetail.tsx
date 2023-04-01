@@ -49,7 +49,7 @@ const RecoveryDiaryDetail: React.FC = () => {
   
   // Use `id` to get the cardIndex data from the backend
   
-  
+  // 디펜던시 수정
   // axios
   useEffect(() => {
     let params: any ={page:page, size:10, sortBy:"DATE_DESC"};
@@ -65,7 +65,7 @@ const RecoveryDiaryDetail: React.FC = () => {
     .catch((err) => {
       console.log(err)
     }) 
-  }, [page]);
+  }, [page,id]);
   
   // const today = new Date();
   
@@ -156,14 +156,14 @@ const RecoveryDiaryDetail: React.FC = () => {
     .catch((err) => {
       console.log(err);
     })
-
-    const newCard: RecoveryDiaryDetailData = {
-      beneficiaryId: id,
-      diaryPhoto: imageFile,
-      diaryTitle: title,
-      diaryContent: content,
-      diaryAmountSpent: totalGive,
-    };
+    //안쓴거
+    // const newCard: RecoveryDiaryDetailData = {
+    //   beneficiaryId: id,
+    //   diaryPhoto: imageFile,
+    //   diaryTitle: title,
+    //   diaryContent: content,
+    //   diaryAmountSpent: totalGive,
+    // };
     getImgUrl();
     setImageFile(imageFile);
     setTitle(title);
@@ -307,7 +307,7 @@ const RecoveryDiaryDetail: React.FC = () => {
           )}
             
           {/* 생성버튼 클릭 -> 치료일지 생성 */}
-          {isOpenModal && isChecked == true && (
+          {isOpenModal && isChecked === true && (
             <Modal onClickToggleModal={onClickToggleModal}>
             <div className={styles.modalTop}>치료일지 작성
               <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>

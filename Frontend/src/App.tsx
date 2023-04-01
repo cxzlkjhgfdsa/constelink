@@ -1,7 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import React from 'react';
 import './App.css';
-import Header from './components/header/Header';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import MainLayout from "./components/MainLayout";
@@ -14,10 +12,6 @@ import BenRegister from "./pages/BenRegister";
 import FundRegister from "./pages/FundRegister";
 import HosFundList from "./pages/HosFundList";
 import NoticePage from './pages/NoticePage';
-
-import NoticeDetail from './pages/NoticeDetail';
-import NoticeEdit from './pages/NoticeEdit';
-import CustomerMyPage from "./pages/CustomerMyPage";
 import CustomerMyHome from './pages/CustomerMyHome';
 
 import RecoveryDiary from './pages/RecoveryDiary';

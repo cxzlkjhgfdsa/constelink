@@ -26,7 +26,7 @@ const NoticeEdit = () => {
             setTitle(res.data.noticeTitle);
             setFixedType(res.data.noticeIsPinned);
         })
-    },[])
+    },[id])
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedValue(event.target.value);

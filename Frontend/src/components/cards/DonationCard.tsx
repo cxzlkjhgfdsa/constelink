@@ -28,7 +28,7 @@ const DonationCard: React.FC<Props> = ({ data }) => {
         }, 10);
         
         return () => clearInterval(intervalIdPercent);
-    }, [curValue]);
+    }, [curValue,percentage]);
 
     useEffect(() => {
         const intervalIdMoney = setInterval(() => {
@@ -40,7 +40,7 @@ const DonationCard: React.FC<Props> = ({ data }) => {
         }, 0.05);
 
         return () => clearInterval(intervalIdMoney);
-    }, [curMoney]);
+    }, [curMoney,goalMoney]);
 
     // 북마크 설정
     const [isMark, setIsMark]= useState(data.fundraisingBookmarked);

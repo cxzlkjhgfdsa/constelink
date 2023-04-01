@@ -124,7 +124,7 @@ const HomePage: React.FC = () => {
         <div className={styles.addbox_item}>
           <div className={styles.addbox_box}>
           <div className={styles.addbox_left}>    <div className={styles.addbox_ad}>광고</div></div>
-          <div className={styles.addbox_right}>  <div className={styles.addbox_verses}><img src={ssafy}/> <div><span style={{fontSize:"14px", color:"white"}}>✖</span><span style={{color:"red", marginLeft:"10px"}}>正</span>육점</div></div>
+          <div className={styles.addbox_right}>  <div className={styles.addbox_verses}><img src={ssafy} alt='ssafy'/> <div><span style={{fontSize:"14px", color:"white"}}>✖</span><span style={{color:"red", marginLeft:"10px"}}>正</span>육점</div></div>
             <div className={styles.addbox_comment}>  최강 SW아카데미 삼성 청년 SW 아카데미와 정육점의 만남</div>
             <div className={styles.addbox_finish}> 소프트웨어 최강 SSAFY와의 협약체결 <button>확인하기 ➔</button>  </div></div>
             </div>
