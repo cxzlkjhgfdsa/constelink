@@ -22,7 +22,7 @@ pipeline {
       volumes:
       - name: docker-config
         secret:
-          secretName: docker-hub
+          secretName: regcred
     '''
             }
         }
