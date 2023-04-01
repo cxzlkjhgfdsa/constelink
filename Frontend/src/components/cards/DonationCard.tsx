@@ -15,10 +15,9 @@ interface Props {
 const DonationCard: React.FC<Props> = ({ data }) => {
     const [curValue, setCurValue] = useState(0);
     const [curMoney, setCurMoney] = useState(0);
-    const [percentage, setPercentage] =useState(data.fundraisingAmountRaised / data.fundraisingAmountGoal * 100);
-    const [demicalDay, setDemicalDay] = useState(Math.floor((data.fundraisingEndTime-
-        new Date().getTime())/(3600*24*1000)));
-    const [goalMoney, setGoalMoney] =useState(data.fundraisingAmountRaised)
+    let percentage=data.fundraisingAmountRaised / data.fundraisingAmountGoal * 100;
+    let demicalDay =Math.floor((data.fundraisingEndTime-new Date().getTime())/(3600*24*1000));
+    const goalMoney =data.fundraisingAmountRaised;
 
 
 

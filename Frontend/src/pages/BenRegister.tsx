@@ -170,7 +170,7 @@ const BenRegister: React.FC = () => {
   };
   useEffect(() => {
     sendPOST();
-  }, [imgUrl]);
+  }, [imgUrl,sendPOST]);
 
   // 유효성 검사
   const checkValidity = () => {
