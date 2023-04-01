@@ -20,6 +20,7 @@ import NoticeDetail from './pages/NoticeDetail';
 import NoticeEdit from './pages/NoticeEdit';
 import CustomerMyPage from "./pages/CustomerMyPage";
 import CustomerMyHome from './pages/CustomerMyHome';
+import TestDetailPage from "./pages/TestDetailPage";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/notice/*" element={<NoticePage/>}/>
             <Route path='/fundregi' element={<FundRegister />}/>
             <Route path="/mypage/*" element={<CustomerMyHome/>}/>
+            <Route path="/fundlist/:id" element={<TestDetailPage/>}/>
           </Route >
          
            <Route path='/login' element={<Login />}/>

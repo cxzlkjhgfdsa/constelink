@@ -27,6 +27,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSackDollar, faHeartPulse, faHandHoldingHeart } from "@fortawesome/free-solid-svg-icons";
 import { faGratipay } from "@fortawesome/free-brands-svg-icons";
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useNavigate } from 'react-router';
 
 const images = [topbanner1, topbanner2, topbanner3];
 const contents = [["콘스텔링크 Constelink", "블록체인기반, 치료비 모금 플랫폼"], ["콘스텔링크 Constelink", "여러분의 관심이 많은이들에게 도움이 됩니다."], ["콘스텔링크 Constelink", "블로체인기반, 치료비 모금 플랫폼 당신의 별자리"]];
@@ -48,6 +49,7 @@ const HomePage: React.FC = () => {
 
   const [donateCard, setDonateCard] = useState<DonationData[]>([]);
   const [statistics, setStatistics] = useState<Statistics>();
+  const navigate = useNavigate();
   useEffect(() => {
     axios.get("/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=1").then((res) => {
       console.log(res.data.content);
@@ -112,7 +114,7 @@ const HomePage: React.FC = () => {
           >
             {
               donateCard.map(it => {
-                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}}><DonationCard data={it} /></SwiperSlide>
+                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}} onClick={()=>navigate(`/fundlist/${it.fundraisingId}`)}><DonationCard data={it}/></SwiperSlide>
               })
             }
           </Swiper>
