@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        kubernetes {
-            label 'constelink'
-            inheritFrom 'kaniko'
-        }
-    }
+    agent any
 
     tools {
         nodejs "nodejs"
@@ -26,15 +21,30 @@ pipeline {
                 branch 'dev-front'
             }
             steps {
+                echo "Front Image Build Step"
                 script {
                     def gitCommitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                }
-                echo "Front Image Build Step"
-                dir('Frontend') {
-                    container('kaniko') {
-                        sh '''#!/busybox/sh
-                        /kaniko/executor --context=${WORKSPACE} --dockerfile=${WORKSPACE}/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
-                        '''
+                    podTemplate(containers: [
+                        containerTemplate(
+                            name: 'kaniko',
+                            image: 'gcr.io/kaniko-project/executor:latest',
+                            ttyEnabled: true,
+                            command: 'cat',
+                            volumeMounts: [
+                                volumeMount(name: 'regcred-volume', mountPath: '/kaniko/.docker')
+                            ]
+                        )
+                    ],
+                    volumes: [
+                        secretVolume(secretName: 'regcred', mountPath: '/kaniko/.docker', readOnly: true, name: 'regcred-volume')
+                    ]) {
+                        node(POD_LABEL) {
+                            container('kaniko') {
+                                sh '''#!/bin/sh
+                                /kaniko/executor --context=$(pwd)/Frontend --dockerfile=$(pwd)/Frontend/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
+                                '''
+                            }
+                        }
                     }
                 }
             }
