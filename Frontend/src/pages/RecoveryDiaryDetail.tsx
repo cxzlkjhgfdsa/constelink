@@ -5,7 +5,7 @@ import Modal from "../components/Modal/Modal";
 import SunEditor from 'suneditor-react';
 import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css';
-import { RecoveryDiaryDetailData, RecoveryDiaryCreate } from './../models/recoveryData';
+import { RecoveryDiaries, RecoveryDiaryDetailData, RecoveryDiaryCreate } from './../models/recoveryData';
 import axios from 'axios';
 
 // 리커버리 카드 import 해야함
@@ -17,10 +17,11 @@ import axios from 'axios';
 const RecoveryDiaryDetail: React.FC = () => {
 
   // 환자정보
-  const [treatmentRecords, setTreatmentRecords] : any = useState<RecoveryDiaryDetailData[]>([]);
+  const [treatmentRecords, setTreatmentRecords] = useState<RecoveryDiaryDetailData>();
+
 
   // 치료카드
-  const [recoveryCard, setRecoveryCard] = useState<RecoveryDiaryDetailData[]>([]);
+  const [recoveryCard, setRecoveryCard] = useState<RecoveryDiaries[]>([]);
   // const { beneficiaryId: id } = useParams<{ beneficiaryId :string }>();
   // const params = useParams<{ id: string }>();
   // const id = Number(params.id);
@@ -65,9 +66,7 @@ const RecoveryDiaryDetail: React.FC = () => {
     .catch((err) => {
       console.log(err)
     }) 
-  }, [page,id]);
-  
-  // const today = new Date();
+  }, [page, id, treatmentRecords]);
   
   // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출
   const [selectedRecordIndex, setSelectedRecordIndex] = useState<number | null>(null);
@@ -228,28 +227,28 @@ const RecoveryDiaryDetail: React.FC = () => {
           </div>
           <div className={styles.cardContent}>
             <div className={styles.imageContainer}>
-              <img src={treatmentRecords.beneficiaryPhoto} alt="profile" className={styles.image} />
+              <img src={treatmentRecords?.beneficiaryPhoto} alt="profile" className={styles.image} />
             </div>
             <div className={styles.patientInfo}>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>성명</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryName}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryName}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>생년월일</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryBirthday}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryBirthday}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>병명</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryDisease}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryDisease}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>병원</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.hospitalName}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.hospitalName}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>총 모금액</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryAmountRaised}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryAmountRaised}</p>
               </div>
             </div>
           </div>
