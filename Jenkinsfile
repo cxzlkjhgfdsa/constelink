@@ -47,22 +47,24 @@ pipeline {
                           - name: docker-config
                             mountPath: /kaniko/.docker
                           tty: true
+                        nodeSelector:
+                          node-role.kubernetes.io/control-plane: ""
                         volumes:
                         - name: docker-config
                           secret:
                             secretName: regcred
                         ''') {
                         node(POD_LABEL) {
-                            container('kaniko') {
+                            container(name: 'kaniko', shell: '/bin/sh') {
                                 if(env.BRANCH_NAME == 'dev-front') {
                                     echo "Front Image Build Step"
                                     sh '''
-                                    /kaniko/executor --context=$(pwd)/Frontend --dockerfile=$(pwd)/Frontend/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
+                                    /kaniko/executor --context=`pwd`/Frontend --dockerfile=`pwd`/Frontend/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
                                     '''
                                 } else if(env.BRANCH_NAME == 'feature-back/auth-server') {
                                     echo "Auth Server Image Build Step"
                                     sh '''
-                                    /kaniko/executor --context=$(pwd)/Backend/AuthServer --dockerfile=$(pwd)/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash}
+                                    /kaniko/executor --context=`pwd`/Backend/AuthServer --dockerfile=`pwd`/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash}
                                     '''
                                 }
                             }
