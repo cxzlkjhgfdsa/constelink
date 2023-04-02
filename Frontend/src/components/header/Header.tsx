@@ -19,7 +19,7 @@ const Header: React.FC = () => {
             case '/hosfundlist':
                 setSelectedMenu('치료모금');
                 break;
-            case '/hospage':
+            case '/diary':
                 setSelectedMenu('치료일지');
                 break;
             case '/finish':
@@ -63,7 +63,7 @@ const Header: React.FC = () => {
                         borderBottom: selectedMenu === '치료일지' ? '3px solid #A19FD5' :  'none'
                     }}
                     onClick={() =>{handleClick('치료일지');
-                    navigate('/hospage')
+                    navigate('/diary')
                     } }>치료일지</li>
                     <li style={{
                         color: selectedMenu === '치료달성' ? '#A19FD5' : 'black',
