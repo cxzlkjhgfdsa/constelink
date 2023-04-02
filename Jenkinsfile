@@ -31,9 +31,7 @@ pipeline {
             }
             steps {
                 script {
-                    def gitCommitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
-                    echo "${gitCommitHash}"
-                    podTemplate(yaml: '''
+                    podTemplate(yaml: """
                       kind: Pod
                       metadata:
                         name: kaniko
@@ -47,27 +45,36 @@ pipeline {
                           args:
                           - 99d
                           volumeMounts:
+                          - name: shared-workspace
+                            mountPath: /workspace
                           - name: docker-config
                             mountPath: /kaniko/.docker
                           tty: true
                         nodeSelector:
                           node-role.kubernetes.io/control-plane: ""
                         volumes:
+                        - name: shared-workspace
+                          hostPath:
+                            path: ${WORKSPACE}
+                            type: Directory
                         - name: docker-config
                           secret:
                             secretName: regcred
-                        ''') {
+                            items:
+                            - key: .dockerconfigjson
+                              path: config.json
+                        """) {
                         node(POD_LABEL) {
                             container(name: 'kaniko', shell: '/busybox/sh') {
                                 if(env.BRANCH_NAME == 'dev-front') {
                                     echo "Front Image Build Step"
                                     sh '''#!/busybox/sh
-                                    /kaniko/executor --context=${WORKSPACE}/Frontend --dockerfile=${WORKSPACE}/Frontend/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
+                                    /kaniko/executor --context=/workspace/Frontend --dockerfile=/workspace/Frontend/Dockerfile --destination=sadoruin/constelink-front:latest
                                     '''
                                 } else if(env.BRANCH_NAME == 'feature-back/auth-server') {
                                     echo "Auth Server Image Build Step"
                                     sh '''#!/busybox/sh
-                                    /kaniko/executor --context=${WORKSPACE}/Backend/AuthServer --dockerfile=${WORKSPACE}/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash}
+                                    /kaniko/executor --context=/workspace/Backend/AuthServer --dockerfile=/workspace/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-authserver:latest
                                     '''
                                 }
                             }
