@@ -30,7 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AuthController {
 	private final AuthService authService;
-	private final CookieUtils cookieUtils;
 
 	@Operation(summary = "로그인 메서드", description = "로그인 메서드입니다.")
 	@PostMapping("/login")
@@ -39,15 +38,8 @@ public class AuthController {
 		LoginInfoDto loginInfoDto = authService.login(loginRequest);
 
 		HttpHeaders httpHeaders = new HttpHeaders();
-		ResponseCookie cookie = ResponseCookie.from("refresh", loginInfoDto.getRefreshToken())
-			.path("/")
-			.sameSite("None")
-			.httpOnly(true)
-			.secure(true)
-			.maxAge(Duration.ofDays(7))
-			.build();
-		httpHeaders.add(HttpHeaders.SET_COOKIE, cookie.toString());
 		httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + loginInfoDto.getAccessToken());
+		httpHeaders.add("refresh", loginInfoDto.getRefreshToken());
 
 		LoginResponse loginResponse = LoginResponse.builder()
 			.nickname(loginInfoDto.getNickname())
@@ -62,8 +54,7 @@ public class AuthController {
 	@PostMapping("/logout")
 	public ResponseEntity logout(HttpServletRequest request) {
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-		Cookie[] cookies = request.getCookies();
-		String refreshToken = cookieUtils.getCookieInfo(cookies, "refresh");
+		String refreshToken = request.getHeader("refresh");
 		authService.logout(accessToken, refreshToken);
 		return ResponseEntity.ok("로그아웃 완료");
 	}
@@ -72,8 +63,7 @@ public class AuthController {
 	@PostMapping("/reissue")
 	public ResponseEntity<String> reIssue(HttpServletRequest request) {
 
-		Cookie[] cookies = request.getCookies();
-		String refreshToken = cookieUtils.getCookieInfo(cookies, "refresh");
+		String refreshToken = request.getHeader("refresh");
 		String accessToken = authService.reGenerateToken(refreshToken);
 		log.info("AccessToken 재 발급 완료!!" + accessToken);
 		HttpHeaders httpHeaders = new HttpHeaders();

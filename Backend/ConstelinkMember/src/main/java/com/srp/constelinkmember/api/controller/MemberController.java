@@ -53,8 +53,7 @@ public class MemberController {
 	@PostMapping("/withdrawal")
 	public ResponseEntity withdrawal(HttpServletRequest request) {
 		String AccessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-		Cookie[] cookies = request.getCookies();
-		String refreshToken = cookieUtils.getCookieInfo(cookies, "refresh");
+		String refreshToken = request.getHeader("refresh");
 		memberService.withdrawal(AccessToken, refreshToken);
 		return ResponseEntity.ok("회원 탈최가 정상적으로 완료되었습니다");
 	}

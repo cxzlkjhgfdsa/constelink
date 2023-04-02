@@ -61,16 +61,6 @@ public class CookieUtils {
 			Base64.getUrlDecoder().decode(cookie.getValue())));
 	}
 
-	public String getCookieInfo(Cookie[] cookies, String key){
-		String cookieInfo = "";
-		for(Cookie cookie : cookies){
-			if(cookie.getName().equals("refresh")){
-				log.info("token = " + cookie.getValue());
-				cookieInfo = cookie.getValue();
-			}
-		}
-		return cookieInfo;
-	}
 
 }
 

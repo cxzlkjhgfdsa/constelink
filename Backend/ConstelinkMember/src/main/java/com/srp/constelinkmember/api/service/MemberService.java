@@ -88,9 +88,8 @@ public class MemberService {
 
 	@Transactional
 	public void modifyMemberInfo(ModifyMemberInfoRequest modifyRequest, String accessToken) {
-		// String id = tokenProvider.resolveToken(accessToken);
-		// Long memberId = Long.valueOf(id);
-		Long memberId = modifyRequest.getMemberId();
+		String id = tokenProvider.resolveToken(accessToken);
+		Long memberId = Long.valueOf(id);
 
 		Optional<Member> findMember = memberRepository.findById(memberId);
 		if (findMember.isPresent()) {
