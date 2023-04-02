@@ -26,6 +26,9 @@ pipeline {
             }
         }
         stage('Image Build') {
+            environment {
+                PATH = "/busybox:/kaniko:$PATH"
+            }
             steps {
                 script {
                     def gitCommitHash = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
@@ -55,16 +58,16 @@ pipeline {
                             secretName: regcred
                         ''') {
                         node(POD_LABEL) {
-                            container(name: 'kaniko', shell: '/bin/sh') {
+                            container(name: 'kaniko', shell: '/busybox/sh') {
                                 if(env.BRANCH_NAME == 'dev-front') {
                                     echo "Front Image Build Step"
-                                    sh '''
-                                    /kaniko/executor --context=`pwd`/Frontend --dockerfile=`pwd`/Frontend/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
+                                    sh '''#!/busybox/sh
+                                    /kaniko/executor --context=${WORKSPACE}/Frontend --dockerfile=${WORKSPACE}/Frontend/Dockerfile --destination=sadoruin/constelink-front:${gitCommitHash}
                                     '''
                                 } else if(env.BRANCH_NAME == 'feature-back/auth-server') {
                                     echo "Auth Server Image Build Step"
-                                    sh '''
-                                    /kaniko/executor --context=`pwd`/Backend/AuthServer --dockerfile=`pwd`/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash}
+                                    sh '''#!/busybox/sh
+                                    /kaniko/executor --context=${WORKSPACE}/Backend/AuthServer --dockerfile=${WORKSPACE}/Backend/AuthServer/Dockerfile --destination=sadoruin/constelink-auth-server:${gitCommitHash}
                                     '''
                                 }
                             }
