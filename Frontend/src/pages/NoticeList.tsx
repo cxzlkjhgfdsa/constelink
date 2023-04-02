@@ -18,7 +18,7 @@ const NoticeList = () => {
 
     useEffect(() => {
         let params: any = { page: page };
-        axios.get("/notices/list", {params}).then(res => {
+        axios.get("/notice/notices/list",{params}).then(res => {
             console.log(res);
             
             setTotalPage(res.data.totalElements)   

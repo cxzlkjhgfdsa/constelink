@@ -11,15 +11,26 @@ const Login : React.FC = ()=>{
     const isAuth = useSelector((state:RootState)=> state.auth.isAuthenticated);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    localStorage.setItem("access_token", "이것이access");
+    localStorage.setItem("refresh_token", "이것이refresh");
+    localStorage.setItem("role", "ADMIN");
+    const name="정원철";
+    const profileImg="정원철";
+    
+    const role="ADMIN";
+    dispatch(authActions.login({name, profileImg,role}));
+   
     useEffect(()=>{
+       
+            navigate("/")
+   
         const param = new URLSearchParams(window.location.search);
         const connect_id = param.get("connect-id");
         const flag = param.get("flag");
         console.log(connect_id,flag);
         if(connect_id!==null && flag!==null ){
             let params:any= {key: connect_id, flag: flag};
-            axios.post("http://j8a206.p.ssafy.io:8997/auth/login",params, {withCredentials:true}).then(res=>{
+            axios.post("member/auth/login",params, {withCredentials:true}).then(res=>{
                 console.log(res);
                 localStorage.setItem("access_token", res.headers.authorization);
                 localStorage.setItem("refresh_token", res.headers.refresh);

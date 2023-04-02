@@ -51,14 +51,14 @@ const HomePage: React.FC = () => {
   const [statistics, setStatistics] = useState<Statistics>();
   const navigate = useNavigate();
   useEffect(() => {
-    axios.get("/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=1").then((res) => {
+    axios.get("/fundraising/fundraisings?&page=1&size=5&sortBy=ALL&memberId=0").then((res) => {
       console.log(res.data.content);
       setDonateCard(res.data.content);
     })
   }, [])
 
   useEffect(() => {
-    axios.get("/fundraisings/statistics").then((res) => {
+    axios.get("/fundraising/fundraisings/statistics").then((res) => {
       console.log(res.data);
       setStatistics(res.data)
     })
