@@ -2,7 +2,6 @@ package com.srp.constelinkmember.api.service;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.data.redis.core.RedisTemplate;
@@ -46,7 +45,7 @@ public class MemberService {
 		}
 		findMember.get().setMemberInactive(true);
 		String redisKey = "RT:" + refreshToken;
-		Boolean isDelete = redisTemplate.delete(redisKey);
+		redisTemplate.delete(redisKey);
 		long expiration = tokenProvider.getExpiration(accessToken);
 		Date now = new Date();
 		redisTemplate.opsForValue().set(accessToken, accessToken, expiration - now.getTime());
@@ -61,10 +60,15 @@ public class MemberService {
 
 		if (roleByToken.equals("MEMBER")) {
 			log.info("MEMBER 입니다");
-			Map<String, Objects> donationInfo = donationRepository.getDonationInfo(memberId);
+			Map<String, Object> donationInfo = donationRepository.getDonationInfo(memberId);
 			Optional<Member> findMember = memberRepository.findById(memberId);
-			String tf = donationInfo.get("totalFundCount") + "";
-			String td = donationInfo.get("totalDonationPrice") + "";
+			String tf = String.valueOf(donationInfo.get("totalFundCount"));
+			log.info("tf === " + tf);
+			String td = String.valueOf(donationInfo.get("totalDonationPrice"));
+			if (td == null) {
+				td = "0";
+			}
+			log.info("td == " + td);
 			int totalFundCount = Integer.parseInt(tf);
 			int totalDonationPrice = Integer.parseInt(td);
 
@@ -88,9 +92,8 @@ public class MemberService {
 
 	@Transactional
 	public void modifyMemberInfo(ModifyMemberInfoRequest modifyRequest, String accessToken) {
-		// String id = tokenProvider.resolveToken(accessToken);
-		// Long memberId = Long.valueOf(id);
-		Long memberId = modifyRequest.getMemberId();
+		String id = tokenProvider.resolveToken(accessToken);
+		Long memberId = Long.valueOf(id);
 
 		Optional<Member> findMember = memberRepository.findById(memberId);
 		if (findMember.isPresent()) {

@@ -14,5 +14,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class BeneficiaryResponse {
-	List<Long> beneficiaryIds;
+	private List<Long> beneficiaryIds;
 }

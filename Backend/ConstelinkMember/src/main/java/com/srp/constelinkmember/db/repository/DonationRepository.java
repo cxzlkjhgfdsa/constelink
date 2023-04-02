@@ -2,7 +2,6 @@ package com.srp.constelinkmember.db.repository;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,7 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
 
 	@Query("select count(distinct d.fundraisingId) as totalFundCount, sum(d.donationPrice) as totalDonationPrice "
 		+ "from Donation d where d.memberId = :memberId")
-	Map<String, Objects> getDonationInfo(@Param("memberId") Long memberId);
+	Map<String, Object> getDonationInfo(@Param("memberId") Long memberId);
 
 	@Query("select d.beneficiaryId as beneficiaryId,d.beneficiaryName as beneficiaryName"
 		+ ", d.beneficiaryDisease as beneficiaryDisease, d.hospitalName as hospitalName, "

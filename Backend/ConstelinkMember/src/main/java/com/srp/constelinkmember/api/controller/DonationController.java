@@ -1,5 +1,6 @@
 package com.srp.constelinkmember.api.controller;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,11 +35,10 @@ public class DonationController {
 	@Operation(summary = "기부저장", description = "기부내역 저장 메서드.")
 	@PostMapping("/save")
 	public ResponseEntity saveDonation(@RequestBody SaveDonationRequest saveRequest,
-		@RequestParam("id") Long memberId,
 		HttpServletRequest request) {
-		// String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-		// String id = tokenProvider.resolveToken(accessToken);
-		// Long memberId = Long.valueOf(id);
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		String id = tokenProvider.resolveToken(accessToken);
+		Long memberId = Long.valueOf(id);
 
 		donationService.saveDonation(saveRequest, memberId);
 
@@ -48,10 +48,10 @@ public class DonationController {
 	@Operation(summary = "기부내역 조회", description = "기부내역 조회 메서드.")
 	@GetMapping("/list")
 	public ResponseEntity listDonation(@RequestParam("page") int page,
-		@RequestParam("id") Long memberId, HttpServletRequest request) {
-		// String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-		// String id = tokenProvider.resolveToken(accessToken);
-		// Long memberId = Long.valueOf(id);
+		HttpServletRequest request) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		String id = tokenProvider.resolveToken(accessToken);
+		Long memberId = Long.valueOf(id);
 		DonationDetailsResponse donationDetailsResponse = donationService.listDonation(memberId, page - 1);
 		return ResponseEntity.ok(donationDetailsResponse);
 	}
@@ -65,7 +65,7 @@ public class DonationController {
 	}
 
 	@Operation(summary = "수혜자 번호 반환", description = "사용자가 기부한 회복일지를 보기위한 데이터 반환")
-	@GetMapping("/beneficiarys")
+	@GetMapping("/beneficiaryids")
 	public ResponseEntity getBeneficiaryIds(@RequestParam("id") Long memberId) {
 		BeneficiaryResponse beneficiaryResponse = donationService.getBeneficiaryIds(memberId);
 

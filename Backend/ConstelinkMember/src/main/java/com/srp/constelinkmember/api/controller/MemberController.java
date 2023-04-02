@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.srp.constelinkmember.api.service.MemberService;
 import com.srp.constelinkmember.dto.request.ModifyMemberInfoRequest;
 import com.srp.constelinkmember.dto.response.MemberInfoResponse;
-import com.srp.constelinkmember.util.CookieUtils;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 
 	private final MemberService memberService;
-	private final CookieUtils cookieUtils;
 
 	@Operation(summary = "회원정보", description = "회원정보 조회 메서드.")
 	@GetMapping("/info")
@@ -53,10 +50,9 @@ public class MemberController {
 	@PostMapping("/withdrawal")
 	public ResponseEntity withdrawal(HttpServletRequest request) {
 		String AccessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-		Cookie[] cookies = request.getCookies();
-		String refreshToken = cookieUtils.getCookieInfo(cookies, "refresh");
+		String refreshToken = request.getHeader("refresh");
 		memberService.withdrawal(AccessToken, refreshToken);
-		return ResponseEntity.ok("회원 탈최가 정상적으로 완료되었습니다");
+		return ResponseEntity.ok("회원 탈퇴가 정상적으로 완료되었습니다");
 	}
 
 }
