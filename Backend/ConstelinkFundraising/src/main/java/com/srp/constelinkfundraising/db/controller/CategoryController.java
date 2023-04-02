@@ -31,9 +31,6 @@ public class CategoryController {
 
 	private final CategoryService categoryService;
 	private final JWTParser jwtParser;
-	private final ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9093)
-		.usePlaintext()
-		.build();
 
 	@Operation(summary = "카테고리 추가/삭제", description = "categoryName = 카테고리 이름")
 	@PostMapping("")

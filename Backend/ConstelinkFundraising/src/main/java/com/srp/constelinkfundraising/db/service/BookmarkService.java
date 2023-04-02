@@ -39,7 +39,7 @@ public class BookmarkService {
 	private final FundraisingRepository fundraisingRepository;
 	private final CategoryRepository categoryRepository;
 	private final ManagedChannel channel = ManagedChannelBuilder.forAddress(
-			"j8a206.p.ssafy.io", 8899)
+			"constelink-beneficiary", 9090)
 		.usePlaintext()
 		.build();
 	public BeneficiaryGrpcServiceGrpc.BeneficiaryGrpcServiceBlockingStub stub = BeneficiaryGrpcServiceGrpc.newBlockingStub(

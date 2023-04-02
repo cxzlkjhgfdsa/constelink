@@ -55,7 +55,7 @@ public class FundraisingService {
 	private final BookmarkRepository bookmarkRepository;
 	private final RestTemplate restTemplate;
 	private final ManagedChannel channel = ManagedChannelBuilder.forAddress(
-			"j8a206.p.ssafy.io", 8899)
+			"constelink-beneficiary", 9090)
 		.usePlaintext()
 		.build();
 	public BeneficiaryGrpcServiceGrpc.BeneficiaryGrpcServiceBlockingStub stub = BeneficiaryGrpcServiceGrpc.newBlockingStub(
