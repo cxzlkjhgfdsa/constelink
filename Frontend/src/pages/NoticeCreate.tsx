@@ -42,7 +42,7 @@ const NoticeCreate = () => {
 
         axios.post("/notices/save", boardContent).then(res => {
             console.log(res);
-            navigate(`/notice/${54}`);
+            navigate(`/notice/${res.data.id}`);
         })
     };
     const handleEditorChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -29,7 +29,7 @@ const Login : React.FC = ()=>{
         console.log(connect_id,flag);
         if(connect_id!==null && flag!==null ){
             let params:any= {key: connect_id, flag: flag};
-            axios.post("http://j8a206.p.ssafy.io:8997/auth/login",params, {withCredentials:true}).then(res=>{
+            axios.post("/auth/login",params, {withCredentials:true}).then(res=>{
                 console.log(res);
                 localStorage.setItem("access_token", res.headers.authorization);
                 localStorage.setItem("refresh_token", res.headers.refresh);
@@ -53,8 +53,8 @@ const Login : React.FC = ()=>{
 
 
             <ul className={styles.login_menu}>
-                <li id={styles.google_list} onClick={()=> window.location.href="http://j8a206.p.ssafy.io:8997/oauth2/authorization/google"}><img className={styles.google_logo} src={google} alt="google-img"/> <div>Google로 시작하기</div></li>
-                <li id={styles.kakao_list} onClick={()=> window.location.href="http://j8a206.p.ssafy.io:8997/oauth2/authorization/kakao"}><img className={styles.kakao_logo} src={kakao}  alt="kakao-img"/><div>카카오로 시작하기</div></li>
+                <li id={styles.google_list} onClick={()=> window.location.href="http://j8a206.p.ssafy.io/oauth2/authorization/google"}><img className={styles.google_logo} src={google} alt="google-img"/> <div>Google로 시작하기</div></li>
+                <li id={styles.kakao_list} onClick={()=> window.location.href="http://j8a206.p.ssafy.io/oauth2/authorization/kakao"}><img className={styles.kakao_logo} src={kakao}  alt="kakao-img"/><div>카카오로 시작하기</div></li>
             </ul>
 
             <footer>

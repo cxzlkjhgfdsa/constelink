@@ -12,7 +12,7 @@ const NoticeDetail = () => {
      const authRole = useSelector((state: RootState)=> state.auth.role);
      const { id } = useParams<{ id: string }>();
      useEffect(()=> {
-        axios.get(`http://j8a206.p.ssafy.io:8995/notices/detail?id=${id}`).then(res=>{
+        axios.get(`/notices/detail?id=${id}`).then(res=>{
             console.log(res.data.noticeContent);
             setContents(res.data)
             

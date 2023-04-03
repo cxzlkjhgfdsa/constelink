@@ -64,7 +64,7 @@ const RecoveryDiaryDetail: React.FC = () => {
   // axios
   useEffect(() => {
     let params: any ={page:page, size:6, sortBy:"DATE_DESC"};
-    axios.get(`/recoverydiaries/${id}`, {params})
+    axios.get(`/beneficiary/beneficiaries/${id}`, {params})
     .then((res) => {
       console.log(res.data);
       console.log(treatmentRecords)

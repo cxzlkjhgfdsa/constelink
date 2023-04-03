@@ -77,7 +77,7 @@ const FundMain: React.FC = () => {
   const [campaignList, setCampaignList] =useState<DonationData[]>([]);
   useEffect(()=>{
   let params: any = { page: page, size: 16};
-  axios.get('http://j8a206.p.ssafy.io:8998/fundraisings',{params}).then((res)=>{
+  axios.get('/fundraising/fundraisings',{params}).then((res)=>{
   console.log(res.data);
   setTotalPage(res.data.totalElements)
   setCampaignList(res.data.content);

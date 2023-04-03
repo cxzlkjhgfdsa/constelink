@@ -23,6 +23,7 @@ import FundPayment from "./pages/FundPayment";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
 import HospitalMyPage from "./pages/HospitalMyPage";
+import HospitalMyHome from "./pages/HostpitalMyHome";
 
 function App() {
   const authInfo = useSelector((state:RootState)=> state.auth);
@@ -43,11 +44,11 @@ function App() {
           <Route path='/fundmain/funddetail/:id' element={<FundDetail />} />
           <Route path='/fundpayment/kakao/:id' element={<FundPayment />} />
           
-          <Route path='/hospage' element={<HospitalPage />} />
-          <Route path='/benregi' element={<BenRegister />} />
-          <Route path='/fundregi' element={<FundRegister />} />
-          <Route path='/hosbenlist' element={<HosBenList />} />
-          <Route path='/hosfundlist' element={<HosFundList />} />
+          {/* <Route path='/hospage' element={<HospitalPage />} /> */}
+          {/* <Route path='/benregi' element={<BenRegister />} /> */}
+          {/* <Route path='/fundregi' element={<FundRegister />} /> */}
+          {/* <Route path='/hosbenlist' element={<HosBenList />} /> */}
+          {/* <Route path='/hosfundlist' element={<HosFundList />} /> */}
           
          
           <Route path='/diary' element={<RecoveryDiary />} />
@@ -58,7 +59,7 @@ function App() {
             authInfo.isAuthenticated && (authInfo.role==="USER"||authInfo.role==="ADMIN")?
             <Route path="/mypage/*" element={<CustomerMyHome />} />:
             authInfo.isAuthenticated && authInfo.role==="HOSPITAL"?
-            <Route path="/mypage/*" element={<HospitalMyPage />} />:""
+            <Route path="/mypage/*" element={<HospitalMyHome />} />:""
           }
          
 
