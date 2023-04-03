@@ -14,7 +14,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
 
+.create_btn{
+   width: 100%;
+    border-style: none;
+    text-align: right;
+}
+.create_btn>button{
+     border-style: none;
+     color: red;
+     width: 80px;
+     height: 35px;
+     border-radius: 5px;
+     font-size: 15px;
+     background-color: grey;
+     color: #ffffff;
+     font-weight: bold;
+     cursor: pointer;
+
+ }
+.pagination{
+    /* background-color: red; */
+    width: 100%;
 }
 
 .notice_title {
@@ -24,11 +46,13 @@
     margin-bottom: 5px;
     color: #ffffff;
     font-weight: bold;
+    
 }
 .notice_section{
     width: 920px;
     border-top: 1px solid #D6D6D6;
     border-bottom: 1px solid #D6D6D6;
+    height: 550px;
 }
 
 .notice_list{

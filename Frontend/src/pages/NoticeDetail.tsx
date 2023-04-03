@@ -14,7 +14,7 @@ const NoticeDetail = () => {
             setContents(res.data)
             
         })
-     }, [])
+     }, [id])
 
      const formatDate = (dateString: string): string => {
         const date = new Date(dateString);
@@ -29,9 +29,6 @@ const NoticeDetail = () => {
         return `${year}년 ${month}월 ${day}일 ${amOrPm} ${formattedHours}:${formattedMinutes}`;
       };
      
-    const handleClick = () => {
-
-    };
     return (
         <div className={styles.NoticeDetail}>
       

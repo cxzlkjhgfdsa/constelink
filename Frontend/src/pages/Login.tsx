@@ -3,16 +3,14 @@ import kakao from  "../assets/logo/login_kakao.png";
 import google from  "../assets/logo/login_google.png";
 import { useEffect } from 'react';
 import axios from 'axios';
-import { RootState } from '../store';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { authActions } from './../store/auth';
 import {useNavigate} from 'react-router-dom'
 const Login : React.FC = ()=>{
-    const isAuth = useSelector((state:RootState)=> state.auth.isAuthenticated);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log("ddddd");
-    
+
     useEffect(()=>{
         const param = new URLSearchParams(window.location.search);
         const connect_id = param.get("connect-id");
@@ -20,20 +18,18 @@ const Login : React.FC = ()=>{
         console.log(connect_id,flag);
         if(connect_id!==null && flag!==null ){
             let params:any= {key: connect_id, flag: flag};
-            axios.post("http://j8a206.p.ssafy.io:8997/auth/login",params).then(res=>{
+            axios.post("http://j8a206.p.ssafy.io:8997/auth/login",params, {withCredentials:true}).then(res=>{
+                console.log(res);
                 localStorage.setItem("access_token", res.headers.authorization);
-                const [name, profileImg]:string[] = [res.data.nickname, res.data.profile];
-                dispatch(authActions.login({name, profileImg}));
-                navigate("/donate")
+                const [name, profileImg, role]:string[] = [res.data.nickname, res.data.profile, res.data.role];
+                dispatch(authActions.login({name, profileImg,role}));
+                navigate("/")
             }).catch((err)=>{
                 console.log(err);
                 
             })
         }
-       
-       
-       
-    },[])
+    },[dispatch,navigate])
    
     
     return(

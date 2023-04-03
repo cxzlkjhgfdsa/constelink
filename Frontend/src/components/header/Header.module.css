@@ -47,7 +47,8 @@
     /* background-color: red; */
     padding-right: 1%;
     text-align: right;
-    word-break: keep-all
+    word-break: keep-all;
+    cursor: pointer;
 }
 
 .header_menu {

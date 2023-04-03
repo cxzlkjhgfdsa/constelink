@@ -14,7 +14,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.14",
     "@types/react": "^18.0.28",
     "@types/react-datepicker": "^4.10.0",
     "@types/react-datetime-picker": "^3.4.1",
@@ -67,5 +66,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/react-modal": "^3.13.1"
   }
 }
