@@ -1,15 +1,11 @@
-FROM nginx:stable-alpine
+FROM node:18.15-alpine
 
 WORKDIR /app
 
-RUN mkdir ./build
+COPY ./ ./
 
-ADD ./build ./build
-
-RUN rm /etc/nginx/conf.d/default.conf
-
-COPY ./nginx.conf /etc/nginx/conf.d
+RUN npm install
 
 EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "run", "start"]
