@@ -1,21 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 interface AuthState {
   isAuthenticated: boolean;
-  nickname: string,
-  profileImg: string,
-  role: string
+  nickname: string;
+  profileImg: string;
+  role: string;
 }
 
 const initialAuthState: AuthState = {
   isAuthenticated: false,
   nickname: "",
   profileImg: "",
-  role: ""
-
+  role: "",
 };
 
 const authSlice = createSlice({
-  name: 'authentication',
+  name: "authentication",
   initialState: initialAuthState,
   reducers: {
     login(state, action) {
@@ -27,9 +26,8 @@ const authSlice = createSlice({
     logout(state) {
       state.isAuthenticated = false;
       state.role = "";
-      state.nickname=""
-      state.profileImg=""
-
+      state.nickname = "";
+      state.profileImg = "";
     },
   },
 });

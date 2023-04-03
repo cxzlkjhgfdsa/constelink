@@ -1,20 +1,24 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import authReducer from './auth';
+import { configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import authReducer from "./auth";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-  whitelist: ['role','nickname','isAuthenticated',"profileImg"],
+  whitelist: ["role", "nickname", "isAuthenticated", "profileImg"],
 };
 
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
 const store = configureStore({
-  reducer: { 
-    auth: authReducer,
- },
+  reducer: {
+    auth: persistedReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false, // redux-persist와 함께 사용하기 위해 직렬화 확인 무시
+    }),
 });
 
 const persistor = persistStore(store);
