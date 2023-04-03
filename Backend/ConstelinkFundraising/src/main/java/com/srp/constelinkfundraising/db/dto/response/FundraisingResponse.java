@@ -32,4 +32,5 @@ public class FundraisingResponse {
 	private String beneficiaryStatus;
 	private Long beneficiaryBirthday;
 	private String beneficiaryPhoto;
+	private String fundraisingWillUse;
 }

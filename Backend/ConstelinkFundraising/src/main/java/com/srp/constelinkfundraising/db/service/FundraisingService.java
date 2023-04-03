@@ -1,5 +1,7 @@
 package com.srp.constelinkfundraising.db.service;
 
+import static com.srp.constelinkfundraising.ConstelinkFundraisingApplication.*;
+
 import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.util.HashSet;
@@ -7,10 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -32,7 +35,6 @@ import com.srp.constelinkfundraising.db.dto.response.FundraisingBeneficiaryRespo
 import com.srp.constelinkfundraising.db.dto.response.FundraisingResponse;
 import com.srp.constelinkfundraising.db.dto.response.StatisticsResponse;
 import com.srp.constelinkfundraising.db.dto.response.StatsDataResponse;
-import com.srp.constelinkfundraising.db.entity.Bookmark;
 import com.srp.constelinkfundraising.db.entity.Category;
 import com.srp.constelinkfundraising.db.entity.Fundraising;
 import com.srp.constelinkfundraising.db.repository.BookmarkRepository;
@@ -50,16 +52,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FundraisingService {
 
+
+
 	private final FundraisingRepository fundraisingRepository;
 	private final CategoryRepository categoryRepository;
 	private final BookmarkRepository bookmarkRepository;
 	private final RestTemplate restTemplate;
 	private final ManagedChannel channel = ManagedChannelBuilder.forAddress(
-			"constelink-beneficiary", 9090)
+			"constelink-beneficiary",9090)
 		.usePlaintext()
 		.build();
 	public BeneficiaryGrpcServiceGrpc.BeneficiaryGrpcServiceBlockingStub stub = BeneficiaryGrpcServiceGrpc.newBlockingStub(
 		channel);
+
 
 	public Page<FundraisingResponse> getFundraisings(int page, int size,
 		FundraisingSortType sortType, Long memberId) {
@@ -103,6 +108,7 @@ public class FundraisingService {
 		Page<FundraisingResponse> fundraisingResponsePage = fundraising.map(
 			fund -> {
 				idList.add(fund.getBeneficiaryId());
+				System.out.println(fund.getFundraisingWillUse());
 				return new FundraisingResponse().builder()
 					.fundraisingIsDone(fund.isFundraisingIsDone())
 					.fundraisingPeople(fund.getFundraisingPeople())
@@ -122,6 +128,7 @@ public class FundraisingService {
 					.beneficiaryId(fund.getBeneficiaryId())
 					.categoryName(fund.getCategory().getCategoryName())
 					.fundraisingBookmarked(memberBookmark.contains(fund.getId()))
+					.fundraisingWillUse(fund.getFundraisingWillUse()==null?"":fund.getFundraisingWillUse())
 					.build();
 			}
 		);
@@ -203,6 +210,7 @@ public class FundraisingService {
 				.beneficiaryId(fund.getBeneficiaryId())
 				.categoryName(fund.getCategory().getCategoryName())
 				.fundraisingBookmarked(memberBookmark.contains(fund.getId()))
+				.fundraisingWillUse(fund.getFundraisingWillUse()==null?"":fund.getFundraisingWillUse())
 				.build()
 		);
 
@@ -239,6 +247,7 @@ public class FundraisingService {
 		if(makeFundraisingRequest.getFundraisingTitle() == "") {
 			throw new CustomException(CustomExceptionType.TITLE_NOT_FOUND);
 		}
+
 		BeneficiaryInfoReq beneficiariesInfoReq = BeneficiaryInfoReq.newBuilder()
 			.setId(makeFundraisingRequest.getBeneficiaryId()).build();
 		BeneficiaryInfoRes beneficiaryInfoRes;
@@ -260,7 +269,12 @@ public class FundraisingService {
 			.hospitalName(beneficiaryInfoRes.getHospital())
 			.hospitalId(beneficiaryInfoRes.getHospitalId())
 			.build();
-			fundraisingRepository.saveAndFlush(fundraising);
+		if(makeFundraisingRequest.getFundraisingWillUse()==null){
+			fundraising.setFundraisingWillUse("");
+		} else {
+			fundraising.setFundraisingWillUse(makeFundraisingRequest.getFundraisingWillUse());
+		}
+		fundraisingRepository.saveAndFlush(fundraising);
 		return fundraising;
 	}
 
@@ -318,6 +332,7 @@ public class FundraisingService {
 					.categoryName(fund.getCategory().getCategoryName())
 					.fundraisingBookmarked(memberBookmark.contains(fund.getId()))
 					.hospitalName(fund.getHospitalName())
+					.fundraisingWillUse(fund.getFundraisingWillUse()==null?"":fund.getFundraisingWillUse())
 					.build();
 			});
 		BeneficiariesInfoReq beneficiariesInfoReq = BeneficiariesInfoReq.newBuilder()
@@ -379,6 +394,7 @@ public class FundraisingService {
 					.beneficiaryId(fund.getBeneficiaryId())
 					.categoryName(fund.getCategory().getCategoryName())
 					.fundraisingBookmarked(memberBookmark.contains(fund.getId()))
+					.fundraisingWillUse(fund.getFundraisingWillUse()==null?"":fund.getFundraisingWillUse())
 					.build();
 			}
 		);
@@ -427,6 +443,7 @@ public class FundraisingService {
 			.beneficiaryId(fund.getBeneficiaryId())
 			.categoryName(fund.getCategory().getCategoryName())
 			.fundraisingBookmarked(bookmarked)
+			.fundraisingWillUse(fund.getFundraisingWillUse()==null?"":fund.getFundraisingWillUse())
 			.build();
 		//List 중복제거
 		BeneficiaryInfoReq beneficiaryInfoReq = BeneficiaryInfoReq.newBuilder().setId(1).build();

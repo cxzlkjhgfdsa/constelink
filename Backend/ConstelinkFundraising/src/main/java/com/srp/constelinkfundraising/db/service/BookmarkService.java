@@ -2,9 +2,8 @@ package com.srp.constelinkfundraising.db.service;
 
 import java.time.ZoneId;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+
+
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,8 +20,6 @@ import com.srp.constelinkfundraising.db.dto.request.BookmarkFundraisingRequest;
 import com.srp.constelinkfundraising.db.dto.response.FundraisingResponse;
 import com.srp.constelinkfundraising.db.entity.Bookmark;
 import com.srp.constelinkfundraising.db.entity.BookmarkId;
-import com.srp.constelinkfundraising.db.entity.Category;
-import com.srp.constelinkfundraising.db.entity.Fundraising;
 import com.srp.constelinkfundraising.db.repository.BookmarkRepository;
 import com.srp.constelinkfundraising.db.repository.CategoryRepository;
 import com.srp.constelinkfundraising.db.repository.FundraisingRepository;
@@ -35,15 +32,18 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BookmarkService {
+
+
 	private final BookmarkRepository bookmarkRepository;
 	private final FundraisingRepository fundraisingRepository;
 	private final CategoryRepository categoryRepository;
-	private final ManagedChannel channel = ManagedChannelBuilder.forAddress(
-			"constelink-beneficiary", 9090)
+	private ManagedChannel channel = ManagedChannelBuilder.forAddress(
+			"constelink-beneficiary",9090)
 		.usePlaintext()
 		.build();
 	public BeneficiaryGrpcServiceGrpc.BeneficiaryGrpcServiceBlockingStub stub = BeneficiaryGrpcServiceGrpc.newBlockingStub(
 		channel);
+
 
 	@Transactional
 	public Boolean bookmarkFundraising(BookmarkFundraisingRequest bookmarkFundraisingRequest) {
@@ -75,7 +75,6 @@ public class BookmarkService {
 		// Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberId(memberId, PageRequest.of(page, size));
 
 		Page<Bookmark> bookmarks = bookmarkRepository.findBookmarksByIdMemberIdForRead(memberId, PageRequest.of(page, size));
-		System.out.println(memberId);
 		// List<Category> categories = categoryRepository.findAll();
 		// HashSet<Fundraising> fundraisings = fundraisingRepository.findFundraisingsByIdIsIn(bookmarks.));
 		HashSet<Long> idList = new HashSet<>();
@@ -105,6 +104,7 @@ public class BookmarkService {
 				.fundraisingStory(bookmark.getFundraising().getFundraisingStory())
 				.fundraisingPeople(bookmark.getFundraising().getFundraisingPeople())
 				.fundraisingBookmarked(true)
+				.fundraisingWillUse(bookmark.getFundraising().getFundraisingWillUse())
 				.build();
 		});
 		BeneficiariesInfoReq beneficiariesInfoReq = BeneficiariesInfoReq.newBuilder()

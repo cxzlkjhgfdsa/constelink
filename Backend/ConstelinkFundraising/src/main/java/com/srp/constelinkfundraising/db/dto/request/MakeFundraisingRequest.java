@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.srp.constelinkfundraising.db.entity.Category;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class MakeFundraisingRequest {
@@ -22,5 +23,6 @@ public class MakeFundraisingRequest {
 	private String fundraisingStory;
 
 	private String fundraisingThumbnail;
+	private String fundraisingWillUse;
 
 }

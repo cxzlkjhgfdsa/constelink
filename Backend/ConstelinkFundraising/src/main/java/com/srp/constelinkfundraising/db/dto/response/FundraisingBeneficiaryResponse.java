@@ -27,4 +27,6 @@ public class FundraisingBeneficiaryResponse {
 	private boolean fundraisingIsDone;
 	private boolean fundraisingBookmarked;
 
+	private String fundraisingWillUse;
+
 }
