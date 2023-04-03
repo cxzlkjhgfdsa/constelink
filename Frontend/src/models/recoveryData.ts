@@ -7,6 +7,7 @@ export interface RecoveryDiaryData {
   beneficiaryAmountGoal: number,
   beneficiaryAmountRaised : number,
   beneficiaryBirthday : number,
+  hospitalName: string,
 }
 
 export interface RecoveryDiaryDetailData {
