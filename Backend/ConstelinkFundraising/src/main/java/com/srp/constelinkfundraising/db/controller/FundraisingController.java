@@ -96,7 +96,7 @@ public class FundraisingController {
 		+ " fundraisingAmountGoal = 기부 목표 금액, fundraisingEndTime = 기부 마감 시간,"
 		+ " fundraisingTitle = 기부 제목, fundraisingStory = 기부 사연(내용), fundraisingThumbnail = 기부 썸네일, "
 		+ "hospitalId는 header값있으면 그 값으로 확인, 헤더 없으면 hospitalId는 꼭 넣어서 사용")
-	@PostMapping("/makefundraising")
+	@PostMapping("/register")
 	public ResponseEntity<Fundraising> makeFundraising(
 		@RequestBody MakeFundraisingRequest makeFundraisingRequest,
 		@RequestParam(name = "hospitalId", required = false, defaultValue = "0") Long hospitalId,
