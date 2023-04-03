@@ -18,7 +18,7 @@ module.exports = function(app) {
   )
 
   app.use(
-    ["/fundraisings","/bookmarks"],
+    ["/fundraisings","/bookmarks", "/categories"],
     createProxyMiddleware({
       target: 'http://j8a206.p.ssafy.io:8998',
       changeOrigin: true,
@@ -26,7 +26,7 @@ module.exports = function(app) {
   )
 
   app.use(
-    ["/beneficiaries"],
+    ["/beneficiaries", "/recoverydiaries" ,"hospitals"],
     createProxyMiddleware({
       target: "http://j8a206.p.ssafy.io:8999",
       changeOrigin: true,

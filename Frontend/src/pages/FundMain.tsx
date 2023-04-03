@@ -74,7 +74,7 @@ const FundMain: React.FC = () => {
     };
 
 
-  const [campaignList, setCampaignList] =useState([]);
+  const [campaignList, setCampaignList] =useState<DonationData[]>([]);
   useEffect(()=>{
   let params: any = { page: page, size: 16};
   axios.get('http://j8a206.p.ssafy.io:8998/fundraisings',{params}).then((res)=>{
@@ -101,7 +101,7 @@ const FundMain: React.FC = () => {
         <div className={styles.cardsWrapper}>
           {   
             campaignList.map((it, idx) =>{
-              return <div className={styles.cardWrapper} key={idx} ><DonationCard data={it} /></div>
+              return <div className={styles.cardWrapper} key={idx} onClick={()=> navigate(`/fundmain/funddetail/${it.fundraisingId}`)}><DonationCard data={it} /></div>
             })
           }
         </div>

@@ -26,6 +26,10 @@ const authSlice = createSlice({
     },
     logout(state) {
       state.isAuthenticated = false;
+      state.role = "";
+      state.nickname=""
+      state.profileImg=""
+
     },
   },
 });

@@ -6,17 +6,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAddressCard, faStar, faHospitalUser, faRightFromBracket, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
+import { authActions } from '../store/auth';
 
 const CustomerMyPage: React.FC = () => {
     const authInfo = useSelector((state:RootState)=> state.auth);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const logoutHandler = ()=>{
         const accessToken = localStorage.getItem('access_token');
+        const refreshToken = localStorage.getItem('refresh_token');
         axios.defaults.headers.common['authorization'] = accessToken;
-        axios.post("http://j8a206.p.ssafy.io:8997/auth/logout").then(res=>{
+        axios.defaults.headers.common['refresh'] = refreshToken;
+        axios.post("/auth/logout").then(res=>{
             console.log(res);
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("refresh_token");
+            dispatch(authActions.logout());
+            navigate("/")
+        
         }).catch((err)=>{
             console.log(err);
         })
@@ -45,7 +54,7 @@ const CustomerMyPage: React.FC = () => {
                     <li><div className={styles.menu_left} onClick={() => navigate("favorite")}><FontAwesomeIcon className={styles.menu_logo} icon={faStar} /><div>관심 모금</div></div>  <FontAwesomeIcon icon={faChevronRight} /></li>
                     <li><div className={styles.menu_left} onClick={() => navigate("donatelist")}><FontAwesomeIcon className={styles.menu_logo} icon={faHospitalUser} /><div>모금목록 조회</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
                     <li><div className={styles.menu_left} onClick={() => navigate("restorelist")}><FontAwesomeIcon className={styles.menu_logo} icon={faHospitalUser} /><div>회복일지 조회</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
-                    <li><div className={styles.menu_left} onClick={logoutHandler}><FontAwesomeIcon className={styles.menu_logo} icon={faRightFromBracket} /><div>로그아웃</div></div> </li>
+                    <li><div className={styles.menu_left} onClick={logoutHandler}><FontAwesomeIcon className={styles.menu_logo} icon={faRightFromBracket} onClick={logoutHandler} /><div>로그아웃</div></div> </li>
                 </ul>
 
             </nav>

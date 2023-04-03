@@ -17,6 +17,7 @@
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.2s ease;
+    /* z-index: 1; */
 }
 
 .DonationCard:hover {
@@ -25,6 +26,7 @@
 .bookmark{
     padding: 14px;
     font-size: 17px;
+ 
 }
 
 

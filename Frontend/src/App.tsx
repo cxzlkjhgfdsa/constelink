@@ -17,28 +17,45 @@ import CustomerMyHome from './pages/CustomerMyHome';
 
 import RecoveryDiary from './pages/RecoveryDiary';
 import RecoveryDiaryDetail from './pages/RecoveryDiaryDetail';
+import FundMain from "./pages/FundMain";
+import FundDetail from "./pages/FundDetail";
+import FundPayment from "./pages/FundPayment";
 
 function App() {
   return (
-      <div className="App">
-       
-        <Routes>
-          <Route element={<MainLayout/>}>
-            <Route path='/' element={<HomePage/>}/>
-            <Route path='/hospage' element={<HospitalPage />}/>
-            <Route path='/benregi' element={<BenRegister />}/>
-            <Route path='/fundregi' element={<FundRegister />}/>
-            <Route path='/hosbenlist' element={<HosBenList />}/>
-            <Route path='/hosfundlist' element={<HosFundList />}/>
-            <Route path="/notice/*" element={<NoticePage/>}/>
-            <Route path="/mypage/*" element={<CustomerMyHome/>}/>
-            <Route path='/diary' element={<RecoveryDiary/>}/>
-            <Route path='/diarydetail/:id' element={<RecoveryDiaryDetail/>}/>
-          </Route >
+    <div className="App">
+
+      <Routes>
+        <Route element={<MainLayout />}>
+          {/* 홈 페이지 */}
+          <Route path='/' element={<HomePage />} />
+          {/* 공지사항 페이지 */}
+          <Route path="/notice/*" element={<NoticePage />} />
+          
+          {/* 일반고객 마이페이지 */}
+          <Route path="/mypage/*" element={<CustomerMyHome />} />
+          
+          {/* 모금 페이지 */}
+          <Route path='/fundmain' element={<FundMain />} />
+          <Route path='/fundmain/funddetail/:id' element={<FundDetail />} />
+          <Route path='/fundpayment/kakao/:id' element={<FundPayment />} />
+          
+          <Route path='/hospage' element={<HospitalPage />} />
+          <Route path='/benregi' element={<BenRegister />} />
+          <Route path='/fundregi' element={<FundRegister />} />
+          <Route path='/hosbenlist' element={<HosBenList />} />
+          <Route path='/hosfundlist' element={<HosFundList />} />
+          
          
-           <Route path='/login' element={<Login />}/>
-        </Routes>
-      </div> 
-  )}
+          <Route path='/diary' element={<RecoveryDiary />} />
+          <Route path='/diarydetail/:id' element={<RecoveryDiaryDetail />} />
+          
+        </Route >
+
+        <Route path='/login' element={<Login />} />
+      </Routes>
+    </div>
+  )
+}
 export default App;
 
