@@ -5,6 +5,10 @@
 
 /*컴포넌트 전체 */
 .DonationCard {
+<<<<<<< HEAD
+=======
+   
+>>>>>>> feature-front/fund-main
     width: 91%;
     height: 290px;
     margin-left: 10px;
@@ -17,6 +21,10 @@
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.2s ease;
+<<<<<<< HEAD
+=======
+    z-index: 1px;
+>>>>>>> feature-front/fund-main
 }
 
 .DonationCard:hover {

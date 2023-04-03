@@ -10,4 +10,8 @@ const MainLayout: React.FC = () => {
   )
 }
 
+<<<<<<< HEAD
 export default MainLayout;
+=======
+export default MainLayout;
+>>>>>>> feature-front/fund-main

@@ -4,6 +4,7 @@
     margin-top: 15px;
     /* border: 1px solid; */
     /* color: red; */
+<<<<<<< HEAD
 }
 
 ul {
@@ -12,6 +13,16 @@ ul {
 }
 
 ul.pagination li {
+=======
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul.pagination li {
+>>>>>>> feature-front/fund-main
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -21,6 +32,7 @@ ul.pagination li {
     justify-content: center;
     align-items: center;
     font-size: 1rem;
+<<<<<<< HEAD
 }
 
 ul.pagination li:first-child {
@@ -55,3 +67,40 @@ ul.pagination li a.active {
     height: 30px;
     color: #337ab7;
 }
+=======
+  }
+
+  ul.pagination li:first-child{
+    border-radius: 5px 0 0 5px;
+  }
+
+  ul.pagination li:last-child{
+    border-radius: 0 5px 5px 0;
+  }
+  
+  ul.pagination li a {
+    text-decoration: none;
+    color: #ececec;
+    font-size: 1rem;
+  }
+  
+  ul.pagination li.active a {
+    color: white;
+  }
+
+  ul.pagination li.active {
+    background-color: purple;
+    
+  }
+  
+  ul.pagination li a:hover,
+  ul.pagination li a.active {
+    color: #c9fd61;
+  }
+  
+  .page-selection {
+    width: 48px;
+    height: 30px;
+    color: #337ab7;
+  }
+>>>>>>> feature-front/fund-main
