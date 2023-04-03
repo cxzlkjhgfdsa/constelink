@@ -63,8 +63,8 @@ const RecoveryDiaryDetail: React.FC = () => {
   // 디펜던시 수정
   // axios
   useEffect(() => {
-    let params: any ={page:page, size:10, sortBy:"DATE_DESC"};
-    axios.get(`/recoverydiaries/${id}`, params)
+    let params: any ={page:page, size:6, sortBy:"DATE_DESC"};
+    axios.get(`/recoverydiaries/${id}`, {params})
     .then((res) => {
       console.log(res.data);
       console.log(treatmentRecords)
@@ -76,7 +76,7 @@ const RecoveryDiaryDetail: React.FC = () => {
     .catch((err) => {
       console.log(err)
     }) 
-  }, [page, id, treatmentRecords]);
+  }, [page, id, setRecoveryCard]);
   
   // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출
   const [selectedRecordIndex, setSelectedRecordIndex] = useState<any>(null);
