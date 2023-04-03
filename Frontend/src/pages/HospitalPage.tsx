@@ -25,7 +25,7 @@ const HospitalPage: React.FC = () => {
             <div className={styles.menuText}>
               수혜자 목록 조회하기
             </div>
-            <div className={styles.menuArrow}></div>
+            <div className={styles.menuArrow} onClick={() => navigate('/hosbenlist')}></div>
           </div>
           <div className={styles.menuBar}>
             <div className={styles.menuIcon}>
@@ -44,7 +44,7 @@ const HospitalPage: React.FC = () => {
             <div className={styles.menuText}>
               진행중인 모금 목록 조회하기
             </div>
-            <div className={styles.menuArrow}></div>
+            <div className={styles.menuArrow} onClick={() => navigate('/hosfundlist')}></div>
           </div>
           <div className={styles.menuBar}>
             <div className={styles.menuIcon}>

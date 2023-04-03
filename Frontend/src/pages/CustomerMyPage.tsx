@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from "./CustomerMyPage.module.css"
-import image from './../assets/logo/login_google.png';
 import image1 from './../assets/logo/heart1.png';
 import image2 from './../assets/logo/star1.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,7 +26,7 @@ const CustomerMyPage: React.FC = () => {
         <div className={styles.CustomerMyPage}>
 
             <div className={styles.user_profile}>
-                <div className={styles.user_img}><img src={authInfo.profileImg} /></div>
+                <div className={styles.user_img}><img src={authInfo.profileImg} alt='profile' /></div>
                 <div className={styles.user_name}>
                     <div className={styles.comment_greet}>반갑습니다. {authInfo.nickname}님!</div>
                     <div className={styles.comment_mypage}>기부왕{authInfo.nickname} 님의 마이페이지</div>
@@ -54,14 +53,14 @@ const CustomerMyPage: React.FC = () => {
             <div className={styles.user_log}>
 
                 <div className={styles.user_donate}>
-                    <div className={styles.user_img}><img src={image1} /></div>
+                    <div className={styles.user_img}><img src={image1} alt='heart' /></div>
                     <div className={styles.donate_title} >누적 기부액</div>
                     <div className={styles.donate_amount}>2,000,000원</div>
                 </div>
 
 
                 <div className={styles.user_donate}>
-                    <div className={styles.user_img}><img src={image2} /></div>
+                    <div className={styles.user_img}><img src={image2} alt='star' /></div>
                     <div className={styles.donate_title}>기부 횟수</div>
                     <div className={styles.donate_amount}>45회</div>
                 </div>

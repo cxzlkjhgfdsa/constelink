@@ -13,7 +13,7 @@ const NoticeEdit = () => {
     const [fixedType, setFixedType] = useState(false);
     const [selectedValue, setSelectedValue] = useState<string>('COMMON');
     const [title, setTitle] = useState('');
-    const [contents, setContents] = useState('');
+    // const [contents, setContents] = useState('');
     const [boforeContent, setBeforeContent] = useState('');
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
@@ -21,12 +21,12 @@ const NoticeEdit = () => {
         axios.get(`http://j8a206.p.ssafy.io:8995/notices/detail?id=${id}`).then(res=>{
             console.log(res);
             setBeforeContent(res.data.noticeContent);
-            setContents(res.data.noticeContent);
+            // setContents(res.data.noticeContent);
             setSelectedValue(res.data.noticeType);
             setTitle(res.data.noticeTitle);
             setFixedType(res.data.noticeIsPinned);
         })
-    },[])
+    },[id])
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedValue(event.target.value);

@@ -1,7 +1,5 @@
-import axios from 'axios';
 import React, { useState, useCallback, useRef, useEffect }  from 'react';
 import styles from './RecoveryDiaryDetail.module.css';
-import { RecoveryDiaryDetailData, RecoveryDiaryCreate } from './../models/recoveryData';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import Pagination from "react-js-pagination";
@@ -11,9 +9,8 @@ import Modal from "../components/Modal/Modal";
 import SunEditor from 'suneditor-react';
 import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css';
-
-
-
+import { RecoveryDiaries, RecoveryDiaryDetailData, RecoveryDiaryCreate } from './../models/recoveryData';
+import axios from 'axios';
 
 // 리커버리 카드 import 해야함
 // 리커버리 카드 -> 생성버튼 -> 모달을 통해 create -> 카드로 생성 
@@ -24,10 +21,13 @@ import 'suneditor/dist/css/suneditor.min.css';
 const RecoveryDiaryDetail: React.FC = () => {
 
   // 환자정보
-  const [treatmentRecords, setTreatmentRecords] : any = useState<RecoveryDiaryDetailData[]>([]);
+  const [treatmentRecords, setTreatmentRecords] = useState<RecoveryDiaryDetailData>();
 
   // 치료카드
-  const [recoveryCard, setRecoveryCard] = useState<RecoveryDiaryDetailData[]>([]);
+  const [recoveryCard, setRecoveryCard] = useState<RecoveryDiaries[]>([]);
+  // const { beneficiaryId: id } = useParams<{ beneficiaryId :string }>();
+  // const params = useParams<{ id: string }>();
+  // const id = Number(params.id);
 
   // 병원계정일 때 -> 설정 필요
   const [isChecked, setChecked] = useState<boolean>(true);
@@ -43,6 +43,12 @@ const RecoveryDiaryDetail: React.FC = () => {
   // 모달이 열려있는지 여부 확인
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   
+   // 카드 클릭했을 때 모달 열고 닫기
+   const onClickToggleModal = useCallback(() => {
+    setOpenModal(!isOpenModal);
+  }, [isOpenModal]); 
+
+
   // 페이지네이션을 위한 설정
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -52,28 +58,25 @@ const RecoveryDiaryDetail: React.FC = () => {
     setPage(page);
 };
   
-
-// axios
-useEffect(() => {
-  let params: any ={page:page, size:6, sortBy:'DATE_DESC'};
-  axios.get(`/recoverydiaries/${id}`,{params})
-  .then(res => {
-    console.log(res)
-    // setPage(page);
-    setTreatmentRecords(res.data.beneficiaryInfo)
-    setRecoveryCard(res.data.beneficiaryDiaries.content)
-    setTotalPage(res.data.totalElements)
-  })
-  .catch((err) => {
-    console.log(err)
-  }) 
-}, [page]);
-
-// 카드 클릭했을 때 모달 열고 닫기
-const onClickToggleModal = useCallback(() => {
-  setOpenModal(!isOpenModal);
-  setImgPreUrl('');
-}, [isOpenModal]); 
+  // Use `id` to get the cardIndex data from the backend
+  
+  // 디펜던시 수정
+  // axios
+  useEffect(() => {
+    let params: any ={page:page, size:10, sortBy:"DATE_DESC"};
+    axios.get(`/recoverydiaries/${id}`, params)
+    .then((res) => {
+      console.log(res.data);
+      console.log(treatmentRecords)
+      setPage(page);
+      setTreatmentRecords(res.data.beneficiaryInfo)
+      setRecoveryCard(res.data.beneficiaryDiaries.content)
+      
+    })
+    .catch((err) => {
+      console.log(err)
+    }) 
+  }, [page, id, treatmentRecords]);
   
   // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출
   const [selectedRecordIndex, setSelectedRecordIndex] = useState<any>(null);
@@ -236,33 +239,32 @@ const onClickToggleModal = useCallback(() => {
         
         <div className={styles.cardIndex}>
           <div className={styles.cardTop}>
-          <p className={styles.title}>"{treatmentRecords.beneficiaryName}" 님의 치료일지</p>
+          <p className={styles.title}>"{treatmentRecords?.beneficiaryName}" 님의 치료일지</p>
           </div>
           <div className={styles.cardContent}>
             <div className={styles.imageContainer}>
-              <img src={treatmentRecords.beneficiaryPhoto} alt="profile" className={styles.image} />
+              <img src={treatmentRecords?.beneficiaryPhoto} alt="profile" className={styles.image} />
             </div>
             <div className={styles.patientInfo}>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>성명</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryName}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryName}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>생년월일</p>
-                <p className={styles.patientInfoContent}>{formatDate(treatmentRecords.beneficiaryBirthday)}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryBirthday}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>병명</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryDisease}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryDisease}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>병원</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.hospitalName}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.hospitalName}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>총 모금액</p>
-                <p className={styles.patientInfoContent}>{addCommas(treatmentRecords.beneficiaryAmountRaised)}원</p>
-                {/* <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryAmountRaised}원</p> */}
+                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryAmountRaised}</p>
               </div>
             </div>
           </div>
@@ -348,7 +350,7 @@ const onClickToggleModal = useCallback(() => {
           )}
             
           {/* 생성버튼 클릭 -> 치료일지 생성 */}
-          {isOpenModal && isChecked == true && (
+          {isOpenModal && isChecked === true && (
             <Modal onClickToggleModal={onClickToggleModal}>
             <div className={styles.modalTopCreate}>
               <div className={styles.modalText}>치료일기 생성</div>

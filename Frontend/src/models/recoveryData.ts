@@ -11,6 +11,7 @@ export interface RecoveryDiaryData {
 
 export interface RecoveryDiaryDetailData {
   // beneficiaryInfo
+  beneficiaryId : number,
   beneficiaryName: string,
   beneficiaryBirthday : number,
   beneficiaryDisease: string,
@@ -18,9 +19,11 @@ export interface RecoveryDiaryDetailData {
   beneficiaryAmountRaised : number,
   beneficiaryAmountGoal: number,
   hospitalName: string,
-  
+}  
   // beneficiaryDiaries
-  // beneficiaryName: string,
+
+export interface RecoveryDiaries {
+  beneficiaryName: string,
   diaryId: number,
   beneficiaryId : number | string,
   diaryRegisterDate: number | string,  

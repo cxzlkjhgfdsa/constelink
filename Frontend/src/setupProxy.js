@@ -7,7 +7,7 @@ module.exports = function(app) {
       target: 'http://j8a206.p.ssafy.io:8996',
       changeOrigin: true,
     })
-  );
+  )
   
   app.use(
     ["/auth, /members"],
@@ -15,7 +15,7 @@ module.exports = function(app) {
       target: 'http://j8a206.p.ssafy.io:8997',
       changeOrigin: true,
     })
-  );
+  )
 
   app.use(
     ["/fundraisings","/bookmarks"],
@@ -23,7 +23,7 @@ module.exports = function(app) {
       target: 'http://j8a206.p.ssafy.io:8998',
       changeOrigin: true,
     })
-  );
+  )
 
   app.use(
     ["/beneficiaries", "/recoverydiaries", "/bookmarks" ],

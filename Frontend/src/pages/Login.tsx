@@ -3,16 +3,14 @@ import kakao from  "../assets/logo/login_kakao.png";
 import google from  "../assets/logo/login_google.png";
 import { useEffect } from 'react';
 import axios from 'axios';
-import { RootState } from '../store';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { authActions } from './../store/auth';
 import {useNavigate} from 'react-router-dom'
 const Login : React.FC = ()=>{
-    const isAuth = useSelector((state:RootState)=> state.auth.isAuthenticated);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const xhr = new XMLHttpRequest();
-    // xhr.withCredentials = true;
+
     useEffect(()=>{
         const param = new URLSearchParams(window.location.search);
         const connect_id = param.get("connect-id");
@@ -31,10 +29,7 @@ const Login : React.FC = ()=>{
                 
             })
         }
-       
-       
-       
-    },[])
+    },[dispatch,navigate])
    
     
     return(

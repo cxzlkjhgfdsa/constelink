@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Routes } from 'react-router';
 import CustomerEditPage from './CustomerEditPage';
 import CustomerFavoritePage from './CustomerFavoritePage';

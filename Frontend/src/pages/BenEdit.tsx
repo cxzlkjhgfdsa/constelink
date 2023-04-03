@@ -16,9 +16,12 @@ const maxSize = 50 * 1024 * 1024; // 사진파일크기 50mb
 registerLocale("ko", ko); // 한국어 적용
 const _ = require('lodash');
 
-const BenRegister: React.FC = () => {
 
 
+
+const BenEdit: React.FC = () => {
+  
+  
   // 에러 설정
   const [imgErr, setImgErr] = useState(false);
   const [imgErrMsg, setImgErrMsg] = useState('');
@@ -170,7 +173,7 @@ const BenRegister: React.FC = () => {
   };
   useEffect(() => {
     sendPOST();
-  }, [imgUrl,sendPOST]);
+  }, [imgUrl]);
 
   // 유효성 검사
   const checkValidity = () => {
@@ -351,6 +354,6 @@ const BenRegister: React.FC = () => {
       </div>
     </>
   )
-}
+};
 
-export default BenRegister;
+export default BenEdit;
