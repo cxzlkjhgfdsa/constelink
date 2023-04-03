@@ -5,8 +5,11 @@ import { BoardDetail } from './../models/boardmodel';
 import Pagination from "react-js-pagination";
 import './paging.css'
 import {useNavigate} from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 const NoticeList = () => {
+    const authRole = useSelector((state: RootState)=> state.auth.role);
     const [boardList, setBoardList] = useState<BoardDetail[]>([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
@@ -68,7 +71,10 @@ const NoticeList = () => {
                     nextPageText={"›"}
                     onChange={handlePageChange}
                 />
-                <div className={styles.create_btn}><button onClick={()=> navigate("create")}>글 작성</button></div>
+                {
+                    authRole==="ADMIN" ?    <div className={styles.create_btn}><button onClick={()=> navigate("create")}>글 작성</button></div>: ""
+                }
+             
               
             </div>
         </div>

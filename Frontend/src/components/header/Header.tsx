@@ -98,7 +98,7 @@ const Header: React.FC = () => {
                     }}>치료달성</li>
             </ul>
             {
-                authInfo.isAuthenticated ? <div className={styles.header_login} onClick={() => navigate("/mypage")}><img className={styles.header_profile} src={authInfo.profileImg} /></div> : <div className={styles.header_login} onClick={() => navigate('/login')}>로그인</div>
+                authInfo.isAuthenticated ? <div className={styles.header_login} onClick={() => navigate("/mypage")}><img className={styles.header_profile} src={authInfo.profileImg} alt="profile" /></div> : <div className={styles.header_login} onClick={() => navigate('/login')}>로그인</div>
             }
             {/* 반응형 사이드바 */}
             <div className={styles.interactive}>
