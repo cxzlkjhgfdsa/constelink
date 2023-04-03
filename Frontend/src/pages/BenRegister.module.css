@@ -203,3 +203,27 @@
   color: blue;
   margin-left: 5rem;
 }
+
+/* 수정페이지 css */
+.btns_div{
+  width: 35%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-content: space-between; */
+}
+
+.cancleBtn{
+  width: 10rem;
+  height: 3rem;
+  background-color: grey;
+  border-radius: 1rem;
+
+  text-align: center;
+  line-height: 2.7rem;
+  font-family: "Hahmlet";
+  font-size: large;
+  color: white;
+  cursor: pointer;
+  margin-top: 2rem;
+}

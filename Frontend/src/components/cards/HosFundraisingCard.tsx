@@ -7,8 +7,6 @@ interface Props {
     time: number;
 };
 
-const defaultImg = '../../assets/img/circleuser.png'
-
 
 const HosFundraisingCard: React.FC<Props> = ({ data, time }) => {
     const dayLeft:number = floor((data.fundraisingEndTime - time)/86400000);

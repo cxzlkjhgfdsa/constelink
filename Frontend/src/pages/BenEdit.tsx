@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,6 +7,7 @@ import { getYear, getMonth } from "date-fns"
 import ko from 'date-fns/locale/ko' // 한국어 적용
 import styles from "./BenRegister.module.css";
 import axios from "axios";
+import { BenInfo } from "../models/beneficiarymodels";
 
 const nameRegexp = /^[가-힣]{1,5}$/; // 한글 1~5자
 const diseaseKorRegexp = /^[가-힣 ]{1,18}$/; // 공백포함 한글 1~18자
@@ -20,12 +21,50 @@ const _ = require('lodash');
 
 const BenEdit: React.FC = () => {
   
+  const navigate = useNavigate();
   const location = useLocation();
-  const state = location.state;
+  const benId = location.state;
+  const URL_PATH : string = "/beneficiaries/";
+
+  // 수혜자 정보 받아오기
+  const [ben, setBen] = useState<BenInfo>();
+  useEffect(() => {
+    axios.get(URL_PATH + benId)
+      .then((res) => {
+        console.log(res);
+        setBen(res.data);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
+  // 수혜자 정보 placeholder 설정
+  const [imgHold, setImgHold] = useState('');
+  const [nameHold, setNameHold] = useState('');
+  const [birthHold, setBirthHold] = useState<Date>();
+  const [diseaseHold, setdiseaseHold] = useState('');
+  const [goalHold, setGoalHold] = useState(0);
 
   useEffect(() => {
-    console.log(state);
-  }, [])
+    if (ben) {
+      // 기본값 설정
+      setImgUrl(ben.beneficiaryPhoto);
+      setImgPreUrl(ben.beneficiaryPhoto);
+      setBenName(ben.beneficiaryName);
+      setBirthDate(new Date(ben.beneficiaryBirthday));
+      setDiseaseName(ben.beneficiaryDisease);
+      setGoalFund(ben.beneficiaryAmountGoal);
+
+      // placeholder 설정
+      setImgHold(ben.beneficiaryPhoto);
+      setNameHold(ben.beneficiaryName);
+      setBirthHold(new Date(ben.beneficiaryBirthday));
+      setdiseaseHold(ben.beneficiaryDisease);
+      setGoalHold(ben.beneficiaryAmountGoal);
+    }
+  }, [ben])
+
   
   // 에러 설정
   const [imgErr, setImgErr] = useState(false);
@@ -146,6 +185,8 @@ const BenEdit: React.FC = () => {
       .then((res) => {
         console.log('변환성공');
         setImgUrl(res.data.fileUrl);
+        // 동기처리
+        return res.data.fileUrl;
       })
       .catch((err) => {
         console.log(err);
@@ -154,10 +195,11 @@ const BenEdit: React.FC = () => {
 
 
   // POST요청 보내기
-  // const [imgUpload, setImgUpload] = useState(false);
   const sendPOST = async () => {
     
-    const ben = {
+    let imgUrl = await getImgUrI();
+    
+    const ben_new = {
       hospitalId: hospitalId,
       beneficiaryAmountGoal: goalFund,
       beneficiaryBirthday: birthDate.getTime(),
@@ -165,10 +207,10 @@ const BenEdit: React.FC = () => {
       beneficiaryName: benName,
       beneficiaryPhoto: imgUrl,
     };
-    console.log(ben);
+    console.log(ben_new);
 
     await axios
-      .post('/beneficiaries', ben)
+      .post('/beneficiaries', ben_new)
       .then((res) => {
         console.log(res);
       })
@@ -176,9 +218,6 @@ const BenEdit: React.FC = () => {
         console.log(err);
       })
   };
-  useEffect(() => {
-    sendPOST();
-  }, [imgUrl]);
 
   // 유효성 검사
   const checkValidity = () => {
@@ -194,14 +233,14 @@ const BenEdit: React.FC = () => {
     if (
       !imgErr && !noValErr && !nameErr && !diseaseErr && !goalErr
     ) {
-      getImgUrI();
+      sendPOST();
     }
   };
 
   return (
     <>
       <div className={styles.mainWrapper}>
-        <div className={styles.registerTitle}>수혜자 등록하기</div>
+        <div className={styles.registerTitle}>수혜자 수정하기</div>
         <div className={styles.registerWrapper}>
           {/* 이미지 입력 */}
           <div className={styles.imgInput}>
@@ -235,7 +274,7 @@ const BenEdit: React.FC = () => {
                 className={styles.nameInput}
                 type="text"
                 maxLength={5}
-                placeholder="이름을 입력해 주세요"
+                placeholder={nameHold}
                 onChange={handleBenName}
               />
               {/* 이름 에러 처리 */}
@@ -250,9 +289,9 @@ const BenEdit: React.FC = () => {
             <div className={styles.inputDiv}>
               <div className={styles.datepicker}>
                 {/* 달력 */}
-                <DatePicker 
+                <DatePicker
                   dateFormat="yyyy년 MM월 dd일"
-                  selected={birthDate}
+                  selected={birthHold}
                   onChange={(d: Date) => setBirthDate(d)}
                   maxDate={today}
                   todayButton={"Today"}
@@ -320,7 +359,7 @@ const BenEdit: React.FC = () => {
               <input 
                 className={styles.diseaseInput}
                 type="text"
-                placeholder="병명을 입력해 주세요"
+                placeholder={diseaseHold}
                 onChange={handleDiseaseName}
               />
               {/* 병명 에러 처리 */}
@@ -337,7 +376,7 @@ const BenEdit: React.FC = () => {
                 className={styles.nameInput}
                 type="text"
                 maxLength={10}
-                placeholder="목표금액을 입력해 주세요"
+                placeholder={String(goalHold)}
                 onChange={handleGoalFund}
               />
               {goalErr && (
@@ -352,10 +391,20 @@ const BenEdit: React.FC = () => {
         {/* {noValErr && (
           <div className={styles.centerErrMsg}>{noValErrMsg}</div>
         )} */}
-        <div 
-          className={styles.registerBtn}
-          onClick={checkValidity}  
-        >등록하기</div>
+        <div className={styles.btns_div}>
+          <div 
+            className={styles.cancleBtn}
+            onClick={() => navigate('/hosbenlist')}
+          >
+            취소하기
+          </div>
+          <div 
+            className={styles.registerBtn}
+            onClick={checkValidity}  
+          >
+            수정하기
+          </div>
+        </div>
       </div>
     </>
   )

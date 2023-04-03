@@ -28,7 +28,7 @@ const HosBenList= () => {
     axios.get(URL_PATH+hospitalId, {params : {page, size}}).then((res) => {
       setFundraisingData(res.data.content);
       setTotalElements(res.data.totalElements);
-      console.log(res.data);
+      // console.log(res.data);
      })
    }
    , [page]);
