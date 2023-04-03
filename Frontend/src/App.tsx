@@ -20,8 +20,11 @@ import RecoveryDiaryDetail from './pages/RecoveryDiaryDetail';
 import FundMain from "./pages/FundMain";
 import FundDetail from "./pages/FundDetail";
 import FundPayment from "./pages/FundPayment";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
 
 function App() {
+  const authInfo = useSelector((state:RootState)=> state.auth);
   return (
     <div className="App">
 
@@ -32,8 +35,7 @@ function App() {
           {/* 공지사항 페이지 */}
           <Route path="/notice/*" element={<NoticePage />} />
           
-          {/* 일반고객 마이페이지 */}
-          <Route path="/mypage/*" element={<CustomerMyHome />} />
+
           
           {/* 모금 페이지 */}
           <Route path='/fundmain' element={<FundMain />} />
@@ -50,9 +52,21 @@ function App() {
           <Route path='/diary' element={<RecoveryDiary />} />
           <Route path='/diarydetail/:id' element={<RecoveryDiaryDetail />} />
           
-        </Route >
+          {/* 역할별 마이페이지 설정 */}
+          {
+            authInfo.isAuthenticated && (authInfo.role==="USER"||authInfo.role==="ADMIN")?
+            <Route path="/mypage/*" element={<CustomerMyHome />} />:
+            authInfo.isAuthenticated && authInfo.role==="HOSPITAL"?
+            <Route path="/mypage/*" element={<HospitalPage />} />:""
+          }
+         
 
+
+
+
+        </Route >
         <Route path='/login' element={<Login />} />
+      
       </Routes>
     </div>
   )

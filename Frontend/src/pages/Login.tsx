@@ -3,13 +3,24 @@ import kakao from  "../assets/logo/login_kakao.png";
 import google from  "../assets/logo/login_google.png";
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { authActions } from './../store/auth';
 import {useNavigate} from 'react-router-dom'
+import { RootState } from "../store";
 const Login : React.FC = ()=>{
-
+    const authInfo = useSelector((state:RootState)=>state.auth)
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    console.log();
+    
+    
+    useEffect(()=>{
+        if (authInfo.isAuthenticated){
+            console.log("현재 로그인 상태로 로그인 페이지 접근 불가");
+                navigate("/")
+        }
+    })
+
 
     useEffect(()=>{
         const param = new URLSearchParams(window.location.search);
@@ -21,6 +32,7 @@ const Login : React.FC = ()=>{
             axios.post("http://j8a206.p.ssafy.io:8997/auth/login",params, {withCredentials:true}).then(res=>{
                 console.log(res);
                 localStorage.setItem("access_token", res.headers.authorization);
+                localStorage.setItem("refresh_token", res.headers.refresh);
                 const [name, profileImg, role]:string[] = [res.data.nickname, res.data.profile, res.data.role];
                 dispatch(authActions.login({name, profileImg,role}));
                 navigate("/")
@@ -41,7 +53,7 @@ const Login : React.FC = ()=>{
 
 
             <ul className={styles.login_menu}>
-                <li id={styles.google_list}><img className={styles.google_logo} src={google} alt="google-img"/> <div>Google로 시작하기</div></li>
+                <li id={styles.google_list} onClick={()=> window.location.href="http://j8a206.p.ssafy.io:8997/oauth2/authorization/google"}><img className={styles.google_logo} src={google} alt="google-img"/> <div>Google로 시작하기</div></li>
                 <li id={styles.kakao_list} onClick={()=> window.location.href="http://j8a206.p.ssafy.io:8997/oauth2/authorization/kakao"}><img className={styles.kakao_logo} src={kakao}  alt="kakao-img"/><div>카카오로 시작하기</div></li>
             </ul>
 
