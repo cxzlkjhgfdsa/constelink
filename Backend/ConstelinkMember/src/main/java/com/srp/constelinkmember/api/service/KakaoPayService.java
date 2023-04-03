@@ -48,7 +48,7 @@ public class KakaoPayService {
 		parameters.add("quantity", "1");
 		parameters.add("total_amount", kakaoPayRequest.getAmount());
 		parameters.add("vat_amount", "0");
-		parameters.add("tax_free_amount", "10000");
+		parameters.add("tax_free_amount", "1");
 		parameters.add("approval_url", successUrl); // 성공 시 redirect url
 		parameters.add("cancel_url", cancelUrl); // 취소 시 redirect url
 		parameters.add("fail_url", failUrl); // 실패 시 redirect url
