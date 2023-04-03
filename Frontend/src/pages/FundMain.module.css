@@ -1,0 +1,143 @@
+@font-face {
+  font-family: "noto-sans";
+  src: url("../assets/fonts/NotoSerifKR-Regular.otf");
+}
+
+@font-face {
+  font-family: "Crisis";
+  src: url("../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
+}
+
+@font-face {
+  font-family: "Hahmlet";
+  src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
+}
+
+.mainWrapper{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  width: 100%;
+  position: absolute;
+  left: 0;
+}
+
+.mainBanner{
+  font-family: "Hahmlet";
+  display: flex;
+  flex-direction: column;
+  height: 15rem;
+  overflow: hidden;
+  background-image: url("../assets/img/night-sky1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 30%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.bannerTitle{
+  font-family: "Hahmlet";
+  font-size: 2.5rem;
+  /* font-weight: bold; */
+  color: white;
+}
+
+.bannerSubTitle{
+  font-family: "Hahmlet";
+  font-size: large;
+  color: white;
+  position: relative;
+  right: 6rem;
+}
+
+.fundWrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.categoryWrapper{
+  margin-top: 1rem;
+  width: 65%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* 카테고리박스 색바꾸기 더 깔끔한 방법 찾으면 추후에 수정 */
+.categoryBox_1{
+  /* 크기 및 간격 설정 */
+  min-width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #BE6DB7;
+}
+
+.categoryBox_2{
+  /* 크기 및 간격 설정 */
+  min-width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #FFAACF;
+}
+
+.categoryBox_3{
+  /* 크기 및 간격 설정 */
+  min-width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #DBD9EC;
+}
+
+.categoryBox_4{
+  /* 크기 및 간격 설정 */
+  min-width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #A19FD5;
+}
+
+.categoryBox_5{
+  /* 크기 및 간격 설정 */
+  min-width: auto;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #6F6D8F;
+}
+
+.categoryText{
+  font-family: "Hahmlet";
+  color: white;
+}
+
+.cardsTitle{
+  margin-top: 2rem;
+  float: left;
+  width: 900px;
+  font-family: "Crisis";
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cardsWrapper{
+  width: 900px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 15px;
+}
+
+
+
+.pagination{
+  font-family: "Hahmlet";
+  margin-bottom: 2rem;
+}
