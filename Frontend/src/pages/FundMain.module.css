@@ -13,7 +13,7 @@
   src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
 }
 
-.mainWrapper{
+.mainWrapper {
   display: flex;
   justify-content: center;
   align-content: center;
@@ -23,7 +23,7 @@
   left: 0;
 }
 
-.mainBanner{
+.mainBanner {
   font-family: "Hahmlet";
   display: flex;
   flex-direction: column;
@@ -38,14 +38,14 @@
   width: 100%;
 }
 
-.bannerTitle{
+.bannerTitle {
   font-family: "Hahmlet";
   font-size: 2.5rem;
   /* font-weight: bold; */
   color: white;
 }
 
-.bannerSubTitle{
+.bannerSubTitle {
   font-family: "Hahmlet";
   font-size: large;
   color: white;
@@ -53,28 +53,37 @@
   right: 6rem;
 }
 
-.fundWrapper{
+.fundWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.blockWrapper{
+.blockWrapper {
   display: block;
   position: relative;
   width: 65%;
   max-height: 180px;
 }
-
-.categoryWrapper{
-  margin-top: 1rem;
-  width: 100%;
+.scroll_box {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   max-height: 180px;
-  overflow-x:hidden;
+}
+
+/* .categoryWrapper:hover::-webkit-scrollbar {
+  width: 8px;
+} */
+
+.categoryWrapper {
+  margin-top: 1rem;
+  width: 100%;
+  max-height: 180px;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  z-index: 10;
 }
 
 .btn_left {
@@ -94,43 +103,43 @@
   bottom: 50%;
 }
 
-.categoryWrapper ::-webkit-scrollbar{
-  scrollbar-width: 3px;
+.categoryWrapper::-webkit-scrollbar {
+  display: none;
 }
 
 /* 카테고리박스 색바꾸기 더 깔끔한 방법 찾으면 추후에 수정 */
-.category_box{
+.category_box {
   /* 크기 및 간격 설정 */
   min-width: auto;
   padding: 0.5rem 1rem;
   margin: 0.5rem;
   border-radius: 1rem;
   text-align: center;
+  cursor: pointer;
 }
 
-.box_color_1{
-  background-color: #BE6DB7;
+.box_color_1 {
+  background-color: #be6db7;
 }
-.box_color_2{
-  background-color: #FFAACF;
+.box_color_2 {
+  background-color: #ffaacf;
 }
-.box_color_3{
-  background-color: #DBD9EC;
+.box_color_3 {
+  background-color: #dbd9ec;
 }
-.box_color_4{
-  background-color: #A19FD5;
+.box_color_4 {
+  background-color: #a19fd5;
 }
-.box_color_5{
-  background-color: #6F6D8F;
+.box_color_5 {
+  background-color: #6f6d8f;
 }
 
-
-.categoryText{
+.categoryText {
   font-family: "Hahmlet";
   color: white;
 }
 
-.cardsTitle{
+.cardsTitle {
   margin-top: 2rem;
   float: left;
   width: 900px;
@@ -139,16 +148,14 @@
   margin-bottom: 1rem;
 }
 
-.cardsWrapper{
+.cardsWrapper {
   width: 900px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   row-gap: 15px;
 }
 
-
-
-.pagination{
+.pagination {
   font-family: "Hahmlet";
   margin-bottom: 2rem;
 }
