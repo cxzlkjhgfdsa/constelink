@@ -15,16 +15,9 @@ interface Props {
 const DonationCard: React.FC<Props> = ({ data }) => {
     const [curValue, setCurValue] = useState(0);
     const [curMoney, setCurMoney] = useState(0);
-<<<<<<< HEAD
     let percentage=data.fundraisingAmountRaised / data.fundraisingAmountGoal * 100;
     let demicalDay =Math.floor((data.fundraisingEndTime-new Date().getTime())/(3600*24*1000));
     const goalMoney =data.fundraisingAmountRaised;
-=======
-    const [percentage, setPercentage] =useState(data.fundraisingAmountRaised / data.fundraisingAmountGoal * 100);
-    const [demicalDay, setDemicalDay] = useState(Math.floor((data.fundraisingEndTime-
-        new Date().getTime())/(3600*24*1000)));
-    const [goalMoney, setGoalMoney] =useState(data.fundraisingAmountRaised)
->>>>>>> feature-front/fund-main
 
 
 
@@ -65,11 +58,7 @@ const DonationCard: React.FC<Props> = ({ data }) => {
     },[setIsMark])
 
     return (
-<<<<<<< HEAD
-        <div className={styles.DonationCard} style={{ background: `linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), url(${data.fundraisingThumbnail})`, backgroundSize: "cover" }}>
-=======
         <div className={styles.DonationCard} style={{background:`linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))`,  backgroundImage :`url(${data.fundraisingThumbnail})`,  backgroundSize: "cover", backgroundRepeat:"no-repeat" }}>
->>>>>>> feature-front/fund-main
             <div className={styles.bookmark}> <FontAwesomeIcon onClick={bookHandler} icon={faStar as IconProp} color={ !isMark ?'grey':"yellow"} /></div>
             
             <div className={styles.dona_box}>
