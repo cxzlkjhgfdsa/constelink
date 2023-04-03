@@ -27,19 +27,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSackDollar, faHeartPulse, faHandHoldingHeart } from "@fortawesome/free-solid-svg-icons";
 import { faGratipay } from "@fortawesome/free-brands-svg-icons";
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useNavigate } from 'react-router-dom';
 
 const images = [topbanner1, topbanner2, topbanner3];
-<<<<<<< HEAD
 const contents = [["콘스텔링크 Constelink", "블록체인기반, 치료비 모금 플랫폼"], ["콘스텔링크 Constelink", "여러분의 관심이 많은이들에게 도움이 됩니다."], ["콘스텔링크 Constelink", "블로체인기반, 치료비 모금 플랫폼 당신의 별자리"]];
-=======
-const contents = [["콘스텔링크 Constelink1", "블록체인기반, 치료비 모금 플랫폼1"], ["콘스텔링크 Constelink2", "블로체인기반, 치료비 모금 플랫폼2"], ["콘스텔링크 Constelink3", "블로체인기반, 치료비 모금 플랫폼3"]];
-
-
-
-
-
-
->>>>>>> feature-front/fund-main
 
 const HomePage: React.FC = () => {
   const settings: SliderSettings = {
@@ -58,15 +49,16 @@ const HomePage: React.FC = () => {
 
   const [donateCard, setDonateCard] = useState<DonationData[]>([]);
   const [statistics, setStatistics] = useState<Statistics>();
+  const navigate= useNavigate();
   useEffect(() => {
-    axios.get("http://j8a206.p.ssafy.io:8998/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=1").then((res) => {
+    axios.get("/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=0").then((res) => {
       console.log(res.data.content);
       setDonateCard(res.data.content);
     })
   }, [])
 
   useEffect(() => {
-    axios.get("http://j8a206.p.ssafy.io:8998/fundraisings/statistics").then((res) => {
+    axios.get("/fundraisings/statistics?page=1&size=5&sortBy=ALL&memberId=0").then((res) => {
       console.log(res.data);
       setStatistics(res.data)
     })
@@ -91,7 +83,6 @@ const HomePage: React.FC = () => {
                 <div className={styles.linkbox_link}>바로가기 {">"}</div>
               </div>
             </div>
-<<<<<<< HEAD
           </div>
         ))}
       </Slider>
@@ -123,7 +114,7 @@ const HomePage: React.FC = () => {
           >
             {
               donateCard.map(it => {
-                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}}><DonationCard data={it} /></SwiperSlide>
+                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}} onClick={()=>navigate(`/fundmain/funddetail/${it.fundraisingId}`)}><DonationCard data={it} /></SwiperSlide>
               })
             }
           </Swiper>
@@ -141,25 +132,6 @@ const HomePage: React.FC = () => {
             </div>
 
         </div>
-=======
-          ))}
-        </Slider>
-        2. 상단 바로가기 바
-        <nav className={styles.with_box}>
-          <img src="" alt="" />
-          <div className={styles.with_title}>너네 별따러 갈때, 우린 달러가!</div>
-          <div className={styles.with_btn}><span style={{ color: "purple", fontWeight: "bold", paddingRight: "3px" }}>Constelink</span> 함께하기 -{">"}</div>
-        </nav>
-        <section>
-          {/* {
-            infomation.map(it =>{
-              return <DonationCard data={it}  />
-            })
-          } */}
-           {/* <DonationCard data={infomation[0]}  /> */}
-        </section>
-  
->>>>>>> feature-front/fund-main
       </div>
 
       <div className={styles.heal_title}>
