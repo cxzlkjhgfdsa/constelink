@@ -69,7 +69,7 @@ public class RecoveryDiaryController {
 		+ "diaryPhoto = 회복일지 사진, "
 		+ "diaryAmountSpent = 사용한 기부금 "
 		)
-	@PostMapping("")
+	@PostMapping("/register")
 	public ResponseEntity<RecoveryDiaryResponse> addRecoveryDiary(
 		@RequestBody RecoveryDiaryRequest recoveryDiaryRequest,
 		HttpServletRequest request

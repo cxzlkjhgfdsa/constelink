@@ -61,7 +61,7 @@ public class BeneficiaryController {
 	}
 
 	@Operation(summary = "수혜자 등록", description = "hospitalId = 병원ID, beneficiaryName = 수혜자 이름, beneficiaryBirthday = 수혜자 생일, beneficiaryDisease = 수혜자 병명, beneficiaryPhoto = 수혜자 사진, beneficiaryAmountGoal = 목표금액 필요")
-	@PostMapping("")
+	@PostMapping("/register")
 	public ResponseEntity<BeneficiaryInfoResponse> addBeneficiary(
 		@RequestBody BeneficiaryReqeust beneficiaryReqeust,
 		HttpServletRequest request
