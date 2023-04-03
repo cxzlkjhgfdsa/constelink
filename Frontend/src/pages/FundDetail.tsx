@@ -31,6 +31,11 @@ const FundDetail: React.FC = () => {
   // const percentage: number = 80;
   // const goalMoney: number = 1000000;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   useEffect(() => {
     const intervalIdPercent = setInterval(() => {
       if (curValue < percentage) setCurValue(curValue => curValue + 1);
