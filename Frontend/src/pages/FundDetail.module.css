@@ -247,7 +247,7 @@
 .benefitImg{
   width: 2rem;
   height: 2rem;
-  background-color: grey;
+  /* background-color: grey; */
   border-radius: 50%;
   position: relative;
   bottom: 0.2rem;

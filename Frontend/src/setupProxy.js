@@ -10,9 +10,9 @@ module.exports = function(app) {
   )
   
   app.use(
-    ["/auth", "/members", "/donations"],
+    ["/auth", "/member", "/donations"],
     createProxyMiddleware({
-      target: 'http://j8a206.p.ssafy.io:8997',
+      target: 'http://j8a206.p.ssafy.io/',
       changeOrigin: true,
     })
   )
