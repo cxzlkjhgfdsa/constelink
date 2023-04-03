@@ -289,14 +289,20 @@ const RecoveryDiaryDetail: React.FC = () => {
 
         {/* 생성된 치료일기 */}
         <div> 
-
           {recoveryCard.map((record, index) => (
             <div key={index} className={styles.recordCard} onClick={() => onClickRecord(index)}>
               <div className={styles.recordDate}>
                 {formatDate(record.diaryRegisterDate)}
               </div>
               {/* {imgUrl && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>} */}
-              {record.diaryPhoto && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>}
+              {record.diaryPhoto ? (
+                <div className={styles.recordImage}>
+                  <img className={styles.recordImage} src={record.diaryPhoto} alt=""/>
+                </div>
+                ) : (
+                <div className={styles.noImg} />
+              )}
+              {/* {record.diaryPhoto && <img src={record.diaryPhoto} className={styles.recordImage} alt={imgPreUrl}/>} */}
               <div className={styles.recordIndex}>
               {record.diaryTitle.length > 10 ? `${record.diaryTitle.substring(0, 10)}...` : record.diaryTitle}
               </div>
