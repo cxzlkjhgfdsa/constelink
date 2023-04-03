@@ -22,6 +22,7 @@ import FundDetail from "./pages/FundDetail";
 import FundPayment from "./pages/FundPayment";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
+import HospitalMyPage from "./pages/HospitalMyPage";
 
 function App() {
   const authInfo = useSelector((state:RootState)=> state.auth);
@@ -57,7 +58,7 @@ function App() {
             authInfo.isAuthenticated && (authInfo.role==="USER"||authInfo.role==="ADMIN")?
             <Route path="/mypage/*" element={<CustomerMyHome />} />:
             authInfo.isAuthenticated && authInfo.role==="HOSPITAL"?
-            <Route path="/mypage/*" element={<HospitalPage />} />:""
+            <Route path="/mypage/*" element={<HospitalMyPage />} />:""
           }
          
 

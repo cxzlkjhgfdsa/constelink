@@ -29,8 +29,15 @@ const authSlice = createSlice({
       state.role = "";
       state.nickname=""
       state.profileImg=""
-
     },
+
+    update(state, action) {
+      console.log(action.payload.updateName," 확인좀");
+      
+      state.nickname = action.payload.updateName;
+    },
+
+    
   },
 });
 
