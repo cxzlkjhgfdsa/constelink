@@ -1,8 +1,9 @@
 .container {
-    margin-top: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 
@@ -107,17 +108,15 @@
 
 
 /* 카드내용들 */
-
-.card {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 160px;
-    background-color: white;
-    margin: 10px;
-    box-shadow: 0px 3px 3px #c2c1c1;
-    border-radius: 5px;
-    position: relative;
+.cardWhat {
+  display: flex;
+  flex-direction: row;
+  height: 160px;
+  background-color: white;
+  margin: 10px;
+  box-shadow: 0px 3px 3px #c2c1c1;
+  border-radius: 5px;
+  position: relative;
 }
 
 
@@ -132,77 +131,74 @@
 
 
 /* 테두리포함 이미지 */
-
-.card .imageContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background-color: #A19FD5;
-    position: absolute;
-    margin: 25px;
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #A19FD5;
+  position: absolute;
+  margin : 25px;
 }
 
 
 /* 카드 이미지 */
-
-.card .image {
-    height: 115px;
-    width: 115px;
-    border-radius: 50%;
-    position: absolute;
+.image {
+  height: 115px;
+  width: 115px;
+  border-radius: 50%;
+  position: absolute;
 }
 
-.card .titleContent {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: absolute;
-    left: 170px;
-    /* 왼쪽 여백 조절 */
-    right: 10px;
-    /* 오른쪽 여백 조절 */
-    color: white;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+
+.titleContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  left: 170px; /* 왼쪽 여백 조절 */
+  right: 10px; /* 오른쪽 여백 조절 */
+  color : white;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.card .name {
-    font-family: "Hahmlet";
-    font-size: 28px;
-    margin-top: 12px;
-    /* margin-bottom : 12px; */
-    font-weight: bold;
+.name {
+  font-family: "Hahmlet";
+  font-size: 28px;
+  margin-top: 12px;
+  /* margin-bottom : 12px; */
+  font-weight: bold;
 }
 
-.card .content {
-    font-family: "Hahmlet";
-    display: flex;
-    direction: row;
-    overflow-x: auto;
-    /* margin-top: 4px; */
-    margin-bottom: 20px;
-    padding-bottom: 8px;
-    font-size: 20px;
+.content {
+  font-family: "Hahmlet";
+  display: flex;
+  direction: row;
+  overflow-x: auto;
+  /* margin-top: 4px; */
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  font-size : 20px;
 }
 
-.card .contentItem {
-    color: white;
-    background-color: #A19FD5;
-    font-family: "Hahmlet";
-    font-size: 15px;
-    display: flex;
-    /* align-items: center; */
-    padding: 7px 16px;
-    border: none;
-    border-radius: 32px;
-    outline-color: black;
-    flex-grow: 0;
-    position: relative;
-    margin-right: 8px;
+.contentItem {
+  color: white;
+  background-color: #A19FD5;
+  font-family: "Hahmlet";
+  font-size: 15px;
+  display: flex;
+  /* align-items: center; */
+  padding: 7px 16px;
+  border: none;
+  border-radius: 32px;
+  outline-color: black;
+  flex-grow: 0;
+  position: relative;
+  margin-right: 8px;
 }
 
 .bottomContent {

@@ -50,8 +50,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* direction: row; */
-  margin : 0 20%;
+  margin : 0 8% 0 12% ;
 }
 
 .imageContainer {
@@ -88,12 +87,12 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-left: 10px;
+  margin-left: 50px;
 }
 
 .patientInfoItem {
   font-family: "Hahmlet";
-  width: calc(30% - 10px);
+  width: 300px;
   min-width: 150px;
   margin-bottom: 10px;
 }
@@ -106,8 +105,9 @@
 
 .patientInfoContent {
   font-family: "Hahmlet";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
+  max-width: 500px;
 }
 
 
@@ -119,19 +119,25 @@
 }
 
 
-/* 각 카드 */
-.record {
+/* 치료일지 카드  */
+.recordCard {
   margin-top: 20px;
   width: calc(30%);
   margin-bottom: 20px;
   display: inline-block;
   vertical-align: top;
+  cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 10px 10px;
   margin-right:1.6%;
   margin-left:1.6%;
+  transition: transform 0.4s ease;
 }
 
+.recordCard:hover {
+  transform: translateY(-5px);
+}
+ 
 /* 이전버전 */
 /* 
 .record { 
@@ -221,32 +227,51 @@
   position: relative;
 }
 
-/* 모달부분 수정 */
 .modalTop {
   width: 100%;
-  height: 40px;
+  height: 50px;
   background-color: #A19FD5;
   margin-bottom: 5%;
-  padding-top: 1%;
   font-family: "Hahmlet";
   font-size: 22px;
   font-weight: bold;
-  color : black;
+  color: black;
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  border-radius: 10px 10px 0 0;
+}
+
+.modalTopCreate {
+  width: 100%;
+  height: 80px;
+  background-color: #A19FD5;
+  margin-bottom: 5%;
+  font-family: "Hahmlet";
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  border-radius: 10px 10px 0 0;
 }
 
 .modalText {
-  display: flex;
-  justify-content: center;
+  margin-left: 37%;  
+  margin-right: auto; /* 오른쪽으로 이동 */
 }
 
 .modalClose {
+  margin-right: 0; /* 기본값인 auto를 해제 */
   border: 0;
   background-color: transparent;
-} 
+}
 
 .modalClose:after {
-  content: "\00d7"; font-size:40px;
-  border: 0;
+  content: "\00d7"; 
+  font-size:30px;
+  border: 0;  
   background-color: transparent;
 }
 
@@ -261,7 +286,6 @@
   font-family: "Hahmlet";
   font-size: 22px;
   font-weight: bold;
-
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
@@ -280,7 +304,13 @@
   font-family: "Hahmlet";
   font-size: 16px;
   line-height: 1.5;
+  margin:20px;
 }
+
+.modalContent {
+  display:block;
+  justify-content: center;
+  }
 
 .hr {
   margin: 15px;
@@ -314,6 +344,8 @@
   position: relative;
 }
 
+
+
 .imgInput{
   width: 11rem;
   height: 11rem;
@@ -346,9 +378,10 @@
   background-image: url("../assets/img/circleuser.png");
   background-size: auto;
   background-position: 50% 50%;
-
   border-radius: 50%;
   border: 0.2rem solid #A19FD5;
+  display: flex;
+  justify-content: center;
 }
 
 .plusIcon{
@@ -365,4 +398,17 @@
 
 .inputFile{
   display: none;
+}
+
+.pagination{
+  /* background-color: red; */
+  width: 100%;
+}
+
+
+.recoveryCardList{
+  font-family: "Hahmlet";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
