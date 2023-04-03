@@ -60,59 +60,70 @@
   align-items: center;
 }
 
+.blockWrapper{
+  display: block;
+  position: relative;
+  width: 65%;
+  max-height: 180px;
+}
+
 .categoryWrapper{
   margin-top: 1rem;
-  width: 65%;
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
+  max-height: 180px;
+  overflow-x:hidden;
+}
+
+.btn_left {
+  display: block;
+  position: absolute;
+  left: -30px;
+  top: 0;
+  top: 50%;
+  bottom: 50%;
+}
+
+.btn_right {
+  display: block;
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  bottom: 50%;
+}
+
+.categoryWrapper ::-webkit-scrollbar{
+  scrollbar-width: 3px;
 }
 
 /* 카테고리박스 색바꾸기 더 깔끔한 방법 찾으면 추후에 수정 */
-.categoryBox_1{
+.category_box{
   /* 크기 및 간격 설정 */
   min-width: auto;
   padding: 0.5rem 1rem;
   margin: 0.5rem;
   border-radius: 1rem;
+  text-align: center;
+}
+
+.box_color_1{
   background-color: #BE6DB7;
 }
-
-.categoryBox_2{
-  /* 크기 및 간격 설정 */
-  min-width: auto;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  border-radius: 1rem;
+.box_color_2{
   background-color: #FFAACF;
 }
-
-.categoryBox_3{
-  /* 크기 및 간격 설정 */
-  min-width: auto;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  border-radius: 1rem;
+.box_color_3{
   background-color: #DBD9EC;
 }
-
-.categoryBox_4{
-  /* 크기 및 간격 설정 */
-  min-width: auto;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  border-radius: 1rem;
+.box_color_4{
   background-color: #A19FD5;
 }
-
-.categoryBox_5{
-  /* 크기 및 간격 설정 */
-  min-width: auto;
-  padding: 0.5rem 1rem;
-  margin: 0.5rem;
-  border-radius: 1rem;
+.box_color_5{
   background-color: #6F6D8F;
 }
+
 
 .categoryText{
   font-family: "Hahmlet";
