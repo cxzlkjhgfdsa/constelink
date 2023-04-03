@@ -23,6 +23,7 @@ const HosFundList = (props:object) => {
     axios.get(URL_PATH, {params : {page, size, sortBy, hospitalId, memberId}}).then((res) => {
       setFundraisingData(res.data.content);
       setTotalElements(res.data.totalElements)
+      console.log(res.data);
      })
    }
   , [page]);

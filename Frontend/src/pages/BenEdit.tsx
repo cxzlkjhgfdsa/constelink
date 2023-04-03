@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useLocation } from "react-router-dom";
 
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,10 +18,14 @@ registerLocale("ko", ko); // 한국어 적용
 const _ = require('lodash');
 
 
-
-
 const BenEdit: React.FC = () => {
   
+  const location = useLocation();
+  const state = location.state;
+
+  useEffect(() => {
+    console.log(state);
+  }, [])
   
   // 에러 설정
   const [imgErr, setImgErr] = useState(false);

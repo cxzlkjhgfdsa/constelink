@@ -63,6 +63,7 @@ div > li {
   width: 100%;
   align-items: center;
   justify-items: center;
+  row-gap: 10px;
 
 }
 

@@ -63,12 +63,14 @@ div > li {
 }
 
 .grid_row_8{
+  padding-top: 10px;
   display: grid;
   grid-template-rows: repeat(8,180px);
   width: 100%;
   grid-row: 10px 10px;
   align-items: center;
   justify-items: center;
+  row-gap: 10px;
 }
 
 

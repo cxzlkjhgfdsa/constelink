@@ -32,5 +32,6 @@ export interface HosFundraisingData {
   beneficiaryDisease : string,
   beneficiaryStatus : string,
   beneficiaryBirthday : number,
-  beneficiaryPhoto : string
+  beneficiaryPhoto : string,
+  fundraisingWillUse : string
 }

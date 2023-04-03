@@ -1,6 +1,7 @@
 import styles from "./HosBeneficiaryCard.module.css";
 import { HosBenInfo } from "../../models/hospitalmodels";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 interface Props {
@@ -8,6 +9,9 @@ interface Props {
 }
 
 const HosBeneficiaryCard: React.FC<Props> = ({ data }) => {
+
+  const navigate = useNavigate();
+
   const percent: number =
     (data.beneficiaryAmountRaised / data.beneficiaryAmountGoal) * 100;
   const [beneficiaryStatus, setBeneficiaryStatus] = useState<string>(
@@ -34,7 +38,16 @@ const HosBeneficiaryCard: React.FC<Props> = ({ data }) => {
   return (
     <div className={`${styles.card_box} ${styles.grid_col_8}`}>
       <li className={styles.bene_img_box}>
-        <img
+        <div
+          className={styles.bene_img_div}
+          style={{
+            backgroundImage: `url(${data.beneficiaryPhoto})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        >
+        </div>
+        {/* <img
           className={styles.bene_img}
           src={
             data.beneficiaryPhoto ? data.beneficiaryPhoto : "./circleuser.png"
@@ -43,7 +56,7 @@ const HosBeneficiaryCard: React.FC<Props> = ({ data }) => {
             e.currentTarget.src = "./circleuser.png";
           }}
           alt="beneficiaryPhoto.jpg"
-        ></img>
+        ></img> */}
       </li>
       <li>{data.beneficiaryName}</li>
       <li>
@@ -81,7 +94,12 @@ const HosBeneficiaryCard: React.FC<Props> = ({ data }) => {
         </select>
       </li>
       <li className={styles.btn_box}>일지 작성</li>
-      <li className={styles.btn_box}>정보 수정</li>
+      <li 
+          className={styles.btn_box}
+          onClick={() => navigate('/benedit', { state: data.beneficiaryId })}
+      >
+          정보 수정
+      </li>
     </div>
   );
 };

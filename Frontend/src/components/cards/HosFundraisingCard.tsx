@@ -7,6 +7,8 @@ interface Props {
     time: number;
 };
 
+const defaultImg = '../../assets/img/circleuser.png'
+
 
 const HosFundraisingCard: React.FC<Props> = ({ data, time }) => {
     const dayLeft:number = floor((data.fundraisingEndTime - time)/86400000);
@@ -16,7 +18,31 @@ const HosFundraisingCard: React.FC<Props> = ({ data, time }) => {
 
     return (
             <div className={`${styles.card_box} ${styles.grid_col_4}`} >
-                <li><img className={styles.fund_img} src={data.fundraisingThumbnail?data.fundraisingThumbnail:"./circleuser.png"} onError={(e)=>{e.currentTarget.src="./circleuser.png"}} alt="fundraisingPhoto.jpg" ></img></li>
+                <li className={styles.fund_img_box}>
+                    {data.fundraisingThumbnail? (
+                        <div 
+                        className={styles.fund_img_div}
+                        style={{
+                          backgroundImage: `url(${data.fundraisingThumbnail})`,
+                          backgroundPosition: "center",
+                          backgroundSize: "cover",
+                        }}
+                    >
+                    </div>
+                    ) : (
+                      <div 
+                      className={styles.fund_img_div}
+                      style={{
+                        backgroundImage: `url(${require('../../assets/img/circleuser.png')})`,
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat"
+                        // backgroundSize: "",
+                      }}
+                  >
+                  </div>
+                    )}
+                    {/* <img className={styles.fund_img} src={data.fundraisingThumbnail?data.fundraisingThumbnail:"./circleuser.png"} onError={(e)=>{e.currentTarget.src="./circleuser.png"}} alt="fundraisingPhoto.jpg" ></img> */}
+                </li>
                 <li>{data.beneficiaryName}</li>
                 <li className={dayLeft<1?styles.time_alert:undefined}>{dayLeft}일 {hourLeft}시간</li>
 

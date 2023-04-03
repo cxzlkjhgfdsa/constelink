@@ -9,6 +9,7 @@ import MainLayout from "./components/MainLayout";
 // 병원 페이지
 import HospitalPage from "./pages/HospitalPage";
 import BenRegister from "./pages/BenRegister";
+import BenEdit from "./pages/BenEdit";
 import FundRegister from "./pages/FundRegister";
 import HosBenList from "./pages/HosBenList";
 import HosFundList from "./pages/HosFundList";
@@ -27,6 +28,7 @@ function App() {
             <Route path='/' element={<HomePage/>}/>
             <Route path='/hospage' element={<HospitalPage />}/>
             <Route path='/benregi' element={<BenRegister />}/>
+            <Route path='/benedit' element={<BenEdit />}/>
             <Route path='/fundregi' element={<FundRegister />}/>
             <Route path='/hosbenlist' element={<HosBenList />}/>
             <Route path='/hosfundlist' element={<HosFundList />}/>
