@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect }  from 'react';
+import React, { useState, useCallback, useRef, useEffect, ChangeEvent }  from 'react';
 import styles from './RecoveryDiaryDetail.module.css';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -68,9 +68,9 @@ const RecoveryDiaryDetail: React.FC = () => {
     .then((res) => {
       console.log(res.data);
       console.log(treatmentRecords)
-      setPage(page);
       setTreatmentRecords(res.data.beneficiaryInfo)
       setRecoveryCard(res.data.beneficiaryDiaries.content)
+      setPage(page);
       
     })
     .catch((err) => {
@@ -78,7 +78,7 @@ const RecoveryDiaryDetail: React.FC = () => {
     }) 
   }, [page, id, setRecoveryCard]);
   
-  // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출
+  // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출 
   const [selectedRecordIndex, setSelectedRecordIndex] = useState<any>(null);
   const editor = useRef<SunEditorCore>();
   // The sunEditor parameter will be set to the core suneditor instance when this function is called
@@ -179,6 +179,17 @@ const RecoveryDiaryDetail: React.FC = () => {
   //   getImgUrl();
   // }, [imgUrl])
 
+  // 입력칸 확인함수 
+  // function ExampleComponent() {
+  //   const inputRef = useRef<HTMLInputElement>(null);
+    
+  //   const handleIndexChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.value.length > 10) {
+  //   event.target.value = event.target.value.slice(0, 10);
+  //   }
+  //   console.log(`현재 입력된 글자 수: ${inputRef.current?.value.length}`);
+  //   };
+
   // 날짜스타일 변경함수
   function formatDate(dateString : any) {
     const date = new Date(dateString);
@@ -205,6 +216,9 @@ const RecoveryDiaryDetail: React.FC = () => {
   // 제목 변경 함수
   const handleEditorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       // console.log(e.target.value);
+      if (e.target.value.length > 10) {
+        e.target.value = e.target.value.slice(0, 10);
+      }
       setTitle(e.target.value);
   };
 
@@ -252,7 +266,7 @@ const RecoveryDiaryDetail: React.FC = () => {
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>생년월일</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryBirthday}</p>
+                <p className={styles.patientInfoContent}>{formatDate(treatmentRecords?.beneficiaryBirthday)}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>병명</p>
@@ -264,7 +278,8 @@ const RecoveryDiaryDetail: React.FC = () => {
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>총 모금액</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryAmountRaised}</p>
+                <p className={styles.patientInfoContent}>{addCommas(treatmentRecords?.beneficiaryAmountRaised!)}원</p>
+                {/* <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryAmountRaised}원</p> */}
               </div>
             </div>
           </div>
@@ -274,14 +289,20 @@ const RecoveryDiaryDetail: React.FC = () => {
 
         {/* 생성된 치료일기 */}
         <div> 
-
           {recoveryCard.map((record, index) => (
             <div key={index} className={styles.recordCard} onClick={() => onClickRecord(index)}>
               <div className={styles.recordDate}>
                 {formatDate(record.diaryRegisterDate)}
               </div>
               {/* {imgUrl && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>} */}
-              {record.diaryPhoto && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>}
+              {record.diaryPhoto ? (
+                <div className={styles.recordImage}>
+                  <img className={styles.recordImage} src={record.diaryPhoto} alt=""/>
+                </div>
+                ) : (
+                <div className={styles.noImg} />
+              )}
+              {/* {record.diaryPhoto && <img src={record.diaryPhoto} className={styles.recordImage} alt={imgPreUrl}/>} */}
               <div className={styles.recordIndex}>
               {record.diaryTitle.length > 10 ? `${record.diaryTitle.substring(0, 10)}...` : record.diaryTitle}
               </div>
@@ -350,13 +371,18 @@ const RecoveryDiaryDetail: React.FC = () => {
           )}
             
           {/* 생성버튼 클릭 -> 치료일지 생성 */}
-          {isOpenModal && isChecked === true && (
+          {isOpenModal && isChecked == true && (
             <Modal onClickToggleModal={onClickToggleModal}>
             <div className={styles.modalTopCreate}>
               <div className={styles.modalText}>치료일기 생성</div>
               <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
             </div> 
-            <input type="text" className={styles.modalInfoTitle} placeholder={"제목"} ref={inputRef} onChange={handleEditorChange} />
+            {/* 제목입력칸 */}
+            <div> 
+            <input type="text" placeholder={"10자까지 입력이 가능합니다."} 
+              ref={inputRef} className={styles.modalInfoTitle} onChange={handleEditorChange} />
+              <div className={styles.inputIndexCheck}>{title.length}/10</div>
+            </div>
             {/* 이미지 입력 */}
             <div className={styles.imgInput}>
               {/* 이미지 선택하면 해당 이미지 띄우고 없으면 기본 이미지 */}

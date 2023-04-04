@@ -13,6 +13,14 @@ import FundRegister from "./pages/FundRegister";
 import HosBenList from "./pages/HosBenList";
 import HosFundList from "./pages/HosFundList";
 import NoticePage from './pages/NoticePage';
+import Mint from "./pages/Mint";
+import StartDonate from "./pages/StartDonate";
+import Donate from "./pages/Donate";
+import MMLoading from "./pages/MMLoading";
+
+import NoticeDetail from './pages/NoticeDetail';
+import NoticeEdit from './pages/NoticeEdit';
+import CustomerMyPage from "./pages/CustomerMyPage";
 import CustomerMyHome from './pages/CustomerMyHome';
 
 import RecoveryDiary from './pages/RecoveryDiary';
@@ -21,8 +29,11 @@ import FundMain from "./pages/FundMain";
 import FundDetail from "./pages/FundDetail";
 import FundPayment from "./pages/FundPayment";
 import KakaoPaid from "./pages/KakaoPaid";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
 
 function App() {
+  const authInfo = useSelector((state:RootState)=> state.auth);
   return (
     <div className="App">
 
@@ -33,8 +44,7 @@ function App() {
           {/* 공지사항 페이지 */}
           <Route path="/notice/*" element={<NoticePage />} />
           
-          {/* 일반고객 마이페이지 */}
-          <Route path="/mypage/*" element={<CustomerMyHome />} />
+
           
           {/* 모금 페이지 */}
           <Route path='/fundmain' element={<FundMain />} />
@@ -48,14 +58,34 @@ function App() {
           <Route path='/fundregi' element={<FundRegister />} />
           <Route path='/hosbenlist' element={<HosBenList />} />
           <Route path='/hosfundlist' element={<HosFundList />} />
+
+
+
+          {/* web3js 페이지 */}
+          <Route path='/mint' element={<Mint /> } />
+          <Route path='/donate' element={<Donate /> } />
+          <Route path='/startdonate' element={<StartDonate /> } />
+          <Route path='/mmload' element={<MMLoading /> } />
           
          
           <Route path='/diary' element={<RecoveryDiary />} />
           <Route path='/diarydetail/:id' element={<RecoveryDiaryDetail />} />
           
-        </Route >
+          {/* 역할별 마이페이지 설정 */}
+          {
+            authInfo.isAuthenticated && (authInfo.role==="USER"||authInfo.role==="ADMIN")?
+            <Route path="/mypage/*" element={<CustomerMyHome />} />:
+            authInfo.isAuthenticated && authInfo.role==="HOSPITAL"?
+            <Route path="/mypage/*" element={<HospitalPage />} />:""
+          }
+         
 
+
+
+
+        </Route >
         <Route path='/login' element={<Login />} />
+      
       </Routes>
     </div>
   )

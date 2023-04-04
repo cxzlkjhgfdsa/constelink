@@ -31,8 +31,11 @@ const FundDetail: React.FC = () => {
   // const percentage: number = 80;
   // const goalMoney: number = 1000000;
   const navigate = useNavigate();
-  
-  
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [detailData, setDetailData] = useState<recievedata>();
   const { id } = useParams<{ id: string }>();
   // console.log(id);

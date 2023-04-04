@@ -35,7 +35,7 @@ const CustomerMyPage: React.FC = () => {
         <div className={styles.CustomerMyPage}>
 
             <div className={styles.user_profile}>
-                <div className={styles.user_img}><img src={authInfo.profileImg} alt='profile' /></div>
+                <div className={styles.user_img_main}><img src={authInfo.profileImg} alt='profile' /></div>
                 <div className={styles.user_name}>
                     <div className={styles.comment_greet}>반갑습니다. {authInfo.nickname}님!</div>
                     <div className={styles.comment_mypage}>기부왕{authInfo.nickname} 님의 마이페이지</div>

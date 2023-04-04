@@ -11,10 +11,6 @@ pipeline {
                 script {
                     if(env.BRANCH_NAME == 'dev-front') {
                         echo "Front Project Build Step"
-                        dir('Frontend') {
-                            sh 'npm install'
-                            sh 'npm run build'
-                        }
                     } else if(env.BRANCH_NAME == 'feature-back/auth-server') {
                         echo "Auth Server Project Build Step"
                         dir('Backend/AuthServer') {
