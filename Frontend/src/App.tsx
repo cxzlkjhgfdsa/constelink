@@ -20,6 +20,7 @@ import RecoveryDiaryDetail from './pages/RecoveryDiaryDetail';
 import FundMain from "./pages/FundMain";
 import FundDetail from "./pages/FundDetail";
 import FundPayment from "./pages/FundPayment";
+import KakaoPaid from "./pages/KakaoPaid";
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
           <Route path='/fundmain' element={<FundMain />} />
           <Route path='/fundmain/funddetail/:id' element={<FundDetail />} />
           <Route path='/fundpayment/kakao/:id' element={<FundPayment />} />
+          <Route path='/kakao' element={<KakaoPaid />} />
+
           
           <Route path='/hospage' element={<HospitalPage />} />
           <Route path='/benregi' element={<BenRegister />} />

@@ -73,26 +73,25 @@ const FundPayment: React.FC = () => {
 
   // 카카오페이 연결
   const toKakaoPay = async () => {
+
+    const words = "님 에게 기부하기"
     
     const body = {
-      itemName: detailData?.fundraisingTitle,
+      itemName: detailData?.beneficiaryName + words,
       amount: String(donate),
     }
 
     axios.post('/member/payments/ready', body)
       .then((res) => {
         console.log(res);
-        // console.log(res);
-        // console.log(res.data.next_redirect_pc_url);
         return window.open(res.data.next_redirect_pc_url);
-        // navigate('/');
       })
       .catch((err) => {
         console.log(err);
       })
   }
 
-  // 확인 버튼을 눌렀을 때 오류 없으면 카카오 연결하깅
+  // 확인 버튼을 눌렀을 때 오류 없으면 카카오 연결하기
   const checkErrs = () => {
     if (!noKakaoErr) {
       alert('결제 방식을 선택하지 않았습니다!');
