@@ -211,7 +211,7 @@ const FundPayment: React.FC = () => {
                 <div className={styles.voidCircle}></div>
                 <div className={styles.stepDetail}>
                   <div className={styles.stepOneNumber}>STEP1.</div>
-                  <div className={styles.stepOneTodo}>후원자 정보확인</div>
+                  <div className={styles.stepOneTodo}>수혜자 정보확인</div>
                 </div>
               </div>
               <div className={styles.arrowDiv} />

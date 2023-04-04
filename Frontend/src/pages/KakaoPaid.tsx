@@ -30,7 +30,7 @@ const KakaoPaid: React.FC = () => {
     console.log('MM 연결 필요')
     console.log(pgToken);
 
-    axios.get(`/member/payments/succes?pg_token=${pgToken}`)
+    axios.get(`/member/payments/success?pg_token=${pgToken}`)
       .then((res) => {
         console.log(res);
       })
@@ -63,7 +63,7 @@ const KakaoPaid: React.FC = () => {
               <div className={styles.voidCircle}></div>
               <div className={styles.stepDetail}>
                 <div className={styles.stepOneNumber}>STEP1.</div>
-                <div className={styles.stepOneTodo}>후원자 정보확인</div>
+                <div className={styles.stepOneTodo}>수혜자 정보확인</div>
               </div>
             </div>
             <div className={styles.arrowDiv} />
