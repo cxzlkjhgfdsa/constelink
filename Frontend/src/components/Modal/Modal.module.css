@@ -8,8 +8,8 @@
 }
 
 .DialogBox {
-  width: 500px;
-  height: 800px;
+  width: 400px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;

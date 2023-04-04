@@ -236,9 +236,9 @@
 
 .modalTopCreate {
   width: 100%;
-  height: 100px;
+  height: 40px;
   background-color: #A19FD5;
-  margin-bottom: 5%;
+  margin-bottom : 1%;
   font-family: "Hahmlet";
   font-size: 22px;
   font-weight: bold;
@@ -250,7 +250,7 @@
 }
 
 .modalText {
-  margin-left: 37%;  
+  margin-left: 35%;  
   margin-right: auto; /* 오른쪽으로 이동 */
 }
 
@@ -268,8 +268,8 @@
 }
 
 .modalImage {
-  width: 200px;
-  height: 200px;
+  width: 8rem;
+  height: 8rem;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -279,7 +279,7 @@
   height: 200px; */
   background-color: lightgray;
   width: 100%;
-  height: 200px;
+  height: 8rem;
   max-width: 100%;
   max-height: 100%;
   /* 이미지를 크기에 맞게 조정 */
@@ -288,13 +288,13 @@
 
 .modalInfoTitle {
   font-family: "Hahmlet";
-  font-size: 22px;
+  font-size: 15px;
   font-weight: bold;
 }
 
 .inputIndexCheck {
-  font-size: 15px;
-  margin-left : 88%;
+  font-size: 12px;
+  margin-left : 86%;
 }
 
 .modalInfoDate {
@@ -319,21 +319,24 @@
 
 .hr {
   margin: 15px;
-  margin-top: 50px;
   border: none;
   border-top: 3px solid rgb(0, 0, 0);
 }
 
 .modalHr {
-  margin: 20px 0;
+  margin: 1px 0;
   border: none;
   border-top: 1px solid gray;
 }
 
-.modalButton { 
-  margin : 5%;
+.modalButton {   
+  margin-top : 10px;
   display: flex;
   justify-content: center;
+}
+
+.modalInfo {
+  max-height: 200px;
 }
 
 .modalButtonItem {
@@ -353,10 +356,8 @@
 
 
 .imgInput{
-  width: 11rem;
-  height: 11rem;
-  padding-bottom: 1rem;
-  margin-top: 2rem;
+  width: 108px;
+  height: 108px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -364,23 +365,23 @@
 }
 
 .withImgCircle{
-  height: 10rem;
-  width: 10rem;
+  height: 6rem;
+  width: 6rem;
   border-radius: 50%;
   border: 0.2rem solid #A19FD5;
 }
 
 .benImg{
-  height: 10rem;
-  width: 10rem;
+  height: 6rem;
+  width: 6rem;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .imgCircle{
   background-color: transparent;
-  height: 10rem;
-  width: 10rem;
+  height: 6rem;
+  width: 6rem;
   background-image: url("../assets/img/circleuser.png");
   background-size: auto;
   background-position: 50% 50%;
@@ -396,10 +397,9 @@
   background-image: url("../assets/img/plus.png");
   background-size: contain;
   cursor: pointer;
-
   position: absolute;
   bottom: 0rem;
-  right: -1rem;
+  right: -2rem;
 }
 
 .inputFile{
