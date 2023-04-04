@@ -4,14 +4,6 @@ import styles from "./FundPayment.module.css"
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
-// import Web3 from "web3";
-// import { AbiItem } from 'web3-utils';
-// import { FUND_ABI } from "../web3js/FUND_ABI";
-// import { TransactionConfig } from 'web3-core';
-// import { TransactionReceipt } from 'web3-core/types';
-
-
 interface recievedata {
   beneficiaryBirthday: number;
   beneficiaryDisease: string;
@@ -34,76 +26,9 @@ interface recievedata {
   hospitalName: string
 }
 
-// const MM_KEY = "959577d28acb66ac3987a1a1641d4a3072285a1bf0cdf9d66c6ed8ab795947b8";
-// const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
-// const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
-
-
 const FundPayment: React.FC = () => {
   
   const navigate = useNavigate();
-  
-  // // page 들어오면 메타마스크 연결하라고 메시지 띄우기
-  // useEffect(() => {
-  //   alert('기부를 하기위해 메타마스크와 연결해 주세요!');
-  // }, [])
-
-  // // web3js
-  // // 현재 접속한 유저의 metamask address 가져오기
-  // const [web3, setWeb3] = useState<Web3 | null>(null);
-  // const [address, setAddress] = useState<string | null>(null);
-  // const [contract, setContract] = useState<any | null>(null);
-
-  // // 계정 주소 불러오고, 펀딩 컨트랙트 연결
-  // useEffect(() => {
-  //   const detectWeb3 = async () => {
-      
-  //     if (typeof window.ethereum !== "undefined") {
-  //       // MetaMask is installed & create an web3 instance
-  //       const provider = window.ethereum;
-  //       await provider.request({ method: "eth_requestAccounts" });
-  //       const web3Instance = new Web3(provider);
-  //       setWeb3(web3Instance);
-  
-  //       // Get the user's address
-  //       const accounts = await web3Instance.eth.getAccounts();
-  //       setAddress(accounts[0]);
-        
-  //       // Load the contract
-  //       const contractInstance = new web3Instance.eth.Contract(FUND_ABI as AbiItem[], TEST_PUB_FUND_CA);
-  //       setContract(contractInstance); 
-  //     }
-  //   };
-  //   detectWeb3();
-  // }, []);
-
-  // // mint컨트랙트 보내기
-  // async function sendTransactionMint() {
-  //   if (web3) {
-  //     const master = web3.eth.accounts.privateKeyToAccount(MM_KEY);
-  //     console.log(master);
-  //     const txParams: TransactionConfig = {
-        
-  //       from: master.address,
-  //       to: TEST_PUB_FUND_CA,
-  //       gas: 1000000,
-  //       data: contract.methods.mint(address, 10000).encodeABI(),
-  //       nonce: await web3.eth.getTransactionCount(master.address),
-  //       chainId: 11155111,
-  //     };
-  
-  //     const signedTX = await master.signTransaction(txParams);
-  //     console.log('이게 signedTX');
-  //     console.log(signedTX.rawTransaction);
-  //     console.log('입니다');
-      
-  //     const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
-  //     console.log(`Transaction hash: ${receipt.transactionHash}`);
-  //   } else {
-  //     console.log('Web3 is not available');
-  //   };
-  // }
-
 
   // 기부 상세정보 받기
   const [detailData, setDetailData] = useState<recievedata>();
@@ -179,14 +104,6 @@ const FundPayment: React.FC = () => {
       return
     }
 
-
-    // 메타마스크 연결 안했다면
-    // if (!address) {
-    //   alert('메타마스크와 연결되지 않았습니다!');
-    //   return
-    // }
-    
-    // sendTransactionMint();
     toKakaoPay();
   }
   
