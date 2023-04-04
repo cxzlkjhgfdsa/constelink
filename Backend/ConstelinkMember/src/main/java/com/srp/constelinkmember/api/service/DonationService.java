@@ -65,7 +65,7 @@ public class DonationService {
 
 		HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 		System.out.println("여기까지 인가");
-		String response = restTemplate.postForObject("http://70.12.245.26:8080/fundraisings/donate", request,
+		String response = restTemplate.postForObject("constelink-fundraising/fundraisings/donate", request,
 			String.class);
 		log.info("응답 도착 === " + response);
 
