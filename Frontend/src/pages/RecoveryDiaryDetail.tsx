@@ -10,7 +10,7 @@ import SunEditor from 'suneditor-react';
 import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css';
 import { RecoveryDiaries, RecoveryDiaryDetailData, RecoveryDiaryCreate } from './../models/recoveryData';
-import axios from 'axios';
+import axios from 'axios'; 
 
 // 리커버리 카드 import 해야함
 // 리커버리 카드 -> 생성버튼 -> 모달을 통해 create -> 카드로 생성 
@@ -409,8 +409,8 @@ const RecoveryDiaryDetail: React.FC = () => {
               <SunEditor
               getSunEditorInstance={getSunEditorInstance}
               lang="ko"
-              width="300px"
-              height="300px"
+              width="250px"
+              height="180px"
               autoFocus={false}
               onChange={contentChangeHandler}
               setDefaultStyle="font-family:Hahmlet;color:darkgrey;font-size: 20px;"
@@ -422,18 +422,18 @@ const RecoveryDiaryDetail: React.FC = () => {
                     "underline",
                     "table",
                     "fontColor"                  ]
-                ]
-            }}
-            // SunEditor 끝 
-            /> 
-        <div className={styles.modalButton}>
-          <button className={styles.modalButtonItem} onClick={onAddRecord}>
-              생성완료
-          </button>
-          <button className={styles.modalButtonItem} onClick={onCancelRecord}>
-              취소
-          </button>
-        </div>
+                  ]
+                }}
+                // SunEditor 끝 
+                /> 
+          <div className={styles.modalButton}>
+            <button className={styles.modalButtonItem} onClick={onAddRecord}>
+                생성완료
+            </button>
+            <button className={styles.modalButtonItem} onClick={onCancelRecord}>
+                취소
+            </button>
+          </div>
         </div>
       </Modal>
           )} 
