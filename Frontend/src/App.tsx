@@ -55,6 +55,14 @@ function App() {
           <Route path='/fundregi' element={<FundRegister />} />
           <Route path='/hosbenlist' element={<HosBenList />} />
           <Route path='/hosfundlist' element={<HosFundList />} />
+
+
+
+          {/* web3js 페이지 */}
+          <Route path='/mint' element={<Mint /> } />
+          <Route path='/donate' element={<Donate /> } />
+          <Route path='/startdonate' element={<StartDonate /> } />
+          <Route path='/mmload' element={<MMLoading /> } />
           
          
           <Route path='/diary' element={<RecoveryDiary />} />
