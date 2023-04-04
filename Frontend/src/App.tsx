@@ -24,6 +24,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "./store";
 import HospitalMyPage from "./pages/HospitalMyPage";
 import HospitalMyHome from "./pages/HostpitalMyHome";
+import FinishFundList from "./pages/FinishFundList";
 
 function App() {
   const authInfo = useSelector((state:RootState)=> state.auth);
@@ -37,7 +38,7 @@ function App() {
           {/* 공지사항 페이지 */}
           <Route path="/notice/*" element={<NoticePage />} />
           
-
+          <Route path='/finish' element={<FinishFundList />} />
           
           {/* 모금 페이지 */}
           <Route path='/fundmain' element={<FundMain />} />
