@@ -31,12 +31,14 @@ const FundPayment: React.FC = () => {
   const navigate = useNavigate();
 
   // 기부 상세정보 받기
+  // 로컬스토리지에 기부 상세정보 저장
   const [detailData, setDetailData] = useState<recievedata>();
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
     axios.get(`/fundraisings/${id}?memberId=0`).then(res => {
       console.log(res.data);
       setDetailData(res.data);
+      localStorage.setItem('details', JSON.stringify(res.data));
     })
   }, [id])
   
@@ -103,7 +105,7 @@ const FundPayment: React.FC = () => {
       alert('후원금을 입력하지 않았습니다!');
       return
     }
-
+    
     toKakaoPay();
   }
   

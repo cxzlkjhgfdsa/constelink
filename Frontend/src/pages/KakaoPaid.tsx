@@ -13,6 +13,28 @@ import { TransactionReceipt } from 'web3-core/types';
 
 import Mining from "../assets/img/mining.gif";
 
+interface recievedata {
+  beneficiaryBirthday: number;
+  beneficiaryDisease: string;
+  beneficiaryId: number
+  beneficiaryName: string
+  beneficiaryPhoto: string
+  beneficiaryStatus: string
+  categoryName: string
+  fundraisingAmountGoal: number
+  fundraisingAmountRaised: number
+  fundraisingBookmarked: boolean
+  fundraisingEndTime: number
+  fundraisingId: number
+  fundraisingIsDone: boolean
+  fundraisingPeople: number
+  fundraisingStartTime: number
+  fundraisingStory: string
+  fundraisingThumbnail: string
+  fundraisingTitle: string
+  hospitalName: string
+}
+
 
 const MM_KEY = "959577d28acb66ac3987a1a1641d4a3072285a1bf0cdf9d66c6ed8ab795947b8";
 // const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
@@ -35,15 +57,20 @@ const KakaoPaid: React.FC = () => {
 
 
   // 카카오 결제완료 후 토큰 받아오기, 금액 설정
-  // const [money, setMoney] = useState(0);
+  const [money, setMoney] = useState(0);
+  const [info, setInfo] = useState<recievedata>();
   useEffect(() => {
     // 메타마스크 연결 요청
     alert('메타마스크 계정을 연결해 주세요!')
 
     axios.get(`/member/payments/success?pg_token=${pgToken}`)
       .then((res) => {
-        // setMoney(res.data.amount.total);
+        console.log(res);
+        console.log(localStorage.getItem('details'));
         localStorage.setItem('money', res.data.amount.total);
+        setMoney(res.data.amount.total);
+        // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
+        setInfo(JSON.parse(localStorage.getItem('details') || '{}'));
       })
       .catch((err) => {
         console.log(err);
@@ -119,15 +146,43 @@ const KakaoPaid: React.FC = () => {
   // 토큰 기부 완료되면
   const [isDone, setIsDone] = useState(false);
   useEffect(() => {
+    // 토큰 기부하면 DB에 기부 저장하기
+    const saveDonation = async () => {
+      
+      const body = {
+        fundraisingId: info?.fundraisingId,
+        donationPrice: money,
+        hospitalName: info?.hospitalName,
+        beneficiary_id: info?.beneficiaryId,
+        beneficiaryName: info?.beneficiaryName,
+        beneficiaryDisease: info?.beneficiaryDisease,
+        fundraisingTitle: info?.fundraisingTitle,
+        fundraisingThumbnail: info?.fundraisingThumbnail
+      }
+      
+      await axios.post('/member/donations/save', body)
+        .then((res) => {
+          console.log('도네 저장 성공');
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log('도네 저장 실패');
+          console.log(err);
+        })
+    }
     
     // 기부완료되면 홈으로 이동하고
     // 로컬스토리지 비워주기
     if (isDone) {
       alert('토큰 기부가 완료되었습니다!');
+      // 도네이션 정보 저장
+      saveDonation();
+
       navigate('/');
+
       localStorage.clear();
     }
-  }, [isDone, navigate])
+  }, [isDone])
 
 
   return (
