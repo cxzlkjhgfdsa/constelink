@@ -31,6 +31,11 @@ const FundDetail: React.FC = () => {
   // const percentage: number = 80;
   // const goalMoney: number = 1000000;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   useEffect(() => {
     const intervalIdPercent = setInterval(() => {
       if (curValue < percentage) setCurValue(curValue => curValue + 1);
@@ -46,9 +51,11 @@ const FundDetail: React.FC = () => {
     const percentage: number = 80;
 
     useEffect(() => {
-        axios.get(`/fundraisings/${id}?memberId=0`).then(res => {
+        axios.get(`/fundraising/fundraisings/${id}?memberId=1`).then(res => {
             console.log(res.data);
             setDetailData(res.data);
+            axios.defaults.headers.common = {};
+          
         })
     }, [id])
 

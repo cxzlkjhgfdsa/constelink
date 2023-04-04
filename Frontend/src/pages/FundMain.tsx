@@ -13,58 +13,58 @@ import { useNavigate } from 'react-router-dom';
 const FundMain: React.FC = () => {
 
   // 더미 만들어두기
-  const categories: string[] = ["암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기", 
-  "암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기"];
+  // const categories: string[] = ["암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기", 
+  // "암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기", "암", "소아", "노인", "뭐시기", "저시기"];
 
 
 
-  const renderBoxes = () => {
-    const result = [];
-    for (let i = 0; i < categories.length; i ++) {
-      if (i % 5 === 0) {
-        result.push(
-        <div className={styles.categoryBox_1}>
-          <div key={i} className={styles.categoryText}>
-            {categories[i]}
-          </div>
-        </div>
-        );
-      }else if (i % 5 === 1) {
-        result.push(
-        <div className={styles.categoryBox_2}>
-          <div key={i} className={styles.categoryText}>
-            {categories[i]}
-          </div>
-        </div>
-        );
-      }else if (i % 5 === 2) {
-        result.push(
-        <div className={styles.categoryBox_3}>
-          <div key={i} className={styles.categoryText}>
-            {categories[i]}
-          </div>
-        </div>
-        );
-      }else if (i % 5 === 3) {
-        result.push(
-        <div className={styles.categoryBox_4}>
-          <div key={i} className={styles.categoryText}>
-            {categories[i]}
-          </div>
-        </div>
-        );
-      }else {
-        result.push(
-        <div className={styles.categoryBox_5}>
-          <div key={i} className={styles.categoryText}>
-            {categories[i]}
-          </div>
-        </div>
-        );
-      }
-    }
-    return result;
-  }
+  // const renderBoxes = () => {
+  //   const result = [];
+  //   for (let i = 0; i < categories.length; i ++) {
+  //     if (i % 5 === 0) {
+  //       result.push(
+  //       <div className={styles.categoryBox_1}>
+  //         <div key={i} className={styles.categoryText}>
+  //           {categories[i]}
+  //         </div>
+  //       </div>
+  //       );
+  //     }else if (i % 5 === 1) {
+  //       result.push(
+  //       <div className={styles.categoryBox_2}>
+  //         <div key={i} className={styles.categoryText}>
+  //           {categories[i]}
+  //         </div>
+  //       </div>
+  //       );
+  //     }else if (i % 5 === 2) {
+  //       result.push(
+  //       <div className={styles.categoryBox_3}>
+  //         <div key={i} className={styles.categoryText}>
+  //           {categories[i]}
+  //         </div>
+  //       </div>
+  //       );
+  //     }else if (i % 5 === 3) {
+  //       result.push(
+  //       <div className={styles.categoryBox_4}>
+  //         <div key={i} className={styles.categoryText}>
+  //           {categories[i]}
+  //         </div>
+  //       </div>
+  //       );
+  //     }else {
+  //       result.push(
+  //       <div className={styles.categoryBox_5}>
+  //         <div key={i} className={styles.categoryText}>
+  //           {categories[i]}
+  //         </div>
+  //       </div>
+  //       );
+  //     }
+  //   }
+  //   return result;
+  // }
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
     const navigate= useNavigate();
@@ -77,7 +77,7 @@ const FundMain: React.FC = () => {
   const [campaignList, setCampaignList] =useState<DonationData[]>([]);
   useEffect(()=>{
   let params: any = { page: page, size: 16};
-  axios.get('http://j8a206.p.ssafy.io:8998/fundraisings',{params}).then((res)=>{
+  axios.get('/fundraising/fundraisings',{params}).then((res)=>{
   console.log(res.data);
   setTotalPage(res.data.totalElements)
   setCampaignList(res.data.content);

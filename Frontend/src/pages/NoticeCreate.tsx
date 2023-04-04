@@ -23,6 +23,8 @@ const NoticeCreate = () => {
         console.log(selectedValue);
     }
 
+
+
     const submitHandler = () => {
         if (!title) {
             alert("공지사항 제목을 작성해주세요");
@@ -38,11 +40,12 @@ const NoticeCreate = () => {
             noticeIsPinned: fixedType
         }
         console.log(boardContent);
-
-
+        const accessToken = localStorage.getItem('access_token');
+        axios.defaults.headers.common['authorization'] = accessToken;
         axios.post("/notices/save", boardContent).then(res => {
             console.log(res);
-            navigate(`/notice/${54}`);
+            navigate(`/notice/${res.data.id}`);
+            axios.defaults.headers.common = {};
         })
     };
     const handleEditorChange = (e: React.ChangeEvent<HTMLInputElement>) => {

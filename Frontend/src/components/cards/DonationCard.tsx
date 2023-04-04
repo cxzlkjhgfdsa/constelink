@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     data: DonationData; 
@@ -13,13 +16,17 @@ interface Props {
 
 
 const DonationCard: React.FC<Props> = ({ data }) => {
+
+    const authInfo = useSelector((state:RootState)=> state.auth);
     const [curValue, setCurValue] = useState(0);
     const [curMoney, setCurMoney] = useState(0);
+    const navigate = useNavigate();
     let percentage=data.fundraisingAmountRaised / data.fundraisingAmountGoal * 100;
     let demicalDay =Math.floor((data.fundraisingEndTime-new Date().getTime())/(3600*24*1000));
     const goalMoney =data.fundraisingAmountRaised;
 
-
+    // 북마크 설정
+    const [isMark, setIsMark]= useState(data.fundraisingBookmarked);
 
     useEffect(() => {
         const intervalIdPercent = setInterval(() => {
@@ -41,16 +48,24 @@ const DonationCard: React.FC<Props> = ({ data }) => {
         return () => clearInterval(intervalIdMoney);
     }, [curMoney,goalMoney]);
 
-    // 북마크 설정
-    const [isMark, setIsMark]= useState(data.fundraisingBookmarked);
+
 
     const bookHandler = ()=>{
-        setIsMark(!isMark)
-        axios.post("/bookmarks",{
+        const accessToken = localStorage.getItem('access_token');
+        axios.defaults.headers.common['authorization'] = accessToken;
+        axios.post("/fundraising/bookmarks",{
             "memberId": 1,
             "fundraisingId": data.fundraisingId,
-        }).then(res=> console.log(res)
-        )
+        }).then(res=> {
+            axios.defaults.headers.common = {};
+            setIsMark(res.data)
+            console.log(res)
+        }
+          
+        ).catch((err)=>{
+            axios.defaults.headers.common = {};
+     
+        })
     }
 
     useEffect(()=>{
@@ -59,9 +74,9 @@ const DonationCard: React.FC<Props> = ({ data }) => {
 
     return (
         <div className={styles.DonationCard} style={{background:`linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))`,  backgroundImage :`url(${data.fundraisingThumbnail})`,  backgroundSize: "cover", backgroundRepeat:"no-repeat" }}>
-            <div className={styles.bookmark} > <FontAwesomeIcon  onClick={bookHandler} icon={faStar as IconProp} color={ !isMark ?'grey':"yellow"} /></div>
+            <div className={styles.bookmark} >{authInfo.role==='MEMBER'? <FontAwesomeIcon  onClick={bookHandler} icon={faStar as IconProp} color={ isMark ?"yellow":"grey"} />:""} </div>
             
-            <div className={styles.dona_box}>
+            <div className={styles.dona_box} onClick={()=>navigate(`/fundmain/funddetail/${data.fundraisingId}`)}>
                 
                 <div className={styles.dona_type}>{data.categoryName}</div>
                 <div className={styles.dona_title}>{data.fundraisingTitle}</div>

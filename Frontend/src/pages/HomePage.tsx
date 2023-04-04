@@ -51,15 +51,23 @@ const HomePage: React.FC = () => {
   const [statistics, setStatistics] = useState<Statistics>();
   const navigate= useNavigate();
   useEffect(() => {
-    axios.get("/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=0").then((res) => {
+    // const accessToken = localStorage.getItem('access_token');
+        
+    // axios.defaults.headers.common['authorization'] = accessToken;
+    axios.get("/fundraising/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=2").then((res) => {
       console.log(res.data.content);
+      // axios.defaults.headers.common={}
       setDonateCard(res.data.content);
     })
   }, [])
 
   useEffect(() => {
-    axios.get("/fundraisings/statistics?page=1&size=5&sortBy=ALL&memberId=0").then((res) => {
+    // const accessToken = localStorage.getItem('access_token');
+
+    // axios.defaults.headers.common['authorization'] = accessToken;
+    axios.get("/fundraising/fundraisings/statistics").then((res) => {
       console.log(res.data);
+      // axios.defaults.headers.common={}
       setStatistics(res.data)
     })
   }, [])
@@ -80,7 +88,7 @@ const HomePage: React.FC = () => {
               <div className={styles.slide_linkbox}>
                 <div className={styles.linkbox_title}>블록체인기반, 치료비 모금 플랫폼</div>
                 <div className={styles.linkbox_sub}>우리의 별자리를 확인해보세요!</div>
-                <div className={styles.linkbox_link}>바로가기 {">"}</div>
+                <div className={styles.linkbox_link} onClick={()=> navigate("/fundmain")}>바로가기 {">"}</div>
               </div>
             </div>
           </div>
@@ -90,7 +98,7 @@ const HomePage: React.FC = () => {
       <nav className={styles.with_box}>
         <img src="" alt="" />
         <div className={styles.with_title}>너네 별따러 갈때, 우린 달러가!</div>
-        <div className={styles.with_btn}><span style={{ color: "purple", fontWeight: "bold", paddingRight: "3px" }}>Constelink</span> 함께하기 -{">"}</div>
+        <div className={styles.with_btn} onClick={()=> navigate("/fundmain")} ><span style={{ color: "purple", fontWeight: "bold", paddingRight: "3px" } }>Constelink</span> 함께하기 -{">"}</div>
       </nav>
       <section>
 
@@ -114,7 +122,7 @@ const HomePage: React.FC = () => {
           >
             {
               donateCard.map(it => {
-                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}} onClick={()=>navigate(`/fundmain/funddetail/${it.fundraisingId}`)}><DonationCard data={it} /></SwiperSlide>
+                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}} ><DonationCard data={it} /></SwiperSlide>
               })
             }
           </Swiper>

@@ -45,7 +45,7 @@ const Header: React.FC = () => {
         const accessToken = localStorage.getItem('access_token');
         const refreshToken = localStorage.getItem('refresh_token');
         axios.defaults.headers.common['authorization'] = accessToken;
-        axios.defaults.headers.common['authorization'] = refreshToken;
+        axios.defaults.headers.common['refresh'] = refreshToken;
         axios.post("/auth/logout").then(res=>{
             console.log(res);
             localStorage.removeItem("access_token");
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
                     }}>치료달성</li>
             </ul>
             {
-                authInfo.isAuthenticated ? <div className={styles.header_login} onClick={() => navigate("/mypage")}><img className={styles.header_profile} src={authInfo.profileImg} /></div> : <div className={styles.header_login} onClick={() => navigate('/login')}>로그인</div>
+                authInfo.isAuthenticated ? <div className={styles.header_login} onClick={() => navigate("/mypage")}><img className={styles.header_profile} src={authInfo.profileImg} alt="profile" /></div> : <div className={styles.header_login} onClick={() => navigate('/login')}>로그인</div>
             }
             {/* 반응형 사이드바 */}
             <div className={styles.interactive}>
