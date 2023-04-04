@@ -37,7 +37,7 @@ interface recievedata {
 
 const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
 // const AUTH_TOKEN = process.env.REACT_APP_TMP_AUTH_TOKEN;
-const AUTH_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjgwNjExODA3LCJleHAiOjE2ODA2MTM2MDcsInJvbGUiOiJNRU1CRVIifQ.tg54LrTCvCnI-9Rh06dHHaw0i9457j9ForCG0moN973RSBLt_qwQeZVMDCcw72MBic58qKhiHhRBbXYuLYAB4A";
+const AUTH_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjgwNjIyMTA0LCJleHAiOjE2ODA2MjM5MDQsInJvbGUiOiJNRU1CRVIifQ.lBsm979A45pTb0MhN6rBrrrDrAdN7N0uTWf2ZqqkImLmKc45Wq-1p4zQ8T4iwFwTvExGDLxmUM15RyvIPyW-6g";
 const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
 
@@ -53,9 +53,9 @@ const KakaoPaid: React.FC = () => {
   const [address, setAddress] = useState<string | null>(null);
   const [contract, setContract] = useState<any | null>(null);
 
-  
+
   // 카카오 결제 토큰 쿼리에서 받아서 쓰기
-  const pgToken = window.location.search.substring(10);  
+  const pgToken = window.location.search.substring(10);
 
 
   // 카카오 결제완료 후 토큰 받아오기, 금액 설정
@@ -90,21 +90,21 @@ const KakaoPaid: React.FC = () => {
   // 계정 주소 불러오고, 펀딩 컨트랙트 연결
   useEffect(() => {
     const detectWeb3 = async () => {
-      
+
       if (typeof window.ethereum !== "undefined") {
         // MetaMask is installed & create an web3 instance
         const provider = window.ethereum;
         await provider.request({ method: "eth_requestAccounts" });
         const web3Instance = new Web3(provider);
         setWeb3(web3Instance);
-  
+
         // Get the user's address
         const accounts = await web3Instance.eth.getAccounts();
         setAddress(accounts[0]);
-        
+
         // Load the contract
         const contractInstance = new web3Instance.eth.Contract(FUND_ABI as AbiItem[], TEST_PUB_FUND_CA);
-        setContract(contractInstance); 
+        setContract(contractInstance);
       }
     };
     detectWeb3();
@@ -123,7 +123,7 @@ const KakaoPaid: React.FC = () => {
       const master = web3.eth.accounts.privateKeyToAccount(MM_KEY!);
       // console.log(master);
       const txParams: TransactionConfig = {
-        
+
         from: master.address,
         to: TEST_PUB_FUND_CA,
         gas: 1000000,
@@ -131,12 +131,12 @@ const KakaoPaid: React.FC = () => {
         nonce: await web3.eth.getTransactionCount(master.address),
         chainId: 11155111,
       };
-  
+
       const signedTX = await master.signTransaction(txParams);
       // console.log('이게 signedTX');
       // console.log(signedTX.rawTransaction);
       // console.log('입니다');
-      
+
       const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
       // console.log(`Transaction hash: ${receipt.transactionHash}`);
       setTranHash(receipt.transactionHash);
@@ -160,7 +160,7 @@ const KakaoPaid: React.FC = () => {
   useEffect(() => {
     // 토큰 기부하면 DB에 기부 저장하기
     const saveDonation = async () => {
-      
+
       const body = {
         fundraisingId: info?.fundraisingId,
         donationPrice: money,
@@ -172,7 +172,7 @@ const KakaoPaid: React.FC = () => {
         fundraisingTitle: info?.fundraisingTitle,
         fundraisingThumbnail: info?.fundraisingThumbnail
       };
-      
+
       console.log('나이스바디');
       console.log(body);
 
@@ -190,7 +190,7 @@ const KakaoPaid: React.FC = () => {
           console.log(err);
         })
     }
-    
+
     // 기부완료되면 홈으로 이동하고
     // 로컬스토리지 비워주기
     if (isDone) {
@@ -208,17 +208,17 @@ const KakaoPaid: React.FC = () => {
   return (
     <div className={styles.mainWrapper}>
       {/* 수금 페이지 메인 배너 */}
-        {isMinting ? (
-          <div className={styles.mainBanner}>
-            <div className={styles.bannerTitle}>토큰을 기부하는 중입니다 ...</div>
-            <div className={styles.bannerSubTitle}>잠시만 기다려 주세요!</div>
-          </div>
-        ) : (
-          <div className={styles.mainBanner}>
-            <div className={styles.bannerTitle}>여기까지 오신 당신, 당신은 멋집니다.</div>
-            <div className={styles.bannerSubTitle}>모금된 자금은 공정하고 투명하게 쓰이게됩니다.</div>
-          </div>
-        )}
+      {isMinting ? (
+        <div className={styles.mainBanner}>
+          <div className={styles.bannerTitle}>토큰을 기부하는 중입니다 ...</div>
+          <div className={styles.bannerSubTitle}>잠시만 기다려 주세요!</div>
+        </div>
+      ) : (
+        <div className={styles.mainBanner}>
+          <div className={styles.bannerTitle}>여기까지 오신 당신, 당신은 멋집니다.</div>
+          <div className={styles.bannerSubTitle}>모금된 자금은 공정하고 투명하게 쓰이게됩니다.</div>
+        </div>
+      )}
 
 
       {/* 메인 페이지 */}
@@ -254,29 +254,29 @@ const KakaoPaid: React.FC = () => {
             </div>
           </div>
         </div>
-      
-      {/* 토큰 제작 중 */}
-      {isMinting ? (
-        <div className={styles.article_info}>
-          <div className={styles.gif_div}>
-            <img className={styles.gif} src={Mining} alt="캐는 중..." />
+
+        {/* 토큰 제작 중 */}
+        {isMinting ? (
+          <div className={styles.article_info}>
+            <div className={styles.gif_div}>
+              <img className={styles.gif} src={Mining} alt="캐는 중..." />
+            </div>
           </div>
-        </div>
-      ) : (
-        <>
-          <div className={styles.moneyCheck}>
-          <div className={styles.moneyCheckKey}>총 후원토큰 |</div>
+        ) : (
+          <>
+            <div className={styles.moneyCheck}>
+              <div className={styles.moneyCheckKey}>총 후원토큰 |</div>
               <div className={styles.moneyCheckValue}>{localStorage.getItem('money')?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
               <div className={styles.moneyCheckCurrency}>CSTL</div>
-          </div>
-          <div 
-            className={styles.fundingBtn}
-            onClick={handleDonate}
-          >
-            기부하기
-          </div>
-        </>
-      )}
+            </div>
+            <div
+              className={styles.fundingBtn}
+              onClick={handleDonate}
+            >
+              기부하기
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
