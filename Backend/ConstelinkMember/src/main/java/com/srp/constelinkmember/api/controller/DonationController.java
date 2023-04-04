@@ -47,11 +47,10 @@ public class DonationController {
 
 	@Operation(summary = "기부내역 조회", description = "기부내역 조회 메서드.")
 	@GetMapping("/list")
-	public ResponseEntity listDonation(@RequestParam("page") int page,
-		HttpServletRequest request) {
-		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
-		String id = tokenProvider.resolveToken(accessToken);
-		Long memberId = Long.valueOf(id);
+	public ResponseEntity listDonation(@RequestParam("page") int page, HttpServletRequest request) {
+		 String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		 String id = tokenProvider.resolveToken(accessToken);
+		 Long memberId = Long.valueOf(id);
 		DonationDetailsResponse donationDetailsResponse = donationService.listDonation(memberId, page - 1);
 		return ResponseEntity.ok(donationDetailsResponse);
 	}
@@ -65,7 +64,7 @@ public class DonationController {
 	}
 
 	@Operation(summary = "수혜자 번호 반환", description = "사용자가 기부한 회복일지를 보기위한 데이터 반환")
-	@GetMapping("/beneficiaryids")
+	@GetMapping("/beneficiarys")
 	public ResponseEntity getBeneficiaryIds(@RequestParam("id") Long memberId) {
 		BeneficiaryResponse beneficiaryResponse = donationService.getBeneficiaryIds(memberId);
 

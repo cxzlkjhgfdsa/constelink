@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HospitalGrpcClientService {
 
-	private final ManagedChannel channel = ManagedChannelBuilder.forAddress("j8a206.p.ssafy.io", 8899)
+	private final ManagedChannel channel = ManagedChannelBuilder.forAddress("constelink-beneficiary", 9090)
 		.usePlaintext()
 		.build();
 	private HospitalGrpcServiceGrpc.HospitalGrpcServiceBlockingStub stub = HospitalGrpcServiceGrpc.newBlockingStub(

@@ -1,6 +1,9 @@
 package com.srp.constelinkmember.api.controller;
 
+import java.time.Duration;
+
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,9 +14,11 @@ import com.srp.constelinkmember.api.service.AuthService;
 import com.srp.constelinkmember.dto.LoginInfoDto;
 import com.srp.constelinkmember.dto.request.LoginRequest;
 import com.srp.constelinkmember.dto.response.LoginResponse;
+import com.srp.constelinkmember.util.CookieUtils;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,11 +34,12 @@ public class AuthController {
 	@Operation(summary = "로그인 메서드", description = "로그인 메서드입니다.")
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+		System.out.println(loginRequest.getKey() + loginRequest.isFlag());
 		LoginInfoDto loginInfoDto = authService.login(loginRequest);
 
 		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.set(HttpHeaders.AUTHORIZATION, "Bearer " + loginInfoDto.getAccessToken());
-		httpHeaders.set("refresh", loginInfoDto.getRefreshToken());
+		httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + loginInfoDto.getAccessToken());
+		httpHeaders.add("refresh", loginInfoDto.getRefreshToken());
 
 		LoginResponse loginResponse = LoginResponse.builder()
 			.nickname(loginInfoDto.getNickname())

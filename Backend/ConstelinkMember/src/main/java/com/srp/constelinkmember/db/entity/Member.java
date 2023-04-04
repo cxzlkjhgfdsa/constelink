@@ -72,9 +72,11 @@ public class Member {
 	private int memberPoint;
 
 	@NotNull
+	@Builder.Default
 	@Column(name = "member_inactive", nullable = false)
 	private Boolean memberInactive = false;
 
+	@Builder.Default
 	@OneToMany
 	private Set<Donation> donations = new LinkedHashSet<>();
 
