@@ -35,7 +35,7 @@ const FundPayment: React.FC = () => {
   const [detailData, setDetailData] = useState<recievedata>();
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
-    axios.get(`/fundraisings/${id}?memberId=0`).then(res => {
+    axios.get(`/fundraising/fundraisings/${id}?memberId=0`).then(res => {
       console.log(res.data);
       setDetailData(res.data);
       localStorage.setItem('details', JSON.stringify(res.data));
