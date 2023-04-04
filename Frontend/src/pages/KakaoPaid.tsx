@@ -35,14 +35,15 @@ const KakaoPaid: React.FC = () => {
 
 
   // 카카오 결제완료 후 토큰 받아오기, 금액 설정
-  const [money, setMoney] = useState(0);
+  // const [money, setMoney] = useState(0);
   useEffect(() => {
     // 메타마스크 연결 요청
     alert('메타마스크 계정을 연결해 주세요!')
 
     axios.get(`/member/payments/success?pg_token=${pgToken}`)
       .then((res) => {
-        setMoney(res.data.amount.total);
+        // setMoney(res.data.amount.total);
+        localStorage.setItem('money', res.data.amount.total);
       })
       .catch((err) => {
         console.log(err);
@@ -79,6 +80,7 @@ const KakaoPaid: React.FC = () => {
 
   async function sendTransactionMint() {
     setIsMinting(true);
+    alert('토큰 기부중 입니다!');
     if (web3) {
       const master = web3.eth.accounts.privateKeyToAccount(MM_KEY);
       console.log(master);
@@ -118,16 +120,15 @@ const KakaoPaid: React.FC = () => {
   const [isDone, setIsDone] = useState(false);
   useEffect(() => {
     
-    // 기부완료되면 홈으로 이동하기
+    // 기부완료되면 홈으로 이동하고
+    // 로컬스토리지 비워주기
     if (isDone) {
       alert('토큰 기부가 완료되었습니다!');
       navigate('/');
+      localStorage.clear();
     }
   }, [isDone, navigate])
 
-
-
-  
 
   return (
     <div className={styles.mainWrapper}>
@@ -181,7 +182,7 @@ const KakaoPaid: React.FC = () => {
         <>
           <div className={styles.moneyCheck}>
           <div className={styles.moneyCheckKey}>총 후원토큰 |</div>
-              <div className={styles.moneyCheckValue}>{money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
+              <div className={styles.moneyCheckValue}>{localStorage.getItem('money')?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</div>
               <div className={styles.moneyCheckCurrency}>CSTL</div>
           </div>
           <div 
