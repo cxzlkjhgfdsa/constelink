@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
+// import queryString from 'querystring';
 import styles from "./FundPayment.module.css";
 
 
@@ -17,16 +18,25 @@ import Mining from "../assets/img/mining.gif";
 const KakaoPaid: React.FC = () => {
 
   const navigate = useNavigate();
-  const { params } = useParams();
+  
+  // 토큰 쿼리에서 받아서 쓰기
+  const pgToken = window.location.search.substring(10);  
 
   // 병
   const [isDone, setIsDone] = useState(false);
 
-  // 페이지 방문 하면 메타마스크 연결하라고 메시지 띄우기
+  // 카카오 결제완료 후 토큰 받아오기
   useEffect(() => {
     console.log('MM 연결 필요')
-    console.log(params);
-    // alert('기부를 완료하기 위해 메타마스크와 연결해주세요!');
+    console.log(pgToken);
+
+    axios.get(`/member/payments/succes?pg_token=${pgToken}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }, [])
 
 
