@@ -13,7 +13,7 @@ const NoticeDetail = () => {
      const { id } = useParams<{ id: string }>();
      useEffect(()=> {
         axios.get(`/notices/detail?id=${id}`).then(res=>{
-            console.log(res.data.noticeContent);
+            console.log(res.data);
             setContents(res.data)
             
         })

@@ -1,60 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useState }from 'react';
 import styles from "./CustomerEditPage.module.css"
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { useRef, useState } from 'react';
-import axios  from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { authActions } from '../store/auth';
+import axios  from 'axios';
 const CustomerEditPage:React.FC = () => {
 
     const authNickname = useSelector((state:RootState)=> state.auth.nickname);
     
-   
     const [limit, setLimit] = useState<string>("");
     const inputRef = useRef<HTMLInputElement>(null);
-    const [userName, setUserName]= useState("");
-    // const dispatch = useDispatch();
+
     const navigate = useNavigate();
     const nickNameChangeHandler=(e:any)=>{
         setLimit(e.target.value);
     }
     const modifyHandler = ()=>{
         const accessToken = localStorage.getItem('access_token');
-        console.log(accessToken);
 
-    
-        axios.defaults.headers.common['authorization'] = accessToken;
-        // 회원탈퇴랑, 그거는 리프레시 토큰, 로그아웃할때 , 토크 재발급 받을때만 보내면 된다.
         let editData ={
             nickname: limit,
             profileImg: ""
         }
-
-        console.log(editData);
-        
-        axios.post("http://j8a206.p.ssafy.io:8997/members/modify", editData).then(res=>{
+        axios.defaults.headers.common['authorization'] = accessToken;
+        axios.post("/member/members/modify", editData).then(res=>{
             alert("수정이 완료되었습니다.")
-            console.log(res);
+            axios.defaults.headers.common = {};
             navigate("/mypage");
           }).catch((err)=>{
-
+            console.log(err);
+            axios.defaults.headers.common = {};
           })
         
     }
 
-    // useEffect(()=>{
-    //     const accessToken = localStorage.getItem('access_token');
-    //     axios.defaults.headers.common['authorization'] = accessToken;
-    //     axios.get("/members/info").then(res=>{
-        
-    //     console.log(res);
-    //     const updateName = res.data.name;
-    //     dispatch(authActions.update(updateName))
-     
-    //     setUserName(updateName)
-    //     })
-    // },[])
+
 
     
     
@@ -64,7 +44,7 @@ const CustomerEditPage:React.FC = () => {
             <header className={styles.modify_title}>개인정보 변경</header>
     
             <div className={styles.modify_notice}>
-                 <div className={styles.modify_content}>콘스텔링크에 노출되는 고유한 사용자 명칭입니다. 원하는 닉네임을 30자 이내로 만들어주세요.</div>
+                 <div className={styles.modify_content}>콘스텔링크에 노출되는 고유한 사용자 명칭입니다. 원하는 닉네임을 10자 이내로 만들어주세요.</div>
             </div>
 
             <div className={styles.modify_nickname}>
@@ -74,7 +54,7 @@ const CustomerEditPage:React.FC = () => {
 
             <div className={styles.modify_nickname}>
                 <div className={styles.modify_nick}>새 닉네임</div>
-                <div className={styles.modify_after}><input ref={inputRef} maxLength={30} onChange={nickNameChangeHandler}  placeholder='2자 이상 30자 이하' className={styles.modify_input} type="text" /></div>
+                <div className={styles.modify_after}><input ref={inputRef} minLength={2} maxLength={10} onChange={nickNameChangeHandler}  placeholder='2자 이상 10자 이하' className={styles.modify_input} type="text" /></div>
             </div>
             
 

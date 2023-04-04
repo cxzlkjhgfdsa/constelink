@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Link, Route, Routes } from "react-router-dom"
 import './App.css';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
@@ -56,10 +56,10 @@ function App() {
           
           {/* 역할별 마이페이지 설정 */}
           {
-            authInfo.isAuthenticated && (authInfo.role==="USER"||authInfo.role==="ADMIN")?
+            authInfo.isAuthenticated && (authInfo.role==="MEMBER"||authInfo.role==="ADMIN")?
             <Route path="/mypage/*" element={<CustomerMyHome />} />:
             authInfo.isAuthenticated && authInfo.role==="HOSPITAL"?
-            <Route path="/mypage/*" element={<HospitalMyHome />} />:""
+            <Route path="/mypage/*" element={<HospitalMyHome />} />:  <Route path="/mypage/*" element={<HospitalMyHome />}/>
           }
          
 

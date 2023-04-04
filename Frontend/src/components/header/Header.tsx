@@ -45,7 +45,7 @@ const Header: React.FC = () => {
         const accessToken = localStorage.getItem('access_token');
         const refreshToken = localStorage.getItem('refresh_token');
         axios.defaults.headers.common['authorization'] = accessToken;
-        axios.defaults.headers.common['authorization'] = refreshToken;
+        axios.defaults.headers.common['refresh'] = refreshToken;
         axios.post("/auth/logout").then(res=>{
             console.log(res);
             localStorage.removeItem("access_token");

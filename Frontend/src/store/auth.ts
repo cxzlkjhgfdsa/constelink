@@ -32,9 +32,8 @@ const authSlice = createSlice({
     },
 
     update(state, action) {
-      console.log(action.payload.updateName," 확인좀");
-      
-      state.nickname = action.payload.updateName;
+      console.log(action.payload.name," 확인좀");
+      state.nickname = action.payload.name;
     },
 
     

@@ -13,12 +13,14 @@ const HospitalEditPage:React.FC = () => {
    
     const [limit, setLimit] = useState<string>("");
     const inputRef = useRef<HTMLInputElement>(null);
-    const [userName, setUserName]= useState("");
-    // const dispatch = useDispatch();
+
     const navigate = useNavigate();
     const nickNameChangeHandler=(e:any)=>{
         setLimit(e.target.value);
     }
+
+
+
     const modifyHandler = ()=>{
         const accessToken = localStorage.getItem('access_token');
         console.log(accessToken);
@@ -32,9 +34,11 @@ const HospitalEditPage:React.FC = () => {
 
         console.log(editData);
         
-        axios.post("/members/modify", editData, {withCredentials:true}).then(res=>{
-            alert("수정이 완료되었습니다.")
+        axios.post("/member/members/modify", editData, {withCredentials:true}).then(res=>{
+            console.log("수정이 완료되었습니다.");
+            
             console.log(res);
+            axios.defaults.headers.common = {};
             navigate("/mypage");
           }).catch((err)=>{
 
@@ -42,21 +46,7 @@ const HospitalEditPage:React.FC = () => {
         
     }
 
-    // useEffect(()=>{
-    //     const accessToken = localStorage.getItem('access_token');
-    //     axios.defaults.headers.common['authorization'] = accessToken;
-    //     axios.get("/members/info").then(res=>{
-        
-    //     console.log(res);
-    //     const updateName = res.data.name;
-    //     dispatch(authActions.update(updateName))
-     
-    //     setUserName(updateName)
-    //     })
-    // },[])
 
-    
-    
     return (
         <div className={styles.HospitalEditPage}>
             
