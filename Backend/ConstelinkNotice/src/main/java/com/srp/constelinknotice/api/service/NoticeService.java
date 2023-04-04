@@ -1,30 +1,27 @@
 package com.srp.constelinknotice.api.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
+import com.srp.constelinknotice.common.exception.CustomException;
+import com.srp.constelinknotice.common.exception.CustomExceptionType;
+import com.srp.constelinknotice.db.entity.Notice;
+import com.srp.constelinknotice.db.repository.NoticeRepository;
+import com.srp.constelinknotice.dto.NoticeInfoDto;
+import com.srp.constelinknotice.dto.request.DeleteNoticeRequest;
+import com.srp.constelinknotice.dto.request.ModifyNoticeRequest;
+import com.srp.constelinknotice.dto.request.SaveNoticeRequest;
+import com.srp.constelinknotice.dto.response.NoticeIdResponse;
+import com.srp.constelinknotice.dto.response.NoticeListResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.srp.constelinknotice.common.exception.CustomException;
-import com.srp.constelinknotice.common.exception.CustomExceptionType;
-import com.srp.constelinknotice.db.entity.Notice;
-import com.srp.constelinknotice.db.repository.NoticeRepository;
-import com.srp.constelinknotice.dto.NoticeInfoDto;
-import com.srp.constelinknotice.dto.enums.NoticeType;
-import com.srp.constelinknotice.dto.request.DeleteNoticeRequest;
-import com.srp.constelinknotice.dto.request.ModifyNoticeRequest;
-import com.srp.constelinknotice.dto.request.SaveNoticeRequest;
-import com.srp.constelinknotice.dto.response.NoticeIdResponse;
-import com.srp.constelinknotice.dto.response.NoticeListResponse;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
