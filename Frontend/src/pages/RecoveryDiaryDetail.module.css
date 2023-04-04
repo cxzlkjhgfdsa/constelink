@@ -200,6 +200,7 @@
   border: none;
   border-radius: 32px;
   flex-grow: 0;
+  cursor: pointer;
   position: relative;
 }
 
@@ -214,6 +215,7 @@
   border: none;
   border-radius: 32px;
   flex-grow: 0;
+  cursor: pointer;
   position: relative;
 }
 
@@ -345,6 +347,7 @@
   border-radius: 32px;
   flex-grow: 0;
   position: relative;
+  cursor: pointer;
 }
 
 
