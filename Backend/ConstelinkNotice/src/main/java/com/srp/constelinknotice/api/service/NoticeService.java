@@ -1,5 +1,16 @@
 package com.srp.constelinknotice.api.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.srp.constelinknotice.common.exception.CustomException;
 import com.srp.constelinknotice.common.exception.CustomExceptionType;
 import com.srp.constelinknotice.db.entity.Notice;
@@ -10,18 +21,9 @@ import com.srp.constelinknotice.dto.request.ModifyNoticeRequest;
 import com.srp.constelinknotice.dto.request.SaveNoticeRequest;
 import com.srp.constelinknotice.dto.response.NoticeIdResponse;
 import com.srp.constelinknotice.dto.response.NoticeListResponse;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +51,7 @@ public class NoticeService {
 		return response;
 	}
 
-	public NoticeListResponse noticeList(int page){
+	public NoticeListResponse noticeList(int page) {
 		PageRequest pageRequest = PageRequest.of(page, 8,
 			Sort.by(Sort.Direction.DESC, "noticeRegdate"));
 
@@ -73,19 +75,19 @@ public class NoticeService {
 
 		return noticeListResponse;
 	}
-	
+
 	@Transactional
 	public void modifyNotice(ModifyNoticeRequest modifyNoticeRequest) {
 		Optional<Notice> findNotice = noticeRepository.findById(modifyNoticeRequest.getId());
 
-		if(findNotice.isPresent()){
+		if (findNotice.isPresent()) {
 			Notice notice = findNotice.get();
 			notice.setNoticeTitle(modifyNoticeRequest.getNoticeTitle());
 			notice.setNoticeContent(modifyNoticeRequest.getNoticeContent());
 			notice.setNoticeType(modifyNoticeRequest.getNoticeType());
 			notice.setNoticePinned(modifyNoticeRequest.isNoticeIsPinned());
 
-		}else{
+		} else {
 			throw new CustomException(CustomExceptionType.NOTICE_NOT_FOUND);
 		}
 
@@ -98,7 +100,7 @@ public class NoticeService {
 
 	public NoticeInfoDto noticeDetail(Long id) {
 		Optional<Notice> findNotice = noticeRepository.findById(id);
-		if(!findNotice.isPresent()){
+		if (!findNotice.isPresent()) {
 			throw new CustomException(CustomExceptionType.NOTICE_NOT_FOUND);
 		}
 		Notice notice = findNotice.get();

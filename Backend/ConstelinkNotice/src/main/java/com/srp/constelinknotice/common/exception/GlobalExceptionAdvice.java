@@ -1,10 +1,12 @@
 package com.srp.constelinknotice.common.exception;
 
-import com.srp.constelinknotice.dto.response.ExceptionResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.srp.constelinknotice.dto.response.ExceptionResponse;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
 @Slf4j
@@ -20,7 +22,6 @@ public class GlobalExceptionAdvice {
 		log.info(e.getMessage());
 		return getResponseEntity(CustomExceptionType.RUNTIME_EXCEPTION);
 	}
-
 
 	@ExceptionHandler(value = Exception.class)
 	public ResponseEntity<ExceptionResponse> exceptionHandler(Exception e) {

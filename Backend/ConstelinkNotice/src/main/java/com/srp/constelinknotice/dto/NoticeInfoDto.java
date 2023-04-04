@@ -1,10 +1,15 @@
 package com.srp.constelinknotice.dto;
 
-import com.srp.constelinknotice.dto.enums.NoticeType;
-import jakarta.persistence.Lob;
-import lombok.*;
-
 import java.time.LocalDateTime;
+
+import com.srp.constelinknotice.dto.enums.NoticeType;
+
+import jakarta.persistence.Lob;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter

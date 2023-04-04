@@ -1,6 +1,7 @@
 package com.srp.constelinknotice.dto.request;
 
 import com.srp.constelinknotice.dto.enums.NoticeType;
+
 import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;
