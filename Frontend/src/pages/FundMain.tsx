@@ -15,12 +15,18 @@ interface CategoryData {
 
 const FundMain: React.FC = () => {
   const [categories, setCategories] = useState<CategoryData[]>([]);
-  const [selected, setSelected] = useState<number>(0);
-  // const leftBtn = useRef<HTMLDivElement | null>(null);
-  // const rightBtn = useRef<HTMLDivElement | null>(null);
-  const scrollBox = useRef<HTMLDivElement | null>(null);
+  const [selected, setSelected] = useState<string>("0");
   const categoryBox = useRef<HTMLDivElement | null>(null);
   const [scrollOn, setScrollOn] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const navigate = useNavigate();
+  const [campaignList, setCampaignList] = useState<DonationData[]>([]);
+
+  const handlePageChange = (page: number) => {
+    setPage(page);
+  };
+
   const getCategories = useCallback(async () => {
     const response: CategoryData[] = await axios
       .get("/categories", { params: { size: 100 } })
@@ -35,34 +41,12 @@ const FundMain: React.FC = () => {
     e.preventDefault();
   }, []);
 
-  const categoryList = useMemo(() => {
-    return (
-      <div ref={scrollBox} className={styles.scroll_box}>
-        {categories.map((category) => {
-          return (
-            <div
-              id={`category-${category.id}`}
-              key={`category-${category.id}`}
-              className={`${styles.category_box} ${
-                styles[`box_color_${Math.floor(Math.random() * 5) + 1}`]
-              }`}
-              onClick={(e) => {
-                setSelected(category.id);
-                setPage(1);
-              }}
-            >
-              {category.categoryName}
-            </div>
-          );
-        })}
-      </div>
-    );
-  }, [categories]);
-
+//처음에 카테고리 가져오기
   useEffect(() => {
     getCategories();
   }, [getCategories]);
 
+  // Wheel 이벤트 막기
   useEffect(() => {
     if (scrollOn === false) {
       document.body.addEventListener("wheel", prevent, { passive: false });
@@ -70,51 +54,69 @@ const FundMain: React.FC = () => {
       document.body.removeEventListener("wheel", prevent, false);
     }
   }, [scrollOn, prevent]);
+  
+// page 바꾸거나 category바꾸면 데이터 다시 받아오기 (selected는 선택한 category)
+useEffect(() => {
+  if (selected === "0") {
+    axios
+      .get("/fundraisings", { params: { page: page, size: 16 } })
+      .then((res) => {
+        setTotalPage(res.data.totalElements);
+        setCampaignList(res.data.content);
+      });
+  } else {
+    axios
+      .get("/fundraisings/bycategory", {
+        params: { page: page, size: 16, categoryId: selected },
+      })
+      .then((res) => {
+        setTotalPage(res.data.totalElements);
+        setCampaignList(res.data.content);
+      });
+  }
+}, [page, selected]);
 
-  // const leftClick = useCallback<MouseEventHandler<HTMLDivElement>>((): void => {
-  //   if (scrollBox.current != null) {
-  //     scrollBox.current.style.transform = `translateX(-20px)`;
-  //   }
-  // }, []);
-  // const rightClick = useCallback<
-  //   MouseEventHandler<HTMLDivElement>
-  // >((): void => {
-  //   if (scrollBox.current != null) {
-  //     scrollBox.current.style.transform = `translateX(+20px)`;
-  //   }
-  // }, []);
 
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
-  const navigate = useNavigate();
-  const handlePageChange = (page: number) => {
-    setPage(page);
-  };
+// categoryList는 다시 불러오기 방지.
+  const categoryList = useMemo(() => {
+    let aa:string = selected;
+    return (
+      <div className={styles.scroll_box}>
+        {categories.map((category) => {
+          return (
+            <div key={`category-${category.id}`} className={`${styles.category_box}`}>
+              <input
+                type="radio"
+                id={`category-${category.id}`}
+                name="category"
+                
+                className={``}
+                value={category.id}
+                onClick={(e) => {
+                  
+                  if(e.currentTarget.value === aa)
+                  {
+                    setSelected("0");
+                    aa="0";
+                    e.currentTarget.checked=false;
+                } else
+                  {
+                    aa = e.currentTarget.value;
+                    setSelected(e.currentTarget.value);
+                  }
+                  setPage(1);
+                }}
+              >
+              </input>
+              <label htmlFor={`category-${category.id}`} className={`${styles[`box_color_${Math.floor(Math.random() * 5) + 1}`]}`}>{category.categoryName}</label>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }, [categories]);
 
-  const [campaignList, setCampaignList] = useState<DonationData[]>([]);
-  useEffect(() => {
-    // selected = 선택한 카테고리
-    document
-      .getElementById(`category-${selected}`)
-      ?.setAttribute("style", "color:white");
-    if (selected === 0) {
-      axios
-        .get("/fundraisings", { params: { page: page, size: 16 } })
-        .then((res) => {
-          setTotalPage(res.data.totalElements);
-          setCampaignList(res.data.content);
-        });
-    } else {
-      axios
-        .get("/fundraisings/bycategory", {
-          params: { page: page, size: 16, categoryId: selected },
-        })
-        .then((res) => {
-          setTotalPage(res.data.totalElements);
-          setCampaignList(res.data.content);
-        });
-    }
-  }, [page, selected]);
+
 
   return (
     <div className={styles.mainWrapper}>
@@ -130,25 +132,19 @@ const FundMain: React.FC = () => {
       <div className={styles.fundWrapper}>
         <div
           className={styles.blockWrapper}
-          onMouseOver={(e) => {
+          onMouseOver={() => {
             setScrollOn(false);
           }}
-          onMouseOut={(e) => {
+          onMouseOut={() => {
             setScrollOn(true);
           }}
         >
-          {/* <div ref={leftBtn} className={styles.btn_left} onClick={leftClick}>
-            왼쪽
-          </div>
-          <div ref={rightBtn} className={styles.btn_right} onClick={rightClick}>
-            오른쪽
-          </div> */}
           <div
             ref={categoryBox}
             className={`${styles.categoryWrapper}`}
             onWheel={(e) => {
               if (categoryBox.current)
-                categoryBox.current.scrollLeft += e.deltaY;
+                categoryBox.current.scrollLeft += 2.5*e.deltaY;
             }}
           >
             {categoryList}
