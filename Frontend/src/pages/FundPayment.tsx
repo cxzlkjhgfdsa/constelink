@@ -3,6 +3,15 @@ import { useEffect, useState } from 'react';
 import styles from "./FundPayment.module.css"
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+
+import Web3 from "web3";
+import { AbiItem } from 'web3-utils';
+import { FUND_ABI } from "../web3js/FUND_ABI";
+import { TransactionConfig } from 'web3-core';
+import { TransactionReceipt } from 'web3-core/types';
+
+
 interface recievedata {
   beneficiaryBirthday: number;
   beneficiaryDisease: string;
@@ -25,15 +34,80 @@ interface recievedata {
   hospitalName: string
 }
 
+// const MM_KEY = "959577d28acb66ac3987a1a1641d4a3072285a1bf0cdf9d66c6ed8ab795947b8";
+// const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
+// const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
 
 const FundPayment: React.FC = () => {
-
+  
   const navigate = useNavigate();
+  
+  // // page 들어오면 메타마스크 연결하라고 메시지 띄우기
+  // useEffect(() => {
+  //   alert('기부를 하기위해 메타마스크와 연결해 주세요!');
+  // }, [])
 
+  // // web3js
+  // // 현재 접속한 유저의 metamask address 가져오기
+  // const [web3, setWeb3] = useState<Web3 | null>(null);
+  // const [address, setAddress] = useState<string | null>(null);
+  // const [contract, setContract] = useState<any | null>(null);
+
+  // // 계정 주소 불러오고, 펀딩 컨트랙트 연결
+  // useEffect(() => {
+  //   const detectWeb3 = async () => {
+      
+  //     if (typeof window.ethereum !== "undefined") {
+  //       // MetaMask is installed & create an web3 instance
+  //       const provider = window.ethereum;
+  //       await provider.request({ method: "eth_requestAccounts" });
+  //       const web3Instance = new Web3(provider);
+  //       setWeb3(web3Instance);
+  
+  //       // Get the user's address
+  //       const accounts = await web3Instance.eth.getAccounts();
+  //       setAddress(accounts[0]);
+        
+  //       // Load the contract
+  //       const contractInstance = new web3Instance.eth.Contract(FUND_ABI as AbiItem[], TEST_PUB_FUND_CA);
+  //       setContract(contractInstance); 
+  //     }
+  //   };
+  //   detectWeb3();
+  // }, []);
+
+  // // mint컨트랙트 보내기
+  // async function sendTransactionMint() {
+  //   if (web3) {
+  //     const master = web3.eth.accounts.privateKeyToAccount(MM_KEY);
+  //     console.log(master);
+  //     const txParams: TransactionConfig = {
+        
+  //       from: master.address,
+  //       to: TEST_PUB_FUND_CA,
+  //       gas: 1000000,
+  //       data: contract.methods.mint(address, 10000).encodeABI(),
+  //       nonce: await web3.eth.getTransactionCount(master.address),
+  //       chainId: 11155111,
+  //     };
+  
+  //     const signedTX = await master.signTransaction(txParams);
+  //     console.log('이게 signedTX');
+  //     console.log(signedTX.rawTransaction);
+  //     console.log('입니다');
+      
+  //     const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
+  //     console.log(`Transaction hash: ${receipt.transactionHash}`);
+  //   } else {
+  //     console.log('Web3 is not available');
+  //   };
+  // }
+
+
+  // 기부 상세정보 받기
   const [detailData, setDetailData] = useState<recievedata>();
   const { id } = useParams<{ id: string }>();
-  
   useEffect(() => {
     axios.get(`/fundraisings/${id}?memberId=0`).then(res => {
       console.log(res.data);
@@ -93,16 +167,26 @@ const FundPayment: React.FC = () => {
 
   // 확인 버튼을 눌렀을 때 오류 없으면 카카오 연결하기
   const checkErrs = () => {
+    // 카카오 radio 안켰으면
     if (!noKakaoErr) {
       alert('결제 방식을 선택하지 않았습니다!');
       return
     }
 
+    // 기부금액 입력하지 않았다면
     if (!noDonateErr || !donate ) {
       alert('후원금을 입력하지 않았습니다!');
       return
-    } 
+    }
+
+
+    // 메타마스크 연결 안했다면
+    // if (!address) {
+    //   alert('메타마스크와 연결되지 않았습니다!');
+    //   return
+    // }
     
+    // sendTransactionMint();
     toKakaoPay();
   }
   
@@ -127,23 +211,23 @@ const FundPayment: React.FC = () => {
                 <div className={styles.voidCircle}></div>
                 <div className={styles.stepDetail}>
                   <div className={styles.stepOneNumber}>STEP1.</div>
-                  <div className={styles.stepOneTodo}>후원자 선택</div>
+                  <div className={styles.stepOneTodo}>후원자 정보확인</div>
                 </div>
               </div>
               <div className={styles.arrowDiv} />
               <div className={styles.articleStepTwo}>
-                <div className={styles.voidCircle}></div>
+                <div className={styles.voidStar}></div>
                 <div className={styles.stepDetail}>
                   <div className={styles.stepNumber}>STEP2.</div>
-                  <div className={styles.stepTodo}>후원자 정보확인</div>
+                  <div className={styles.stepTodo}>카카오페이 결제</div>
                 </div>
               </div>
               <div className={styles.arrowDiv} />
               <div className={styles.articleStepThree}>
-                <div className={styles.voidStar}></div>
+                <div className={styles.voidCircle}></div>
                 <div className={styles.stepDetail}>
                   <div className={styles.stepNumber}>STEP3.</div>
-                  <div className={styles.stepTodo}>후원 치료비 납입</div>
+                  <div className={styles.stepTodo}>토큰으로 기부하기</div>
                 </div>
               </div>
             </div>
