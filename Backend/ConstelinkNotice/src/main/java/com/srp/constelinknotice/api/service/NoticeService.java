@@ -57,9 +57,6 @@ public class NoticeService {
 			Sort.by(Sort.Direction.DESC, "noticeRegdate"));
 
 		Page<Notice> notices = noticeRepository.findAll(pageRequest);
-		for(Notice n : notices.getContent()){
-			System.out.println(n.getNoticeTitle());
-		}
 
 		List<NoticeInfoDto> noticeInfoList = notices.getContent().stream().map(notice ->
 			new NoticeInfoDto().builder()
