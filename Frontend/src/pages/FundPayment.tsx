@@ -5,11 +5,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
-import Web3 from "web3";
-import { AbiItem } from 'web3-utils';
-import { FUND_ABI } from "../web3js/FUND_ABI";
-import { TransactionConfig } from 'web3-core';
-import { TransactionReceipt } from 'web3-core/types';
+// import Web3 from "web3";
+// import { AbiItem } from 'web3-utils';
+// import { FUND_ABI } from "../web3js/FUND_ABI";
+// import { TransactionConfig } from 'web3-core';
+// import { TransactionReceipt } from 'web3-core/types';
 
 
 interface recievedata {
