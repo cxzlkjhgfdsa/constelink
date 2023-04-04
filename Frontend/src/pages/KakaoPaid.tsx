@@ -43,7 +43,7 @@ const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 // 이 페이지에서 메타마스크와 연결하고 토큰mint, donate 해야할듯?
 const KakaoPaid: React.FC = () => {
 
-  console.log(MM_KEY);
+  // console.log(MM_KEY);
 
   const navigate = useNavigate();
 
@@ -72,7 +72,7 @@ const KakaoPaid: React.FC = () => {
       }
     })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         console.log(localStorage.getItem('details'));
         localStorage.setItem('money', res.data.amount.total);
         setMoney(res.data.amount.total);
@@ -112,6 +112,9 @@ const KakaoPaid: React.FC = () => {
   // mint컨트랙트 보내기
   const [isMinting, setIsMinting] = useState(false);
 
+  // transactionhash 저장
+  const [tranHash, setTranHash] = useState('');
+
   async function sendTransactionMint() {
     setIsMinting(true);
     alert('토큰 기부중 입니다!');
@@ -135,6 +138,7 @@ const KakaoPaid: React.FC = () => {
       
       const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
       console.log(`Transaction hash: ${receipt.transactionHash}`);
+      setTranHash(receipt.transactionHash);
       setIsDone(true);
     } else {
       console.log('Web3 is not available');
@@ -159,6 +163,7 @@ const KakaoPaid: React.FC = () => {
       const body = {
         fundraisingId: info?.fundraisingId,
         donationPrice: money,
+        donationTransactionHash: tranHash,
         hospitalName: info?.hospitalName,
         beneficiary_id: info?.beneficiaryId,
         beneficiaryName: info?.beneficiaryName,
