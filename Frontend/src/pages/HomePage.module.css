@@ -7,11 +7,11 @@
     font-family: "Tilt";
     src: url("../assets/fonts/TiltWarp-Regular-VariableFont_XROT\,YROT.ttf");
 }
+
 @font-face {
     font-family: "NotoSans";
     src: url("../assets/fonts/NotoSerifKR-Regular.otf");
 }
-
 
 .Test {
     left: 0;
@@ -19,7 +19,6 @@
     height: 350px;
     position: absolute;
     word-break: keep-all;
-    
 }
 
 .slide_list {
@@ -27,60 +26,68 @@
 }
 
 .slide_item {
-    padding-left: 10px;
-    padding-right: 10px;
     height: 350px;
     width: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .slide_conbox {
-    padding-top: 70px;
-    margin-left: 20%;
-    margin-right: 20%;
+    display: flex;
+    flex-direction: column;
     font-family: "Hahmlet";
     color: aliceblue;
-    width: 600px;
-    
+    width: 890px;
 }
 
 .slide_title {
     font-size: 36px;
     font-weight: bold;
-    /* word-break: keep-all */
 }
 
 .slide_content {
     font-size: 28px;
     width: 600px;
-    /* word-break: keep-all */
 }
 
+
 /* 바로가기 박스 부분 */
+
+.slide_linkbox_out {
+    width: 890px;
+    display: flex;
+    justify-content: left;
+    /* background-color: red; */
+}
+
 .slide_linkbox {
-    background-color: red;
+    /* background-color: red; */
     background-color: #ffff;
     margin-top: 30px;
-    margin-left: 20%;
     width: 295px;
     height: 120px;
     border-radius: 5px;
-    /* padding: 15px; */
     font-family: "Hahmlet";
 }
-.linkbox_title{
+
+.linkbox_title {
     font-size: 16px;
     font-weight: 600;
     padding-left: 15px;
     padding-top: 10px;
     padding-bottom: 5px;
 }
-.linkbox_sub{
+
+.linkbox_sub {
     font-size: 14px;
     padding-left: 15px;
 }
-.linkbox_link{
+
+.linkbox_link {
     border-top: 1px solid #A19FD5;
     padding-left: 15px;
     margin-top: 30px;
@@ -88,27 +95,37 @@
     font-size: 13px;
     font-weight: bold;
     color: #A19FD5;
-
     cursor: pointer;
 }
 
+
 /* 별달러 가기 배너 */
-.with_box{
-    background: linear-gradient(to bottom right, #a4a3cb, #ffff );
+
+.with_box {
+    background: linear-gradient(to bottom right, #a4a3cb, #ffff);
     height: 110px;
     /* width: 100%; */
     display: flex;
     align-items: center;
-    padding-left: 20%;
+    justify-content: center;
+    /* padding-left: 20%; */
     font-family: "Tilt";
-} 
+}
 
-.with_title{
+.with_box_in {
+    display: flex;
+    align-items: center;
+    width: 890px;
+    /* padding-left: 40px; */
+}
+
+.with_title {
     font-size: 20px;
     font-weight: bolder;
     color: #ececec;
 }
-.with_btn{
+
+.with_btn {
     background-color: white;
     width: 190px;
     height: 40px;
@@ -120,41 +137,40 @@
     cursor: pointer;
     font-family: "Hahmlet";
     font-size: 14px;
-    
 }
 
-.heal_title{
+.heal_title {
     display: flex;
     align-items: center;
     flex-direction: column;
     font-family: Hahmlet;
-    
 }
 
-.heal_title>h1{
+.heal_title>h1 {
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 5px;
 }
 
-.heal_title>div{
+.heal_title>div {
     font-size: 13px;
 }
 
-.addbox{
+.addbox {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 20px
 }
-.addbox_item{
+
+.addbox_item {
     width: 890px;
     height: 240px;
     background-color: #CFE5F6;
     border-radius: 10px;
 }
 
-.addbox_box{
+.addbox_box {
     width: 100%;
     padding-left: 40px;
     padding-top: 15px;
@@ -162,40 +178,42 @@
     cursor: pointer;
 }
 
-.addbox_left{
+.addbox_left {
     width: 12%;
 }
-.addbox_ad{
+
+.addbox_ad {
     text-decoration: underline;
     font-weight: bold;
 }
 
-.addbox_right{
-    
-}
-.addbox_verses{
+.addbox_right {}
+
+.addbox_verses {
     display: flex;
-    font-family: "Hahmlet" ;
+    font-family: "Hahmlet";
 }
 
-.addbox_verses>img{
+.addbox_verses>img {
     width: 120px;
     height: 120px;
 }
 
-.addbox_verses>div{
-   display: flex;
-   align-items: center;
-   font-size: 36px;
-   font-weight: bold;
-   color: #3D3D3D;
-   padding-top: 25px;
+.addbox_verses>div {
+    display: flex;
+    align-items: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: #3D3D3D;
+    padding-top: 25px;
 }
-.addbox_comment{
+
+.addbox_comment {
     font-size: 16px;
     font-family: "Hahmlet";
 }
-.addbox_finish{
+
+.addbox_finish {
     font-size: 28px;
     font-weight: bold;
     font-family: "Hahmlet";
@@ -203,7 +221,8 @@
     display: flex;
     align-items: center;
 }
-.addbox_finish button{
+
+.addbox_finish button {
     border-style: none;
     width: 130px;
     height: 45px;
@@ -214,14 +233,15 @@
     margin-left: 20px;
     cursor: pointer;
 }
-.result_box{
+
+.result_box {
     /* background-color: red; */
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
-.result_list{
+.result_list {
     list-style: none;
     display: flex;
     justify-content: space-around;
@@ -230,13 +250,13 @@
     /* background-color: blue; */
 }
 
-.result_icon{
+.result_icon {
     width: 46px;
     height: 46px;
     color: #6F6D8F;
 }
 
-.result_item{
+.result_item {
     /* background-color: red; */
     width: 120px;
     display: flex;
@@ -244,7 +264,7 @@
     align-items: center;
 }
 
-.result_content{
+.result_content {
     /* background-color: beige; */
     display: flex;
     flex-direction: column;
@@ -252,32 +272,29 @@
     margin-top: 10px;
 }
 
-.content_title{
+.content_title {
     font-family: "Hahmlet";
     font-size: 16px;
     font-size: #797777;
 }
-.content_curval{
+
+.content_curval {
     font-size: 20px;
     font-family: "NotoSans";
     font-weight: bold !important;
     color: #272727;
 }
 
-.slide_card{
+.slide_card {
     /* background-color: red; */
     width: 100%;
     display: flex;
     justify-content: center;
     height: 330px;
     margin-top: 20px;
-   
-
 }
 
-
-
-.slide_cardItem{
+.slide_cardItem {
     padding-top: 10px;
     width: 900px;
     margin-bottom: 20px;

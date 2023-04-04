@@ -24,7 +24,6 @@ const CustomerMyPage: React.FC = () => {
         axios.defaults.headers.common['authorization'] = accessToken;
         axios.get("/member/members/info").then((res) => {
             console.log(res);
-            
             const name = res.data.name;
             dispatch(authActions.update({name}))
             setLog({price: res.data.totalAmount,count: res.data.totalFundCnt});

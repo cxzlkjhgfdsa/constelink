@@ -25,6 +25,7 @@ import { RootState } from "./store";
 import HospitalMyPage from "./pages/HospitalMyPage";
 import HospitalMyHome from "./pages/HostpitalMyHome";
 import FinishFundList from "./pages/FinishFundList";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const authInfo = useSelector((state:RootState)=> state.auth);
@@ -71,6 +72,9 @@ function App() {
         <Route path='/login' element={<Login />} />
       
       </Routes>
+
+          {/* <Footer/> */}
+      
     </div>
   )
 }
