@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import styles from "./FundPayment.module.css"
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 interface recievedata {
@@ -26,9 +26,9 @@ interface recievedata {
   hospitalName: string
 }
 
+const AUTH_TOKEN = process.env.REACT_APP_TMP_AUTH_TOKEN;
+
 const FundPayment: React.FC = () => {
-  
-  const navigate = useNavigate();
 
   // 기부 상세정보 받기
   // 로컬스토리지에 기부 상세정보 저장
@@ -82,7 +82,11 @@ const FundPayment: React.FC = () => {
       amount: String(donate),
     }
 
-    axios.post('/member/payments/ready', body)
+    axios.post('/member/payments/ready', body, {
+      headers: {
+        Authorization: AUTH_TOKEN
+      }
+    })
       .then((res) => {
         console.log(res);
         return window.open(res.data.next_redirect_pc_url);
@@ -110,7 +114,6 @@ const FundPayment: React.FC = () => {
   }
   
   
-
   return (
     <>
       <div className={styles.mainWrapper}>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-// import queryString from 'querystring';
 import styles from "./FundPayment.module.css";
+// import dotenv from 'dotenv';
 
 
 import Web3 from "web3";
@@ -35,14 +35,15 @@ interface recievedata {
   hospitalName: string
 }
 
-
-const MM_KEY = "959577d28acb66ac3987a1a1641d4a3072285a1bf0cdf9d66c6ed8ab795947b8";
-// const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
+const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
+const AUTH_TOKEN = process.env.REACT_APP_TMP_AUTH_TOKEN;
 const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
 
 // 이 페이지에서 메타마스크와 연결하고 토큰mint, donate 해야할듯?
 const KakaoPaid: React.FC = () => {
+
+  console.log(MM_KEY);
 
   const navigate = useNavigate();
 
@@ -63,7 +64,13 @@ const KakaoPaid: React.FC = () => {
     // 메타마스크 연결 요청
     alert('메타마스크 계정을 연결해 주세요!')
 
-    axios.get(`/member/payments/success?pg_token=${pgToken}`)
+    console.log(MM_KEY);
+
+    axios.get(`/member/payments/success?pg_token=${pgToken}`, {
+      headers: {
+        Authorization: AUTH_TOKEN
+      }
+    })
       .then((res) => {
         console.log(res);
         console.log(localStorage.getItem('details'));
@@ -109,7 +116,7 @@ const KakaoPaid: React.FC = () => {
     setIsMinting(true);
     alert('토큰 기부중 입니다!');
     if (web3) {
-      const master = web3.eth.accounts.privateKeyToAccount(MM_KEY);
+      const master = web3.eth.accounts.privateKeyToAccount(MM_KEY!);
       console.log(master);
       const txParams: TransactionConfig = {
         
@@ -160,7 +167,11 @@ const KakaoPaid: React.FC = () => {
         fundraisingThumbnail: info?.fundraisingThumbnail
       }
       
-      await axios.post('/member/donations/save', body)
+      await axios.post('/member/donations/save', body, {
+        headers: {
+          Authorization: AUTH_TOKEN
+        }
+      })
         .then((res) => {
           console.log('도네 저장 성공');
           console.log(res);
