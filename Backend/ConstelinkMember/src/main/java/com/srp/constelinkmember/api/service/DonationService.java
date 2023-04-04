@@ -64,8 +64,8 @@ public class DonationService {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
-		System.out.println("여기까지 인가");
-		String response = restTemplate.postForObject("constelink-fundraising/fundraisings/donate", request,
+		log.info("기부내역 저장까지 완료 ---  resttemplate 요청 필요");
+		String response = restTemplate.postForObject("https://j8a206.p.ssafy.io/fundraising/fundraisings/donate", request,
 			String.class);
 		log.info("응답 도착 === " + response);
 
