@@ -27,6 +27,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSackDollar, faHeartPulse, faHandHoldingHeart } from "@fortawesome/free-solid-svg-icons";
 import { faGratipay } from "@fortawesome/free-brands-svg-icons";
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useNavigate } from 'react-router-dom';
 
 const images = [topbanner1, topbanner2, topbanner3];
 const contents = [["콘스텔링크 Constelink", "블록체인기반, 치료비 모금 플랫폼"], ["콘스텔링크 Constelink", "여러분의 관심이 많은이들에게 도움이 됩니다."], ["콘스텔링크 Constelink", "블로체인기반, 치료비 모금 플랫폼 당신의 별자리"]];
@@ -48,15 +49,16 @@ const HomePage: React.FC = () => {
 
   const [donateCard, setDonateCard] = useState<DonationData[]>([]);
   const [statistics, setStatistics] = useState<Statistics>();
+  const navigate= useNavigate();
   useEffect(() => {
-    axios.get("http://j8a206.p.ssafy.io:8998/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=1").then((res) => {
+    axios.get("/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=0").then((res) => {
       console.log(res.data.content);
       setDonateCard(res.data.content);
     })
   }, [])
 
   useEffect(() => {
-    axios.get("http://j8a206.p.ssafy.io:8998/fundraisings/statistics").then((res) => {
+    axios.get("/fundraisings/statistics?page=1&size=5&sortBy=ALL&memberId=0").then((res) => {
       console.log(res.data);
       setStatistics(res.data)
     })
@@ -78,7 +80,7 @@ const HomePage: React.FC = () => {
               <div className={styles.slide_linkbox}>
                 <div className={styles.linkbox_title}>블록체인기반, 치료비 모금 플랫폼</div>
                 <div className={styles.linkbox_sub}>우리의 별자리를 확인해보세요!</div>
-                <div className={styles.linkbox_link}>바로가기 {">"}</div>
+                <div className={styles.linkbox_link} onClick={()=> navigate("/fundmain")}>바로가기 {">"}</div>
               </div>
             </div>
           </div>
@@ -88,7 +90,7 @@ const HomePage: React.FC = () => {
       <nav className={styles.with_box}>
         <img src="" alt="" />
         <div className={styles.with_title}>너네 별따러 갈때, 우린 달러가!</div>
-        <div className={styles.with_btn}><span style={{ color: "purple", fontWeight: "bold", paddingRight: "3px" }}>Constelink</span> 함께하기 -{">"}</div>
+        <div className={styles.with_btn} onClick={()=> navigate("/fundmain")} ><span style={{ color: "purple", fontWeight: "bold", paddingRight: "3px" } }>Constelink</span> 함께하기 -{">"}</div>
       </nav>
       <section>
 
@@ -112,7 +114,7 @@ const HomePage: React.FC = () => {
           >
             {
               donateCard.map(it => {
-                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}}><DonationCard data={it} /></SwiperSlide>
+                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}} onClick={()=>navigate(`/fundmain/funddetail/${it.fundraisingId}`)}><DonationCard data={it} /></SwiperSlide>
               })
             }
           </Swiper>
@@ -124,7 +126,7 @@ const HomePage: React.FC = () => {
         <div className={styles.addbox_item}>
           <div className={styles.addbox_box}>
           <div className={styles.addbox_left}>    <div className={styles.addbox_ad}>광고</div></div>
-          <div className={styles.addbox_right}>  <div className={styles.addbox_verses}><img src={ssafy}/> <div><span style={{fontSize:"14px", color:"white"}}>✖</span><span style={{color:"red", marginLeft:"10px"}}>正</span>육점</div></div>
+          <div className={styles.addbox_right}>  <div className={styles.addbox_verses}><img src={ssafy} alt='ssafy'/> <div><span style={{fontSize:"14px", color:"white"}}>✖</span><span style={{color:"red", marginLeft:"10px"}}>正</span>육점</div></div>
             <div className={styles.addbox_comment}>  최강 SW아카데미 삼성 청년 SW 아카데미와 정육점의 만남</div>
             <div className={styles.addbox_finish}> 소프트웨어 최강 SSAFY와의 협약체결 <button>확인하기 ➔</button>  </div></div>
             </div>

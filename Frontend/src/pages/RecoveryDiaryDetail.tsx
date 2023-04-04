@@ -1,11 +1,15 @@
-import React, { useState, useCallback, useRef, useEffect }  from 'react';
+import React, { useState, useCallback, useRef, useEffect, ChangeEvent }  from 'react';
 import styles from './RecoveryDiaryDetail.module.css';
 import { useParams, useNavigate } from 'react-router-dom';
+
+import Pagination from "react-js-pagination";
+import './paging.css'
+
 import Modal from "../components/Modal/Modal";
 import SunEditor from 'suneditor-react';
 import SunEditorCore from "suneditor/src/lib/core";
 import 'suneditor/dist/css/suneditor.min.css';
-import { RecoveryDiaryDetailData, RecoveryDiaryCreate } from './../models/recoveryData';
+import { RecoveryDiaries, RecoveryDiaryDetailData, RecoveryDiaryCreate } from './../models/recoveryData';
 import axios from 'axios';
 
 // 리커버리 카드 import 해야함
@@ -17,10 +21,10 @@ import axios from 'axios';
 const RecoveryDiaryDetail: React.FC = () => {
 
   // 환자정보
-  const [treatmentRecords, setTreatmentRecords] : any = useState<RecoveryDiaryDetailData[]>([]);
+  const [treatmentRecords, setTreatmentRecords] = useState<RecoveryDiaryDetailData>();
 
   // 치료카드
-  const [recoveryCard, setRecoveryCard] = useState<RecoveryDiaryDetailData[]>([]);
+  const [recoveryCard, setRecoveryCard] = useState<RecoveryDiaries[]>([]);
   // const { beneficiaryId: id } = useParams<{ beneficiaryId :string }>();
   // const params = useParams<{ id: string }>();
   // const id = Number(params.id);
@@ -31,52 +35,55 @@ const RecoveryDiaryDetail: React.FC = () => {
   // 치료일지 생성 
   const inputRef = useRef<HTMLInputElement>(null);
   const { id } = useParams<{ id: string }>();
-  // const [patientId, setPatientId] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [totalGive, setTotalGive] = useState(0);
+  // const [createDate, setCreateDate] = useState(0);
   
   // 모달이 열려있는지 여부 확인
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
   
-  // 페이지네이션을 위한 설정
-  const [page, setPage] = useState(1);
-  
-  // 카드 클릭했을 때 모달 열고 닫기
-  const onClickToggleModal = useCallback(() => {
+   // 카드 클릭했을 때 모달 열고 닫기
+   const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]); 
+
+
+  // 페이지네이션을 위한 설정
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  
+  const handlePageChange = (page: number) => {
+    console.log(page);
+    setPage(page);
+};
   
   // Use `id` to get the cardIndex data from the backend
   
-  
+  // 디펜던시 수정
   // axios
   useEffect(() => {
-    let params: any ={page:page, size:10, sortBy:"DATE_DESC"};
-    axios.get(`/recoverydiaries/${id}`, params)
+    let params: any ={page:page, size:6, sortBy:"DATE_DESC"};
+    axios.get(`/recoverydiaries/${id}`, {params})
     .then((res) => {
       console.log(res.data);
       console.log(treatmentRecords)
-      setPage(page);
       setTreatmentRecords(res.data.beneficiaryInfo)
       setRecoveryCard(res.data.beneficiaryDiaries.content)
+      setPage(page);
       
     })
     .catch((err) => {
       console.log(err)
     }) 
-  }, [page]);
+  }, [page, id, setRecoveryCard]);
   
-  // const today = new Date();
-  
-  // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출
-  const [selectedRecordIndex, setSelectedRecordIndex] = useState<number | null>(null);
+  // 생성되어 있는 카드를 선택할 때 올바른 정보를 도출 
+  const [selectedRecordIndex, setSelectedRecordIndex] = useState<any>(null);
   const editor = useRef<SunEditorCore>();
   // The sunEditor parameter will be set to the core suneditor instance when this function is called
   const getSunEditorInstance = (sunEditor: SunEditorCore) => {
     editor.current = sunEditor;
-    console.log(editor.current);
-    
   };
   
   // 모달 관련 함수 시작
@@ -94,9 +101,8 @@ const RecoveryDiaryDetail: React.FC = () => {
     setChecked(true);
   }, []);
   
-  // 이미지 백에서 가져오기 
+  // 이미지미리보기(썸네일)
   const [imgPreUrl, setImgPreUrl] = useState('');
-  const [imageFile, setImageFile] = useState('');
   const [image, setImage] = useState(null);
   const handleImage = (e : any) => {
     const file = e.target.files[0];
@@ -104,81 +110,105 @@ const RecoveryDiaryDetail: React.FC = () => {
     setImgPreUrl(URL.createObjectURL(file));
     return;
   };
-
+  
+  // 이미지 백에서 가져오기 (완)
+  const [imgUrl, setImgUrl] = useState('');
   const getImgUrl = async () => {
     const formData = new FormData();
     if (image) {
       formData.append('file', image);
     }
     
-    await axios
+    return await axios
     .post('/files/saveimg', formData)
     .then((res) => {
-      console.log('성공')
-      console.log(imageFile)
-      setImageFile(res.data.fileUrl);
+      setImgUrl(res.data.fileUrl);
+      return res.data.fileUrl;
+      // 전체가 끝났을 때 반영
     })
     .catch((err) => {
       console.log(err);
     })
   };
-
+  
   // 모달 속 생성완료버튼 -> POST 
-  const onAddRecord = () => {
+  const onAddRecord = async () => {   
+    
+    let imgurl2 = await getImgUrl();
+    
     if (!content) {
       alert("내용을 작성해주세요!")
       return;
     } else if (!title) {
       alert("제목을 입력해주세요!")
-      return
+      return; 
+    } else if (!imgurl2) {
+      alert('이미지를 넣어주세요!')
+      return;
     }
 
+    // 카드생성 interface
     const Record: RecoveryDiaryCreate = {
       beneficiaryId : id,
-      diaryPhoto: imageFile,
+      diaryPhoto: imgurl2,
       diaryTitle: title,
       diaryContent: content,
       diaryAmountSpent: totalGive,
-      // beneficiaryId: 1,
-      // diaryPhoto: "사진",
-      // diaryTitle: "제목",
-      // diaryContent: "내용",
-      // diaryAmountSpent: 1,
     } 
 
-    axios.post(`/recoverydiaries`, Record)
+    await axios
+    .post(`/recoverydiaries`, Record ,
+        {headers: {Authorization: "oo"}})
     .then((res) => {
-      console.log(res)
       console.log('요청이 갔어요~')
+      console.log(res)
       window.location.replace(`/diarydetail/${id}`)
-      console.log(Record)
     })
     .catch((err) => {
       console.log(err);
     })
-
-    const newCard: RecoveryDiaryDetailData = {
-      beneficiaryId: id,
-      diaryPhoto: imageFile,
-      diaryTitle: title,
-      diaryContent: content,
-      diaryAmountSpent: totalGive,
-    };
-    getImgUrl();
-    setImageFile(imageFile);
-    setTitle(title);
-    setContent(content);
-    setTotalGive(totalGive);
-    // recoverycard는 RecoveryDiaryDetailData + 
-    // setRecoveryCard((recoveryCard) => [...recoveryCard, newCard]);
+    
+    setImage(null);
+    setTitle('');
+    setContent('');
+    setTotalGive(0);
     setOpenModal(false);
-    console.log('새로운카드 만들었어요~~~')
   };
-  
+
+  // useEffect(() => {
+  //   getImgUrl();
+  // }, [imgUrl])
+
+  // 입력칸 확인함수 
+  // function ExampleComponent() {
+  //   const inputRef = useRef<HTMLInputElement>(null);
+    
+  //   const handleIndexChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.value.length > 10) {
+  //   event.target.value = event.target.value.slice(0, 10);
+  //   }
+  //   console.log(`현재 입력된 글자 수: ${inputRef.current?.value.length}`);
+  //   };
+
+  // 날짜스타일 변경함수
+  function formatDate(dateString : any) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}년 ${month}월 ${day}일`;
+  }
+
+  // 기부액 스타일 변경함수
+  function addCommas(num : number | string) {
+    const unformatDate = ''+num;
+    return unformatDate.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   // 모달 속 취소버튼
   const onCancelRecord = useCallback(() => {
-  setImageFile('');
+  setImgPreUrl('');
+  setImage(null);
   setContent('');
   setOpenModal(false);
   }, []);
@@ -186,12 +216,14 @@ const RecoveryDiaryDetail: React.FC = () => {
   // 제목 변경 함수
   const handleEditorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       // console.log(e.target.value);
+      if (e.target.value.length > 10) {
+        e.target.value = e.target.value.slice(0, 10);
+      }
       setTitle(e.target.value);
   };
 
   // 내용 변경 함수
   const contentChangeHandler = (e: string) => {
-      // console.log(e);
       setContent(e)
   }
   
@@ -213,10 +245,7 @@ const RecoveryDiaryDetail: React.FC = () => {
 
   // 목록으로 이동하는 버튼
   const navigate = useNavigate();
-  const handleBackButton = () => {
-    navigate(`/diary`);
-  }
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -224,32 +253,33 @@ const RecoveryDiaryDetail: React.FC = () => {
         
         <div className={styles.cardIndex}>
           <div className={styles.cardTop}>
-          <p className={styles.title}>제목</p>
+          <p className={styles.title}>"{treatmentRecords?.beneficiaryName}" 님의 치료일지</p>
           </div>
           <div className={styles.cardContent}>
             <div className={styles.imageContainer}>
-              <img src={treatmentRecords.beneficiaryPhoto} alt="profile" className={styles.image} />
+              <img src={treatmentRecords?.beneficiaryPhoto} alt="profile" className={styles.image} />
             </div>
             <div className={styles.patientInfo}>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>성명</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryName}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryName}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>생년월일</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryBirthday}</p>
+                <p className={styles.patientInfoContent}>{formatDate(treatmentRecords?.beneficiaryBirthday)}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>병명</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryDisease}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.beneficiaryDisease}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>병원</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.hospitalName}</p>
+                <p className={styles.patientInfoContent}>{treatmentRecords?.hospitalName}</p>
               </div>
               <div className={styles.patientInfoItem}>
                 <p className={styles.patientInfoTitle}>총 모금액</p>
-                <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryAmountRaised}</p>
+                <p className={styles.patientInfoContent}>{addCommas(treatmentRecords?.beneficiaryAmountRaised!)}원</p>
+                {/* <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryAmountRaised}원</p> */}
               </div>
             </div>
           </div>
@@ -258,21 +288,53 @@ const RecoveryDiaryDetail: React.FC = () => {
         <hr className={styles.hr}/>
 
         {/* 생성된 치료일기 */}
-        {recoveryCard.map((record, index) => (
-          <div key={index} className={styles.record} onClick={() => onClickRecord(index)}>
-          <div className={styles.recordDate}>날짜</div>
-          <img className={styles.recordImage} src={record.diaryPhoto} alt={imgPreUrl} />
-          <div className={styles.recordIndex}>{record.diaryId}. 치료일기</div>
-          <div className={styles.recordContent}>
-          {record.diaryTitle.length > 10 ? `${record.diaryTitle.substring(0, 10)}...` : record.diaryTitle}
+        <div> 
+          {recoveryCard.map((record, index) => (
+            <div key={index} className={styles.recordCard} onClick={() => onClickRecord(index)}>
+              <div className={styles.recordDate}>
+                {formatDate(record.diaryRegisterDate)}
+              </div>
+              {/* {imgUrl && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>} */}
+              {record.diaryPhoto ? (
+                <div className={styles.recordImage}>
+                  <img className={styles.recordImage} src={record.diaryPhoto} alt=""/>
+                </div>
+                ) : (
+                <div className={styles.noImg} />
+              )}
+              {/* {record.diaryPhoto && <img src={record.diaryPhoto} className={styles.recordImage} alt={imgPreUrl}/>} */}
+              <div className={styles.recordIndex}>
+              {record.diaryTitle.length > 10 ? `${record.diaryTitle.substring(0, 10)}...` : record.diaryTitle}
+              </div>
+              <div className={styles.recordContent}
+                dangerouslySetInnerHTML={
+                  { __html: record.diaryContent && record.diaryContent.length > 10 
+                    ? `${record.diaryContent.substring(0, 30)}...` 
+                    : record.diaryContent
+                    || ''}
+                  }>
+              </div>
+            </div>
+          ))}
+
+          <div className={styles.pagination}>
+            <Pagination 
+                        
+                        activePage={page}
+                        itemsCountPerPage={6}
+                        totalItemsCount={totalPage}
+                        pageRangeDisplayed={6}
+                        prevPageText={"‹"}
+                        nextPageText={"›"}
+                        onChange={handlePageChange}
+                        />
           </div>
-          </div>
-        ))}
+        </div>
 
         {/* 치료일기생성버튼 */}
         <div className={styles.detailButton}>
             <button className={styles.detailCreateButton} onClick={() => onClickCreateRecord()}>치료일지 생성</button>
-            <button className={styles.detailBackButton} onClick={()=>handleBackButton()}>목록보기</button>
+            <button className={styles.detailBackButton} onClick={()=>navigate(`/diary`)}>목록보기</button>
         </div>
       </div>
 
@@ -281,38 +343,46 @@ const RecoveryDiaryDetail: React.FC = () => {
         {isOpenModal && selectedRecordIndex !== null && (
           <Modal onClickToggleModal={onClickToggleModal}>
             <div className={styles.modalTop}>
-              <div className={styles.modalText}> 
-                치료일기 조회
-                <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
-              </div>
+              <div className={styles.modalText}>치료일기 조회</div>
+              <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
             </div> 
-            <img src={recoveryCard[selectedRecordIndex].diaryPhoto} alt={imgPreUrl} className={styles.modalImage} />
-            <div className={styles.modalInfo}>
-              <div className={styles.modalInfoTitle}>{recoveryCard[selectedRecordIndex].diaryId}번째 글</div>
-              <hr className={styles.modalHr} />
-              <div className={styles.modalInfoDate}>작성일 : {recoveryCard[selectedRecordIndex].diaryRegisterDate}</div>
-              <div className={styles.modalInfoContent}>{recoveryCard[selectedRecordIndex].diaryContent}</div>
-              <div className={styles.modalButton}>
-              {/* <button className={styles.modalButtonItem} onClick={() => onEditRecord()}>수정</button> */}
-            
-              {/* <button className={styles.modalButtonItem} onClick={() => onRemoveRecord()}>삭제</button> */}
+              <img src={recoveryCard[selectedRecordIndex].diaryPhoto} alt={imgPreUrl} className={styles.modalImage} />
+                <hr className={styles.modalHr} />
+                <div className={styles.modalInfoTitle}>{recoveryCard[selectedRecordIndex].diaryTitle}</div>
+                <div className={styles.modalInfoContent}>
+
+                <div className={styles.modalInfoDate}>
+                  {formatDate(recoveryCard[selectedRecordIndex].diaryRegisterDate)}
                 </div>
-                {isChecked && (
-                  <div className={styles.modalButton}>
-                  <button className={styles.modalButtonItem}>확인</button>
+                <div
+                className={styles.modalContent}
+                dangerouslySetInnerHTML={{ __html: recoveryCard[selectedRecordIndex].diaryContent || '' }}
+                />
+                <div className={styles.modalButton}>
+                {/* <button className={styles.modalButtonItem} onClick={() => onEditRecord()}>수정</button> */}
+                  </div>
+                  {(
+                    <div className={styles.modalButton}>
+                    <button className={styles.modalButtonItem} onClick={() => onCancelRecord()}>확인</button>
                   </div>
                   )}
-            </div>
+                </div>
           </Modal>
           )}
             
           {/* 생성버튼 클릭 -> 치료일지 생성 */}
           {isOpenModal && isChecked == true && (
             <Modal onClickToggleModal={onClickToggleModal}>
-            <div className={styles.modalTop}>치료일지 작성
+            <div className={styles.modalTopCreate}>
+              <div className={styles.modalText}>치료일기 생성</div>
               <button className={styles.modalClose} onClick={() => onCancelRecord()}></button>
+            </div> 
+            {/* 제목입력칸 */}
+            <div> 
+            <input type="text" placeholder={"10자까지 입력이 가능합니다."} 
+              ref={inputRef} className={styles.modalInfoTitle} onChange={handleEditorChange} />
+              <div className={styles.inputIndexCheck}>{title.length}/10</div>
             </div>
-            <input type="text" className={styles.modalInfoTitle} placeholder={"제목"} ref={inputRef} onChange={handleEditorChange} />
             {/* 이미지 입력 */}
             <div className={styles.imgInput}>
               {/* 이미지 선택하면 해당 이미지 띄우고 없으면 기본 이미지 */}
@@ -334,6 +404,7 @@ const RecoveryDiaryDetail: React.FC = () => {
                 onChange={handleImage}
               />
             </div>
+            <hr className={styles.modalHr} />
             <div className={styles.modalInfo}> 
               <SunEditor
               getSunEditorInstance={getSunEditorInstance}
@@ -350,8 +421,6 @@ const RecoveryDiaryDetail: React.FC = () => {
                     "bold",
                     "underline",
                     "table",
-                    "image",
-                    "list",
                     "fontColor"                  ]
                 ]
             }}

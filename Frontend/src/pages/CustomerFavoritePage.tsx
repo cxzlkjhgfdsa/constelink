@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from "./CustomerFavoritePage.module.css"
 import { useState, useEffect } from 'react';
 import axios from "axios";

@@ -1,5 +1,5 @@
 import styles from './NoticeCreate.module.css'
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import { BoardWrite } from '../models/boardmodel'
 import SunEditor from 'suneditor-react';

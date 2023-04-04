@@ -7,31 +7,31 @@ module.exports = function(app) {
       target: 'http://j8a206.p.ssafy.io:8996',
       changeOrigin: true,
     })
-  );
+  )
   
   app.use(
-    ["/auth, /members"],
+    ["/auth", "/members", "/donations"],
     createProxyMiddleware({
       target: 'http://j8a206.p.ssafy.io:8997',
       changeOrigin: true,
     })
-  );
+  )
 
   app.use(
-    ["/fundraisings","/bookmarks"],
+    ["/fundraisings","/bookmarks", "/categories"],
     createProxyMiddleware({
       target: 'http://j8a206.p.ssafy.io:8998',
       changeOrigin: true,
     })
-  );
+  )
 
   app.use(
-    ["/beneficiaries", "/recoverydiaries", "/bookmarks" ],
+    ["/beneficiaries", "/recoverydiaries" ,"hospitals"],
     createProxyMiddleware({
       target: "http://j8a206.p.ssafy.io:8999",
       changeOrigin: true,
     })
-  );
+  )
 
   app.use(
     ["/notices"],
@@ -39,5 +39,5 @@ module.exports = function(app) {
       target: "http://j8a206.p.ssafy.io:8995",
       changeOrigin: true,
     })
-  );
+  )
 }

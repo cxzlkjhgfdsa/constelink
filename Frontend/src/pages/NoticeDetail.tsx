@@ -3,10 +3,13 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './NoticeDetail.module.css'
 import { BoardDetail } from './../models/boardmodel';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 const NoticeDetail = () => {
      const [contents, setContents] = useState<BoardDetail| null>(null);
      const navigate= useNavigate();
+     const authRole = useSelector((state: RootState)=> state.auth.role);
      const { id } = useParams<{ id: string }>();
      useEffect(()=> {
         axios.get(`http://j8a206.p.ssafy.io:8995/notices/detail?id=${id}`).then(res=>{
@@ -14,7 +17,7 @@ const NoticeDetail = () => {
             setContents(res.data)
             
         })
-     }, [])
+     }, [id])
 
      const formatDate = (dateString: string): string => {
         const date = new Date(dateString);
@@ -29,9 +32,6 @@ const NoticeDetail = () => {
         return `${year}년 ${month}월 ${day}일 ${amOrPm} ${formattedHours}:${formattedMinutes}`;
       };
      
-    const handleClick = () => {
-
-    };
     return (
         <div className={styles.NoticeDetail}>
       
@@ -53,7 +53,12 @@ const NoticeDetail = () => {
 
 
             <div className={styles.write_finish} >
-            <button className={styles.modi_btn} onClick={()=> navigate(`/notice/${contents?.id}/edit`)}>글 수정</button>
+
+                 {
+                    authRole==="ADMIN" ?     <button className={styles.modi_btn} onClick={()=> navigate(`/notice/${contents?.id}/edit`)}>글 수정</button>: ""
+                }
+             
+          
             <button className={styles.back_btn} onClick={()=> navigate('/notice/')}>글 목록</button>
             </div>
         </div>

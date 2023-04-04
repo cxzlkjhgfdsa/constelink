@@ -22,21 +22,22 @@
 }
 .user_profile{
     display: flex;
-    /* background-color: red; */
-    /* justify-content: center; */
     align-items: center;
-     /* width: 600px; */
-     width: 100%;
-     /* margin-left: 17%; */
+     width: 700px;
      justify-content: center;
-     /* background-color: red; */
+}
+
+.user_img_main>img{
+     width: 100px;
+    height: 100px;
+    border-radius: 50px;
 }
 
 .user_img>img{
     width: 100px;
     height: 100px;
     transition: transform 0.1s ease;
-    border-radius: 50px;
+    
 }
 .user_img img:hover{
     transform: translateY(-5px);
@@ -48,7 +49,7 @@
     justify-content: space-around;
     /* background-color: red; */
     width: 600px;
-    background-color: red;
+    /* background-color: red; */
     padding-top: 10px;
     padding-bottom: 10px;
     background-image: url("../assets/img/login-banner.jpeg");
@@ -58,6 +59,9 @@
 .user_menu{
     display: flex;
     justify-content: center;
+}
+.user_name{
+    padding-left: 30px;
 }
 
 .user_list{

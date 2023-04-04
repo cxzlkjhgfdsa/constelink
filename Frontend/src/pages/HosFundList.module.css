@@ -14,7 +14,6 @@
 }
 
 .mainWrapper{
-  background-color: coral;
   width: 100%;
   height: max-content;
   padding-bottom: 5rem;
@@ -22,46 +21,59 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 600px;
+  font-family: "Hahmlet";
+  font-weight: 570;
 }
 
 .mainTitle{
   font-family: "Hahmlet";
   font-size: 2.5rem;
   font-weight: bold;
+  padding-bottom: 30px;
 }
 
-.listWrapper{
-  padding-top: 2rem;
-  background-color: aqua;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
 
 .indexWrapper{
   display: grid;
-  grid-template-columns: 1fr 1fr 1.5fr 3fr;
+  grid-template-columns: 1.5fr 1fr 1.5fr 2fr;
   width: 100%;
 }
 
-.div1{
-  background-color: aliceblue;
-  height:2rem;
-  grid-column-start: 1;
-  grid-column-end: 2;
+/* div 다음에 나오는 li 스타일 제거 */
+div > li {
+  list-style: none; 
+  padding-left: 0px; 
 }
 
-.div2{
-  background-color: red;
-  height:2rem;
+.subtitle_box {
+  font-family: "Hahmlet";
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-bottom: 15px;
+  border-bottom: solid 3px #A19FD5;
 }
 
-.div3{
-  background-color: aliceblue;
-  height:2rem;
+.grid_col_4{
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.5fr 2fr;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
 }
 
-.div4{
-  background-color: blue;
-  height:2rem;
+.grid_row_8{
+  display: grid;
+  grid-template-rows: repeat(8,180px);
+  width: 100%;
+  grid-row: 10px 10px;
+  align-items: center;
+  justify-items: center;
+}
+
+
+.sticky_box{
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 4px;
 }
