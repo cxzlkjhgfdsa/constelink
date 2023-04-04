@@ -118,10 +118,10 @@ const KakaoPaid: React.FC = () => {
 
   async function sendTransactionMint() {
     setIsMinting(true);
-    alert('토큰 기부중 입니다!');
+    // alert('토큰 기부중 입니다!');
     if (web3) {
       const master = web3.eth.accounts.privateKeyToAccount(MM_KEY!);
-      console.log(master);
+      // console.log(master);
       const txParams: TransactionConfig = {
         
         from: master.address,
@@ -208,10 +208,17 @@ const KakaoPaid: React.FC = () => {
   return (
     <div className={styles.mainWrapper}>
       {/* 수금 페이지 메인 배너 */}
-      <div className={styles.mainBanner}>
-        <div className={styles.bannerTitle}>여기까지 오신 당신, 당신은 멋집니다.</div>
-        <div className={styles.bannerSubTitle}>모금된 자금은 공정하고 투명하게 쓰이게됩니다.</div>
-      </div>
+        {isMinting ? (
+          <div className={styles.mainBanner}>
+            <div className={styles.bannerTitle}>토큰을 기부하는 중입니다 ...</div>
+            <div className={styles.bannerSubTitle}>잠시만 기다려 주세요!</div>
+          </div>
+        ) : (
+          <div className={styles.mainBanner}>
+            <div className={styles.bannerTitle}>여기까지 오신 당신, 당신은 멋집니다.</div>
+            <div className={styles.bannerSubTitle}>모금된 자금은 공정하고 투명하게 쓰이게됩니다.</div>
+          </div>
+        )}
 
 
       {/* 메인 페이지 */}
@@ -250,8 +257,10 @@ const KakaoPaid: React.FC = () => {
       
       {/* 토큰 제작 중 */}
       {isMinting ? (
-        <div className={styles.gif_div}>
-          <img className={styles.gif} src={Mining} alt="캐는 중..." />
+        <div className={styles.article_info}>
+          <div className={styles.gif_div}>
+            <img className={styles.gif} src={Mining} alt="캐는 중..." />
+          </div>
         </div>
       ) : (
         <>
