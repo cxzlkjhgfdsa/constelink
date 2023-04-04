@@ -9,6 +9,7 @@ import com.srp.authserver.common.exception.CustomException;
 import com.srp.authserver.common.exception.CustomExceptionType;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -30,7 +31,7 @@ public class TokenProvider implements InitializingBean {
 		this.key = Keys.hmacShaKeyFor(keyBytes);
 
 	}
-	public String getRoleByToken(String token) throws SignatureException{  // Token 에 들어있는 role 얻기
+	public String getRoleByToken(String token) throws SignatureException, ExpiredJwtException{  // Token 에 들어있는 role 얻기
 		String accessToken = isBearerToken(token);
 
 		Claims body = Jwts.parser()

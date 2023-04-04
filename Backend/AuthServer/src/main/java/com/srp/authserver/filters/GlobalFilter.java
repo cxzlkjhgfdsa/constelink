@@ -13,6 +13,7 @@ import com.srp.authserver.common.exception.CustomExceptionType;
 import com.srp.authserver.dto.enums.Role;
 import com.srp.authserver.jwt.TokenProvider;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -57,6 +58,9 @@ public class GlobalFilter extends OncePerRequestFilter{
 		}catch (SignatureException e){
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "변조된 토큰입니다");
 			return;
+		}catch (ExpiredJwtException e){
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰 유효기간이 만료되었습니다");
+			 return;
 		}
 
 
