@@ -133,12 +133,12 @@ const KakaoPaid: React.FC = () => {
       };
   
       const signedTX = await master.signTransaction(txParams);
-      console.log('이게 signedTX');
-      console.log(signedTX.rawTransaction);
-      console.log('입니다');
+      // console.log('이게 signedTX');
+      // console.log(signedTX.rawTransaction);
+      // console.log('입니다');
       
       const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
-      console.log(`Transaction hash: ${receipt.transactionHash}`);
+      // console.log(`Transaction hash: ${receipt.transactionHash}`);
       setTranHash(receipt.transactionHash);
       setIsDone(true);
     } else {
@@ -171,8 +171,11 @@ const KakaoPaid: React.FC = () => {
         beneficiaryDisease: info?.beneficiaryDisease,
         fundraisingTitle: info?.fundraisingTitle,
         fundraisingThumbnail: info?.fundraisingThumbnail
-      }
+      };
       
+      console.log('나이스바디');
+      console.log(body);
+
       await axios.post('/member/donations/save', body, {
         headers: {
           Authorization: AUTH_TOKEN
