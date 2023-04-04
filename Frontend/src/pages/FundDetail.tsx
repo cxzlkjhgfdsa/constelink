@@ -42,7 +42,7 @@ const FundDetail: React.FC = () => {
   // const percentage: number = 80;
   
   useEffect(() => {
-        axios.get(`/fundraisings/${id}?memberId=0`).then(res => {
+        axios.get(`/fundraising/fundraisings/${id}?memberId=0`).then(res => {
             // console.log(res.data);
             setDetailData(res.data);
         });
