@@ -51,15 +51,23 @@ const HomePage: React.FC = () => {
   const [statistics, setStatistics] = useState<Statistics>();
   const navigate= useNavigate();
   useEffect(() => {
-    axios.get("/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=0").then((res) => {
+    // const accessToken = localStorage.getItem('access_token');
+        
+    // axios.defaults.headers.common['authorization'] = accessToken;
+    axios.get("/fundraising/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=2").then((res) => {
       console.log(res.data.content);
+      // axios.defaults.headers.common={}
       setDonateCard(res.data.content);
     })
   }, [])
 
   useEffect(() => {
-    axios.get("/fundraisings/statistics?page=1&size=5&sortBy=ALL&memberId=0").then((res) => {
+    // const accessToken = localStorage.getItem('access_token');
+
+    // axios.defaults.headers.common['authorization'] = accessToken;
+    axios.get("/fundraising/fundraisings/statistics").then((res) => {
       console.log(res.data);
+      // axios.defaults.headers.common={}
       setStatistics(res.data)
     })
   }, [])
@@ -114,7 +122,7 @@ const HomePage: React.FC = () => {
           >
             {
               donateCard.map(it => {
-                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}} onClick={()=>navigate(`/fundmain/funddetail/${it.fundraisingId}`)}><DonationCard data={it} /></SwiperSlide>
+                return <SwiperSlide key={it.fundraisingId.toString()} style={{ paddingTop:"10px"}} ><DonationCard data={it} /></SwiperSlide>
               })
             }
           </Swiper>

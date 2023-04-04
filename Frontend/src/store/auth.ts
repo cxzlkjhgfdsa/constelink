@@ -26,9 +26,16 @@ const authSlice = createSlice({
     logout(state) {
       state.isAuthenticated = false;
       state.role = "";
-      state.nickname = "";
-      state.profileImg = "";
+      state.nickname=""
+      state.profileImg=""
     },
+
+    update(state, action) {
+      console.log(action.payload.name," 확인좀");
+      state.nickname = action.payload.name;
+    },
+
+    
   },
 });
 
