@@ -16,8 +16,6 @@ const RecoveryDiary: React.FC = () => {
   };
   // axios 처리
   useEffect(() => {
-    console.log(page, size);
-    console.log(totalElements);
     axios
       .get("/beneficiaries", {
         params: { page: page, size: size, sortBy: "DIARY_DATE_DESC" },
@@ -42,58 +40,77 @@ const RecoveryDiary: React.FC = () => {
         <div className={styles.searchContainer}>
           <p className={styles.searchBarText}>치료일지</p>
         </div>
-        <div className={styles.garoseon}>
-          <hr />
-        </div>
+        <div className={styles.garoseon}></div>
         <div className={styles.card_box}>
           {/* 결과들 도출 */}
           {diaryList.map((content, index) => (
-            <div className={styles.card_back}>
-              <div className={styles.book_title}>
-                <span className={styles.title}>
-                  {content.beneficiaryName}의 치료일지
-                </span>
-                <span className={styles.title}>-{content.hospitalName}</span>
+            <div
+              className={styles.card_back}
+              onClick={() => handleCardClick(content.beneficiaryId)}
+            >
+              <div className={styles.book_content}>
+                고객님의 치료일지를 함께 보러 가요!!
               </div>
-              <div className={styles.cardWhat} key={index}>
-                <div className={styles.cardTop}></div>
-                <div className={styles.imageContainer}>
-                  <img
-                    src={content.beneficiaryPhoto}
-                    onError={(e) => {
-                      e.currentTarget.src = "./circleuser.png";
-                    }}
-                    alt="profile"
-                    className={styles.image}
-                  />
+              <div className={styles.book_content2}>
+                이름 {content.beneficiaryName}
+              </div>
+              <div className={styles.book_content3}>
+                생일{" "}
+                {new Date(content.beneficiaryBirthday)
+                  .toLocaleDateString()
+                  .slice(0, -1)}
+              </div>
+              <img
+                src={content.beneficiaryPhoto}
+                onError={(e) => {
+                  e.currentTarget.src = "./circleuser.png";
+                }}
+                alt="profile"
+                className={styles.image_inbook}
+              />
+              {/* 선 여러개 */}
+              <div className={styles.card_top_margin}>
+                <hr></hr>
+                <hr></hr>
+                <hr></hr>
+                <hr></hr>
+                <hr></hr>
+              </div>
+              {/* 타이틀 */}
+              <div className={styles.book_title}>
+                <div className={styles.title}>
+                  {content.beneficiaryName}의 &nbsp; 치료일기
                 </div>
-                <div className={styles.titleContent}>
-                  <div className={styles.name}>
-                    {content.beneficiaryName} ({content.hospitalName})
-                  </div>
-                  {/* 이름 가운데 가리기 */}
-                  {/* {content.beneficiaryName.length > 3 
-               ? content.beneficiaryName.substring(0, 1) + "X" + content.beneficiaryName.substring(2,3)   
-               : content.beneficiaryName.substring(0, 1) + "X" + content.beneficiaryName.substring(2)}
-              님 */}
-                  <div className={styles.content}>
-                    {content.beneficiaryDisease
-                      .split(",")
-                      .map((disease, index) => (
-                        <div className={styles.contentItem} key={index}>
-                          {disease}
-                        </div>
-                      ))}
-                  </div>
+                {/* <div className={styles.title}>{content.hospitalName}</div> */}
+              </div>
+              {/* 카드 커버+안쪽 백그라운드 */}
+              <div className={styles.card_cover} key={index}>
+                <div className={styles.cardTop}>치료일기</div>
+
+                <div className={styles.book_font}>
+                  {content.beneficiaryName} 환자, 병명 :{" "}
+                  {content.beneficiaryDisease}
                 </div>
-                <div className={styles.bottomContent}>
+
+                <div className={styles.book_font}>{content.hospitalName}</div>
+
+                <img
+                  src={content.beneficiaryPhoto}
+                  onError={(e) => {
+                    e.currentTarget.src = "./circleuser.png";
+                  }}
+                  alt="profile"
+                  className={styles.image}
+                />
+
+                {/* <div className={styles.bottomContent}>
                   <div
                     className={styles.detailButton}
                     onClick={() => handleCardClick(content.beneficiaryId)}
                   >
                     치료일지 열람
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           ))}
