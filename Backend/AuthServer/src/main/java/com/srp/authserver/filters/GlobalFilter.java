@@ -65,7 +65,7 @@ public class GlobalFilter extends OncePerRequestFilter{
 
 
 		log.info("role = " + roleByToken +" : "+ Role.MEMBER);
-		if(!Role.MEMBER.toString().equals(roleByToken)){
+		if(roleByToken == null){
 			response.sendError(HttpServletResponse.SC_FORBIDDEN, "권한이 존재하지 않습니다");
 			return;
 		}

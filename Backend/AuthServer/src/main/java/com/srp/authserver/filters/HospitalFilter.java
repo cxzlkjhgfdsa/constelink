@@ -65,7 +65,7 @@ public class HospitalFilter extends OncePerRequestFilter {
 
 
 		log.info("role = " + roleByToken +" : "+ Role.HOSPITAL);
-		if(!Role.HOSPITAL.toString().equals(roleByToken)){
+		if(!Role.HOSPITAL.toString().equals(roleByToken) && !Role.ADMIN.toString().equals(roleByToken)){
 			response.sendError(HttpServletResponse.SC_FORBIDDEN, "권한이 존재하지 않습니다");
 			return;
 		}
