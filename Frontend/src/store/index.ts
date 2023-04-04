@@ -1,12 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import authReducer from './auth';
+import { configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import authReducer from "./auth";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-  whitelist: ['role','nickname','isAuthenticated',"profileImg"],
+  whitelist: ["role", "nickname", "isAuthenticated", "profileImg"],
 };
 
 const persistedReducer = persistReducer(persistConfig, authReducer);

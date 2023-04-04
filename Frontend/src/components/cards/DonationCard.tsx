@@ -58,7 +58,7 @@ const DonationCard: React.FC<Props> = ({ data }) => {
     },[setIsMark])
 
     return (
-        <div className={styles.DonationCard} style={{background:`linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))`,  backgroundImage :`url(${data.fundraisingThumbnail})`,  backgroundSize: "cover", backgroundRepeat:"no-repeat" }}>
+        <div className={styles.DonationCard} style={{backgroundImage :`linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) ,url(${data.fundraisingThumbnail}), url("./errorImg.jpg")`,  backgroundSize: "cover", backgroundRepeat:"no-repeat" }}>
             <div className={styles.bookmark} > <FontAwesomeIcon  onClick={bookHandler} icon={faStar as IconProp} color={ !isMark ?'grey':"yellow"} /></div>
             
             <div className={styles.dona_box}>
