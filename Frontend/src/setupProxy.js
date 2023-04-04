@@ -9,39 +9,13 @@ module.exports = function(app) {
   //   })
   // )
   
-<<<<<<< HEAD
   // app.use(
-  //   ["/auth", "/members", "/donations"],
+  //   ["/auth", "/member", "/donations"],
   //   createProxyMiddleware({
-  //     target: 'http://j8a206.p.ssafy.io:8997',
+  //     target: 'http://j8a206.p.ssafy.io/',
   //     changeOrigin: true,
   //   })
   // )
-
-  // app.use(
-  //   ["/fundraisings","/bookmarks", "/categories"],
-  //   createProxyMiddleware({
-  //     target: 'http://j8a206.p.ssafy.io:8998',
-  //     changeOrigin: true,
-  //   })
-  // )
-
-  // app.use(
-  //   ["/beneficiaries", "/recoverydiaries" ,"hospitals"],
-  //   createProxyMiddleware({
-  //     target: "http://j8a206.p.ssafy.io:8999",
-  //     changeOrigin: true,
-  //   })
-  // )
-=======
-  app.use(
-    ["/auth", "/member", "/donations"],
-    createProxyMiddleware({
-      target: 'http://j8a206.p.ssafy.io/',
-      changeOrigin: true,
-    })
-  )
->>>>>>> f456c525745490b9f13d535fa0193e6b7a97dcbc
 
   app.use(
     ["/notices" ,"/files/saveimg", "/beneficiary",

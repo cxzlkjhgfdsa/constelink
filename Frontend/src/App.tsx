@@ -55,13 +55,6 @@ function App() {
           <Route path='/kakao' element={<KakaoPaid />} />
 
           
-<<<<<<< HEAD
-          {/* <Route path='/hospage' element={<HospitalPage />} /> */}
-          {/* <Route path='/benregi' element={<BenRegister />} /> */}
-          {/* <Route path='/fundregi' element={<FundRegister />} /> */}
-          {/* <Route path='/hosbenlist' element={<HosBenList />} /> */}
-          {/* <Route path='/hosfundlist' element={<HosFundList />} /> */}
-=======
           <Route path='/hospage' element={<HospitalPage />} />
           <Route path='/benregi' element={<BenRegister />} />
           <Route path='/fundregi' element={<FundRegister />} />
@@ -75,7 +68,6 @@ function App() {
           <Route path='/donate' element={<Donate /> } />
           <Route path='/startdonate' element={<StartDonate /> } />
           <Route path='/mmload' element={<MMLoading /> } />
->>>>>>> f456c525745490b9f13d535fa0193e6b7a97dcbc
           
          
           <Route path='/diary' element={<RecoveryDiary />} />

@@ -26,13 +26,8 @@ const authSlice = createSlice({
     logout(state) {
       state.isAuthenticated = false;
       state.role = "";
-<<<<<<< HEAD
       state.nickname=""
       state.profileImg=""
-=======
-      state.nickname = "";
-      state.profileImg = "";
->>>>>>> f456c525745490b9f13d535fa0193e6b7a97dcbc
     },
 
     update(state, action) {

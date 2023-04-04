@@ -117,18 +117,6 @@ useEffect(() => {
   }, [categories]);
 
 
-<<<<<<< HEAD
-  const [campaignList, setCampaignList] =useState<DonationData[]>([]);
-  useEffect(()=>{
-  let params: any = { page: page, size: 16};
-  axios.get('/fundraising/fundraisings',{params}).then((res)=>{
-  console.log(res.data);
-  setTotalPage(res.data.totalElements)
-  setCampaignList(res.data.content);
-  })
-  },[page])
-=======
->>>>>>> f456c525745490b9f13d535fa0193e6b7a97dcbc
 
   return (
     <div className={styles.mainWrapper}>

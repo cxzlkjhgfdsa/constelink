@@ -37,22 +37,6 @@ const FundDetail: React.FC = () => {
   }, []);
 
   const [detailData, setDetailData] = useState<recievedata>();
-<<<<<<< HEAD
-    const { id } = useParams<{ id: string }>();
-    // console.log(id);
-    const percentage: number = 80;
-
-    useEffect(() => {
-        axios.get(`/fundraising/fundraisings/${id}?memberId=1`).then(res => {
-            console.log(res.data);
-            setDetailData(res.data);
-            axios.defaults.headers.common = {};
-          
-        })
-    }, [id])
-
-    return (
-=======
   const { id } = useParams<{ id: string }>();
   // console.log(id);
   // const percentage: number = 80;
@@ -84,7 +68,6 @@ const FundDetail: React.FC = () => {
       }, [curValue, fundPer]);
       
       return (
->>>>>>> f456c525745490b9f13d535fa0193e6b7a97dcbc
         <>
         <div className={styles.mainWrapper}>
           {/* 모금썸네일(배너) */}
