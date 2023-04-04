@@ -15,8 +15,13 @@ const RecoveryDiary: React.FC = () => {
   // axios 처리
   useEffect(() => {
     // getRecoveryDiaryData();
+<<<<<<< HEAD
     // let params: any ={page:1, size:5, sortBy:'DATE_DESC'};
     axios.get('/beneficiary/beneficiaries')
+=======
+    let params: any ={page:1, size:5, sortBy:'DATE_DESC'};
+    axios.get('/beneficiaries')
+>>>>>>> f456c525745490b9f13d535fa0193e6b7a97dcbc
     .then(res =>setDiaryList(res.data.content))
     .catch((err) => console.log(err))}
     ,[]);
@@ -40,14 +45,12 @@ const RecoveryDiary: React.FC = () => {
               <img src={content.beneficiaryPhoto} alt="profile" className={styles.image} />
             </div>
             <div className={styles.titleContent}>
-            <p className={styles.name}>
-            {/* 이름 가운데 가리기 */}
-            {/* {content.beneficiaryName.length > 3 
-             ? content.beneficiaryName.substring(0, 1) + "X" + content.beneficiaryName.substring(2,3)   
-             : content.beneficiaryName.substring(0, 1) + "X" + content.beneficiaryName.substring(2)}
-            님 */}
-            {content.beneficiaryName}
-            </p>
+              <div className={styles.name}>{content.beneficiaryName} ({content.hospitalName})</div>
+              {/* 이름 가운데 가리기 */}
+              {/* {content.beneficiaryName.length > 3 
+               ? content.beneficiaryName.substring(0, 1) + "X" + content.beneficiaryName.substring(2,3)   
+               : content.beneficiaryName.substring(0, 1) + "X" + content.beneficiaryName.substring(2)}
+              님 */}
               <div className={styles.content}>
                 {content.beneficiaryDisease.split(",").map((disease, index) => (
                   <div className={styles.contentItem} key={index}>

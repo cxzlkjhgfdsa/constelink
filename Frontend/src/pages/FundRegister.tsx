@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styles from "./FundRegister.module.css";
 import Select from "react-select";
 import SunEditor from 'suneditor-react';
@@ -18,6 +19,17 @@ const _ = require('lodash');
 
 const FundRegister: React.FC = () => {
   
+  const location = useLocation(); 
+  const state = location.state;
+
+  if (state) {
+    console.log(state);
+  }
+  
+  // Web3js 관련 설정
+
+
+
   
   // 에러 메시지
   const [imgErr, setImgErr] = useState(false);

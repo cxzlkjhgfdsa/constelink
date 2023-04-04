@@ -9,6 +9,7 @@ module.exports = function(app) {
   //   })
   // )
   
+<<<<<<< HEAD
   // app.use(
   //   ["/auth", "/members", "/donations"],
   //   createProxyMiddleware({
@@ -32,6 +33,15 @@ module.exports = function(app) {
   //     changeOrigin: true,
   //   })
   // )
+=======
+  app.use(
+    ["/auth", "/member", "/donations"],
+    createProxyMiddleware({
+      target: 'http://j8a206.p.ssafy.io/',
+      changeOrigin: true,
+    })
+  )
+>>>>>>> f456c525745490b9f13d535fa0193e6b7a97dcbc
 
   app.use(
     ["/notices" ,"/files/saveimg", "/beneficiary",

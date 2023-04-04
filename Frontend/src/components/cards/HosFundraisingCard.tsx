@@ -13,7 +13,7 @@ const HosFundraisingCard: React.FC<Props> = ({ data, time }) => {
     const hourLeft:number = floor(((data.fundraisingEndTime - time)%86400000)/3600000);
     const curValue = (data.fundraisingAmountRaised/data.fundraisingAmountGoal)*100;
 
-
+    console.log(data.fundraisingThumbnail)
     return (
             <div className={`${styles.card_box} ${styles.grid_col_4}`} >
                 <li><img className={styles.fund_img} src={data.fundraisingThumbnail?data.fundraisingThumbnail:"./circleuser.png"} onError={(e)=>{e.currentTarget.src="./circleuser.png"}} alt="fundraisingPhoto.jpg" ></img></li>

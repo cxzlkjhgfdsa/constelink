@@ -13,6 +13,14 @@ import FundRegister from "./pages/FundRegister";
 import HosBenList from "./pages/HosBenList";
 import HosFundList from "./pages/HosFundList";
 import NoticePage from './pages/NoticePage';
+import Mint from "./pages/Mint";
+import StartDonate from "./pages/StartDonate";
+import Donate from "./pages/Donate";
+import MMLoading from "./pages/MMLoading";
+
+import NoticeDetail from './pages/NoticeDetail';
+import NoticeEdit from './pages/NoticeEdit';
+import CustomerMyPage from "./pages/CustomerMyPage";
 import CustomerMyHome from './pages/CustomerMyHome';
 
 import RecoveryDiary from './pages/RecoveryDiary';
@@ -20,6 +28,7 @@ import RecoveryDiaryDetail from './pages/RecoveryDiaryDetail';
 import FundMain from "./pages/FundMain";
 import FundDetail from "./pages/FundDetail";
 import FundPayment from "./pages/FundPayment";
+import KakaoPaid from "./pages/KakaoPaid";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
 import HospitalMyPage from "./pages/HospitalMyPage";
@@ -43,12 +52,30 @@ function App() {
           <Route path='/fundmain' element={<FundMain />} />
           <Route path='/fundmain/funddetail/:id' element={<FundDetail />} />
           <Route path='/fundpayment/kakao/:id' element={<FundPayment />} />
+          <Route path='/kakao' element={<KakaoPaid />} />
+
           
+<<<<<<< HEAD
           {/* <Route path='/hospage' element={<HospitalPage />} /> */}
           {/* <Route path='/benregi' element={<BenRegister />} /> */}
           {/* <Route path='/fundregi' element={<FundRegister />} /> */}
           {/* <Route path='/hosbenlist' element={<HosBenList />} /> */}
           {/* <Route path='/hosfundlist' element={<HosFundList />} /> */}
+=======
+          <Route path='/hospage' element={<HospitalPage />} />
+          <Route path='/benregi' element={<BenRegister />} />
+          <Route path='/fundregi' element={<FundRegister />} />
+          <Route path='/hosbenlist' element={<HosBenList />} />
+          <Route path='/hosfundlist' element={<HosFundList />} />
+
+
+
+          {/* web3js 페이지 */}
+          <Route path='/mint' element={<Mint /> } />
+          <Route path='/donate' element={<Donate /> } />
+          <Route path='/startdonate' element={<StartDonate /> } />
+          <Route path='/mmload' element={<MMLoading /> } />
+>>>>>>> f456c525745490b9f13d535fa0193e6b7a97dcbc
           
          
           <Route path='/diary' element={<RecoveryDiary />} />

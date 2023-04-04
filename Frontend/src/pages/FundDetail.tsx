@@ -35,17 +35,9 @@ const FundDetail: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
-  useEffect(() => {
-    const intervalIdPercent = setInterval(() => {
-      if (curValue < percentage) setCurValue(curValue => curValue + 1);
-    }, 10);
-    return () => clearInterval(intervalIdPercent);
-  }, [curValue]);
-
-
 
   const [detailData, setDetailData] = useState<recievedata>();
+<<<<<<< HEAD
     const { id } = useParams<{ id: string }>();
     // console.log(id);
     const percentage: number = 80;
@@ -60,24 +52,63 @@ const FundDetail: React.FC = () => {
     }, [id])
 
     return (
+=======
+  const { id } = useParams<{ id: string }>();
+  // console.log(id);
+  // const percentage: number = 80;
+  
+  useEffect(() => {
+        axios.get(`/fundraisings/${id}?memberId=0`).then(res => {
+            // console.log(res.data);
+            setDetailData(res.data);
+        });
+      }, [id])
+      
+      // 디데이, 퍼센트 계산
+      const [dday, setDday] = useState(0);
+      const [fundPer, setFundPer] = useState(0);
+      useEffect(() => {
+        if (detailData) {
+          setDday(Math.floor((detailData.fundraisingEndTime-new Date().getTime())/(3600*24*1000)));
+          let per = (detailData.fundraisingAmountRaised / detailData.fundraisingAmountGoal) * 100;
+          setFundPer(Number(per.toFixed()));
+        }
+      }, [detailData])
+      
+      // 바 채우기
+      useEffect(() => {
+        const intervalIdPercent = setInterval(() => {
+          if (curValue < fundPer) setCurValue(curValue => curValue + 1);
+        }, 10);
+        return () => clearInterval(intervalIdPercent);
+      }, [curValue, fundPer]);
+      
+      return (
+>>>>>>> f456c525745490b9f13d535fa0193e6b7a97dcbc
         <>
         <div className={styles.mainWrapper}>
+          {/* 모금썸네일(배너) */}
           <div className={styles.fundMain} style={{backgroundImage: `url(${detailData?.fundraisingThumbnail})`}}>
             <div className={styles.fundAbstract}>
               <div className={styles.fundTitle}>
+                {/* 카테고리 */}
                 <div className={styles.fundCategory}>
-                  {detailData?.beneficiaryName}
+                  {detailData?.categoryName}
                 </div>
+                {/* 병원이름 */}
                 <div className={styles.fundHospital}>
                 {detailData?.hospitalName}
                 </div>
+                {/* 병명 */}
                 <div className={styles.fundBrief}>
-                {detailData?.fundraisingTitle}
+                {detailData?.beneficiaryDisease}
                 </div>
+                {/* 디데이 */}
                 <div className={styles.fundDday}>
-                  D-12
+                  D-{dday}
                 </div>
               </div>
+              {/* 모금알리기 = 링크공유 */}
               <div className={styles.fundShare}>
                 <div className={styles.shareTitle}>
                   모금알리기
@@ -94,12 +125,14 @@ const FundDetail: React.FC = () => {
             </div>
           </div>
         </div>
-    
+
+        {/* 배너 밑 본문 */}
         <div className={styles.storyWrapper}>
           <div className={styles.storyDetail}>
+            {/* 모금 제목 */}
             <div className={styles.storyHeader}>
               <div className={styles.storyHeaderText}>
-              {detailData?.fundraisingStory}
+              {detailData?.fundraisingTitle}
               </div>
             </div>
             <div className={styles.storyContent}>
@@ -107,8 +140,10 @@ const FundDetail: React.FC = () => {
                 Constelink Story
               </div>
               <div className={styles.storyContentWrapper}>
+                {/* 수혜자 사진 */}
                 <div className={styles.storyContentImg} style={{backgroundImage:`url(${detailData?.beneficiaryPhoto})`}}>
                 </div>
+                {/* 모금 내용 */}
                 <div className={styles.storyContentText}>
                 {detailData?.fundraisingStory}
                 </div>
@@ -118,35 +153,49 @@ const FundDetail: React.FC = () => {
     
           <div className={styles.fundingCard}>
             <div className={styles.fundingBeneficiary}>
+              {/* 수혜자 한마디 */}
+              {/* 추후에 수정해야 할지도 */}
               <div className={styles.benefitTitle}>허리가 아픈 원철이는 치료비가 절실합니다.</div>
+              {/* 수혜자 정보 */}
               <div className={styles.benefitMan}>
                 <div className={styles.benefitTag}>
                   수혜자:
                 </div>
+                {/* 수혜자 이름 */}
                 <div className={styles.benefitName}>
-                  {}
+                  {detailData?.beneficiaryName}
                 </div>
-                <div className={styles.benefitImg} />
+                {/* 수혜자 사진 */}
+                <div 
+                  className={styles.benefitImg} 
+                  style={{
+                    backgroundImage: `url(${detailData?.beneficiaryPhoto})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }} 
+                />
               </div>
             </div>
             <div className={styles.fundingUsage}>
               <div className={styles.usageTag}>
                 치료비는 다음과 같은 곳에 사용됩니다
               </div>
-              
+              {/* 병원이름 */}
               <div className={styles.usageHospital}>
                 {detailData?.hospitalName}
               </div>
             </div>
-    
-            <div className={styles.fundingBtn}>
-              <div className={styles.fundingBtnText} onClick={()=> navigate(`/fundpayment/kakao/${detailData?.fundraisingId}`)}>
+            {/* 모금 하기 버튼 */}
+            <div className={styles.fundingBtn} onClick={()=> navigate(`/fundpayment/kakao/${detailData?.fundraisingId}`)}>
+              <div className={styles.fundingBtnText}>
                 모금동참
               </div>
             </div>
+            {/* 모금률 바 */}
             <div className={styles.fundingBar}>
               <div className={styles.fundingTag}>모금도달률</div>
-              <div className={styles.fundingPct}>80%</div>
+              {/* 모금률 계산 */}
+              <div className={styles.fundingPct}>{fundPer}%</div>
               <div className={styles.star}/>
               <progress className={styles.fundDetailBar} value={curValue} max={100}/>
               <div className={styles.fundingGoal}>{detailData?.fundraisingAmountGoal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</div>
