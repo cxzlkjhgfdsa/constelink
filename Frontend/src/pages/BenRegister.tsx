@@ -7,7 +7,6 @@ import ko from 'date-fns/locale/ko' // 한국어 적용
 import styles from "./BenRegister.module.css";
 import axios from "axios";
 
-
 import Loading from "../assets/img/mining.gif";
 
 

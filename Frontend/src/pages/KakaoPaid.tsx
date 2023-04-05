@@ -116,6 +116,8 @@ const KakaoPaid: React.FC = () => {
   // transactionhash 저장
   const [tranHash, setTranHash] = useState('');
 
+
+  // 토큰 민팅하기
   async function sendTransactionMint() {
     setIsMinting(true);
     // alert('토큰 기부중 입니다!');
