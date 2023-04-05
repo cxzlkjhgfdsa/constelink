@@ -64,6 +64,7 @@ const KakaoPaid: React.FC = () => {
     console.log(window.localStorage);
     console.log(window.localStorage.details);
     console.log(typeof (window.localStorage.details));
+    console.log(window.localStorage.details.substr(17, 1));
     console.log(pgToken)
   }, [])
 
