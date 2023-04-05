@@ -73,10 +73,8 @@ const RecoveryDiaryDetail: React.FC = () => {
   useEffect(() => {
     let params: any = { page: page, size: 6, sortBy: "DATE_DESC" };
     axios
-      .get(`/recoverydiaries/${id}`, { params })
+      .get(`/beneficiary/recoverydiaries/${id}`, { params })
       .then((res) => {
-        console.log(res.data);
-        console.log(treatmentRecords);
         setTreatmentRecords(res.data.beneficiaryInfo);
         setRecoveryCard(res.data.beneficiaryDiaries.content);
         setPage(page);
@@ -142,7 +140,6 @@ const RecoveryDiaryDetail: React.FC = () => {
   // 모달 속 생성완료버튼 -> POST
   const onAddRecord = async () => {
     let imgurl2 = await getImgUrl();
-
     if (!content) {
       alert("내용을 작성해주세요!");
       return;
@@ -164,10 +161,10 @@ const RecoveryDiaryDetail: React.FC = () => {
     };
 
     await axios
-      .post(`/recoverydiaries`, Record, { headers: { Authorization: "oo" } })
+      .post(`/beneficiary/recoverydiaries`, Record, {
+        headers: { Authorization: "oo" },
+      })
       .then((res) => {
-        console.log("요청이 갔어요~");
-        console.log(res);
         window.location.replace(`/diarydetail/${id}`);
       })
       .catch((err) => {
