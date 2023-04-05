@@ -180,7 +180,7 @@ const FundDetail: React.FC = () => {
           {/* 사용처 표시 */}
           {
             uses?.map(use => {
-              return <li className={styles.usageList}>• {use}</li>
+              return <li key={use} className={styles.usageList}>• {use}</li>
             })
           }
 
