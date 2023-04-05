@@ -44,6 +44,12 @@ const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 // 이 페이지에서 메타마스크와 연결하고 토큰mint, donate 해야할듯?
 const KakaoPaid: React.FC = () => {
 
+  useEffect(() => {
+    console.log(window.localStorage);
+  }, [])
+
+
+
   // console.log(MM_KEY);
 
   const navigate = useNavigate();
@@ -63,57 +69,54 @@ const KakaoPaid: React.FC = () => {
   // 기부 상세정보 받아오기
   const [info, setInfo] = useState<recievedata>();
   // const [id, setId] = useState(0);
-  useEffect(() => {
-    // 메타마스크 연결 요청
-    // console.log(MM_KEY);
+  // useEffect(() => {
+  // 메타마스크 연결 요청
+  // console.log(MM_KEY);
 
-    if (web3) {
-      axios.get(`/member/payments/success?pg_token=${pgToken}`, {
-        headers: {
-          Authorization: AUTH_TOKEN
-        }
-      })
-        .then((res) => {
-          // console.log(res);
-          console.log(localStorage.getItem('details'));
-          // console.log(res.data);
-          localStorage.setItem('money', res.data.amount.total);
-          setMoney(res.data.amount.total);
-          // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
-          setInfo(JSON.parse(localStorage.getItem('details') || '{}'));
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    } else {
-      console.log('web3 연결해 무자식아');
-    }
-  }, [pgToken])
+  //   axios.get(`/member/payments/success?pg_token=${pgToken}`, {
+  //     headers: {
+  //       Authorization: AUTH_TOKEN
+  //     }
+  //   })
+  //     .then((res) => {
+  //       // console.log(res);
+  //       console.log(localStorage.getItem('details'));
+  //       // console.log(res.data);
+  //       localStorage.setItem('money', res.data.amount.total);
+  //       setMoney(res.data.amount.total);
+  //       // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
+  //       setInfo(JSON.parse(localStorage.getItem('details') || '{}'));
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+
+  // }, [pgToken])
 
 
   // 금액 받아오면 web3통신 시작!
   // 계정 주소 불러오고, 펀딩 컨트랙트 연결
-  useEffect(() => {
-    const detectWeb3 = async () => {
+  // useEffect(() => {
+  //   const detectWeb3 = async () => {
 
-      if (typeof window.ethereum !== "undefined") {
-        // MetaMask is installed & create an web3 instance
-        const provider = window.ethereum;
-        await provider.request({ method: "eth_requestAccounts" });
-        const web3Instance = new Web3(provider);
-        setWeb3(web3Instance);
+  //     if (typeof window.ethereum !== "undefined") {
+  //       // MetaMask is installed & create an web3 instance
+  //       const provider = window.ethereum;
+  //       await provider.request({ method: "eth_requestAccounts" });
+  //       const web3Instance = new Web3(provider);
+  //       setWeb3(web3Instance);
 
-        // Get the user's address
-        const accounts = await web3Instance.eth.getAccounts();
-        setAddress(accounts[0]);
+  //       // Get the user's address
+  //       const accounts = await web3Instance.eth.getAccounts();
+  //       setAddress(accounts[0]);
 
-        // Load the contract
-        const contractInstance = new web3Instance.eth.Contract(FUND_ABI as AbiItem[], TEST_PUB_FUND_CA);
-        setContract(contractInstance);
-      }
-    };
-    detectWeb3();
-  }, []);
+  //       // Load the contract
+  //       const contractInstance = new web3Instance.eth.Contract(FUND_ABI as AbiItem[], TEST_PUB_FUND_CA);
+  //       setContract(contractInstance);
+  //     }
+  //   };
+  //   detectWeb3();
+  // }, []);
 
   // mint컨트랙트 보내기
   const [isMinting, setIsMinting] = useState(false);
@@ -122,62 +125,62 @@ const KakaoPaid: React.FC = () => {
   const [tranHash, setTranHash] = useState('');
 
   // 토큰 민팅 트랜젝션
-  async function sendTransactionMint() {
-    setIsMinting(true);
-    console.log('민팅시작');
-    // alert('토큰 기부중 입니다!');
-    if (web3) {
-      const master = web3.eth.accounts.privateKeyToAccount(MM_KEY!);
-      // console.log(master);
-      const txParams: TransactionConfig = {
+  // async function sendTransactionMint() {
+  //   setIsMinting(true);
+  //   console.log('민팅시작');
+  //   // alert('토큰 기부중 입니다!');
+  //   if (web3) {
+  //     const master = web3.eth.accounts.privateKeyToAccount(MM_KEY!);
+  //     // console.log(master);
+  //     const txParams: TransactionConfig = {
 
-        from: master.address,
-        to: TEST_PUB_FUND_CA,
-        gas: 1000000,
-        data: contract.methods.mint(address, money).encodeABI(),
-        nonce: await web3.eth.getTransactionCount(master.address),
-        chainId: 11155111,
-      };
+  //       from: master.address,
+  //       to: TEST_PUB_FUND_CA,
+  //       gas: 1000000,
+  //       data: contract.methods.mint(address, money).encodeABI(),
+  //       nonce: await web3.eth.getTransactionCount(master.address),
+  //       chainId: 11155111,
+  //     };
 
-      const signedTX = await master.signTransaction(txParams);
-      console.log('이게 signedTX');
-      console.log(signedTX.rawTransaction);
-      console.log('입니다');
+  //     const signedTX = await master.signTransaction(txParams);
+  //     console.log('이게 signedTX');
+  //     console.log(signedTX.rawTransaction);
+  //     console.log('입니다');
 
-      const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
-      console.log(`Mint Transaction hash: ${receipt.transactionHash}`);
-      // setTranHash(receipt.transactionHash);
-      // setIsDone(true);
-      sendTransactionDonate();
-    } else {
-      console.log('Web3 is not available');
-    };
-  }
+  //     const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
+  //     console.log(`Mint Transaction hash: ${receipt.transactionHash}`);
+  //     // setTranHash(receipt.transactionHash);
+  //     // setIsDone(true);
+  //     sendTransactionDonate();
+  //   } else {
+  //     console.log('Web3 is not available');
+  //   };
+  // }
 
   // 기부 트랜젝션
-  async function sendTransactionDonate() {
-    console.log('토큰보내기')
+  // async function sendTransactionDonate() {
+  //   console.log('토큰보내기')
 
-    console.log(info);
+  //   console.log(info);
 
-    const txHash = await contract.methods
-      .fundRaising(TEST_PUB_FUND_CA, money, info?.fundraisingId)
-      .send({ from: address });
-    console.log("Donate Transaction hash:", txHash);
-    setTranHash(txHash);
-    setIsDone(true);
-  }
+  //   const txHash = await contract.methods
+  //     .fundRaising(TEST_PUB_FUND_CA, money, info?.fundraisingId)
+  //     .send({ from: address });
+  //   console.log("Donate Transaction hash:", txHash);
+  //   setTranHash(txHash);
+  //   setIsDone(true);
+  // }
 
 
 
   // 메타 마스크 연결되어 있으면 transaction 보내기
-  const handleDonate = () => {
-    if (!address) {
-      alert('메타마스크 계정이 연결되지 않았습니다!');
-      return
-    }
-    sendTransactionMint();
-  }
+  // const handleDonate = () => {
+  //   if (!address) {
+  //     alert('메타마스크 계정이 연결되지 않았습니다!');
+  //     return
+  //   }
+  //   sendTransactionMint();
+  // }
 
   // 토큰 기부 완료되면
   const [isDone, setIsDone] = useState(false);
@@ -295,7 +298,7 @@ const KakaoPaid: React.FC = () => {
             </div>
             <div
               className={styles.fundingBtn}
-              onClick={handleDonate}
+            // onClick={handleDonate}
             >
               기부하기
             </div>
