@@ -308,7 +308,7 @@ const KakaoPaid: React.FC = () => {
             </div>
             <div
               className={styles.fundingBtn}
-            // onClick={handleDonate}
+              onClick={handleDonate}
             >
               기부하기
             </div>
