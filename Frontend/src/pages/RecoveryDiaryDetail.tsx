@@ -60,10 +60,9 @@ const RecoveryDiaryDetail: React.FC = () => {
 
   // 페이지네이션을 위한 설정
   const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
+  const [totalelement, setTotalElement] = useState<number>(0);
 
   const handlePageChange = (page: number) => {
-    console.log(page);
     setPage(page);
   };
 
@@ -81,6 +80,7 @@ const RecoveryDiaryDetail: React.FC = () => {
         setTreatmentRecords(res.data.beneficiaryInfo);
         setRecoveryCard(res.data.beneficiaryDiaries.content);
         setPage(page);
+        setTotalElement(res.data.beneficiaryDiaries.totalElements);
       })
       .catch((err) => {
         console.log(err);
@@ -307,6 +307,20 @@ const RecoveryDiaryDetail: React.FC = () => {
                 </p>
                 {/* <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryAmountRaised}원</p> */}
               </div>
+              <div className={styles.detailButton}>
+                <button
+                  className={styles.detailCreateButton}
+                  onClick={() => onClickCreateRecord()}
+                >
+                  치료일지 생성
+                </button>
+                <button
+                  className={styles.detailBackButton}
+                  onClick={() => navigate(`/diary`)}
+                >
+                  목록보기
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -325,7 +339,7 @@ const RecoveryDiaryDetail: React.FC = () => {
                 {formatDate(record.diaryRegisterDate)}
               </div>
               {/* {imgUrl && <img src={record.diaryPhoto} className={styles.recordImage} alt='nononono'/>} */}
-              {record.diaryPhoto ? (
+              {
                 <div className={styles.recordImage}>
                   <img
                     className={styles.recordImage}
@@ -336,9 +350,7 @@ const RecoveryDiaryDetail: React.FC = () => {
                     alt="diaryPhoto"
                   />
                 </div>
-              ) : (
-                <div className={styles.noImg} />
-              )}
+              }
               {/* {record.diaryPhoto && <img src={record.diaryPhoto} className={styles.recordImage} alt={imgPreUrl}/>} */}
               <div className={styles.recordIndex}>
                 {record.diaryTitle.length > 10
@@ -356,37 +368,21 @@ const RecoveryDiaryDetail: React.FC = () => {
               ></div>
             </div>
           ))}
-
-          <div className={styles.pagination}>
-            <Pagination
-              activePage={page}
-              itemsCountPerPage={6}
-              totalItemsCount={totalPage}
-              pageRangeDisplayed={6}
-              prevPageText={"‹"}
-              nextPageText={"›"}
-              onChange={handlePageChange}
-            />
-          </div>
         </div>
 
         {/* 치료일기생성버튼 */}
-        <div className={styles.detailButton}>
-          <button
-            className={styles.detailCreateButton}
-            onClick={() => onClickCreateRecord()}
-          >
-            치료일지 생성
-          </button>
-          <button
-            className={styles.detailBackButton}
-            onClick={() => navigate(`/diary`)}
-          >
-            목록보기
-          </button>
-        </div>
       </div>
-
+      <div className={styles.pagination}>
+        <Pagination
+          activePage={page}
+          itemsCountPerPage={6}
+          totalItemsCount={totalelement}
+          pageRangeDisplayed={6}
+          prevPageText={"‹"}
+          nextPageText={"›"}
+          onChange={handlePageChange}
+        />
+      </div>
       {/* 모달 확인, 조회 */}
       {/* 취소는 모달 우상단 */}
       {isOpenModal && selectedRecordIndex !== null && (
@@ -400,6 +396,9 @@ const RecoveryDiaryDetail: React.FC = () => {
           </div>
           <img
             src={recoveryCard[selectedRecordIndex].diaryPhoto}
+            onError={(e) => {
+              e.currentTarget.src = "/diaryImg1.jpg";
+            }}
             alt={imgPreUrl}
             className={styles.modalImage}
           />

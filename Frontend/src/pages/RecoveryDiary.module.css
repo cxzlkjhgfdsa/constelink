@@ -10,6 +10,7 @@
 .item {
   display: flex;
   flex-direction: column;
+  max-width: 920px;
 }
 
 /* 입력부분 */
@@ -144,46 +145,32 @@
   bottom: 50%;
 }
 /* 책 안의 내용 */
-.book_content {
-  font-size: 23px;
-  font-weight: bold;
-  font-family: "Hahmlet";
+
+.book_content_box {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
   height: 130px;
   width: 190px;
   border-radius: 50%;
-  position: absolute;
   right: 50%;
   left: 25%;
   top: 5%;
   bottom: 50%;
+  font-family: "Hahmlet";
 }
-
+.book_content {
+  font-size: 23px;
+  font-weight: bold;
+}
 .book_content2 {
   font-size: 18px;
   font-weight: bold;
-  font-family: "Hahmlet";
-  height: 130px;
-  width: 190px;
-  border-radius: 50%;
-  position: absolute;
-  right: 50%;
-  left: 25%;
-  top: 28%;
-  bottom: 50%;
 }
 
 .book_content3 {
   font-size: 18px;
   font-weight: bold;
-  font-family: "Hahmlet";
-  height: 130px;
-  width: 190px;
-  border-radius: 50%;
-  position: absolute;
-  right: 50%;
-  left: 25%;
-  top: 36%;
-  bottom: 50%;
 }
 
 .titleContent {
@@ -287,6 +274,7 @@
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   height: 310px;
+  cursor: pointer;
 }
 
 .card_top_margin {

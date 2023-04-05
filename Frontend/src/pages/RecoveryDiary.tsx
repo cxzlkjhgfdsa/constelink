@@ -48,17 +48,19 @@ const RecoveryDiary: React.FC = () => {
               className={styles.card_back}
               onClick={() => handleCardClick(content.beneficiaryId)}
             >
-              <div className={styles.book_content}>
-                고객님의 치료일지를 함께 보러 가요!!
-              </div>
-              <div className={styles.book_content2}>
-                이름 {content.beneficiaryName}
-              </div>
-              <div className={styles.book_content3}>
-                생일{" "}
-                {new Date(content.beneficiaryBirthday)
-                  .toLocaleDateString()
-                  .slice(0, -1)}
+              <div className={styles.book_content_box}>
+                <div className={styles.book_content}>
+                  고객님의 치료일지를 함께 보러 가요!!
+                </div>
+                <div className={styles.book_content2}>
+                  이름 {content.beneficiaryName}
+                </div>
+                <div className={styles.book_content2}>
+                  생일{" "}
+                  {new Date(content.beneficiaryBirthday)
+                    .toLocaleDateString()
+                    .slice(0, -1)}
+                </div>
               </div>
               <img
                 src={content.beneficiaryPhoto}
