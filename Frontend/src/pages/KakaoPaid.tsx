@@ -86,8 +86,7 @@ const KakaoPaid: React.FC = () => {
       .then((res) => {
         // console.log(res);
         // console.log(localStorage.getItem('details'));
-        console.log('카카오 성공 메시지 여기');
-        console.log(res.data);
+        console.log('1. 카카오 성공');
         localStorage.setItem('money', res.data.amount.total);
         setMoney(res.data.amount.total);
         // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
@@ -103,7 +102,8 @@ const KakaoPaid: React.FC = () => {
 
   // 2. 메타마스크 연결하는 단계 (필수조건: 카카오결제가 성공적으로 이루어 졌다면)
   // 금액 받아오면 web3통신 시작!
-  // 계정 주소 불러오고, 펀딩 컨트랙트 연결
+  // 계정 주소 불러오고, 펀딩 컨트랙트 연결 성공하면 true로 바꿔주기
+  const [web3Success, setWeb3Seccess] = useState(false);
   useEffect(() => {
     const detectWeb3 = async () => {
 
@@ -127,76 +127,76 @@ const KakaoPaid: React.FC = () => {
     // 결제가 성공적으로 이루어졌다면 메타마스크 연결
     if (kakaoSuccess) {
       detectWeb3();
+      console.log('2. 메타마스크 연결 성공');
+      setWeb3Seccess(true);
     }
   }, [kakaoSuccess]);
 
 
-  // mint컨트랙트 보내기
+  // mint컨트랙트 보내는 중 (로딩화면 띄우기 위해)
   const [isMinting, setIsMinting] = useState(false);
-
-  // transactionhash 저장
+  // transactionhash 저장 (back에 전송해 주어야 함)
   const [tranHash, setTranHash] = useState('');
 
-  // 토큰 민팅 트랜젝션
-  // async function sendTransactionMint() {
-  //   setIsMinting(true);
-  //   console.log('민팅시작');
-  //   // alert('토큰 기부중 입니다!');
-  //   if (web3) {
-  //     const master = web3.eth.accounts.privateKeyToAccount(MM_KEY!);
-  //     // console.log(master);
-  //     const txParams: TransactionConfig = {
+  // 3. 토큰 민팅 트랜젝션
+  async function sendTransactionMint() {
+    setIsMinting(true);
+    console.log('3. 토큰 민팅 시작');
 
-  //       from: master.address,
-  //       to: TEST_PUB_FUND_CA,
-  //       gas: 1000000,
-  //       data: contract.methods.mint(address, money).encodeABI(),
-  //       nonce: await web3.eth.getTransactionCount(master.address),
-  //       chainId: 11155111,
-  //     };
+    if (web3) {
+      const master = web3.eth.accounts.privateKeyToAccount(MM_KEY!);
+      // console.log(master);
+      const txParams: TransactionConfig = {
 
-  //     const signedTX = await master.signTransaction(txParams);
-  //     console.log('이게 signedTX');
-  //     console.log(signedTX.rawTransaction);
-  //     console.log('입니다');
+        from: master.address,
+        to: TEST_PUB_FUND_CA,
+        gas: 1000000,
+        data: contract.methods.mint(address, money).encodeABI(),
+        nonce: await web3.eth.getTransactionCount(master.address),
+        chainId: 11155111,
+      };
 
-  //     const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
-  //     console.log(`Mint Transaction hash: ${receipt.transactionHash}`);
-  //     // setTranHash(receipt.transactionHash);
-  //     // setIsDone(true);
-  //     sendTransactionDonate();
-  //   } else {
-  //     console.log('Web3 is not available');
-  //   };
-  // }
+      const signedTX = await master.signTransaction(txParams);
+      console.log('이게 signedTX');
+      console.log(signedTX.rawTransaction);
+      console.log('입니다');
 
-  // 기부 트랜젝션
-  // async function sendTransactionDonate() {
-  //   console.log('토큰보내기')
+      const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
+      console.log(`Mint Transaction hash: ${receipt.transactionHash}`);
+      // setTranHash(receipt.transactionHash);
+      // setIsDone(true);
+      sendTransactionDonate();
+    } else {
+      console.log('Web3 is not available');
+    };
+  }
 
-  //   console.log(info);
+  // 4. 기부 트랜젝션
+  // 트랜젝션 끝나면 기부내역 저장하는 함수 실행
+  const [txDone, setTxDone] = useState(false);
+  async function sendTransactionDonate() {
+    console.log('4. 토큰 기부 시작');
 
-  //   const txHash = await contract.methods
-  //     .fundRaising(TEST_PUB_FUND_CA, money, info?.fundraisingId)
-  //     .send({ from: address });
-  //   console.log("Donate Transaction hash:", txHash);
-  //   setTranHash(txHash);
-  //   setIsDone(true);
-  // }
+    const txHash = await contract.methods
+      .fundRaising(TEST_PUB_FUND_CA, money, id)
+      .send({ from: address });
+    console.log("Donate Transaction hash:", txHash);
+    setTranHash(txHash);
+    setTxDone(true);
+  }
 
 
+  // 3, 4 메타 마스크 연결되어 있으면 트랜젝션 보내기
+  // 3. 토큰 민팅 => 4. 토큰 기부
+  // 토큰 기부는 민팅함수 안에 있어 토큰민팅이 성공적으로 이루어지면 순차적으로 진행됨
+  const handleDonate = () => {
+    if (web3Success) {
+      sendTransactionMint();
+    }
+  }
 
-  // 메타 마스크 연결되어 있으면 transaction 보내기
-  // const handleDonate = () => {
-  //   if (!address) {
-  //     alert('메타마스크 계정이 연결되지 않았습니다!');
-  //     return
-  //   }
-  //   sendTransactionMint();
-  // }
-
-  // 토큰 기부 완료되면
-  const [isDone, setIsDone] = useState(false);
+  // 5. 토큰 기부 완료되면
+  // const [isDone, setIsDone] = useState(false);
   useEffect(() => {
     // 토큰 기부하면 DB에 기부 저장하기
     const saveDonation = async () => {
@@ -213,27 +213,24 @@ const KakaoPaid: React.FC = () => {
         fundraisingThumbnail: info?.fundraisingThumbnail
       };
 
-      console.log('나이스바디');
-      console.log(body);
-
       await axios.post('/member/donations/save', body, {
         headers: {
           Authorization: AUTH_TOKEN
         }
       })
         .then((res) => {
-          console.log('도네 저장 성공');
+          console.log('5. 도네 저장 성공');
           console.log(res);
         })
         .catch((err) => {
-          console.log('도네 저장 실패');
+          console.log('5. 도네 저장 실패');
           console.log(err);
         })
     }
 
-    // 기부완료되면 홈으로 이동하고
+    // 6. 기부, 저장완료되면 홈으로 이동하고
     // 로컬스토리지 비워주기
-    if (isDone) {
+    if (txDone) {
       alert('토큰 기부가 완료되었습니다!');
       // 도네이션 정보 저장
       saveDonation();
@@ -242,7 +239,7 @@ const KakaoPaid: React.FC = () => {
 
       localStorage.clear();
     }
-  }, [isDone])
+  }, [txDone])
 
 
   return (
