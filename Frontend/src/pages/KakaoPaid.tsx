@@ -60,6 +60,7 @@ const KakaoPaid: React.FC = () => {
 
   // 카카오 결제완료 후 토큰 받아오기, 금액 설정
   const [money, setMoney] = useState(0);
+  // 기부 상세정보 받아오기
   const [info, setInfo] = useState<recievedata>();
   useEffect(() => {
     // 메타마스크 연결 요청
@@ -116,8 +117,10 @@ const KakaoPaid: React.FC = () => {
   // transactionhash 저장
   const [tranHash, setTranHash] = useState('');
 
+  // 토큰 민팅 트랜젝션
   async function sendTransactionMint() {
     setIsMinting(true);
+    console.log('민팅시작');
     // alert('토큰 기부중 입니다!');
     if (web3) {
       const master = web3.eth.accounts.privateKeyToAccount(MM_KEY!);
@@ -127,24 +130,38 @@ const KakaoPaid: React.FC = () => {
         from: master.address,
         to: TEST_PUB_FUND_CA,
         gas: 1000000,
-        data: contract.methods.mint(address, 10000).encodeABI(),
+        data: contract.methods.mint(address, money).encodeABI(),
         nonce: await web3.eth.getTransactionCount(master.address),
         chainId: 11155111,
       };
 
       const signedTX = await master.signTransaction(txParams);
-      // console.log('이게 signedTX');
-      // console.log(signedTX.rawTransaction);
-      // console.log('입니다');
+      console.log('이게 signedTX');
+      console.log(signedTX.rawTransaction);
+      console.log('입니다');
 
       const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
-      // console.log(`Transaction hash: ${receipt.transactionHash}`);
-      setTranHash(receipt.transactionHash);
+      console.log(`Mint Transaction hash: ${receipt.transactionHash}`);
+      // setTranHash(receipt.transactionHash);
       setIsDone(true);
     } else {
       console.log('Web3 is not available');
     };
   }
+
+  // 기부 트랜젝션
+  async function sendTransactionDonate() {
+    console.log('토큰보내기')
+
+    const txHash = await contract.methods
+      .fundRaising(TEST_PUB_FUND_CA, money, info?.fundraisingId)
+      .send({ from: address });
+    console.log("Donate Transaction hash:", txHash);
+    setTranHash(txHash);
+    setIsDone(true);
+  }
+
+
 
   // 메타 마스크 연결되어 있으면 transaction 보내기
   const handleDonate = () => {
@@ -153,6 +170,7 @@ const KakaoPaid: React.FC = () => {
       return
     }
     sendTransactionMint();
+    sendTransactionDonate();
   }
 
   // 토큰 기부 완료되면
