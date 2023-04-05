@@ -2,6 +2,8 @@ import axios from 'axios';
 import styles from './FinishFundList.module.css'
 import { useEffect, useState } from 'react';
 import { DonationData } from './../models/donatecard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const FinishFundList = () => {
     const [finishList, setFinishList] = useState<DonationData[]>([]);
@@ -19,51 +21,25 @@ const FinishFundList = () => {
                 Constelink로 연결된 인연
             </div>
 
-           
+
 
 
             <div className={styles.grid_section}>
                 {
                     finishList.map((it, idx) => {
-                        return <div className={styles.grid_card} key={idx} style={{backgroundImage:`url(${it.fundraisingThumbnail})`,backgroundRepeat:"no-repeat", backgroundSize:"cover"}}>
-
-                            {/* <div className={styles.card_image} > */}
-                                {/* <img src={it.fundraisingThumbnail} alt="image"/> */}
-                            {/* </div> */}
-                            {/* <div className={styles.card_name}>
-                                <div className={styles.name}>{it.beneficiaryName}</div>
-                            </div> */}
-                            
-
-                            {/* <div className={styles.card_disease}>
-                                <div className={styles.disease}>{it.beneficiaryDisease}</div>
-                            </div> */}
-
-                            {/* <div className={styles.card_disease}>
-                                <div className={styles.disease}>{it.fundraisingPeople}</div>
-                            </div> */}
-
-
+                        return <div className={styles.grid_card} key={idx}
+                            style={{ backgroundImage: ` linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)),url(${it.fundraisingThumbnail})`, backgroundSize: "cover", backgroundRepeat: "no-repeat" }}
+                        >
                             <div className={styles.card_success}>
-
                                 <div className={styles.success}>Constelink</div>
                             </div>
-
+                            <div  className={styles.card_star}>
+                                 <FontAwesomeIcon icon={faStar} />
+                            </div>
                         </div>
                     })
-
                 }
-
-
-
-
             </div>
-
-
-
-
-
-
         </div>
     );
 };
