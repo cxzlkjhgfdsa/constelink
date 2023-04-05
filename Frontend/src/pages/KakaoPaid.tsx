@@ -35,9 +35,9 @@ interface recievedata {
   hospitalName: string
 }
 
+
+const AUTH_TOKEN = window.localStorage.getItem('access_token');
 const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
-// const AUTH_TOKEN = process.env.REACT_APP_TMP_AUTH_TOKEN;
-const AUTH_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjgwNjgxNjA4LCJleHAiOjE2ODA2ODM0MDgsInJvbGUiOiJNRU1CRVIifQ.fZ-rZVMo6BknSpL8pxTdrbJywrP1FdC4KZlCKns34nXfnr-Uepu6cGu-witYqmE9wmDrua8Z0KpUGqR743J2hQ";
 const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
 
