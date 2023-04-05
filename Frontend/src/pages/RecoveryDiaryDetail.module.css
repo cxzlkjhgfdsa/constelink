@@ -8,9 +8,7 @@
   src: url("../assets/fonts/ClimateCrisis-Regular-VariableFont_YEAR.ttf");
 }
 
-
 .container {
-  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -18,13 +16,14 @@
 
 .item {
   width: 100%;
-  flex-direction : column;
-  border-color : black;
+  flex-direction: column;
+  border-color: black;
+  min-width: 800px;
+  max-width: 920px;
 }
 
 .cardIndex {
   margin-bottom: 20px;
-  background-color: #fff;
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -32,25 +31,39 @@
 
 .cardTop {
   height: 80px;
-  background-color: #A19FD5;
+  background-color: #a19fd5;
   display: flex;
 }
 
 .title {
   font-family: "Hahmlet";
-  margin-left : 10px;
-  margin-top : 11px;
+  margin-left: 10px;
+  margin-top: 11px;
   position: absolute;
   font-size: 40px;
   font-weight: bold;
-  color : white;
+  color: white;
 }
 
 .cardContent {
-  display: flex;
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 250px 1fr;
   align-items: center;
-  justify-content: center;
-  margin : 0 8% 0 12% ;
+  justify-items: center;
+}
+
+.cardContent::before {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("/public/diaryImg1.jpg");
+  background-size: cover;
+  content: "";
+  z-index: -1;
+  background-position-y: -100px;
 }
 
 .imageContainer {
@@ -59,7 +72,6 @@
   margin-left: 10px;
 }
 
-
 .image {
   width: 150px;
   height: 150px;
@@ -67,7 +79,6 @@
   border: 5px solid #fff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-
 
 .content {
   display: flex;
@@ -85,14 +96,16 @@
 
 .patientInfo {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: 50px;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
 }
 
 .patientInfoItem {
   font-family: "Hahmlet";
-  width: 300px;
+
   min-width: 150px;
   margin-bottom: 10px;
 }
@@ -100,7 +113,7 @@
 .patientInfoTitle {
   font-family: "Hahmlet";
   font-size: 20px;
-  color: #aaa;
+  color: black;
 }
 
 .patientInfoContent {
@@ -108,8 +121,8 @@
   font-size: 22px;
   font-weight: bold;
   max-width: 500px;
+  color: #ececec;
 }
-
 
 /* 병원이 작성한 카드 */
 .treatmentRecords {
@@ -117,7 +130,6 @@
   flex-wrap: wrap;
   align-items: flex-start;
 }
-
 
 /* 치료일지 카드  */
 .recordCard {
@@ -129,8 +141,8 @@
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 10px 10px;
-  margin-right:1.6%;
-  margin-left:1.6%;
+  margin-right: 1.6%;
+  margin-left: 1.6%;
   transition: transform 0.4s ease;
   max-height: 500px;
 }
@@ -160,16 +172,16 @@
   max-height: 100%;
 
   /* 이미지를 크기에 맞게 조정 */
-  object-fit : cover;
+  object-fit: cover;
 }
 
 /* 치료일기 제목 */
 .recordIndex {
   background-color: #fff;
-  padding : 10px;
+  padding: 10px;
   font-family: "Hahmlet";
   font-size: 32px;
-  font-weight: bolder;  
+  font-weight: bolder;
 }
 
 /* 치료일기 내용 */
@@ -177,50 +189,52 @@
   font-family: "Hahmlet";
   font-size: 1.2rem;
   line-height: 1.5;
-  padding : 10px;
-  min-height : 100px;
-  max-height : 100px;
+  padding: 10px;
+  min-height: 100px;
+  max-height: 100px;
 }
 
 /* 하단버튼스타일 */
-.detailButton { 
-  margin : 5%;
+.detailButton {
   display: flex;
-  justify-content: center;
+  width: 80%;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .detailCreateButton {
   font-family: "Hahmlet";
-  font-size: 30px;
+  font-size: 15px;
   font-weight: bolder;
-  margin : 0px 5px 0px 5px;
-  padding : 5px 15px 5px 15px;
+  margin: 0px 5px 0px 5px;
+  padding: 5px 10px 5px 10px;
   color: white;
   background-color: #8140f1;
   border: none;
   border-radius: 32px;
-  flex-grow: 0;
+  cursor: pointer;
   position: relative;
 }
 
 .detailBackButton {
   font-family: "Hahmlet";
-  font-size: 30px;
+  font-size: 15px;
   font-weight: bolder;
-  margin : 0px 5px 0px 5px;
-  padding : 5px 15px 5px 15px;
+  margin: 0px 5px 0px 5px;
+  padding: 5px 10px 5px 10px;
   color: white;
-  background-color: #A19FD5;
+  background-color: #a19fd5;
   border: none;
   border-radius: 32px;
-  flex-grow: 0;
+  cursor: pointer;
   position: relative;
 }
 
 .modalTop {
   width: 100%;
   height: 50px;
-  background-color: #A19FD5;
+  background-color: #a19fd5;
   margin-bottom: 5%;
   font-family: "Hahmlet";
   font-size: 22px;
@@ -234,9 +248,9 @@
 
 .modalTopCreate {
   width: 100%;
-  height: 100px;
-  background-color: #A19FD5;
-  margin-bottom: 5%;
+  height: 40px;
+  background-color: #a19fd5;
+  margin-bottom: 1%;
   font-family: "Hahmlet";
   font-size: 22px;
   font-weight: bold;
@@ -248,7 +262,7 @@
 }
 
 .modalText {
-  margin-left: 37%;  
+  margin-left: 35%;
   margin-right: auto; /* 오른쪽으로 이동 */
 }
 
@@ -259,15 +273,15 @@
 }
 
 .modalClose:after {
-  content: "\00d7"; 
-  font-size:30px;
-  border: 0;  
+  content: "\00d7";
+  font-size: 30px;
+  border: 0;
   background-color: transparent;
 }
 
 .modalImage {
-  width: 200px;
-  height: 200px;
+  width: 8rem;
+  height: 8rem;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -277,22 +291,22 @@
   height: 200px; */
   background-color: lightgray;
   width: 100%;
-  height: 200px;
+  height: 8rem;
   max-width: 100%;
   max-height: 100%;
   /* 이미지를 크기에 맞게 조정 */
-  object-fit : cover;
+  object-fit: cover;
 }
 
 .modalInfoTitle {
   font-family: "Hahmlet";
-  font-size: 22px;
+  font-size: 15px;
   font-weight: bold;
 }
 
 .inputIndexCheck {
-  font-size: 15px;
-  margin-left : 88%;
+  font-size: 12px;
+  margin-left: 86%;
 }
 
 .modalInfoDate {
@@ -307,109 +321,111 @@
   font-family: "Hahmlet";
   font-size: 16px;
   line-height: 1.5;
-  margin:20px;
+  margin: 20px;
 }
 
 .modalContent {
-  display:block;
+  display: block;
   justify-content: center;
-  }
+}
 
 .hr {
   margin: 15px;
-  margin-top: 50px;
   border: none;
   border-top: 3px solid rgb(0, 0, 0);
 }
 
 .modalHr {
-  margin: 20px 0;
+  margin: 1px 0;
   border: none;
   border-top: 1px solid gray;
 }
 
-.modalButton { 
-  margin : 5%;
+.modalButton {
+  margin-top: 10px;
   display: flex;
   justify-content: center;
+}
+
+.modalInfo {
+  max-height: 200px;
 }
 
 .modalButtonItem {
   font-size: 18px;
   font-weight: bolder;
-  margin : 0px 5px 0px 5px;
-  padding : 5px 15px 5px 15px;
+  margin: 0px 5px 0px 5px;
+  padding: 5px 15px 5px 15px;
   color: white;
-  background-color: #A19FD5;
+  background-color: #a19fd5;
   border: none;
   border-radius: 32px;
   flex-grow: 0;
   position: relative;
+  cursor: pointer;
 }
 
-
-
-.imgInput{
-  width: 11rem;
-  height: 11rem;
-  padding-bottom: 1rem;
-  margin-top: 2rem;
+.imgInput {
+  width: 108px;
+  height: 108px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 }
 
-.withImgCircle{
-  height: 10rem;
-  width: 10rem;
+.withImgCircle {
+  height: 6rem;
+  width: 6rem;
   border-radius: 50%;
-  border: 0.2rem solid #A19FD5;
+  border: 0.2rem solid #a19fd5;
 }
 
-.benImg{
-  height: 10rem;
-  width: 10rem;
+.benImg {
+  height: 6rem;
+  width: 6rem;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.imgCircle{
+.imgCircle {
   background-color: transparent;
-  height: 10rem;
-  width: 10rem;
+  height: 6rem;
+  width: 6rem;
   background-image: url("../assets/img/circleuser.png");
   background-size: auto;
   background-position: 50% 50%;
   border-radius: 50%;
-  border: 0.2rem solid #A19FD5;
+  border: 0.2rem solid #a19fd5;
   display: flex;
   justify-content: center;
 }
 
-.plusIcon{
+.plusIcon {
   width: 3rem;
   height: 3rem;
   background-image: url("../assets/img/plus.png");
   background-size: contain;
   cursor: pointer;
-
   position: absolute;
   bottom: 0rem;
-  right: -1rem;
+  right: -2rem;
 }
 
-.inputFile{
+.inputFile {
   display: none;
 }
 
-.pagination{
+.pagination {
   /* background-color: red; */
+  display: block;
+  position: sticky;
+  bottom: 10px;
+
   width: 100%;
 }
 
-
-.recoveryCardList{
+.recoveryCardList {
   font-family: "Hahmlet";
   display: flex;
   flex-direction: column;
