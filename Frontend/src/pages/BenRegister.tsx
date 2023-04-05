@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from "react";
-
+import { useNavigate } from "react-router-dom";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getYear, getMonth } from "date-fns"
 import ko from 'date-fns/locale/ko' // 한국어 적용
 import styles from "./BenRegister.module.css";
 import axios from "axios";
+
+
+import Loading from "../assets/img/mining.gif";
+
 
 const nameRegexp = /^[가-힣]{1,5}$/; // 한글 1~5자
 const diseaseKorRegexp = /^[가-힣 ]{1,18}$/; // 공백포함 한글 1~18자
@@ -16,8 +20,11 @@ const maxSize = 50 * 1024 * 1024; // 사진파일크기 50mb
 registerLocale("ko", ko); // 한국어 적용
 const _ = require('lodash');
 
+const A_TOKEN ="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDY1OTU4NywiZXhwIjoxNjgwNjYxMzg3LCJyb2xlIjoiSE9TUElUQUwifQ.1Y-c0hB_oWiCZ41GqBzTrF0EPHojJB76c_yDNUVWovaUJt5X5EbOZ7N5myRbXO1jRIy5GBNTX4JPC_qD_fTO1Q";
+
 const BenRegister: React.FC = () => {
 
+  const navigate = useNavigate();
 
   // 에러 설정
   const [imgErr, setImgErr] = useState(false);
@@ -37,7 +44,7 @@ const BenRegister: React.FC = () => {
 
   // 병원 ID
   // 추후에 상태관리로 병원 로그인시 들고다님
-  const hospitalId = 10;
+  const hospitalId = 21;
 
   // 사진 설정
   const [imgPreUrl, setImgPreUrl] = useState('');
@@ -134,10 +141,16 @@ const BenRegister: React.FC = () => {
     };
 
     await axios
-      .post('/files/saveimg', formData)
+      .post('/files/saveimg', formData, {
+        headers: {
+          Authorization: A_TOKEN
+        }
+      })
       .then((res) => {
         console.log('변환성공');
+        console.log(res.data.fileUrl);
         setImgUrl(res.data.fileUrl);
+        // return res.data.fileUrl;
       })
       .catch((err) => {
         console.log(err);
@@ -149,6 +162,12 @@ const BenRegister: React.FC = () => {
   // const [imgUpload, setImgUpload] = useState(false);
   const sendPOST = async () => {
     
+    // 값들 쭉 체크하면서 없는 값 있으면 함수종료
+    // 동기처리 실패해서 페이지 첫 렌더링때도 senPost함수가 실행됨
+    if (!hospitalId || !goalFund || !birthDate || !diseaseName || !benName || !imgUrl) {
+      return
+    }
+
     const ben = {
       hospitalId: hospitalId,
       beneficiaryAmountGoal: goalFund,
@@ -160,25 +179,37 @@ const BenRegister: React.FC = () => {
     console.log(ben);
 
     await axios
-      .post('/beneficiaries', ben)
+      .post('/beneficiary/beneficiaries/register', ben, {
+        headers: {
+          Authorization: A_TOKEN
+        }
+      })
       .then((res) => {
         console.log(res);
+        setIsLoading(false);
+        navigate('/hospage');
+        alert('수혜자가 성공적으로 등록되었습니다!');
       })
       .catch((err) => {
         console.log(err);
       })
   };
+
   useEffect(() => {
     sendPOST();
-  }, [imgUrl,sendPOST]);
+  }, [imgUrl]);
+
+  // 로딩화면 띄우기
+  const [isLoading, setIsLoading] = useState(false);
 
   // 유효성 검사
-  const checkValidity = () => {
+  const checkValidity = async () => {
     if (
       !image || !benName || !birthDate || !diseaseName || !goalFund
     ) {
       setNoValErr(true);
       alert('입력되지 않은 값이 있습니다.');
+      return
     } else {
       setNoValErr(false);
     }
@@ -186,7 +217,37 @@ const BenRegister: React.FC = () => {
     if (
       !imgErr && !noValErr && !nameErr && !diseaseErr && !goalErr
     ) {
+      // 로딩중 표시
+      setIsLoading(true);
+
       getImgUrI();
+      // const imgForAx = await getImgUrI();
+
+      // console.log(imgForAx);
+
+      // const body = {
+      //   hospitalId: hospitalId,
+      //   beneficiaryAmountGoal: goalFund,
+      //   beneficiaryBirthday: birthDate.getTime(),
+      //   beneficiaryDisease: diseaseName,
+      //   beneficiaryName: benName,
+      //   beneficiaryPhoto: imgForAx,
+      // }
+
+      // console.log(body);
+
+      // await axios
+      //   .post('/beneficiary/beneficiaries/register', body, {
+      //     headers: {
+      //       Authorization: A_TOKEN
+      //     }
+      //   })
+      //   .then((res) => {
+      //     console.log(res)
+      //   })
+      //   .catch((err) => {
+      //     console.log(err)
+      //   })
     }
   };
 
@@ -341,13 +402,20 @@ const BenRegister: React.FC = () => {
             </div>
           </div>
         </div>
-        {/* {noValErr && (
-          <div className={styles.centerErrMsg}>{noValErrMsg}</div>
-        )} */}
-        <div 
-          className={styles.registerBtn}
-          onClick={checkValidity}  
-        >등록하기</div>
+        {isLoading ? (
+          <div 
+            className={styles.loadingBtn}
+          >
+            <img className={styles.load_img} src={Loading} alt="로딩중" />
+          </div>
+        ) : ( 
+          <div 
+            className={styles.registerBtn}
+            onClick={checkValidity}  
+          >
+            등록하기
+          </div>
+        )}
       </div>
     </>
   )

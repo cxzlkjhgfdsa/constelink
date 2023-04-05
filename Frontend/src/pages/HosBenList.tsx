@@ -15,10 +15,10 @@ const HosBenList= () => {
   const [fundraisingData, setFundraisingData] = useState<HosBenInfo[]>();
   const [page, setPage] = useState(1);
   //hospitalId는 받아와야함.
-  const [hospitalId, setHospitalId] = useState(3);
+  const [hospitalId, setHospitalId] = useState(21);
   const size:number = 8;
   const [totalElements, setTotalElements] = useState(0);
-  const URL_PATH : string = "/beneficiaries/hospital/";
+  const URL_PATH : string = "/beneficiary/beneficiaries/hospital/";
   const handlePageChange = (page:number) => {
     setPage(page);
     window.scrollTo(0,0);

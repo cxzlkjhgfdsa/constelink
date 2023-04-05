@@ -1,19 +1,18 @@
-import React from 'react';
+import React from "react";
 import styles from "./DonationCard.module.css";
-import { DonationData } from '../../models/donatecard';
-import { useState,useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { DonationData } from "../../models/donatecard";
+import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { useNavigate } from 'react-router-dom';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
-    data: DonationData; 
-};
-
+  data: DonationData;
+}
 
 const DonationCard: React.FC<Props> = ({ data }) => {
 
@@ -93,8 +92,12 @@ const DonationCard: React.FC<Props> = ({ data }) => {
                 </div>
 
             </div>
+            <div className={styles.dona_curpercen}>{curValue}%</div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default DonationCard;

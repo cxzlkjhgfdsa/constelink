@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./FundRegister.module.css";
 import Select from "react-select";
 import SunEditor from 'suneditor-react';
@@ -17,8 +17,17 @@ const imageRegexp = /(.*?)\.(jpg|jpeg|png)$/; // 확장자는 jpg, jpeg, png
 const maxSize = 50 * 1024 * 1024;registerLocale("ko", ko); // 한국어 적용
 const _ = require('lodash');
 
+const A_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDY3MDU0NSwiZXhwIjoxNjgwNjcyMzQ1LCJyb2xlIjoiSE9TUElUQUwifQ.xIui07Jf9cA2hwdeNrUo4Wuw9CRN-shoJSJRRNSN2Luc35YQ4se5QPWlxdXY1lQgpSLQc4T9mHTY27QD7hUY0Q";
+
+interface category {
+  id: number,
+  categoryName: string
+}
+
+
 const FundRegister: React.FC = () => {
   
+  const navigate = useNavigate();
   const location = useLocation(); 
   const state = location.state;
 
@@ -40,7 +49,7 @@ const FundRegister: React.FC = () => {
   const [goalErrMsg, setGoalErrMsg] = useState('');
   const [noValErr, setNoValErr] = useState(false);
 
-  const hospitalId = 10;
+  const hospitalId = 21;
   
   // 페이지 로딩하면서 수혜자 리스트 불러오기
   const [benList, setBenList] = useState<object[]>([]);
@@ -48,9 +57,11 @@ const FundRegister: React.FC = () => {
   const getBenList = async () => {
 
     await axios
-      .get(`/beneficiaries/hospital/${hospitalId}?sortBy=ALL`)
+      .get(`/beneficiary/beneficiaries/hospital/${hospitalId}`, 
+        { params: { hospitalId: hospitalId, page: 1, size: 50000000 }
+      })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         res.data.content.map((ben: any) => {
           return setBenList(benList => [...benList, {
             value: ben.beneficiaryId,
@@ -64,9 +75,35 @@ const FundRegister: React.FC = () => {
       })
   };
 
+  // 페이지 로딩하면서 카테고리 리스트 불러오기
+  const [cateList, setCateList] = useState<object[]>([]);
+  // 카테고리 리스트 axios요청 보내기
+  const getCateList = async () => {
+
+    await axios
+      .get('fundraising/categories?page=1&size=5&sortBy=ALL')
+      .then((res) => {
+        // console.log('카테고리 출력 성공');
+        // console.log(res.data.content);
+        res.data.content.map((category: category) => {
+          return setCateList(cateList => [...cateList, {
+            value: category.id,
+            label: category.categoryName
+          }])
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  // 첫 런데링 시 수혜자, 카테고리 리스트 불러오기
   useEffect(() => {
     getBenList();
+    getCateList();
   }, []);
+
+
   // 수혜자 설정
   const [benId, setBenId] = useState('');
   // const [ben, setBen] = useState<{value: number, label: string, maxGoal: number}>();
@@ -99,6 +136,13 @@ const FundRegister: React.FC = () => {
       setImgPreUrl(URL.createObjectURL(file));
     }
   };
+
+  // 카테고리 설정
+  const [cate, setCate] = useState('');
+  const handleCate = (e: any) => {
+    setCate(e.value);
+    // console.log(e.value);
+  }
   
   // 제목 설정
   const [title, setTitle] = useState('');
@@ -143,6 +187,12 @@ const FundRegister: React.FC = () => {
   const [checkGoal, setCheckGoal]= useState('')
 
   // 사연 입력받기
+
+  const contentChangeHandler = (e: string) => {
+    console.log(e);
+    setContent(e);
+  }
+
   const editor = useRef<SunEditorCore>();
   const [content, setContent] = useState('');
   // The sunEditor parameter will be set to the core sundeitor instance when this function is called
@@ -151,6 +201,8 @@ const FundRegister: React.FC = () => {
     setContent("a");
     // console.log(editor.current);
   }
+
+  // 사용처 리스트 
 
   // 마감 일시 설정
   const [endTime, setEndTime] = useState(new Date());
@@ -169,7 +221,11 @@ const FundRegister: React.FC = () => {
     };
 
     await axios
-      .post('/files/saveimg', formData)
+      .post('/files/saveimg', formData, {
+        headers: {
+          Authorization: A_TOKEN
+        }
+      })
       .then((res) => {
         console.log('변환성공');
         setImgUrl(res.data.fileUrl);
@@ -182,22 +238,34 @@ const FundRegister: React.FC = () => {
   // POST 요청 보내기
   const sendPost = async () => {
 
+    // 동기처리 실패로 값없으면 끝내버리기
+    if (!benId || !cate || !goal || !endTime || !title || !content || !imgUrl) {
+      return
+    }
+
     const funding = {
       beneficiaryId: Number(benId),
-      categoryId: 2,
+      categoryId: Number(cate),
       fundraisingAmountGoal: goal,
       fundraisingEndTime: endTime.getTime(),
       fundraisingTitle: title,
       fundraisingStory: content,
-      fundrasingThumbnail: imgUrl,
+      fundraisingThumbnail: imgUrl,
+      fundraisingWillUse: '블록체인 테스트/하고 난 후에/완성하겠습니다'
     }
 
     console.log(funding);
 
     await axios
-      .post('/fundraisings', funding)
+      .post('/fundraising/fundraisings/register', funding, {
+        headers: {
+          Authorization: A_TOKEN
+        }
+      })
       .then((res) => {
-        console.log(res);
+        console.log('모금 ID 확인해서 어떻게 뜨나 확인해보기');
+        console.log(res.data);
+        navigate('/hospage');
       })
       .catch((err) => {
         console.log(err);
@@ -210,7 +278,7 @@ const FundRegister: React.FC = () => {
   // 요청 보내도 되는지 검사
   const checkValidity = () => {
     if (
-      !image || !benId || !title || !goal || !content || !endTime
+      !image || !benId || !cate || !title || !goal || !content || !endTime
     ) {
       setNoValErr(true);
       alert('입력하지 않은 값이 있습니다.');
@@ -230,8 +298,8 @@ const FundRegister: React.FC = () => {
     <>
       <div className={styles.mainWrapper}>
         <div className={styles.mainTitle}>모금 시작하기</div>
+        {/* 수혜자 선택 */}
         <div className={styles.benWrapper}>
-          {/* 수혜자 선택 */}
           <div className={styles.inputTitle}>
             수혜자
           </div>
@@ -243,8 +311,8 @@ const FundRegister: React.FC = () => {
             />
           </div>
         </div>
+        {/* 썸네일 등록 */}
         <div className={styles.imgWrapper}>
-          {/* 썸네일 등록 */}
           {imgPreUrl ? (
             <div className={styles.divWithImg}>
               <img className={styles.fundImg} src={imgPreUrl} alt="" />
@@ -279,6 +347,19 @@ const FundRegister: React.FC = () => {
           {imgErr && (
             <div className={styles.errMsg}>{imgErrMsg}</div>
           )}
+        </div>
+        {/* 카테고리 선택 */}
+        <div className={styles.categoryWrapper}>
+          <div className={styles.inputTitle}>
+            카테고리
+          </div>
+          <div className={styles.selectWrapper}>
+            <Select 
+              options={cateList}
+              onChange={handleCate}
+              placeholder="카테고리 선택"
+            />
+          </div>
         </div>
         {/* 제목 입력 */}
         <div className={styles.titleWrapper}>
@@ -334,11 +415,11 @@ const FundRegister: React.FC = () => {
               width="100%"
               height="25rem"
               autoFocus={false}
-              // onChange={contentChangeHandler}
+              onChange={contentChangeHandler}
               setDefaultStyle="font-family:Hahmlet;font-size: 20px;"
               placeholder="환자의 사연을 적어주세요"
-              onChange={(e)=> console.log(e)
-              }
+              // onChange={(e)=> console.log(e)
+              // }
               setOptions={{
                 buttonList:[
                   [
@@ -358,6 +439,25 @@ const FundRegister: React.FC = () => {
               }}
           />
         </div>
+        {/* 치료비 사용처 입력 */}
+        <div className={styles.useWrapper}>
+          <div className={styles.use_inputTitle}>
+            모금 사용처
+            <div className={styles.plus_btn} />
+          </div>
+          <div className={styles.useInput}>
+            <input 
+              className={styles.inputBox}
+              placeholder="사용처를 입력해 주세요"
+              // onChange={handleTitle}
+            />
+          </div>
+          {/* 제목 에러 메시지 */}
+          {/* {titleErr && (
+            <div className={styles.errMsg}>{titleErrMsg}</div>
+          )} */}
+        </div>
+
         {/* 모금 종료시간 선택 */}
         <div className={styles.timeWrapper}>
           <div className={styles.timeInputTitle}>
