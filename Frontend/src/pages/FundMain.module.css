@@ -40,7 +40,7 @@
   flex-direction: column;
   height: 15rem;
   overflow: hidden;
-  /* background-image: url("../assets/img/night-sky1.jpg");
+  background-image: url("../assets/img/topbanner_1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 30%; */
@@ -89,7 +89,7 @@
   overflow-x: scroll;
   scroll-behavior: smooth;
   border-radius: 10px;
-  background-color: floralwhite;
+  /* background-color: floralwhite; */
 }
 .scroll_box {
   display: flex;
@@ -104,10 +104,7 @@
   scroll-behavior: smooth;
 }
 
-.categoryWrapper:hover {
-  border: solid 1px #a19fd5;
-  background-color: rgb(244, 232, 211);
-}
+
 
 .category_box {
   display: flex;
@@ -143,9 +140,9 @@
 
 /* 체크된 것 색깔표시 */
 .category_box input[type="radio"]:checked + label {
-  color: black;
-  border: greenyellow 1px solid;
-  background-color: seashell;
+  color: #d87dd1;
+  border: rgb(169, 121, 169) 1px solid;
+  background-color: white;
   font-weight: 800;
 }
 /* 카테고리 박스 기본 색깔 5가지 */
@@ -180,6 +177,24 @@
   grid-template-columns: repeat(4, 1fr);
   row-gap: 15px;
 }
+.cardsWrapper_1{
+  width: 900px;
+  height: 200px;
+  /* background-color: RED; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.empty_signal{
+  font-size: 78px;
+  font-weight: bold;
+}
+.empty_ment{
+  font-family: "Hahmlet";
+  margin-top: 5px;
+}
+
 
 .pagination {
   font-family: "Hahmlet";

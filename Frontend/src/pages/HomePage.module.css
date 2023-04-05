@@ -36,6 +36,17 @@
     align-items: center;
 }
 
+.star_box{
+    padding-left: -30px
+}
+
+.star_box img{
+
+    width: 100px;
+}
+
+
+
 .slide_conbox {
     display: flex;
     flex-direction: column;
@@ -102,7 +113,7 @@
 /* 별달러 가기 배너 */
 
 .with_box {
-    background: linear-gradient(to bottom right, #a4a3cb, #ffff);
+    background: linear-gradient(to bottom right, #474581, #b7b6d6);
     height: 110px;
     /* width: 100%; */
     display: flex;
@@ -144,6 +155,25 @@
     align-items: center;
     flex-direction: column;
     font-family: Hahmlet;
+    margin-top: 60px;
+}
+
+.heal_title_top{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: Hahmlet;
+    margin-top: 20px;
+}
+
+.heal_title_top>h1{
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.heal_title_top>div{
+    font-size: 13px;
 }
 
 .heal_title>h1 {
@@ -160,7 +190,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 20px
+    margin-top: 60px
 }
 
 .addbox_item {
@@ -238,7 +268,7 @@
     /* background-color: red; */
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .result_list {

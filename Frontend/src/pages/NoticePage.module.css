@@ -19,13 +19,16 @@
 }
 
 .notice_title {
+    background-image: url("../assets/img/beautiful.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
     font-size: 36px;
     background-color: #A19FD5;
     width: 920px;
     margin-bottom: 5px;
     color: #ffffff;
     font-weight: bold;
-    height: 80px;
+    height: 120px;
     display: flex;
     align-items: center;   
 }

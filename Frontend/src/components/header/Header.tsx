@@ -65,32 +65,32 @@ const Header: React.FC = () => {
 
             <ul className={styles.header_menu} >
                 <li style={{
-                    color: selectedMenu === '공지사항' ? '#A19FD5' : 'black',
-                    borderBottom: selectedMenu === '공지사항' ? '3px solid #A19FD5' : 'none'
+                    color: selectedMenu === '공지사항' ? '#6360ab' : 'black',
+                    borderBottom: selectedMenu === '공지사항' ? '3px solid #6360ab' : 'none'
                 }}
                     onClick={() => {
                         handleClick('공지사항');
                         navigate('/notice')
                     }} >공지사항</li>
                 <li style={{
-                    color: selectedMenu === '치료모금' ? '#A19FD5' : 'black',
-                    borderBottom: selectedMenu === '치료모금' ? '3px solid #A19FD5' : 'none'
+                    color: selectedMenu === '치료모금' ? '#6360ab' : 'black',
+                    borderBottom: selectedMenu === '치료모금' ? '3px solid #6360ab' : 'none'
                 }}
                     onClick={() => {
                         handleClick('치료모금');
                         navigate('/fundmain')
                     }}>치료모금</li>
                 <li style={{
-                    color: selectedMenu === '치료일지' ? '#A19FD5' : 'black',
-                    borderBottom: selectedMenu === '치료일지' ? '3px solid #A19FD5' : 'none'
+                    color: selectedMenu === '치료일지' ? '#6360ab' : 'black',
+                    borderBottom: selectedMenu === '치료일지' ? '3px solid #6360ab' : 'none'
                 }}
                     onClick={() => {
                         handleClick('치료일지');
                         navigate('/diary')
                     }}>치료일지</li>
                 <li style={{
-                    color: selectedMenu === '치료달성' ? '#A19FD5' : 'black',
-                    borderBottom: selectedMenu === '치료달성' ? '3px solid #A19FD5' : 'none'
+                    color: selectedMenu === '치료달성' ? '#6360ab' : 'black',
+                    borderBottom: selectedMenu === '치료달성' ? '3px solid #6360ab' : 'none'
                 }}
                     onClick={() => {
                         handleClick('치료달성');
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
                     }}>치료달성</li>
             </ul>
             {
-                authInfo.isAuthenticated ? <div className={styles.header_login} onClick={() => navigate("/mypage")}><img className={styles.header_profile} src={authInfo.profileImg} alt="profile" /></div> : <div className={styles.header_login} onClick={() => navigate('/login')}>로그인</div>
+                authInfo.isAuthenticated ? <div className={styles.header_login} onClick={() => navigate("/mypage")}><img onError={(e)=> {e.currentTarget.src="/circleuser.png"} } className={styles.header_profile} src={authInfo.profileImg} alt="profile" /></div> : <div className={styles.header_login} onClick={() => navigate('/login')}>로그인</div>
             }
             {/* 반응형 사이드바 */}
             <div className={styles.interactive}>

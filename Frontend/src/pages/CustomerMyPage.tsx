@@ -27,7 +27,7 @@ const CustomerMyPage: React.FC = () => {
             const name = res.data.name;
             dispatch(authActions.update({name}))
             setLog({price: res.data.totalAmount,count: res.data.totalFundCnt});
-            axios.defaults.headers.common = {};
+
 
         })
     },[])
@@ -35,10 +35,11 @@ const CustomerMyPage: React.FC = () => {
 
 
     const logoutHandler = ()=>{
-        const accessToken = localStorage.getItem('access_token');
-        const refreshToken = localStorage.getItem('refresh_token');
-        axios.defaults.headers.common['authorization'] = accessToken;
-        axios.defaults.headers.common['refresh'] = refreshToken;
+        // axios.defaults.headers.common = {};
+        // const accessToken = localStorage.getItem('access_token');
+        // const refreshToken = localStorage.getItem('refresh_token');
+        // axios.defaults.headers.common['authorization'] = accessToken;
+        // axios.defaults.headers.common['refresh'] = refreshToken;
         axios.post("member/auth/logout").then(res=>{
             console.log(res);
             dispatch(authActions.logout());

@@ -39,6 +39,7 @@
     column-gap: 20px;
     grid-template-columns: repeat(4, 300px);
     grid-template-rows: repeat(2, 400px);
+    margin-top: 20px;
 }
 
 .grid_card {

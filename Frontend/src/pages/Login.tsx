@@ -35,6 +35,7 @@ const Login : React.FC = ()=>{
                 console.log(res);
                 localStorage.setItem("access_token", res.headers.authorization);
                 localStorage.setItem("refresh_token", res.headers.refresh);
+                axios.defaults.headers.common['authorization'] = res.headers.authorization;
                 const [name, profileImg, role]:string[] = [res.data.nickname, res.data.profile, res.data.role];
                 dispatch(authActions.login({name, profileImg,role}));
                 navigate("/")
