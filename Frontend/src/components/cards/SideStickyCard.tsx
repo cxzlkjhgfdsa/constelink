@@ -3,10 +3,13 @@ interface Props {
   imageUrl: string;
 }
 
-const SideStickyCard: React.FC<Props> = ({ imageUrl }) => {
+const SideStickyCard: React.FC = () => {
   return (
     <div className={`${styles.sticky_box} `}>
-      <img className={styles.ad_image} src={imageUrl} alt="광고 이미지" />
+      <div className={styles.ad_image}>
+          
+        
+      </div>
     </div>
   );
 };

@@ -28,6 +28,7 @@ import { faSackDollar, faHeartPulse, faHandHoldingHeart } from "@fortawesome/fre
 import { faGratipay } from "@fortawesome/free-brands-svg-icons";
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useNavigate } from 'react-router-dom';
+import SideStickyCard from '../components/cards/SideStickyCard';
 
 const images = [topbanner1, topbanner2, topbanner3];
 const contents = [["콘스텔링크 Constelink", "블록체인기반, 치료비 모금 플랫폼"], ["콘스텔링크 Constelink", "여러분의 관심이 많은이들에게 도움이 됩니다."], ["콘스텔링크 Constelink", "블로체인기반, 치료비 모금 플랫폼 당신의 별자리"]];
@@ -104,6 +105,7 @@ const HomePage: React.FC = () => {
         </div>
       </nav>
       <section>
+<SideStickyCard/>
 
         <div className={styles.heal_title_top}>
           <h1>블록체인기반 치료비 모금 플랫폼, Constelink</h1>
@@ -131,6 +133,7 @@ const HomePage: React.FC = () => {
           </Swiper>
         </div>
       </section>
+
 
 
       <div className={styles.addbox}>
@@ -176,8 +179,6 @@ const HomePage: React.FC = () => {
           </div></li>
         </ul>
       </div>
-
-
 
 
 
