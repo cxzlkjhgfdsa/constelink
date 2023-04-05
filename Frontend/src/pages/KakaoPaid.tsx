@@ -62,8 +62,9 @@ const KakaoPaid: React.FC = () => {
 
   useEffect(() => {
     console.log(window.localStorage);
-    console.log(window.localStorage.details.fundraisingId);
-    console.log(pgToken);
+    console.log(window.localStorage.details);
+    console.log(typeof (window.localStorage.details));
+    console.log(pgToken)
   }, [])
 
   // 카카오 결제완료 후 토큰 받아오기, 금액 설정
