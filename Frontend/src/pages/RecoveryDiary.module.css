@@ -353,3 +353,10 @@
   font-weight: bold;
   font-family: "Hahmlet";
 }
+
+.sticky_pagenation_box {
+  display: block;
+  position: sticky;
+  bottom: 10px;
+  z-index: 2;
+}
