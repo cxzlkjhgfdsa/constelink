@@ -104,7 +104,7 @@ const HomePage: React.FC = () => {
       </nav>
       <section>
 
-        <div className={styles.heal_title}>
+        <div className={styles.heal_title_top}>
           <h1>블록체인기반 치료비 모금 플랫폼, Constelink</h1>
           <div>직접 돕고 직접 확인하세요. 여러분의 행복, 모두의 행복을 챙기세요.</div>
           <div>모든 치료비 기부내역은 투명하게 공개됩니다.</div>
@@ -138,7 +138,7 @@ const HomePage: React.FC = () => {
           <div className={styles.addbox_left}>    <div className={styles.addbox_ad}>광고</div></div>
           <div className={styles.addbox_right}>  <div className={styles.addbox_verses}><img src={ssafy} alt='ssafy'/> <div><span style={{fontSize:"14px", color:"white"}}>✖</span><span style={{color:"red", marginLeft:"10px"}}>正</span>육점</div></div>
             <div className={styles.addbox_comment}>  최강 SW아카데미 삼성 청년 SW 아카데미와 정육점의 만남</div>
-            <div className={styles.addbox_finish}> 소프트웨어 최강 SSAFY와의 협약체결 <button>확인하기 ➔</button>  </div></div>
+            <div className={styles.addbox_finish}> 소프트웨어 최강 SSAFY와의 협약체결 <button onClick={()=> window.open("https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp", "_blank")}>확인하기 ➔</button>  </div></div>
             </div>
 
         </div>

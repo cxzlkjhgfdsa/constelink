@@ -144,6 +144,25 @@
     align-items: center;
     flex-direction: column;
     font-family: Hahmlet;
+    margin-top: 60px;
+}
+
+.heal_title_top{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: Hahmlet;
+    margin-top: 20px;
+}
+
+.heal_title_top>h1{
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.heal_title_top>div{
+    font-size: 13px;
 }
 
 .heal_title>h1 {
@@ -160,7 +179,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 20px
+    margin-top: 60px
 }
 
 .addbox_item {
@@ -238,7 +257,7 @@
     /* background-color: red; */
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .result_list {

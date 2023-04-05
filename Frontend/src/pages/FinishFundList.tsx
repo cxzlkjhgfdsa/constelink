@@ -17,9 +17,9 @@ const FinishFundList = () => {
     return (
         <div className={styles.FinishFundList} >
 
-            <div className={styles.finish_title}>
+            {/* <div className={styles.finish_title}>
                 Constelink로 연결된 인연
-            </div>
+            </div> */}
 
 
 
