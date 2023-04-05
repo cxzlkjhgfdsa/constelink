@@ -19,8 +19,19 @@
   align-content: center;
   flex-direction: column;
   width: 100%;
+}
+.mainWrapper::before {
   position: absolute;
+  content: "";
+  background-image: url("/src/assets/img/night-sky1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 30%;
   left: 0;
+  top: 70px;
+  width: 100%;
+  height: 15rem;
+  z-index: -10;
 }
 
 .mainBanner {
@@ -29,13 +40,14 @@
   flex-direction: column;
   height: 15rem;
   overflow: hidden;
-  background-image: url("../assets/img/night-sky1.jpg");
+  /* background-image: url("../assets/img/night-sky1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 30%;
+  background-position: 30%; */
   justify-content: center;
   align-items: center;
   width: 100%;
+  min-width: 900px;
 }
 
 .bannerTitle {
@@ -57,13 +69,15 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-self: center;
   align-items: center;
+  width: 930px;
 }
 
 .blockWrapper {
   display: block;
   position: relative;
-  width: 65%;
+  width: 100%;
   max-height: 180px;
 }
 
@@ -152,12 +166,12 @@
 }
 
 .cardsTitle {
-  margin-top: 2rem;
-  float: left;
-  width: 900px;
+  margin-top: 1rem;
+  width: 100%;
   font-family: "Crisis";
   font-size: 1rem;
   margin-bottom: 1rem;
+  margin-left: 50px;
 }
 
 .cardsWrapper {
@@ -170,4 +184,7 @@
 .pagination {
   font-family: "Hahmlet";
   margin-bottom: 2rem;
+  display: block;
+  position: sticky;
+  bottom: 10px;
 }
