@@ -44,9 +44,6 @@ const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 // 이 페이지에서 메타마스크와 연결하고 토큰mint, donate 해야할듯?
 const KakaoPaid: React.FC = () => {
 
-  useEffect(() => {
-    console.log(window.localStorage);
-  }, [])
 
 
 
@@ -63,6 +60,11 @@ const KakaoPaid: React.FC = () => {
   // 카카오 결제 토큰 쿼리에서 받아서 쓰기
   const pgToken = window.location.search.substring(10);
 
+  useEffect(() => {
+    console.log(window.localStorage);
+    console.log(window.localStorage.details.fundraisingId);
+    console.log(pgToken);
+  }, [])
 
   // 카카오 결제완료 후 토큰 받아오기, 금액 설정
   const [money, setMoney] = useState(0);
