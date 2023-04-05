@@ -17,7 +17,7 @@ const RecoveryDiary: React.FC = () => {
   // axios 처리
   useEffect(() => {
     axios
-      .get("/beneficiaries", {
+      .get("/beneficiary/beneficiaries", {
         params: { page: page, size: size, sortBy: "DIARY_DATE_DESC" },
       })
       .then((res) => {
