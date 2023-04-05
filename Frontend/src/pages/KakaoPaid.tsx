@@ -37,7 +37,7 @@ interface recievedata {
 
 const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
 // const AUTH_TOKEN = process.env.REACT_APP_TMP_AUTH_TOKEN;
-const AUTH_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjgwNjIyMTA0LCJleHAiOjE2ODA2MjM5MDQsInJvbGUiOiJNRU1CRVIifQ.lBsm979A45pTb0MhN6rBrrrDrAdN7N0uTWf2ZqqkImLmKc45Wq-1p4zQ8T4iwFwTvExGDLxmUM15RyvIPyW-6g";
+const AUTH_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjgwNjgxNjA4LCJleHAiOjE2ODA2ODM0MDgsInJvbGUiOiJNRU1CRVIifQ.fZ-rZVMo6BknSpL8pxTdrbJywrP1FdC4KZlCKns34nXfnr-Uepu6cGu-witYqmE9wmDrua8Z0KpUGqR743J2hQ";
 const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
 
@@ -62,6 +62,7 @@ const KakaoPaid: React.FC = () => {
   const [money, setMoney] = useState(0);
   // 기부 상세정보 받아오기
   const [info, setInfo] = useState<recievedata>();
+  const [id, setId] = useState(0);
   useEffect(() => {
     // 메타마스크 연결 요청
     alert('메타마스크 계정을 연결해 주세요!')
@@ -76,6 +77,7 @@ const KakaoPaid: React.FC = () => {
       .then((res) => {
         // console.log(res);
         console.log(localStorage.getItem('details'));
+        // console.log(res.data);
         localStorage.setItem('money', res.data.amount.total);
         setMoney(res.data.amount.total);
         // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
@@ -153,6 +155,8 @@ const KakaoPaid: React.FC = () => {
   // 기부 트랜젝션
   async function sendTransactionDonate() {
     console.log('토큰보내기')
+
+    console.log(info);
 
     const txHash = await contract.methods
       .fundRaising(TEST_PUB_FUND_CA, money, info?.fundraisingId)
