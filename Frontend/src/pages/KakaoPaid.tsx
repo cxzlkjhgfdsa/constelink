@@ -62,30 +62,32 @@ const KakaoPaid: React.FC = () => {
   const [money, setMoney] = useState(0);
   // 기부 상세정보 받아오기
   const [info, setInfo] = useState<recievedata>();
-  const [id, setId] = useState(0);
+  // const [id, setId] = useState(0);
   useEffect(() => {
     // 메타마스크 연결 요청
-    alert('메타마스크 계정을 연결해 주세요!')
+    // console.log(MM_KEY);
 
-    console.log(MM_KEY);
-
-    axios.get(`/member/payments/success?pg_token=${pgToken}`, {
-      headers: {
-        Authorization: AUTH_TOKEN
-      }
-    })
-      .then((res) => {
-        // console.log(res);
-        console.log(localStorage.getItem('details'));
-        // console.log(res.data);
-        localStorage.setItem('money', res.data.amount.total);
-        setMoney(res.data.amount.total);
-        // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
-        setInfo(JSON.parse(localStorage.getItem('details') || '{}'));
+    if (web3) {
+      axios.get(`/member/payments/success?pg_token=${pgToken}`, {
+        headers: {
+          Authorization: AUTH_TOKEN
+        }
       })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then((res) => {
+          // console.log(res);
+          console.log(localStorage.getItem('details'));
+          // console.log(res.data);
+          localStorage.setItem('money', res.data.amount.total);
+          setMoney(res.data.amount.total);
+          // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
+          setInfo(JSON.parse(localStorage.getItem('details') || '{}'));
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    } else {
+      console.log('web3 연결해 무자식아');
+    }
   }, [pgToken])
 
 
