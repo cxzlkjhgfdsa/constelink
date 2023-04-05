@@ -84,11 +84,12 @@ const HomePage: React.FC = () => {
                 <div className={styles.slide_title}>{contents[index][0]}</div>
                 <div className={styles.slide_content}>{contents[index][1]}</div>
               </div>
-
+              <div className={styles.slide_linkbox_out} >
               <div className={styles.slide_linkbox}>
                 <div className={styles.linkbox_title}>블록체인기반, 치료비 모금 플랫폼</div>
                 <div className={styles.linkbox_sub}>우리의 별자리를 확인해보세요!</div>
                 <div className={styles.linkbox_link} onClick={()=> navigate("/fundmain")}>바로가기 {">"}</div>
+              </div>
               </div>
             </div>
           </div>
@@ -96,9 +97,10 @@ const HomePage: React.FC = () => {
       </Slider>
       {/* 2. 상단 바로가기 바 */}
       <nav className={styles.with_box}>
-        <img src="" alt="" />
+        <div className={styles.with_box_in}>
         <div className={styles.with_title}>너네 별따러 갈때, 우린 달러가!</div>
         <div className={styles.with_btn} onClick={()=> navigate("/fundmain")} ><span style={{ color: "purple", fontWeight: "bold", paddingRight: "3px" } }>Constelink</span> 함께하기 -{">"}</div>
+        </div>
       </nav>
       <section>
 

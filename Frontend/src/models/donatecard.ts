@@ -1,7 +1,11 @@
 
 export interface DonationData {
+  beneficiaryDisease:string;
+  beneficiaryName: string;
+  beneficiaryPhoto: string;
   beneficiaryId:number;
   beneficiaryBirthday: number;
+  
   categoryName:string;
   beneficiaryStatus:string;
   fundraisingAmountGoal: number;

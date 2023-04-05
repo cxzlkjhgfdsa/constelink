@@ -3,7 +3,9 @@
     src: url("../../assets/fonts/NotoSerifKR-Regular.otf");
 }
 
+
 /*컴포넌트 전체 */
+
 .DonationCard {
     width: 91%;
     height: 290px;
@@ -23,23 +25,24 @@
 .DonationCard:hover {
     transform: translateY(-5px);
 }
-.bookmark{
+
+.bookmark {
     padding: 14px;
     font-size: 17px;
- 
 }
 
 
-
 /* 1. 컨텐츠 박스 */
+
 .dona_box {
     padding: 14px;
     /* padding-top:75%; */
     word-break: keep-all;
-
 }
 
+
 /* 병명 */
+
 .dona_type {
     font-size: 3px !important;
     width: 60px;
@@ -47,11 +50,12 @@
     border-radius: 10px;
     text-align: center;
     /* opacity: 0.9; */
-
 }
 
+
 /* 프로그래스 바, 달성률, 모금률 */
-.progress_box{
+
+.progress_box {
     display: flex;
     /* background-color: red; */
     flex-direction: column;
@@ -60,15 +64,13 @@
     padding-top: 10px;
 }
 
-.dona_curmoney{
+.dona_curmoney {}
 
-}
+.dona_curpercen {}
 
-.dona_curpercen{
-
-}
 
 /* 제목, 병원, 마감일 */
+
 .dona_title {
     font-size: 13px;
     padding-top: 5px;
@@ -84,9 +86,7 @@
     font-size: 12px;
 }
 
-
-
-.money_percent{
+.money_percent {
     display: flex;
     justify-content: space-between;
     padding-top: 5px
@@ -97,27 +97,25 @@ progress {
     opacity: 0.8;
     width: 100%;
     -webkit-appearance: none;
-    appearance: none; 
- }
- progress::-webkit-progress-bar {
+    appearance: none;
+}
+
+progress::-webkit-progress-bar {
     background-color: rgb(29, 28, 28);
     border-radius: 10px;
-  
- }
- progress::-webkit-progress-value {
+}
+
+progress::-webkit-progress-value {
     background-color: #ececec;
     border-radius: 10px;
-   
     animation: progress-bar 1s ease-out forwards;
- }
+}
 
-
-  
-  @keyframes progress-bar {
+@keyframes progress-bar {
     0% {
-      width: 0%;
+        width: 0%;
     }
     100% {
-      width: 100%;
+        width: 100%;
     }
-  }
+}
