@@ -50,18 +50,19 @@ const RecoveryDiary: React.FC = () => {
             >
               <div className={styles.book_content_box}>
                 <div className={styles.book_content}>
-                  고객님의 치료일지를 함께 보러 가요!!
+                  고객님의 치료일지를 함께 보러 가요!
                 </div>
                 <div className={styles.book_content2}>
-                  이름 {content.beneficiaryName}
+                  성함: {content.beneficiaryName}
                 </div>
-                <div className={styles.book_content2}>
-                  생일{" "}
+                <div className={styles.book_content3}>
+                  생일: {" "}
                   {new Date(content.beneficiaryBirthday)
                     .toLocaleDateString()
                     .slice(0, -1)}
                 </div>
               </div>
+             
               <img
                 src={content.beneficiaryPhoto}
                 onError={(e) => {
@@ -70,6 +71,7 @@ const RecoveryDiary: React.FC = () => {
                 alt="profile"
                 className={styles.image_inbook}
               />
+              
               {/* 선 여러개 */}
               <div className={styles.card_top_margin}>
                 <hr></hr>

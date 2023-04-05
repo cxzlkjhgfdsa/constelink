@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './HomePage.module.css';
 import Slider from 'react-slick';
-
+import star2 from "../assets/logo/star2.png"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -98,6 +98,7 @@ const HomePage: React.FC = () => {
       {/* 2. 상단 바로가기 바 */}
       <nav className={styles.with_box}>
         <div className={styles.with_box_in}>
+          <div className={styles.star_box}><img src={star2} alt="star" /></div>
         <div className={styles.with_title}>너네 별따러 갈때, 우린 달러가!</div>
         <div className={styles.with_btn} onClick={()=> navigate("/fundmain")} ><span style={{ color: "purple", fontWeight: "bold", paddingRight: "3px" } }>Constelink</span> 함께하기 -{">"}</div>
         </div>

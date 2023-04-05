@@ -19,10 +19,11 @@
   color: white;
   display: flex;
   align-items: center;
-  background-color: #a19fd5;
-  height: 80px;
+  background-image: url("../assets/img/beautiful2.jpg");
+  background-size: cover;;
+  background-repeat: no-repeat;
+  height: 120px;
   margin-bottom: 5px;
-  /* padding: 16px; */
 }
 
 /* 치료일기 */
@@ -105,9 +106,9 @@
   font-size: 23px;
   font-weight: bold;
   font-family: "Hahmlet";
-  background-color: #ececec;
+  background-color: #a0c5e4;
   text-align: center;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   width: 45%;
 }
 
@@ -140,9 +141,10 @@
   border-radius: 50%;
   position: absolute;
   right: 50%;
-  left: 50%;
+  left: 35%;
   top: 50%;
   bottom: 50%;
+  background-color: red;
 }
 /* 책 안의 내용 */
 
@@ -160,13 +162,27 @@
   font-family: "Hahmlet";
 }
 .book_content {
-  font-size: 23px;
+  margin-top: 13px;
+  font-size: 18px;
+  text-align: left;
   font-weight: bold;
 }
 
 .book_content2 {
-  font-size: 18px;
-  font-weight: bold;
+  margin-top: 10px;
+  font-size: 14px;
+  
+}
+
+.book_content3 {
+  font-size: 14px;
+
+}
+
+.book_content4{
+  background-color: red;
+  display: flex;
+  justify-content: center;
 }
 
 .titleContent {
@@ -247,6 +263,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 20px;
+  row-gap: 10px;
   align-content: center;
   min-width: 900px;
 }
@@ -267,8 +284,8 @@
   border-right: 0.3px solid #3b3939;
   display: flex;
   position: relative;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-top-right-radius: 13px;
+  border-bottom-right-radius: 13px;
   height: 310px;
   cursor: pointer;
 }
@@ -311,11 +328,11 @@
   display: grid;
   grid-template-rows: 35% 35% 30%;
   height: 300px;
-  background-color: antiquewhite;
+  background-color: white;
   margin-left: 30px;
   margin-top: 10px;
   margin-bottom: 15px;
-  border-radius: 0px 5px 5px 0px;
+  border-radius: 0px 13px 13px 0px;
   box-shadow: 0px -1px 1px 1px #c2c1c1;
   border: 0.3px solid #3b3939;
   align-items: center;
@@ -344,7 +361,8 @@
   color: #ececec;
   text-align: center;
   writing-mode: vertical;
-  background-color: #a19fd5;
+  background-color: #a0c5e4;
+  /* 3f3e8b */
   text-orientation: upright;
 }
 

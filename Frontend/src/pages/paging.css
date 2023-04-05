@@ -16,7 +16,7 @@ ul.pagination li {
     width: 30px;
     height: 30px;
     border: 1px solid rgb(251, 244, 244);
-    background-color: #d3bcf8;
+    background-color: #b3bcd8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,7 +42,7 @@ ul.pagination li.active a {
 }
 
 ul.pagination li.active {
-    background-color: purple;
+    background-color: #5872ba;
 }
 
 ul.pagination li a:hover,
@@ -53,5 +53,5 @@ ul.pagination li a.active {
 .page-selection {
     width: 48px;
     height: 30px;
-    color: #337ab7;
+    color: #a3b5e7;
 }

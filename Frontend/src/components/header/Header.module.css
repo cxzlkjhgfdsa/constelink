@@ -26,7 +26,7 @@
 .header_logo {
   font-family: ClimateCrisis;
   font-size: 32px;
-  color: #A19FD5;
+  color: #474581;
   cursor: pointer;
   width: 500px;
   padding-left: 1%;
@@ -82,7 +82,7 @@
       font-size: 30px;
       margin-right: 10px;
       cursor: pointer;
-      color: #A19FD5;;
+      color: #6360ab;;
   }
   .header_profile{
    display: none;
