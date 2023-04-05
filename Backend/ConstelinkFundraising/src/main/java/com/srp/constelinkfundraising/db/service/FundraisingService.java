@@ -446,7 +446,7 @@ public class FundraisingService {
 			.fundraisingWillUse(fund.getFundraisingWillUse()==null?"":fund.getFundraisingWillUse())
 			.build();
 		//List 중복제거
-		BeneficiaryInfoReq beneficiaryInfoReq = BeneficiaryInfoReq.newBuilder().setId(1).build();
+		BeneficiaryInfoReq beneficiaryInfoReq = BeneficiaryInfoReq.newBuilder().setId(fundraisingResponse.getBeneficiaryId()).build();
 		BeneficiaryInfoRes beneficiaryInfoRes = stub.getBeneficiaryRpc(beneficiaryInfoReq);
 
 		fundraisingResponse.setBeneficiaryName(beneficiaryInfoRes.getName());
