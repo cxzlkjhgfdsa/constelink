@@ -17,7 +17,7 @@ const HosFundList = (props:object) => {
   const sortBy:string = "NONE";
   const memberId:number = 0;
   const [totalElements, setTotalElements] = useState(0);
-  const URL_PATH : string = "/fundraisings/byhospital";
+  const URL_PATH : string = "/fundraising/fundraisings/byhospital";
   const time:number = new Date().getTime();
   useEffect(() => {
     axios.get(URL_PATH, {params : {page, size, sortBy, hospitalId, memberId}}).then((res) => {

@@ -279,6 +279,7 @@
 
 .usageList{ 
   font-family: "Hahmlet";
+  font-size: small;
   color: #666666;
   margin-left: 3rem;
 }
@@ -288,8 +289,10 @@
   font-weight: bolder;
   color: #666666;
   position: absolute;
-  left: 13.5rem;
+  /* left: 13.5rem; */
   bottom: 0.5rem;
+  width: 95%;
+  text-align: end;
 }
 
 .fundingBtn{

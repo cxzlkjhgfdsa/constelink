@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './HomePage.module.css';
 import Slider from 'react-slick';
-
+import star2 from "../assets/logo/star2.png"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -28,6 +28,7 @@ import { faSackDollar, faHeartPulse, faHandHoldingHeart } from "@fortawesome/fre
 import { faGratipay } from "@fortawesome/free-brands-svg-icons";
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useNavigate } from 'react-router-dom';
+import SideStickyCard from '../components/cards/SideStickyCard';
 
 const images = [topbanner1, topbanner2, topbanner3];
 const contents = [["콘스텔링크 Constelink", "블록체인기반, 치료비 모금 플랫폼"], ["콘스텔링크 Constelink", "여러분의 관심이 많은이들에게 도움이 됩니다."], ["콘스텔링크 Constelink", "블로체인기반, 치료비 모금 플랫폼 당신의 별자리"]];
@@ -84,11 +85,12 @@ const HomePage: React.FC = () => {
                 <div className={styles.slide_title}>{contents[index][0]}</div>
                 <div className={styles.slide_content}>{contents[index][1]}</div>
               </div>
-
+              <div className={styles.slide_linkbox_out} >
               <div className={styles.slide_linkbox}>
                 <div className={styles.linkbox_title}>블록체인기반, 치료비 모금 플랫폼</div>
                 <div className={styles.linkbox_sub}>우리의 별자리를 확인해보세요!</div>
                 <div className={styles.linkbox_link} onClick={()=> navigate("/fundmain")}>바로가기 {">"}</div>
+              </div>
               </div>
             </div>
           </div>
@@ -96,13 +98,16 @@ const HomePage: React.FC = () => {
       </Slider>
       {/* 2. 상단 바로가기 바 */}
       <nav className={styles.with_box}>
-        <img src="" alt="" />
+        <div className={styles.with_box_in}>
+          <div className={styles.star_box}><img src={star2} alt="star" /></div>
         <div className={styles.with_title}>너네 별따러 갈때, 우린 달러가!</div>
         <div className={styles.with_btn} onClick={()=> navigate("/fundmain")} ><span style={{ color: "purple", fontWeight: "bold", paddingRight: "3px" } }>Constelink</span> 함께하기 -{">"}</div>
+        </div>
       </nav>
       <section>
+<SideStickyCard/>
 
-        <div className={styles.heal_title}>
+        <div className={styles.heal_title_top}>
           <h1>블록체인기반 치료비 모금 플랫폼, Constelink</h1>
           <div>직접 돕고 직접 확인하세요. 여러분의 행복, 모두의 행복을 챙기세요.</div>
           <div>모든 치료비 기부내역은 투명하게 공개됩니다.</div>
@@ -130,13 +135,14 @@ const HomePage: React.FC = () => {
       </section>
 
 
+
       <div className={styles.addbox}>
         <div className={styles.addbox_item}>
           <div className={styles.addbox_box}>
           <div className={styles.addbox_left}>    <div className={styles.addbox_ad}>광고</div></div>
           <div className={styles.addbox_right}>  <div className={styles.addbox_verses}><img src={ssafy} alt='ssafy'/> <div><span style={{fontSize:"14px", color:"white"}}>✖</span><span style={{color:"red", marginLeft:"10px"}}>正</span>육점</div></div>
             <div className={styles.addbox_comment}>  최강 SW아카데미 삼성 청년 SW 아카데미와 정육점의 만남</div>
-            <div className={styles.addbox_finish}> 소프트웨어 최강 SSAFY와의 협약체결 <button>확인하기 ➔</button>  </div></div>
+            <div className={styles.addbox_finish}> 소프트웨어 최강 SSAFY와의 협약체결 <button onClick={()=> window.open("https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp", "_blank")}>확인하기 ➔</button>  </div></div>
             </div>
 
         </div>
@@ -173,8 +179,6 @@ const HomePage: React.FC = () => {
           </div></li>
         </ul>
       </div>
-
-
 
 
 

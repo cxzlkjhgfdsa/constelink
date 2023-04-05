@@ -31,13 +31,15 @@
  }
 .detail_content{
     padding: 15px;
+    height: 400px;
 }
 .title_left{
     display: flex;
-    width: 450px;
+    width: 500px;
 }
 .left_content{
     margin-left: 40px;
+    word-break: keep-all;
 }
 
 .write_finish{

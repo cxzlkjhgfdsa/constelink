@@ -48,10 +48,7 @@
     margin-bottom: 10px;
 }
 
-.amount_log:hover{
-    color: #ececec;
-    background-color: plum ;
-}
+
 
 .amount_log>div{
     text-align: center;

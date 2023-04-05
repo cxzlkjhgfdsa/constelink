@@ -10,6 +10,7 @@ const NoticeDetail = () => {
      const [contents, setContents] = useState<BoardDetail| null>(null);
      const navigate= useNavigate();
      const authRole = useSelector((state: RootState)=> state.auth.role);
+     
      const { id } = useParams<{ id: string }>();
      useEffect(()=> {
         axios.get(`/notices/detail?id=${id}`).then(res=>{

@@ -53,16 +53,19 @@
     border-top: 1px solid #D6D6D6;
     border-bottom: 1px solid #D6D6D6;
     height: 550px;
+    padding-top: 0;
+    /* background-color: red; */
 }
 
 .notice_list{
     list-style: none;
     width: 920px;
     padding-left:0;
+    /* background-color: blue; */
 }
 
 .notice_item{
-    background-color: #DBD9EC;
+    background-color: #b8c3e0;
     opacity: 0.9;
     width: 920px;
     height: 60px;
@@ -72,8 +75,6 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-
-    
 }
 .item_nav{
     padding-left: 15px;
