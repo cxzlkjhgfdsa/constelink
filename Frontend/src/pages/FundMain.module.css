@@ -23,7 +23,7 @@
 .mainWrapper::before {
   position: absolute;
   content: "";
-  background-image: url("/src/assets/img/night-sky1.jpg");
+  background-image: url("../assets/img/beautiful.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 30%;
@@ -40,10 +40,10 @@
   flex-direction: column;
   height: 15rem;
   overflow: hidden;
-  background-image: url("../assets/img/topbanner_1.jpg");
+  /* background-image: url("../assets/img/topbanner_1.jpg"); */
+
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 30%; */
   justify-content: center;
   align-items: center;
   width: 100%;

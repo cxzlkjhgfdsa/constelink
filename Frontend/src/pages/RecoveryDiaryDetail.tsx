@@ -3,7 +3,7 @@ import React, {
   useCallback,
   useRef,
   useEffect,
-  ChangeEvent,
+
 } from "react";
 import styles from "./RecoveryDiaryDetail.module.css";
 import { useParams, useNavigate } from "react-router-dom";
@@ -431,7 +431,7 @@ const RecoveryDiaryDetail: React.FC = () => {
       )}
 
       {/* 생성버튼 클릭 -> 치료일지 생성 */}
-      {isOpenModal && isChecked == true && (
+      {isOpenModal && isChecked === true && (
         <Modal onClickToggleModal={onClickToggleModal}>
           <div className={styles.modalTopCreate}>
             <div className={styles.modalText}>치료일기 생성</div>
