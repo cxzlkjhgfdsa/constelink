@@ -165,8 +165,8 @@ const KakaoPaid: React.FC = () => {
       console.log(`Mint Transaction hash: ${receipt.transactionHash}`);
       // setTranHash(receipt.transactionHash);
       // setIsDone(true);
-      // sendTransactionDonate();
-      setTimeout(sendTransactionDonate, 5000);
+      sendTransactionDonate();
+      // setTimeout(sendTransactionDonate, 5000);
     } else {
       console.log('Web3 is not available');
     };

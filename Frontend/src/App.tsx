@@ -13,10 +13,6 @@ import FundRegister from "./pages/FundRegister";
 import HosBenList from "./pages/HosBenList";
 import HosFundList from "./pages/HosFundList";
 import NoticePage from './pages/NoticePage';
-import Mint from "./pages/Mint";
-import StartDonate from "./pages/StartDonate";
-import Donate from "./pages/Donate";
-import MMLoading from "./pages/MMLoading";
 
 import NoticeDetail from './pages/NoticeDetail';
 import NoticeEdit from './pages/NoticeEdit';
@@ -37,7 +33,7 @@ import FinishFundList from "./pages/FinishFundList";
 import Footer from "./components/footer/Footer";
 
 function App() {
-  const authInfo = useSelector((state:RootState)=> state.auth);
+  const authInfo = useSelector((state: RootState) => state.auth);
   return (
     <div className="App">
 
@@ -47,16 +43,16 @@ function App() {
           <Route path='/' element={<HomePage />} />
           {/* 공지사항 페이지 */}
           <Route path="/notice/*" element={<NoticePage />} />
-          
+
           <Route path='/finish' element={<FinishFundList />} />
-          
+
           {/* 모금 페이지 */}
           <Route path='/fundmain' element={<FundMain />} />
           <Route path='/fundmain/funddetail/:id' element={<FundDetail />} />
           <Route path='/fundpayment/kakao/:id' element={<FundPayment />} />
           <Route path='/kakao' element={<KakaoPaid />} />
 
-          
+
           <Route path='/hospage' element={<HospitalPage />} />
           <Route path='/benregi' element={<BenRegister />} />
           <Route path='/fundregi' element={<FundRegister />} />
@@ -64,36 +60,28 @@ function App() {
           <Route path='/hosfundlist' element={<HosFundList />} />
 
 
-
-          {/* web3js 페이지 */}
-          <Route path='/mint' element={<Mint /> } />
-          <Route path='/donate' element={<Donate /> } />
-          <Route path='/startdonate' element={<StartDonate /> } />
-          <Route path='/mmload' element={<MMLoading /> } />
-          
-         
           <Route path='/diary' element={<RecoveryDiary />} />
           <Route path='/diarydetail/:id' element={<RecoveryDiaryDetail />} />
-          
+
           {/* 역할별 마이페이지 설정 */}
           {
-            authInfo.isAuthenticated && (authInfo.role==="MEMBER"||authInfo.role==="ADMIN")?
-            <Route path="/mypage/*" element={<CustomerMyHome />} />:
-            authInfo.isAuthenticated && authInfo.role==="HOSPITAL"?
-            <Route path="/mypage/*" element={<HospitalMyHome />} />:  <Route path="/mypage/*" element={<HospitalMyHome />}/>
+            authInfo.isAuthenticated && (authInfo.role === "MEMBER" || authInfo.role === "ADMIN") ?
+              <Route path="/mypage/*" element={<CustomerMyHome />} /> :
+              authInfo.isAuthenticated && authInfo.role === "HOSPITAL" ?
+                <Route path="/mypage/*" element={<HospitalMyHome />} /> : <Route path="/mypage/*" element={<HospitalMyHome />} />
           }
-         
+
 
 
 
 
         </Route >
         <Route path='/login' element={<Login />} />
-      
+
       </Routes>
 
-          {/* <Footer/> */}
-      
+      {/* <Footer/> */}
+
     </div>
   )
 }
