@@ -20,7 +20,7 @@ const maxSize = 50 * 1024 * 1024; // 사진파일크기 50mb
 registerLocale("ko", ko); // 한국어 적용
 const _ = require('lodash');
 
-const A_TOKEN ="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTY4MDY1NzQ1NCwiZXhwIjoxNjgwNjU5MjU0LCJyb2xlIjoiSE9TUElUQUwifQ.Aqci9q30Xcd_DgXwoM77vBnZdzRz6VR_Y1uPlyxZTgjEqQXjcbxRvyjaU8uzTqbaYTfbJ9ytwLzETutYupIXMQ";
+const A_TOKEN ="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDY1OTU4NywiZXhwIjoxNjgwNjYxMzg3LCJyb2xlIjoiSE9TUElUQUwifQ.1Y-c0hB_oWiCZ41GqBzTrF0EPHojJB76c_yDNUVWovaUJt5X5EbOZ7N5myRbXO1jRIy5GBNTX4JPC_qD_fTO1Q";
 
 const BenRegister: React.FC = () => {
 
@@ -44,7 +44,7 @@ const BenRegister: React.FC = () => {
 
   // 병원 ID
   // 추후에 상태관리로 병원 로그인시 들고다님
-  const hospitalId = 10;
+  const hospitalId = 21;
 
   // 사진 설정
   const [imgPreUrl, setImgPreUrl] = useState('');
