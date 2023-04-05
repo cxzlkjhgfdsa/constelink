@@ -143,7 +143,8 @@ const KakaoPaid: React.FC = () => {
       const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
       console.log(`Mint Transaction hash: ${receipt.transactionHash}`);
       // setTranHash(receipt.transactionHash);
-      setIsDone(true);
+      // setIsDone(true);
+      sendTransactionDonate();
     } else {
       console.log('Web3 is not available');
     };
@@ -170,7 +171,6 @@ const KakaoPaid: React.FC = () => {
       return
     }
     sendTransactionMint();
-    sendTransactionDonate();
   }
 
   // 토큰 기부 완료되면
