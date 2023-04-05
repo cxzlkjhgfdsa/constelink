@@ -35,9 +35,9 @@ interface recievedata {
   hospitalName: string
 }
 
+
+const AUTH_TOKEN = window.localStorage.getItem('access_token');
 const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
-// const AUTH_TOKEN = process.env.REACT_APP_TMP_AUTH_TOKEN;
-const AUTH_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjgwNjIyMTA0LCJleHAiOjE2ODA2MjM5MDQsInJvbGUiOiJNRU1CRVIifQ.lBsm979A45pTb0MhN6rBrrrDrAdN7N0uTWf2ZqqkImLmKc45Wq-1p4zQ8T4iwFwTvExGDLxmUM15RyvIPyW-6g";
 const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
 
@@ -62,28 +62,32 @@ const KakaoPaid: React.FC = () => {
   const [money, setMoney] = useState(0);
   // 기부 상세정보 받아오기
   const [info, setInfo] = useState<recievedata>();
+  // const [id, setId] = useState(0);
   useEffect(() => {
     // 메타마스크 연결 요청
-    alert('메타마스크 계정을 연결해 주세요!')
+    // console.log(MM_KEY);
 
-    console.log(MM_KEY);
-
-    axios.get(`/member/payments/success?pg_token=${pgToken}`, {
-      headers: {
-        Authorization: AUTH_TOKEN
-      }
-    })
-      .then((res) => {
-        // console.log(res);
-        console.log(localStorage.getItem('details'));
-        localStorage.setItem('money', res.data.amount.total);
-        setMoney(res.data.amount.total);
-        // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
-        setInfo(JSON.parse(localStorage.getItem('details') || '{}'));
+    if (web3) {
+      axios.get(`/member/payments/success?pg_token=${pgToken}`, {
+        headers: {
+          Authorization: AUTH_TOKEN
+        }
       })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then((res) => {
+          // console.log(res);
+          console.log(localStorage.getItem('details'));
+          // console.log(res.data);
+          localStorage.setItem('money', res.data.amount.total);
+          setMoney(res.data.amount.total);
+          // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
+          setInfo(JSON.parse(localStorage.getItem('details') || '{}'));
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    } else {
+      console.log('web3 연결해 무자식아');
+    }
   }, [pgToken])
 
 
@@ -143,7 +147,8 @@ const KakaoPaid: React.FC = () => {
       const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
       console.log(`Mint Transaction hash: ${receipt.transactionHash}`);
       // setTranHash(receipt.transactionHash);
-      setIsDone(true);
+      // setIsDone(true);
+      sendTransactionDonate();
     } else {
       console.log('Web3 is not available');
     };
@@ -152,6 +157,8 @@ const KakaoPaid: React.FC = () => {
   // 기부 트랜젝션
   async function sendTransactionDonate() {
     console.log('토큰보내기')
+
+    console.log(info);
 
     const txHash = await contract.methods
       .fundRaising(TEST_PUB_FUND_CA, money, info?.fundraisingId)
@@ -170,7 +177,6 @@ const KakaoPaid: React.FC = () => {
       return
     }
     sendTransactionMint();
-    sendTransactionDonate();
   }
 
   // 토큰 기부 완료되면
