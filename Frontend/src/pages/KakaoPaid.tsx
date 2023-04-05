@@ -56,46 +56,45 @@ const KakaoPaid: React.FC = () => {
   const [address, setAddress] = useState<string | null>(null);
   const [contract, setContract] = useState<any | null>(null);
 
-
-  // 카카오 결제 토큰 쿼리에서 받아서 쓰기
-  const pgToken = window.location.search.substring(10);
-
-  useEffect(() => {
-    console.log(window.localStorage);
-    console.log(window.localStorage.details);
-    console.log(typeof (window.localStorage.details));
-    console.log(window.localStorage.details.substr(17, 1));
-    console.log(pgToken)
-  }, [])
-
   // 카카오 결제완료 후 토큰 받아오기, 금액 설정
   const [money, setMoney] = useState(0);
   // 기부 상세정보 받아오기
   const [info, setInfo] = useState<recievedata>();
-  // const [id, setId] = useState(0);
-  // useEffect(() => {
-  // 메타마스크 연결 요청
-  // console.log(MM_KEY);
+  const [id, setId] = useState(0);
 
-  //   axios.get(`/member/payments/success?pg_token=${pgToken}`, {
-  //     headers: {
-  //       Authorization: AUTH_TOKEN
-  //     }
-  //   })
-  //     .then((res) => {
-  //       // console.log(res);
-  //       console.log(localStorage.getItem('details'));
-  //       // console.log(res.data);
-  //       localStorage.setItem('money', res.data.amount.total);
-  //       setMoney(res.data.amount.total);
-  //       // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
-  //       setInfo(JSON.parse(localStorage.getItem('details') || '{}'));
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
+  // 카카오 결제 토큰 쿼리에서 받아서 쓰기
+  const pgToken = window.location.search.substring(10);
 
-  // }, [pgToken])
+
+  // 0. id 설정
+  useEffect(() => {
+    setId(Number(window.localStorage.details.substr(17, 1)));
+  }, [])
+
+  // 1. 카카오에 token으로 결제 정보 받아오는 요청 보내기
+  useEffect(() => {
+
+
+    axios.get(`/member/payments/success?pg_token=${pgToken}`, {
+      headers: {
+        Authorization: AUTH_TOKEN
+      }
+    })
+      .then((res) => {
+        // console.log(res);
+        // console.log(localStorage.getItem('details'));
+        console.log('카카오 성공 메시지 여기');
+        console.log(res.data);
+        localStorage.setItem('money', res.data.amount.total);
+        setMoney(res.data.amount.total);
+        // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
+        setInfo(JSON.parse(localStorage.getItem('details') || '{}'));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+  }, [pgToken])
 
 
   // 금액 받아오면 web3통신 시작!
