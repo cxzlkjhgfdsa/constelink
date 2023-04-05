@@ -18,10 +18,9 @@ const NoticeEdit = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     useEffect(()=>{
-        axios.get(`http://j8a206.p.ssafy.io:8995/notices/detail?id=${id}`).then(res=>{
+        axios.get(`/notices/detail?id=${id}`).then(res=>{
             console.log(res);
             setBeforeContent(res.data.noticeContent);
-            // setContents(res.data.noticeContent);
             setSelectedValue(res.data.noticeType);
             setTitle(res.data.noticeTitle);
             setFixedType(res.data.noticeIsPinned);
@@ -50,16 +49,18 @@ const NoticeEdit = () => {
             noticeType: selectedValue,
             noticeIsPinned: fixedType
         }
-        console.log(boardContent);
 
-
+        const accessToken = localStorage.getItem('access_token');
+        axios.defaults.headers.common['authorization'] = accessToken;
         axios.post("/notices/modify", boardContent).then(res => {
             console.log(res);
             alert("수정이 완료되었습니다")
+            axios.defaults.headers.common = {};
             navigate(`/notice/${id}`);
         }).catch(err=>{
             alert("수정도중 오류가 발생했습니다. 다시 시도해주세요.");
-            navigate(`/notice/${id}/edit`);
+            console.log("에러인이닝닝", );
+            navigate(`/notice/${id}`);
         })
     };
 

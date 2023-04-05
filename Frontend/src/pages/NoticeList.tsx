@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './NoticeList.module.css'
 import { BoardDetail } from './../models/boardmodel';
 import Pagination from "react-js-pagination";
