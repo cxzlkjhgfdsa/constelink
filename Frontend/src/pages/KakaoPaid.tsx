@@ -71,7 +71,10 @@ const KakaoPaid: React.FC = () => {
     setId(Number(window.localStorage.details.substr(17, 1)));
   }, [])
 
+
   // 1. 카카오에 token으로 결제 정보 받아오는 요청 보내기
+  // 요청 성공하면 true로바꾸고 다음단계로
+  const [kakaoSuccess, setKakaoSuccess] = useState(false);
   useEffect(() => {
 
 
@@ -89,6 +92,7 @@ const KakaoPaid: React.FC = () => {
         setMoney(res.data.amount.total);
         // 타입스크립트 땜시 null일 때 예외 처리해주어야 함
         setInfo(JSON.parse(localStorage.getItem('details') || '{}'));
+        setKakaoSuccess(true);
       })
       .catch((err) => {
         console.log(err);
@@ -97,29 +101,35 @@ const KakaoPaid: React.FC = () => {
   }, [pgToken])
 
 
+  // 2. 메타마스크 연결하는 단계 (필수조건: 카카오결제가 성공적으로 이루어 졌다면)
   // 금액 받아오면 web3통신 시작!
   // 계정 주소 불러오고, 펀딩 컨트랙트 연결
-  // useEffect(() => {
-  //   const detectWeb3 = async () => {
+  useEffect(() => {
+    const detectWeb3 = async () => {
 
-  //     if (typeof window.ethereum !== "undefined") {
-  //       // MetaMask is installed & create an web3 instance
-  //       const provider = window.ethereum;
-  //       await provider.request({ method: "eth_requestAccounts" });
-  //       const web3Instance = new Web3(provider);
-  //       setWeb3(web3Instance);
+      if (typeof window.ethereum !== "undefined") {
+        // MetaMask is installed & create an web3 instance
+        const provider = window.ethereum;
+        await provider.request({ method: "eth_requestAccounts" });
+        const web3Instance = new Web3(provider);
+        setWeb3(web3Instance);
 
-  //       // Get the user's address
-  //       const accounts = await web3Instance.eth.getAccounts();
-  //       setAddress(accounts[0]);
+        // Get the user's address
+        const accounts = await web3Instance.eth.getAccounts();
+        setAddress(accounts[0]);
 
-  //       // Load the contract
-  //       const contractInstance = new web3Instance.eth.Contract(FUND_ABI as AbiItem[], TEST_PUB_FUND_CA);
-  //       setContract(contractInstance);
-  //     }
-  //   };
-  //   detectWeb3();
-  // }, []);
+        // Load the contract
+        const contractInstance = new web3Instance.eth.Contract(FUND_ABI as AbiItem[], TEST_PUB_FUND_CA);
+        setContract(contractInstance);
+      }
+    };
+
+    // 결제가 성공적으로 이루어졌다면 메타마스크 연결
+    if (kakaoSuccess) {
+      detectWeb3();
+    }
+  }, [kakaoSuccess]);
+
 
   // mint컨트랙트 보내기
   const [isMinting, setIsMinting] = useState(false);
