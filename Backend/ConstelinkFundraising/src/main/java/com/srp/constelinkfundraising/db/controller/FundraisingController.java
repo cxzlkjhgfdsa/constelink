@@ -182,4 +182,27 @@ public class FundraisingController {
 		FundraisingResponse fundraisingResponses = fundraisingService.getFundraising(fundraisingId, memberId);
 		return ResponseEntity.ok(fundraisingResponses);
 	}
+
+	@Operation(summary = "병원 Id로 찾기", description =
+		"page = 페이지, size = 한 페이지당 데이터 수, hospitalId = 병원 아이디, "
+	)
+	@GetMapping("/byhospital/self")
+	public ResponseEntity<Page<FundraisingResponse>> getFundraisingByHospitalSelf(
+		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
+		@RequestParam(name = "sortBy", required = false, defaultValue = "NONE") FundraisingByHopitalType sortType,
+		HttpServletRequest request
+	) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		Long hospitalId;
+		if(accessToken != null) {
+			throw new CustomException(CustomExceptionType.TOKEN_NOT_FOUND);
+		} else {
+			hospitalId = jwtParser.resolveToken(accessToken);
+		}
+		Long memberId;
+
+		Page<FundraisingResponse> fundraisingResponses = fundraisingService.getFundraisingsByHospital(page-1,size, sortType, hospitalId, 0L);
+		return ResponseEntity.ok(fundraisingResponses);
+	}
 }
