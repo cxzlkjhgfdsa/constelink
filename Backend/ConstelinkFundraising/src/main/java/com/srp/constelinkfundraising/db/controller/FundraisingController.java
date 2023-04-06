@@ -195,7 +195,7 @@ public class FundraisingController {
 	) {
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 		Long hospitalId;
-		if(accessToken != null) {
+		if(accessToken == null) {
 			throw new CustomException(CustomExceptionType.TOKEN_NOT_FOUND);
 		} else {
 			hospitalId = jwtParser.resolveToken(accessToken);
