@@ -179,10 +179,10 @@ const KakaoPaid: React.FC = () => {
     console.log('4. 토큰 기부 시작');
 
     const txHash = await contract.methods
-      .fundRaising(TEST_PUB_FUND_CA, money, 55)
+      .fundRaising(TEST_PUB_FUND_CA, money, id)
       .send({ from: address });
     console.log("Donate Transaction hash:", txHash);
-    setTranHash(txHash);
+    setTranHash(String(txHash));
     setTxDone(true);
   }
 
@@ -202,6 +202,12 @@ const KakaoPaid: React.FC = () => {
     // 토큰 기부하면 DB에 기부 저장하기
     const saveDonation = async () => {
 
+      console.log('400해결');
+      console.log(info);
+      console.log(typeof info);
+      console.log(tranHash);
+      console.log(typeof tranHash)
+
       const body = {
         fundraisingId: info?.fundraisingId,
         donationPrice: money,
@@ -213,6 +219,9 @@ const KakaoPaid: React.FC = () => {
         fundraisingTitle: info?.fundraisingTitle,
         fundraisingThumbnail: info?.fundraisingThumbnail
       };
+
+      console.log('나이스바디');
+      console.log(body);
 
       await axios.post('/member/donations/save', body, {
         headers: {
