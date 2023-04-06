@@ -6,11 +6,11 @@ const CustomerFavoritePage = () => {
     const [bookedList, setBookedList] = useState([]);
     
     useEffect(()=>{
-        let params:any={page:1,size:8,memberId:2}
+        // let params:any={page:1,size:8,memberId:2}
         // const accessToken = localStorage.getItem('access_token');
         
         // axios.defaults.headers.common['authorization'] = accessToken;
-        axios.get("/fundraising/bookmarks",{params}).then(res=>{
+        axios.get("/fundraising/bookmarks").then(res=>{
             console.log(res.data.content);
             // axios.defaults.headers.common = {};
             setBookedList(res.data.content)
