@@ -88,9 +88,13 @@ const FundDetail: React.FC = () => {
           {/* 모금썸네일(배너) */}
           <div
             className={styles.fundMain}
+
             style={{
-              backgroundImage: `url(${detailData?.fundraisingThumbnail})`,
+              backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)) ,url(${detailData?.fundraisingThumbnail}), url("./errorImg.jpg")`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
             }}
+      
           >
             <div className={styles.fundAbstract}>
               <div className={styles.fundTitle}>
@@ -131,7 +135,8 @@ const FundDetail: React.FC = () => {
             {/* 모금 제목 */}
             <div className={styles.storyHeader}>
               <div className={styles.storyHeaderText}>
-                {detailData?.fundraisingTitle}
+                {/* {detailData?.fundraisingTitle} */}
+                "Constelink와 함께하는 여러분 덕에 많은 이 들이 새 삶을 살고있습니다. 많은 이들의 별자리가 되어주세요. Constelink는 늘 여러분 곁에 있습니다. 모두 콘스텔링크 하세요. "
               </div>
             </div>
             <div className={styles.storyContent}>
@@ -142,6 +147,7 @@ const FundDetail: React.FC = () => {
                   className={styles.storyContentImg}
                   style={{
                     backgroundImage: `url(${detailData?.beneficiaryPhoto})`,
+                  
                   }}
                 ></div>
                 {/* 모금 내용 */}
@@ -159,7 +165,7 @@ const FundDetail: React.FC = () => {
               {/* 수혜자 한마디 */}
               {/* 추후에 수정해야 할지도 */}
               <div className={styles.benefitTitle}>
-                허리가 아픈 원철이는 치료비가 절실합니다.
+              {detailData?.fundraisingTitle}
               </div>
               {/* 수혜자 정보 */}
               <div className={styles.benefitMan}>
