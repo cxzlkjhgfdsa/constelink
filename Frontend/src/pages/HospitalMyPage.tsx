@@ -3,7 +3,7 @@ import styles from "./HospitalMyPage.module.css"
 import image1 from './../assets/logo/heart1.png';
 import image2 from './../assets/logo/star1.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAddressCard, faStar, faHospitalUser, faRightFromBracket, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faAddressCard, faMagnifyingGlassPlus,faStar, faHospitalUser, faHandHoldingDollar,faRightFromBracket, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -71,8 +71,8 @@ const HospitalMyPage: React.FC = () => {
                     </li> */}
                     <li><div className={styles.menu_left} onClick={() => navigate("hosbenlist")}><FontAwesomeIcon className={styles.menu_logo} icon={faStar} /><div >수혜자 목록 조회하기</div></div>  <FontAwesomeIcon icon={faChevronRight} /></li>
                     <li><div className={styles.menu_left} onClick={() => navigate("benregi")}><FontAwesomeIcon className={styles.menu_logo} icon={faHospitalUser} /><div >  수혜자 등록하기</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
-                    <li><div className={styles.menu_left} onClick={() => navigate("hosfundlist")}><FontAwesomeIcon className={styles.menu_logo} icon={faHospitalUser} /><div >진행중인 모금 목록 조회하기</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
-                    <li><div className={styles.menu_left} onClick={() => navigate("fundregi")}><FontAwesomeIcon className={styles.menu_logo} icon={faHospitalUser} /><div >모금 시작하기</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
+                    <li><div className={styles.menu_left} onClick={() => navigate("hosfundlist")}><FontAwesomeIcon  className={styles.menu_logo}  icon={faMagnifyingGlassPlus} /><div >진행중인 모금 목록 조회하기</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
+                    <li><div className={styles.menu_left} onClick={() => navigate("fundregi")}><FontAwesomeIcon className={styles.menu_logo} icon={faHandHoldingDollar}/><div >모금 시작하기</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
                     <li style={{ border: "none" }}><div className={styles.menu_left} onClick={logoutHandler}><FontAwesomeIcon className={styles.menu_logo} icon={faRightFromBracket} onClick={logoutHandler} /><div className={styles.sel}>로그아웃</div></div> </li>
                 </ul>
 

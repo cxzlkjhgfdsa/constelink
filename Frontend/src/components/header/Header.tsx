@@ -10,12 +10,16 @@ import { authActions } from './../../store/auth';
 
 const Header: React.FC = () => {
     const [selectedMenu, setSelectedMenu] = useState(localStorage.getItem('selectedMenu') || 'default');
+
     const authInfo = useSelector((state: RootState) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch()
     useEffect(() => {
         const path = window.location.pathname;
         switch (path) {
+            case '/':
+                setSelectedMenu('/');
+                break;
             case '/notice':
                 setSelectedMenu('공지사항');
                 break;
@@ -28,6 +32,9 @@ const Header: React.FC = () => {
             case '/finish':
                 setSelectedMenu('치료달성');
                 break;
+            case '/mypage':
+                setSelectedMenu('마이페이지');
+                 break;
             default:
                 setSelectedMenu('default');
         }
@@ -60,7 +67,9 @@ const Header: React.FC = () => {
     return (
 
         <div className={styles.Header}>
-            <div className={styles.header_logo} onClick={() => navigate("/")}>Constelink</div>
+            <div className={styles.header_logo} onClick={() => {
+                navigate("/");
+                handleClick('/');}}>Constelink</div>
 
 
             <ul className={styles.header_menu} >
@@ -98,7 +107,11 @@ const Header: React.FC = () => {
                     }}>치료달성</li>
             </ul>
             {
-                authInfo.isAuthenticated ? <div className={styles.header_login} onClick={() => navigate("/mypage")}><img onError={(e)=> {e.currentTarget.src="/circleuser.png"} } className={styles.header_profile} src={authInfo.profileImg} alt="profile" /></div> : <div className={styles.header_login} onClick={() => navigate('/login')}>로그인</div>
+                authInfo.isAuthenticated ? <div className={styles.header_login} onClick={() => {
+                    navigate("/mypage");
+                    setSelectedMenu("마이페이지");
+
+                }}><img onError={(e)=> {e.currentTarget.src="/circleuser.png"} } className={styles.header_profile} src={authInfo.profileImg} alt="profile" /></div> : <div className={styles.header_login} onClick={() => navigate('/login')}>로그인</div>
             }
             {/* 반응형 사이드바 */}
             <div className={styles.interactive}>
