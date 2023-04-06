@@ -7,7 +7,7 @@ import walletReducedr from "./wallet";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["role", "nickname", "isAuthenticated", "profileImg", "connected"],
+  whitelist: ["role","email","nickname", "isAuthenticated", "profileImg", "connected"],
 };
 // const walletConfig = {
 //   key: "wallet",

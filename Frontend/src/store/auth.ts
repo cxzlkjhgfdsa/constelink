@@ -4,6 +4,7 @@ interface AuthState {
   nickname: string;
   profileImg: string;
   role: string;
+  email: string;
   connected: boolean;
 }
 
@@ -12,6 +13,7 @@ const initialAuthState: AuthState = {
   nickname: "",
   profileImg: "",
   role: "",
+  email: "",
   connected:false
 };
 
@@ -24,12 +26,14 @@ const authSlice = createSlice({
       state.nickname = action.payload.name;
       state.profileImg = action.payload.profileImg;
       state.role = action.payload.role;
+      state.email = action.payload.email;
     },
     logout(state) {
       state.isAuthenticated = false;
       state.role = "";
       state.nickname=""
       state.profileImg=""
+      state.email = ""
     },
 
     update(state, action) {

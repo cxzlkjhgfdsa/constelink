@@ -190,7 +190,7 @@ const FundPayment: React.FC = () => {
                 <div className={styles.itemPadding} />
                 <div className={styles.detailItem}>
                   <div className={styles.itemKey}>이메일</div>
-                  <div className={styles.itemValue}>roclsth@naver.com</div>
+                  <div className={styles.itemValue}>{authInfo.email}</div>
                 </div>
               </div>
             </div>

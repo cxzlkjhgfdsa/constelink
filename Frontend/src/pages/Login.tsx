@@ -37,12 +37,13 @@ const Login: React.FC = () => {
           localStorage.setItem("refresh_token", res.headers.refresh);
           axios.defaults.headers.common["authorization"] =
             res.headers.authorization;
-          const [name, profileImg, role]: string[] = [
+          const [name, profileImg, role, email]: string[] = [
             res.data.nickname,
             res.data.profile,
             res.data.role,
+            res.data.email,
           ];
-          dispatch(authActions.login({ name, profileImg, role }));
+          dispatch(authActions.login({ name, profileImg, role, email }));
           navigate("/");
         })
         .catch((err) => {
