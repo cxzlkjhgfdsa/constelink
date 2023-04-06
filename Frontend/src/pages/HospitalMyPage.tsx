@@ -43,6 +43,7 @@ const HospitalMyPage: React.FC = () => {
             navigate("/");
         }).catch((err) => {
             console.log(err);
+            navigate("/");
         })
     }
 
