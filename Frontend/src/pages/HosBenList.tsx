@@ -15,17 +15,22 @@ const HosBenList= () => {
   const [fundraisingData, setFundraisingData] = useState<HosBenInfo[]>();
   const [page, setPage] = useState(1);
   //hospitalId는 받아와야함.
-  const [hospitalId, setHospitalId] = useState(21);
+  // const [hospitalId, setHospitalId] = useState(21);
+  const accessToken = localStorage.getItem("access_token");
+
   const size:number = 8;
   const [totalElements, setTotalElements] = useState(0);
-  const URL_PATH : string = "/beneficiary/beneficiaries/hospital/";
+  const URL_PATH : string = "/beneficiary/beneficiaries/hospital/self";
   const handlePageChange = (page:number) => {
     setPage(page);
     window.scrollTo(0,0);
   }
 
   useEffect(() => {
-    axios.get(URL_PATH+hospitalId, {params : {page, size}}).then((res) => {
+    axios.get(URL_PATH, {params : {page, size}, headers: {
+      Authorization: accessToken
+    }}).then((res) => {
+      console.log('댓음');
       setFundraisingData(res.data.content);
       setTotalElements(res.data.totalElements)
      })

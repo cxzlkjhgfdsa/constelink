@@ -34,16 +34,12 @@ const HosBeneficiaryCard: React.FC<Props> = ({ data }) => {
   return (
     <div className={`${styles.card_box} ${styles.grid_col_8}`}>
       <li className={styles.bene_img_box}>
-        <img
+        <div
           className={styles.bene_img}
-          src={
-            data.beneficiaryPhoto ? data.beneficiaryPhoto : "./circleuser.png"
-          }
-          onError={(e) => {
-            e.currentTarget.src = "./circleuser.png";
-          }}
-          alt="beneficiaryPhoto.jpg"
-        ></img>
+          style={{backgroundImage: `url(${ data.beneficiaryPhoto})`, backgroundSize:"cover"}}
+         
+         
+        ></div>
       </li>
       <li>{data.beneficiaryName}</li>
       <li>

@@ -33,7 +33,6 @@ import { faGratipay } from "@fortawesome/free-brands-svg-icons";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { useNavigate } from "react-router-dom";
 import SideStickyCard from "../components/cards/SideStickyCard";
-import Footer from "../components/footer/Footer";
 
 const images = [topbanner1, topbanner2, topbanner4];
 const contents = [
@@ -66,9 +65,10 @@ const HomePage: React.FC = () => {
     // axios.defaults.headers.common['authorization'] = accessToken;
     axios
       .get(
-        "/fundraising/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=2"
+        "/fundraising/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=START_DATE_DESC&memberId=2"
       )
       .then((res) => {
+        console.log(res.data.content);
         // axios.defaults.headers.common={}
         setDonateCard(res.data.content);
       });
