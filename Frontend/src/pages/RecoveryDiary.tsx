@@ -45,6 +45,7 @@ const RecoveryDiary: React.FC = () => {
           {/* 결과들 도출 */}
           {diaryList.map((content, index) => (
             <div
+              key={content.beneficiaryId}
               className={styles.card_back}
               onClick={() => handleCardClick(content.beneficiaryId)}
             >
