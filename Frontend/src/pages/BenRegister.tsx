@@ -19,10 +19,10 @@ const maxSize = 50 * 1024 * 1024; // 사진파일크기 50mb
 registerLocale("ko", ko); // 한국어 적용
 const _ = require('lodash');
 
-const A_TOKEN ="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDY1OTU4NywiZXhwIjoxNjgwNjYxMzg3LCJyb2xlIjoiSE9TUElUQUwifQ.1Y-c0hB_oWiCZ41GqBzTrF0EPHojJB76c_yDNUVWovaUJt5X5EbOZ7N5myRbXO1jRIy5GBNTX4JPC_qD_fTO1Q";
 
 const BenRegister: React.FC = () => {
-
+  
+  const accessToken = localStorage.getItem("access_token");
   const navigate = useNavigate();
 
   // 에러 설정
@@ -43,7 +43,7 @@ const BenRegister: React.FC = () => {
 
   // 병원 ID
   // 추후에 상태관리로 병원 로그인시 들고다님
-  const hospitalId = 21;
+  // const hospitalId = 21;
 
   // 사진 설정
   const [imgPreUrl, setImgPreUrl] = useState('');
@@ -142,7 +142,7 @@ const BenRegister: React.FC = () => {
     await axios
       .post('/files/saveimg', formData, {
         headers: {
-          Authorization: A_TOKEN
+          Authorization: accessToken
         }
       })
       .then((res) => {
@@ -163,12 +163,12 @@ const BenRegister: React.FC = () => {
     
     // 값들 쭉 체크하면서 없는 값 있으면 함수종료
     // 동기처리 실패해서 페이지 첫 렌더링때도 senPost함수가 실행됨
-    if (!hospitalId || !goalFund || !birthDate || !diseaseName || !benName || !imgUrl) {
+    if (!goalFund || !birthDate || !diseaseName || !benName || !imgUrl) {
       return
     }
 
     const ben = {
-      hospitalId: hospitalId,
+      // hospitalId: hospitalId,
       beneficiaryAmountGoal: goalFund,
       beneficiaryBirthday: birthDate.getTime(),
       beneficiaryDisease: diseaseName,
@@ -180,13 +180,13 @@ const BenRegister: React.FC = () => {
     await axios
       .post('/beneficiary/beneficiaries/register', ben, {
         headers: {
-          Authorization: A_TOKEN
+          Authorization: accessToken
         }
       })
       .then((res) => {
         console.log(res);
         setIsLoading(false);
-        navigate('/hospage');
+        navigate('/mypage');
         alert('수혜자가 성공적으로 등록되었습니다!');
       })
       .catch((err) => {
@@ -218,7 +218,7 @@ const BenRegister: React.FC = () => {
     ) {
       // 로딩중 표시
       setIsLoading(true);
-
+      // console.log("token: ", accessToken);
       getImgUrI();
       // const imgForAx = await getImgUrI();
 

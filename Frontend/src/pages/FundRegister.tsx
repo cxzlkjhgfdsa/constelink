@@ -32,7 +32,7 @@ const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
 const FUND_CA = "0x07A8A469ca0D02049599874580a0aBA76dd34F18";
 // const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
-const A_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDc0OTE0NCwiZXhwIjoxNjgwNzUwOTQ0LCJyb2xlIjoiSE9TUElUQUwifQ.L5lE9Qn3SMkQXMkFo4vWm-rOQrspFoDWJKbD-WpR5FYBgfqMjqncT29Swsy3MIfoOIJs-dcCXPvWeFqk4HfXsA";
+// const A_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDc0OTE0NCwiZXhwIjoxNjgwNzUwOTQ0LCJyb2xlIjoiSE9TUElUQUwifQ.L5lE9Qn3SMkQXMkFo4vWm-rOQrspFoDWJKbD-WpR5FYBgfqMjqncT29Swsy3MIfoOIJs-dcCXPvWeFqk4HfXsA";
 
 interface category {
   id: number,
@@ -47,6 +47,8 @@ interface transactionArgs {
 
 
 const FundRegister: React.FC = () => {
+
+  const A_TOKEN = localStorage.getItem("access_token");
 
   // 현재 접속한 유저의 metamask address 가져오기
   const [web3, setWeb3] = useState<Web3 | null>(null);
@@ -130,7 +132,7 @@ const FundRegister: React.FC = () => {
   const [goalErrMsg, setGoalErrMsg] = useState('');
   const [noValErr, setNoValErr] = useState(false);
 
-  const hospitalId = 21;
+  // const hospitalId = 21;
 
   // 페이지 로딩하면서 수혜자 리스트 불러오기
   const [benList, setBenList] = useState<object[]>([]);
@@ -138,9 +140,12 @@ const FundRegister: React.FC = () => {
   const getBenList = async () => {
 
     await axios
-      .get(`/beneficiary/beneficiaries/hospital/${hospitalId}`,
+      .get(`/beneficiary/beneficiaries/hospital/self`,
         {
-          params: { hospitalId: hospitalId, page: 1, size: 50000000 }
+          params: { page: 1, size: 50000000 },
+          headers: {
+            Authorization: A_TOKEN
+          }
         })
       .then((res) => {
         // console.log(res);
@@ -163,7 +168,7 @@ const FundRegister: React.FC = () => {
   const getCateList = async () => {
 
     await axios
-      .get('fundraising/categories?page=1&size=5&sortBy=ALL')
+      .get('/fundraising/categories?page=1&size=5&sortBy=ALL')
       .then((res) => {
         res.data.content.map((category: category) => {
           return setCateList(cateList => [...cateList, {
@@ -187,6 +192,7 @@ const FundRegister: React.FC = () => {
   // 수혜자 설정
   const [benId, setBenId] = useState('');
   const handleBen = (e: any) => {
+    // console.log(e);
     setBenId(e.value);
     // 모금액 상한 설정
     setMaxGoal(e.maxGoal);
@@ -340,7 +346,7 @@ const FundRegister: React.FC = () => {
       fundraisingTitle: title,
       fundraisingStory: content,
       fundraisingThumbnail: imgUrl,
-      fundraisingWillUse: '블록체인 테스트/하고 난 후에/완성하겠습니다'
+      fundraisingWillUse: '입원비/수술비/의약품'
     }
 
 
@@ -389,7 +395,7 @@ const FundRegister: React.FC = () => {
 
     if (isDone) {
       alert('모금이 시작되었습니다!');
-      navigate('/hospage');
+      navigate('/mypage');
     }
   }, [isDone])
 
@@ -560,7 +566,7 @@ const FundRegister: React.FC = () => {
           />
         </div>
         {/* 치료비 사용처 입력 */}
-        <div className={styles.useWrapper}>
+        {/* <div className={styles.useWrapper}>
           <div className={styles.use_inputTitle}>
             모금 사용처
             <div className={styles.plus_btn} />
@@ -569,14 +575,14 @@ const FundRegister: React.FC = () => {
             <input
               className={styles.inputBox}
               placeholder="사용처를 입력해 주세요"
-            // onChange={handleTitle}
+              onChange={handleTitle}
             />
           </div>
-          {/* 제목 에러 메시지 */}
-          {/* {titleErr && (
+          제목 에러 메시지
+          {titleErr && (
             <div className={styles.errMsg}>{titleErrMsg}</div>
-          )} */}
-        </div>
+          )}
+        </div> */}
 
         {/* 모금 종료시간 선택 */}
         <div className={styles.timeWrapper}>

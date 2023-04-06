@@ -20,18 +20,19 @@ const HospitalMyPage: React.FC = () => {
     const authInfo = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const accessToken = localStorage.getItem("access_token");
 
     useEffect(() => {
-
-        axios.get("/member/members/info").then((res) => {
+        // console.log(accessToken);
+        axios.get("/member/members/info", {
+          headers: {
+            Authorization: accessToken
+          }
+        }).then((res) => {
             const name = res.data.name;
             dispatch(authActions.update({name}))
-        
-
         })
     },[])
-
 
 
     const logoutHandler = () => {
@@ -78,7 +79,7 @@ const HospitalMyPage: React.FC = () => {
 
             </nav>
 
-            <div className={styles.user_log}>
+            {/* <div className={styles.user_log}>
 
                 <div className={styles.user_donate}>
                     <div className={styles.user_img}><img src={image1} alt='heart' /></div>
@@ -92,7 +93,7 @@ const HospitalMyPage: React.FC = () => {
                     <div className={styles.donate_title}>기부 횟수</div>
                     <div className={styles.donate_amount}>45회</div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

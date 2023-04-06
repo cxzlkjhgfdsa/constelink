@@ -12,17 +12,31 @@ const HosFundList = (props:object) => {
 
   const [fundraisingData, setFundraisingData] = useState<HosFundraisingData[]>();
   const [page, setPage] = useState(1);
-  const [hospitalId, setHospitalId] = useState(3);
+  // const [hospitalId, setHospitalId] = useState(3);
   const size:number = 8;
-  const sortBy:string = "NONE";
+  const sortBy:string = "UNFINISHED";
   const memberId:number = 0;
   const [totalElements, setTotalElements] = useState(0);
-  const URL_PATH : string = "/fundraising/fundraisings/byhospital";
+  const URL_PATH : string = "/fundraising/fundraisings/byhospital/self";
   const time:number = new Date().getTime();
+
+  const accessToken = localStorage.getItem("access_token");
+
+
   useEffect(() => {
-    axios.get(URL_PATH, {params : {page, size, sortBy, hospitalId, memberId}}).then((res) => {
+
+    console.log(accessToken);
+
+
+    axios.get(URL_PATH, {params : {page, size, sortBy, memberId}, 
+    headers: {
+      Authorization: accessToken
+    }}).then((res) => {
       setFundraisingData(res.data.content);
       setTotalElements(res.data.totalElements)
+     })
+     .catch((err) => {
+      console.log(err);
      })
    }
   , [page]);
