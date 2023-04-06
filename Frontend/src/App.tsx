@@ -53,7 +53,7 @@ function App() {
           <Route path='/kakao' element={<KakaoPaid />} />
 
 
-          <Route path='/hospage' element={<HospitalPage />} />
+      
           <Route path='/benregi' element={<BenRegister />} />
           <Route path='/fundregi' element={<FundRegister />} />
           <Route path='/hosbenlist' element={<HosBenList />} />
