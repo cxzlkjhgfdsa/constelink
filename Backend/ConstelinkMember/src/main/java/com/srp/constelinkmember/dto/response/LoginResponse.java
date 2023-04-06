@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 public class LoginResponse {
 	private String nickname;
-
+	private String email;
 	private Role role;
 	private String profile;
 }

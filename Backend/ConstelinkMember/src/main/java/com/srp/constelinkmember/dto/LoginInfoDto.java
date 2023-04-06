@@ -18,5 +18,6 @@ public class LoginInfoDto {
 	private String refreshToken;
 	private String nickname;
 	private String profile;
+	private String email;
 	private Role role;
 }
