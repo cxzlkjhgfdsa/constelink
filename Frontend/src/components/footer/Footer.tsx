@@ -1,26 +1,54 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Footer.module.css";
 import { RootState } from "../../store";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Web3 from "web3";
 import { walletActions } from "../../store/wallet";
+import { authActions } from "../../store/auth";
 const Footer: React.FC = () => {
   // 현재 접속한 유저의 metamask address 가져오기
   const walletInfo = useSelector((state: RootState) => state.wallet);
+  const connected = useSelector((state: RootState) => state.auth.connected);
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (walletInfo.web3 === undefined) {
-      const getWallet = async () => {
+      const getWeb3 = async () => {
+        console.log("지갑 가져오기");
         const web3 = await new Web3(window.ethereum);
-        const address = await web3.eth.getAccounts().then((res) => res[0]);
-        const gasFee = await web3.eth.getGasPrice();
-        dispatch(walletActions.setWallet({ web3, address, gasFee }));
-        return await { web3, address, gasFee };
+        dispatch(walletActions.setWeb({ web3 }));
       };
-      getWallet();
+      getWeb3();
     }
-  }, [walletInfo.web3]);
+
+    if (connected && walletInfo.web3) {
+      const getWallet = async () => {
+        try {
+          await window.ethereum.request({ method: "eth_requestAccounts" });
+        } catch (error) {
+          dispatch(authActions.setConnected({ connected: false }));
+          throw error;
+        }
+
+        const address = await walletInfo.web3?.eth
+          .getAccounts()
+          .then((res) => res[0]);
+        console.log(address, "주소");
+        const balance = await walletInfo.web3?.utils
+          .fromWei(
+            await walletInfo.web3?.eth.getBalance(
+              address === undefined ? "" : address
+            )
+          )
+          .slice(0, 5);
+        dispatch(
+          walletActions.setWallet({ address, balance, connected: true })
+        );
+      };
+      getWallet().catch(() =>
+        dispatch(authActions.setConnected({ connected: false }))
+      );
+    }
+  }, [walletInfo.web3, connected]);
 
   return (
     <div className={styles.footerContainer}>
@@ -29,13 +57,25 @@ const Footer: React.FC = () => {
           지갑 주소 :{" "}
           {walletInfo.address
             ? walletInfo.address.toString()
+            : window.ethereum
+            ? "메타마스크 지갑과 연결해 주세요"
             : "메타마스크를 깔아주세요"}
         </div>
-
         <div className={styles.footerContents2}>
-          {walletInfo.gasFee
-            ? "가스비: " + walletInfo.gasFee.toString() + "wei"
-            : ""}
+          {connected ? (
+            <div className={styles.footerContents2}>
+              코인 :{walletInfo.balance} Ether
+            </div>
+          ) : (
+            <div
+              className={styles.footer_connect}
+              onClick={() => {
+                dispatch(authActions.setConnected({ connected: true }));
+              }}
+            >
+              메타 마스크 연결
+            </div>
+          )}
         </div>
         <div className={styles.footerContents3}>
           <a
