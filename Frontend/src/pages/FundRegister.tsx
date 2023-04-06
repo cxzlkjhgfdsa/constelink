@@ -31,7 +31,7 @@ const _ = require('lodash');
 const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
 const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
-const A_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDY3NjY1MywiZXhwIjoxNjgwNjc4NDUzLCJyb2xlIjoiSE9TUElUQUwifQ.ut7GMHB8pTe4ih3KxC_aooa_WYMBTdiULcV5QGdMiML1l65j_fJ1e3nQ-qV4ACIC7T1x0qsAE0OdDeOjU6LGqw";
+const A_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDczOTgyMCwiZXhwIjoxNjgwNzQxNjIwLCJyb2xlIjoiSE9TUElUQUwifQ.vEfoh-cdgyVuNTIAMl0kTnIiBILw1t4iVGUqBtN771bfhpKfWL0gaqzBvJTqAjJI-ZCrwb2XJ-zG1Pz-I4sY1w";
 
 interface category {
   id: number,
