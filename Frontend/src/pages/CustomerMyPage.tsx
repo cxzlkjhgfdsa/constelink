@@ -18,10 +18,7 @@ const CustomerMyPage: React.FC = () => {
 
     useEffect(() => {
 
-        const accessToken = localStorage.getItem("access_token");
-        console.log(accessToken);
 
-        axios.defaults.headers.common['authorization'] = accessToken;
         axios.get("/member/members/info").then((res) => {
             console.log(res);
             const name = res.data.name;
@@ -76,10 +73,18 @@ const CustomerMyPage: React.FC = () => {
                         </div>
                         <FontAwesomeIcon icon={faChevronRight} />
                     </li>
-                    <li><div className={styles.menu_left} onClick={() => navigate("favorite")}><FontAwesomeIcon className={styles.menu_logo} icon={faStar} /><div>관심 모금</div></div>  <FontAwesomeIcon icon={faChevronRight} /></li>
+
+                    {
+                        authInfo.role==="ADMIN" ?
+                        <>
+                        <li><div className={styles.menu_left} onClick={() => navigate("/notice/create")}><FontAwesomeIcon className={styles.menu_logo} icon={faStar} /><div>공지사항 작성</div></div>  <FontAwesomeIcon icon={faChevronRight} /></li>
+                        <li><div className={styles.menu_left} onClick={logoutHandler}><FontAwesomeIcon className={styles.menu_logo} icon={faRightFromBracket} onClick={logoutHandler} /><div>로그아웃</div></div> </li>
+                        </>:<> <li><div className={styles.menu_left} onClick={() => navigate("favorite")}><FontAwesomeIcon className={styles.menu_logo} icon={faStar} /><div>관심 모금</div></div>  <FontAwesomeIcon icon={faChevronRight} /></li>
                     <li><div className={styles.menu_left} onClick={() => navigate("donatelist")}><FontAwesomeIcon className={styles.menu_logo} icon={faHospitalUser} /><div>모금목록 조회</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
                     <li><div className={styles.menu_left} onClick={() => navigate("restorelist")}><FontAwesomeIcon className={styles.menu_logo} icon={faHospitalUser} /><div>회복일지 조회</div></div> <FontAwesomeIcon icon={faChevronRight} /></li>
-                    <li><div className={styles.menu_left} onClick={logoutHandler}><FontAwesomeIcon className={styles.menu_logo} icon={faRightFromBracket} onClick={logoutHandler} /><div>로그아웃</div></div> </li>
+                    <li><div className={styles.menu_left} onClick={logoutHandler}><FontAwesomeIcon className={styles.menu_logo} icon={faRightFromBracket} onClick={logoutHandler} /><div>로그아웃</div></div> </li></>
+                    }
+                   
                 </ul>
 
             </nav>
