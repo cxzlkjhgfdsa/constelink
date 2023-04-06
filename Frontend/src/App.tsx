@@ -37,19 +37,6 @@ import { walletActions } from "./store/wallet";
 function App() {
   const authInfo = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
-  const walletInfo = useSelector((state: RootState) => state.wallet);
-
-  if (walletInfo.address === undefined && window.ethereum) {
-    const detectWeb3 = async () => {
-      dispatch(
-        walletActions.setWallet({
-          address: await walletInfo.web3?.eth.getAccounts(),
-          gasFee: await walletInfo.web3?.eth.getGasPrice(),
-        })
-      );
-    };
-    detectWeb3();
-  }
 
   return (
     <div className="App">

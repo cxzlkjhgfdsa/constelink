@@ -27,10 +27,11 @@ registerLocale("ko", ko); // 한국어 적용
 const _ = require("lodash");
 
 const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
-const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
+const FUND_CA = "0x07A8A469ca0D02049599874580a0aBA76dd34F18";
+// const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
 const A_TOKEN =
-  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDczOTgyMCwiZXhwIjoxNjgwNzQxNjIwLCJyb2xlIjoiSE9TUElUQUwifQ.vEfoh-cdgyVuNTIAMl0kTnIiBILw1t4iVGUqBtN771bfhpKfWL0gaqzBvJTqAjJI-ZCrwb2XJ-zG1Pz-I4sY1w";
+  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDc0OTE0NCwiZXhwIjoxNjgwNzUwOTQ0LCJyb2xlIjoiSE9TUElUQUwifQ.L5lE9Qn3SMkQXMkFo4vWm-rOQrspFoDWJKbD-WpR5FYBgfqMjqncT29Swsy3MIfoOIJs-dcCXPvWeFqk4HfXsA";
 
 interface category {
   id: number;
@@ -68,7 +69,7 @@ const FundRegister: React.FC = () => {
         // Load the contract
         const contractInstance = new web3Instance.eth.Contract(
           FUND_ABI as AbiItem[],
-          TEST_PUB_FUND_CA
+          FUND_CA
         );
         setContract(contractInstance);
       }
@@ -89,7 +90,7 @@ const FundRegister: React.FC = () => {
       const master = web3.eth.accounts.privateKeyToAccount(MM_KEY!);
       const txParams: TransactionConfig = {
         from: master.address,
-        to: TEST_PUB_FUND_CA,
+        to: FUND_CA,
         gas: 1000000,
         data: contract.methods.startFund(id, total, time, address).encodeABI(),
         // data: contract.methods.startFund(1, 1111116, 2222229, address).encodeABI(),
