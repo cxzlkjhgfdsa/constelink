@@ -23,12 +23,12 @@
   align-items: center;
   justify-content: center;
 }
-.FinishFundList::before {
+.grid_section::before {
   position: absolute;
   top: 70px;
   left: 0;
   width: 100%;
-  height: 110%;
+  height: 130%;
   background-color: rgb(36, 40, 52);
   z-index: -4;
   content: "";
@@ -210,7 +210,7 @@
     2% 35%,
     39% 35%
   );
-  animation: raisingStar 8s linear infinite;
+  animation: raisingStar 10s linear infinite;
   animation-delay: 0s;
   z-index: -1;
 }
@@ -231,8 +231,8 @@
     2% 35%,
     39% 35%
   );
-  animation: raisingStar 8s linear infinite;
-  animation-delay: 4s;
+  animation: raisingStar 10s linear infinite;
+  animation-delay: 5s;
   z-index: -1;
 }
 /* .star1 {

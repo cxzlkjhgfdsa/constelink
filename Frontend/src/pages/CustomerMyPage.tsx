@@ -18,10 +18,10 @@ const CustomerMyPage: React.FC = () => {
 
     useEffect(() => {
 
-        const accessToken = localStorage.getItem("access_token");
-        console.log(accessToken);
+        // const accessToken = localStorage.getItem("access_token");
+        // console.log(accessToken);
 
-        axios.defaults.headers.common['authorization'] = accessToken;
+        // axios.defaults.headers.common['authorization'] = accessToken;
         axios.get("/member/members/info").then((res) => {
             console.log(res);
             const name = res.data.name;
