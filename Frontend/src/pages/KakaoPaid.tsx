@@ -85,7 +85,7 @@ const KakaoPaid: React.FC = () => {
     })
       .then((res) => {
         // console.log(res);
-        // console.log(localStorage.getItem('details'));
+        console.log(localStorage.getItem('details'));
         console.log('1. 카카오 성공');
         localStorage.setItem('money', res.data.amount.total);
         setMoney(res.data.amount.total);
@@ -179,9 +179,10 @@ const KakaoPaid: React.FC = () => {
     console.log('4. 토큰 기부 시작');
     console.log(id);
     console.log(typeof id);
+    console.log(info?.beneficiaryId);
 
     const txHash = await contract.methods
-      .fundRaising(TEST_PUB_FUND_CA, money, 55)
+      .fundRaising(TEST_PUB_FUND_CA, money, info?.beneficiaryId)
       .send({ from: address });
     console.log("Donate Transaction hash:", txHash);
     setTranHash(String(txHash));
