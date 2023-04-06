@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BookmarkFundraisingRequest {
-	Long memberId;
 
-	Long fundraisingId;
+	private Long fundraisingId;
 }

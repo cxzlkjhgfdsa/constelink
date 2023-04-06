@@ -13,7 +13,8 @@ public enum CustomExceptionType {
 	BENEFICIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "E208", "수혜자 id값이 0이하거나 못찾습니다."),
 	TITLE_NOT_FOUND(HttpStatus.NOT_FOUND, "E209", "제목이 빈칸입니다."),
 	MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "E210", "사용자 Id가 0이하거나 찾이 못찾습니다."),
-	HOSPITAL_NOT_FOUND(HttpStatus.NOT_FOUND, "E211", "병원 Id가 0이하거나 찾이 못찾습니다.")
+	HOSPITAL_NOT_FOUND(HttpStatus.NOT_FOUND, "E211", "병원 Id가 0이하거나 찾이 못찾습니다."),
+	TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "E212", "토큰을 못 찾았습니다. 로그인해주세요")
 
 	;
 

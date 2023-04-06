@@ -31,40 +31,33 @@ public class BookmarkController {
 	private final BookmarkService bookmarkService;
 	private final JWTParser jwtParser;
 	// Bookmark 등록 or 해체
-	@Operation(summary = "회원의 북마크 추가/삭제", description = "memberId = 회원 Id, fundraisingId = 모금 Id"
-		+ "memberId는 토큰 있으면 그값을 먼저 기준으로 반영")
+	@Operation(summary = "회원의 북마크 추가/삭제", description = "memberId = 회원 Id, fundraisingId = 모금 Id")
 	@PostMapping("")
 	public ResponseEntity<Boolean> bookmarkFundraising(
 		@RequestBody BookmarkFundraisingRequest bookmarkFundraisingRequest,
 		HttpServletRequest request
 	) {
+		Long memberId;
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 		if(accessToken == null) {
-			if(bookmarkFundraisingRequest.getMemberId()<1){
-				throw new CustomException(CustomExceptionType.MEMBER_NOT_FOUND);
-			}
+			throw new CustomException(CustomExceptionType.TOKEN_NOT_FOUND);
 		} else {
-			bookmarkFundraisingRequest.setMemberId(jwtParser.resolveToken(accessToken));
+			memberId = jwtParser.resolveToken(accessToken);
 		}
-		return ResponseEntity.ok(bookmarkService.bookmarkFundraising(bookmarkFundraisingRequest));
+		return ResponseEntity.ok(bookmarkService.bookmarkFundraising(bookmarkFundraisingRequest,memberId));
 	}
 
-	@Operation(summary = "회원의 북마크한 목록 조회", description = "page = 페이지, size = 페이지당 데이터 수, memberId = 회원 Id"
-		+ "memberId는 header 토큰값을 먼저 기준으로 반영")
+	@Operation(summary = "회원의 북마크한 목록 조회", description = "page = 페이지, size = 페이지당 데이터 수, memberId = 회원 Id")
 	@GetMapping("")
 	public ResponseEntity<Page<FundraisingResponse>> getBookmarks(
 		@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(name = "size", required = false, defaultValue = "5") int size,
-		@RequestParam(name = "memberId", required = false, defaultValue = "0") Long memberId,
 		HttpServletRequest request
 	) {
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		Long memberId = jwtParser.resolveToken(accessToken);
 		if(accessToken == null) {
-			if(memberId<1){
-				throw new CustomException(CustomExceptionType.MEMBER_NOT_FOUND);
-			}
-		} else {
-			memberId = jwtParser.resolveToken(accessToken);
+			throw new CustomException(CustomExceptionType.TOKEN_NOT_FOUND);
 		}
 		return ResponseEntity.ok(bookmarkService.getBookmarks(memberId, page - 1, size));
 	}

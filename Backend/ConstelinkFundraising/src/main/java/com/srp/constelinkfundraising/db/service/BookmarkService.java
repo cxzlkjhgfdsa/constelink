@@ -46,15 +46,12 @@ public class BookmarkService {
 
 
 	@Transactional
-	public Boolean bookmarkFundraising(BookmarkFundraisingRequest bookmarkFundraisingRequest) {
+	public Boolean bookmarkFundraising(BookmarkFundraisingRequest bookmarkFundraisingRequest, Long memberId) {
 		//fundraisingId 검증 필요하면 추가하기(의문)
 		if(bookmarkFundraisingRequest.getFundraisingId() < 1) {
 			throw new CustomException(CustomExceptionType.FUNDRAISING_NOT_FOUND);
 		}
-		if(bookmarkFundraisingRequest.getMemberId()<1) {
-			throw new CustomException(CustomExceptionType.MEMBER_NOT_FOUND);
-		}
-		BookmarkId bookmarkId = new BookmarkId(bookmarkFundraisingRequest.getMemberId(),
+		BookmarkId bookmarkId = new BookmarkId(memberId,
 			bookmarkFundraisingRequest.getFundraisingId());
 		Bookmark bookmark = bookmarkRepository.findBookmarkById(bookmarkId);
 
