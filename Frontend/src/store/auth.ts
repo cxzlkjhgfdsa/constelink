@@ -4,6 +4,7 @@ interface AuthState {
   nickname: string;
   profileImg: string;
   role: string;
+  connected: boolean;
 }
 
 const initialAuthState: AuthState = {
@@ -11,6 +12,7 @@ const initialAuthState: AuthState = {
   nickname: "",
   profileImg: "",
   role: "",
+  connected:false
 };
 
 const authSlice = createSlice({
@@ -34,7 +36,9 @@ const authSlice = createSlice({
       console.log(action.payload.name," 확인좀");
       state.nickname = action.payload.name;
     },
-
+    setConnected(state,action) {
+      state.connected = action.payload.connected;
+    }
     
   },
 });

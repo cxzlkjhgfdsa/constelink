@@ -1,4 +1,4 @@
-import { configureStore, createReducer } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authReducer from "./auth";
@@ -7,15 +7,16 @@ import walletReducedr from "./wallet";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["role", "nickname", "isAuthenticated", "profileImg"],
+  whitelist: ["role", "nickname", "isAuthenticated", "profileImg", "connected"],
 };
-const walletConfig = {
-  key: "wallet",
-  storage,
-  whitelist: ["address", "gasFee", "web3"],
-};
+// const walletConfig = {
+//   key: "wallet",
+//   storage,
+//   whitelist: ["connected"],
+// };
 
 const persistedReducer = persistReducer(persistConfig, authReducer);
+
 const store = configureStore({
   reducer: {
     auth: persistedReducer,

@@ -12,8 +12,15 @@
   font-family: "Hahmlet";
   src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
 }
+.mainWrapper_box {
+  width: 100%;
+  height: 15rem;
+}
+.relative_box {
+  position: relative;
+}
 
-.mainWrapper{
+.mainWrapper {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -22,7 +29,7 @@
   left: 0;
 }
 
-.fundMain{
+.fundMain {
   font-family: "Hahmlet";
   display: flex;
   flex-direction: column;
@@ -36,25 +43,25 @@
   align-items: center;
 }
 
-.fundAbstract{
+.fundAbstract {
   display: flex;
   flex-direction: row;
   width: 70%;
   justify-content: space-between;
 }
 
-.fundTitle{
+.fundTitle {
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
 }
 
-.fundCategory{
+.fundCategory {
   width: fit-content;
   padding: 0.5rem 1rem;
   margin: 0.5rem;
   border-radius: 1rem;
-  background-color: #827D7D;
+  background-color: #827d7d;
   opacity: 75%;
   color: white;
   font-family: "Hahmlet";
@@ -62,18 +69,18 @@
   display: inline-block;
 }
 
-.fundHospital{
+.fundHospital {
   font-family: "Hahmlet";
   color: white;
 }
 
-.fundBrief{
+.fundBrief {
   font-family: "Hahmlet";
   font-size: x-large;
   color: white;
 }
 
-.fundDday{
+.fundDday {
   font-family: "Hahmlet";
   font-weight: bold;
   color: white;
@@ -85,7 +92,7 @@
   border-width: thin;
 }
 
-.fundShare{
+.fundShare {
   margin-top: 7rem;
   background-color: #ffffff;
   opacity: 69%;
@@ -94,7 +101,7 @@
   border-radius: 1rem;
 }
 
-.shareTitle{
+.shareTitle {
   font-family: "Hahmlet";
   color: #575656;
   padding-top: 0.2rem;
@@ -102,53 +109,56 @@
   font-weight: bold;
 }
 
-.shareSub{
+.shareSub {
   font-family: "Hahmlet";
   color: #575656;
   font-size: small;
   padding: 0rem 0.7rem;
 }
 
-.shareBtn{
+.shareBtn {
   font-family: "Hahmlet";
-  color: #BE6DB7;
+  color: #be6db7;
   font-size: small;
   font-weight: bolder;
   padding-left: 13.5rem;
 }
 
-.shareBtnText{
+.shareBtnText {
   cursor: pointer;
 }
 
-.storyWrapper{
+.storyWrapper_box {
+  position: relative;
+  margin-top: 2rem;
+  height: 100%;
+}
+
+.storyWrapper {
   display: flex;
   flex-direction: row;
-  height: max-content;
-  padding-bottom: 5rem;
+  height: 100%;
   width: 100%;
-  position: absolute;
-  left: 0;
-  top: 22rem;
+  position: relative;
   justify-content: center;
 }
 
-.storyDetail{
+.storyDetail {
   /* background-color: blue; */
   width: 60rem;
-  height: max-content;
-  padding-bottom: 10rem;
+  height: 100%;
+  padding-bottom: 1rem;
 }
 
-.storyHeader{
-  background-color: #6F6D8F;
+.storyHeader {
+  background-color: #6f6d8f;
   height: 11rem;
   display: flex;
   align-items: center;
   border-radius: 1rem;
 }
 
-.storyHeaderText{
+.storyHeaderText {
   font-family: "Hahmlet";
   font-size: larger;
   color: white;
@@ -156,34 +166,35 @@
   margin-right: 4rem;
 }
 
-.storyContent{
+.storyContent {
   margin-top: 1rem;
-  border-top: solid #C9C6C6;
+  border-top: solid #c9c6c6;
   /* background-color: red; */
-  height: 20rem;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 }
 
-.storyContentLogo{
+.storyContentLogo {
   font-family: "noto-sans";
   font-size: larger;
   font-weight: bolder;
   margin: 1rem;
   position: relative;
-  right: 24rem;
+  width: 100%;
+  text-align: left;
 }
 
-.storyContentWrapper{
+.storyContentWrapper {
   /* background-color: turquoise; */
   width: 90%;
   height: max-content;
   padding-bottom: 5rem;
 }
 
-.storyContentImg{
+.storyContentImg {
   height: 15rem;
   background-image: url("../assets/img/patient_1.jpg");
   background-size: cover;
@@ -191,12 +202,12 @@
   background-position: 30%;
 }
 
-.storyContentText{
+.storyContentText {
   margin-top: 1rem;
   font-family: "noto-sans";
 }
 
-.fundingCard{
+.fundingCard {
   width: 22rem;
   height: 45rem;
   margin-left: 3rem;
@@ -205,10 +216,10 @@
   align-items: center;
 }
 
-.fundingBeneficiary{
+.fundingBeneficiary {
   width: 20rem;
   height: 8rem;
-  border-color: #DBD9EC;
+  border-color: #dbd9ec;
   border-style: solid;
   border-bottom: none;
   border-top-left-radius: 0.7rem;
@@ -217,7 +228,7 @@
   flex-direction: column;
 }
 
-.benefitTitle{
+.benefitTitle {
   font-family: "Hahmlet";
   font-size: larger;
   font-weight: bolder;
@@ -225,26 +236,26 @@
   margin: 1rem 2rem;
 }
 
-.benefitMan{
+.benefitMan {
   display: flex;
   flex-direction: row;
   margin-left: 2rem;
   height: auto;
 }
 
-.benefitTag{
+.benefitTag {
   font-family: "Hahmlet";
   font-weight: bolder;
   color: #666666;
 }
 
-.benefitName{
+.benefitName {
   font-family: "Hahmlet";
   color: #666666;
   margin-left: 0.3rem;
 }
 
-.benefitImg{
+.benefitImg {
   width: 2rem;
   height: 2rem;
   /* background-color: grey; */
@@ -254,37 +265,37 @@
   left: 0.3rem;
 }
 
-.beneficiary{
+.beneficiary {
   font-family: "Hahmlet";
   margin-left: 2rem;
   color: #666666;
 }
 
-.fundingUsage{
-  width:20rem;
+.fundingUsage {
+  width: 20rem;
   height: max-content;
-  border-color: #DBD9EC;
-  border-top-color: #C9C6C6;
+  border-color: #dbd9ec;
+  border-top-color: #c9c6c6;
   border-style: solid;
   border-bottom: none;
   position: relative;
   padding-bottom: 4rem;
 }
 
-.usageTag{
+.usageTag {
   font-family: "Hahmlet";
   margin: 1rem 2rem 0rem 2rem;
   color: #666666;
 }
 
-.usageList{ 
+.usageList {
   font-family: "Hahmlet";
   font-size: small;
   color: #666666;
   margin-left: 3rem;
 }
 
-.usageHospital{
+.usageHospital {
   font-family: "Hahmlet";
   font-weight: bolder;
   color: #666666;
@@ -295,11 +306,11 @@
   text-align: end;
 }
 
-.fundingBtn{
-  background-color: #A19FD5;
+.fundingBtn {
+  background-color: #a19fd5;
   width: 20rem;
   height: 4.5rem;
-  border-color: #DBD9EC;
+  border-color: #dbd9ec;
   border-style: solid;
   border-bottom-left-radius: 0.7rem;
   border-bottom-right-radius: 0.7rem;
@@ -309,14 +320,14 @@
   align-items: center;
 }
 
-.fundingBtnText{
+.fundingBtnText {
   font-family: "Hahmlet";
   font-size: large;
   font-weight: bolder;
   color: white;
 }
 
-.fundingBar{
+.fundingBar {
   background-image: url("../assets/img/topbanner_1.jpg");
   margin-top: 2rem;
   width: 20rem;
@@ -330,7 +341,7 @@
   align-items: center;
 }
 
-.fundingTag{
+.fundingTag {
   font-family: "Hahmlet";
   font-size: large;
   font-weight: bolder;
@@ -340,7 +351,7 @@
   right: 6rem;
 }
 
-.fundingPct{
+.fundingPct {
   font-family: "Hahmlet";
   font-weight: bolder;
   color: white;
@@ -349,7 +360,7 @@
   right: 7rem;
 }
 
-.star{
+.star {
   right: 7.5rem;
   position: relative;
   display: inline-block;
@@ -357,38 +368,38 @@
   height: 0;
   margin-top: 0.25rem;
   margin-left: 1.2em;
-  margin-right: .9em;
+  margin-right: 0.9em;
   margin-bottom: 1rem;
-  border-right:  .3em solid transparent;
-  border-bottom: .7em  solid #FC0;
-  border-left:   .3em solid transparent;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0.7em solid #fc0;
+  border-left: 0.3em solid transparent;
   /* Controlls the size of the stars. */
   font-size: 0.5rem;
 }
-.star::before{
-  content: '';
+.star::before {
+  content: "";
   display: block;
   width: 0;
   height: 0;
   position: absolute;
-  top: .6em;
+  top: 0.6em;
   left: -1em;
-  border-right:  1em solid transparent;
-  border-bottom: .7em  solid #FC0;
-  border-left:   1em solid transparent;
+  border-right: 1em solid transparent;
+  border-bottom: 0.7em solid #fc0;
+  border-left: 1em solid transparent;
   transform: rotate(-35deg);
 }
-.star::after{
-  content: '';    
+.star::after {
+  content: "";
   display: block;
   width: 0;
-  height: 0;  
+  height: 0;
   position: absolute;
-  top: .6em;
+  top: 0.6em;
   left: -1em;
-  border-right:  1em solid transparent;
-  border-bottom: .7em  solid #FC0;
-  border-left:   1em solid transparent;
+  border-right: 1em solid transparent;
+  border-bottom: 0.7em solid #fc0;
+  border-left: 1em solid transparent;
   transform: rotate(-35deg);
   transform: rotate(35deg);
 }
@@ -403,12 +414,11 @@
 .fundDetailBar::-webkit-progress-bar {
   background-color: #ffffff;
   border-radius: 10px;
-
 }
 .fundDetailBar::-webkit-progress-value {
-  background-color: #BE6DB7;
+  background-color: #be6db7;
   border-radius: 10px;
- 
+
   animation: progress-bar 1s ease-out forwards;
 }
 
@@ -421,7 +431,7 @@
   }
 }
 
-.fundingGoal{
+.fundingGoal {
   font-family: "Hahmlet";
   font-size: x-small;
   color: white;
