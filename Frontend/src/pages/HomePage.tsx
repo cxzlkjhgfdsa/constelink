@@ -55,7 +55,7 @@ const HomePage: React.FC = () => {
     // const accessToken = localStorage.getItem('access_token');
         
     // axios.defaults.headers.common['authorization'] = accessToken;
-    axios.get("/fundraising/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=ALL&memberId=2").then((res) => {
+    axios.get("/fundraising/fundraisings/withbeneficiaryinfo?page=1&size=5&sortBy=START_DATE_DESC&memberId=2").then((res) => {
       console.log(res.data.content);
       // axios.defaults.headers.common={}
       setDonateCard(res.data.content);
