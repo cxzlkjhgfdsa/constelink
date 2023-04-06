@@ -7,3 +7,8 @@
 ul.slick-dots {
   margin-bottom: 40px;
 }
+
+.App2 {
+  height: fit-content;
+  min-height: 100vh;
+}

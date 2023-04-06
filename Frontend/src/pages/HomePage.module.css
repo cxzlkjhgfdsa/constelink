@@ -333,3 +333,10 @@
   font-family: "Hahmlet";
   margin-top: 30px;
 }
+
+.relative_box {
+  height: 350px;
+}
+.relative_box2 {
+  height: 80px;
+}

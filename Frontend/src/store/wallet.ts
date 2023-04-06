@@ -5,21 +5,19 @@ interface WalletState {
   gasFee: string | undefined;
   web3: Web3 | undefined;
 }
-if (window.ethereum) {
-  window.ethereum.request({ method: "eth_requestAccounts" });
-}
 
-const initialWalletState: WalletState = {
+const initialState: WalletState = {
   address: undefined,
   gasFee: undefined,
-  web3: new Web3(window.ethereum),
+  web3: undefined,
 };
 
 const walletSlice = createSlice({
   name: "wallet",
-  initialState: initialWalletState,
+  initialState,
   reducers: {
     setWallet(state, action) {
+      state.web3 = action.payload.web3;
       state.address = action.payload.address;
       state.gasFee = action.payload.gasFee;
     },

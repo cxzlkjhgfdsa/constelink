@@ -10,6 +10,7 @@ import "./paging.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import Footer from "../components/footer/Footer";
 interface CategoryData {
   id: number;
   categoryName: string;
@@ -109,8 +110,9 @@ const FundMain: React.FC = () => {
               ></input>
               <label
                 htmlFor={`category-${category.id}`}
-                className={`${styles[`box_color_${Math.floor(Math.random() * 5) + 1}`]
-                  }`}
+                className={`${
+                  styles[`box_color_${Math.floor(Math.random() * 5) + 1}`]
+                }`}
               >
                 {category.categoryName}
               </label>
@@ -171,32 +173,32 @@ const FundMain: React.FC = () => {
           })}
         </div>
 
-        {
-          campaignList.length === 0 ? <><div className={styles.cardsWrapper_1}>
-            <div className={styles.empty_signal}>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </div>
-            <div className={styles.empty_ment}>관련된 카테고리의 치료모금이 존재하지 않습니다.</div>
-          </div>
-          </> :
-            <>
-              <div className={styles.pagination}>
-                <Pagination
-                  activePage={page}
-                  itemsCountPerPage={16}
-                  totalItemsCount={totalPage}
-                  pageRangeDisplayed={16}
-                  prevPageText={"‹"}
-                  nextPageText={"›"}
-                  onChange={handlePageChange}
-                />
+        {campaignList.length === 0 ? (
+          <>
+            <div className={styles.cardsWrapper_1}>
+              <div className={styles.empty_signal}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
               </div>
-
-            </>
-        }
-
-
-
+              <div className={styles.empty_ment}>
+                관련된 카테고리의 치료모금이 존재하지 않습니다.
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={styles.pagination}>
+              <Pagination
+                activePage={page}
+                itemsCountPerPage={16}
+                totalItemsCount={totalPage}
+                pageRangeDisplayed={16}
+                prevPageText={"‹"}
+                nextPageText={"›"}
+                onChange={handlePageChange}
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
