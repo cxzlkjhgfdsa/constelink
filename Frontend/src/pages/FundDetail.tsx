@@ -197,6 +197,17 @@ const FundDetail: React.FC = () => {
                   </li>
                 );
               })}
+                 <li className={styles.usageList}>
+                    • 약제비
+                  </li>
+
+                  <li className={styles.usageList}>
+                    • 주사비
+                  </li>
+
+                  <li className={styles.usageList}>
+                    • 입원비
+                  </li>
 
               {/* 병원이름 */}
               <div className={styles.usageHospital}>
