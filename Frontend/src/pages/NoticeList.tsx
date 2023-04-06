@@ -42,10 +42,14 @@ const NoticeList = () => {
     return (
         <div className={styles.NoticeList}>
             <section className={styles.notice_section}>
+                <div className={styles.notice}> 
+                    <div className={styles.notice_info} >공지내역</div>
+                    <div className={styles.notice_date} >날짜</div>
+                </div>
                 <ul className={styles.notice_list}>
                     {boardList.map((it, idx) => <li className={styles.notice_item} key={it.id.toString()} onClick={()=> navigate(`/notice/${it.id}`)}>
                         <div className={styles.item_nav}>
-                            <div className={styles.nav_num}>{(8*(page-1))+idx+1}</div>
+                            {/* <div className={styles.nav_num}>{(8*(page-1))+idx+1}</div> */}
 
                             {it.noticeType === 'SYSTEM' ? <div className={styles.nav_type1}>긴급공지</div> : <div className={styles.nav_type2}>일반공지</div>}
 

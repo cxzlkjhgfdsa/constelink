@@ -24,14 +24,10 @@ const HospitalMyPage: React.FC = () => {
 
     useEffect(() => {
 
-        const accessToken = localStorage.getItem("access_token");
-        console.log(accessToken);
-
-        axios.defaults.headers.common['authorization'] = accessToken;
         axios.get("/member/members/info").then((res) => {
             const name = res.data.name;
             dispatch(authActions.update({name}))
-            axios.defaults.headers.common = {};
+        
 
         })
     },[])
@@ -39,10 +35,7 @@ const HospitalMyPage: React.FC = () => {
 
 
     const logoutHandler = () => {
-        const accessToken = localStorage.getItem('access_token');
-        const refreshToken = localStorage.getItem('refresh_token');
-        axios.defaults.headers.common['authorization'] = accessToken;
-        axios.defaults.headers.common['refresh'] = refreshToken;
+
         axios.post("member/auth/logout").then(res => {
             console.log(res);
             dispatch(authActions.logout());

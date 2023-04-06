@@ -161,9 +161,9 @@ const FundMain: React.FC = () => {
               <div
                 className={styles.cardWrapper}
                 key={idx}
-                onClick={() =>
-                  navigate(`/fundmain/funddetail/${it.fundraisingId}`)
-                }
+                // onClick={() =>
+                //   navigate(`/fundmain/funddetail/${it.fundraisingId}`)
+                // }
               >
                 <DonationCard data={it} />
               </div>
