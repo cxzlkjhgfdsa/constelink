@@ -16,44 +16,31 @@ const CustomerMyPage: React.FC = () => {
     const navigate = useNavigate();
     const [log, setLog] = useState<{price:number, count:number}>({price:0 ,count:0});
 
-    useEffect(() => {
-
-        const accessToken = localStorage.getItem("access_token");
-        console.log(accessToken);
-
-        axios.get("/member/members/info").then((res) => {
-            console.log(res);
-            const name = res.data.name;
-            dispatch(authActions.update({name}))
-            setLog({price: res.data.totalAmount,count: res.data.totalFundCnt});
-
-
-        })
-    },[])
 
 
 
-    const logoutHandler = ()=>{
-        // axios.defaults.headers.common = {};
-        // const accessToken = localStorage.getItem('access_token');
-        // const refreshToken = localStorage.getItem('refresh_token');
-        // axios.defaults.headers.common['authorization'] = accessToken;
-        // axios.defaults.headers.common['refresh'] = refreshToken;
-        axios.post("member/auth/logout").then(res=>{
-            console.log(res);
-            dispatch(authActions.logout());
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("refresh_token");
-             // axios 기본 헤더 초기화
+    const logoutHandler = () => {
+        dispatch(authActions.logout());
+        console.log("로그아웃")
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        axios.post("member/auth/logout").then(res => {
             axios.defaults.headers.common = {};
             navigate("/");
-           
-
-        
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err);
+            navigate("/");
         })
     }
+
+    useEffect(() => {
+        console.log("발동!")
+        axios.get("/member/members/info").then((res) => {
+            const name = res.data.name;
+            dispatch(authActions.update({name}))
+            setLog({price: res.data.totalAmount,count: res.data.totalFundCnt})
+        })
+    },[])
 
     return (
         <div className={styles.CustomerMyPage}>

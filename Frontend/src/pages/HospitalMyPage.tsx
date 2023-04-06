@@ -36,17 +36,15 @@ const HospitalMyPage: React.FC = () => {
 
 
     const logoutHandler = () => {
-
+        dispatch(authActions.logout());
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
         axios.post("member/auth/logout").then(res => {
-            console.log(res);
-            dispatch(authActions.logout());
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("refresh_token");
-            console.log("gpejsodyd", axios.defaults.headers.common);
             axios.defaults.headers.common = {};
             navigate("/");
         }).catch((err) => {
             console.log(err);
+            navigate("/");
         })
     }
 
