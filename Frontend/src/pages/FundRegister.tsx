@@ -304,7 +304,7 @@ const FundRegister: React.FC = () => {
         }
       })
       .then((res) => {
-        console.log('변환성공');
+        console.log('1. 사진 받아왔음');
         setImgUrl(res.data.fileUrl);
       })
       .catch((err) => {
@@ -349,11 +349,7 @@ const FundRegister: React.FC = () => {
         }
       })
       .then((res) => {
-        console.log('모금 ID 확인해서 어떻게 뜨나 확인해보기');
-        console.log(res.data);
-        console.log(res.data.id);
-
-        console.log('시간 밀리초에서 초로 바꿔서 보내줘야함')
+        console.log('2. 포스트 요청 보냈음');
 
         let now = new Date().getTime()
 
@@ -379,7 +375,7 @@ const FundRegister: React.FC = () => {
   useEffect(() => {
 
     if (isPosted) {
-      console.log('트랜젝션 보내기');
+      console.log('3. 트랜젝션 보내기');
       sendTransactionStartFunding(args!.id, args!.total, args!.time);
     }
   }, [isPosted])
