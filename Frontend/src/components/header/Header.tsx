@@ -48,20 +48,17 @@ const Header: React.FC = () => {
         setSelectedMenu(menu);
     };
 
-    const logoutHandler = ()=>{
-        const accessToken = localStorage.getItem('access_token');
-        const refreshToken = localStorage.getItem('refresh_token');
-        axios.defaults.headers.common['authorization'] = accessToken;
-        axios.defaults.headers.common['refresh'] = refreshToken;
-        axios.post("/auth/logout").then(res=>{
-            console.log(res);
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("refresh_token");
-            dispatch(authActions.logout());
-            navigate("/")
-        
-        }).catch((err)=>{
+    const logoutHandler = () => {
+        dispatch(authActions.logout());
+        console.log("로그아웃")
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        axios.post("member/auth/logout").then(res => {
+            axios.defaults.headers.common = {};
+            navigate("/");
+        }).catch((err) => {
             console.log(err);
+            navigate("/");
         })
     }
     return (
@@ -126,7 +123,7 @@ const Header: React.FC = () => {
                                 <span className={styles.a} onClick={()=>navigate("/finish")}>치료달성</span>
                                 {
                                     authInfo.isAuthenticated ? <span> <span className={styles.a} onClick={()=>{
-                                        authInfo.role === 'USER' ?  navigate("/mypage") : authInfo.role === 'ADMIN'? navigate("/mypage"): navigate("/hospage");
+                                        authInfo.role === 'USER' ?  navigate("/mypage") : authInfo.role === 'ADMIN'? navigate("/mypage"): navigate("/mypage");
                                        
                                     }}>마이페이지</span> <span className={styles.a} onClick={logoutHandler}>로그아웃</span></span> : <span className={styles.a} onClick={()=>navigate("/login")}>로그인</span>
                                 }

@@ -21,6 +21,8 @@ import {
   RecoveryDiaryCreate,
 } from "./../models/recoveryData";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 // 리커버리 카드 import 해야함
 // 리커버리 카드 -> 생성버튼 -> 모달을 통해 create -> 카드로 생성
@@ -29,6 +31,10 @@ import axios from "axios";
 
 // axios get으로 선택한 diary에서 선택한 카드정보를 가져오고, axios post로 치료일기를 만들 수 있어야 함
 const RecoveryDiaryDetail: React.FC = () => {
+  const authInfo = useSelector((state:RootState)=>state.auth)
+
+
+
   // 환자정보
   const [treatmentRecords, setTreatmentRecords] =
     useState<RecoveryDiaryDetailData>();
@@ -305,12 +311,13 @@ const RecoveryDiaryDetail: React.FC = () => {
                 {/* <p className={styles.patientInfoContent}>{treatmentRecords.beneficiaryAmountRaised}원</p> */}
               </div>
               <div className={styles.detailButton}>
-                <button
+                {authInfo.role==="HOSPITAL"? <button
                   className={styles.detailCreateButton}
                   onClick={() => onClickCreateRecord()}
                 >
                   치료일지 생성
-                </button>
+                </button>:""  }
+                
                 <button
                   className={styles.detailBackButton}
                   onClick={() => navigate(`/diary`)}
