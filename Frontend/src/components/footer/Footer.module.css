@@ -1,37 +1,29 @@
 .footerContainer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
+  display: block;
+  position: sticky;
+  height: 30px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  z-index: 5;
 }
 
 .footerContent {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  height: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.footerLinks a {
-    color: #fff;
-    margin-right: 20px;
-}
+/* .footerLinks a {
+  color: #fff;
+  margin-right: 20px;
+} */
 
-.footerLinks a:last-of-type {
-    margin-right: 0;
-}
-
-.footerContact {
-    margin-top: 20px;
-}
-
-.footerContact p {
-    margin: 0;
-}
-
-.footerText {
-    margin-top: 20px;
+.footer_bottom {
+  background-color: rgb(176, 176, 223);
+  color: black;
 }
