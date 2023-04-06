@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BeneficiaryReqeust {
-	private Long hospitalId;
+	// private Long hospitalId;
 	private String beneficiaryName;
 	private Date beneficiaryBirthday;
 	private String beneficiaryDisease;

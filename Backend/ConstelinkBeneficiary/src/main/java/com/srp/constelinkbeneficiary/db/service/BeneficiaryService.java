@@ -91,9 +91,9 @@ public class BeneficiaryService {
 	}
 
 	@Transactional
-	public BeneficiaryInfoResponse addBeneficiary(BeneficiaryReqeust beneficiaryReqeust) {
+	public BeneficiaryInfoResponse addBeneficiary(BeneficiaryReqeust beneficiaryReqeust, Long hospitalId) {
 		Beneficiary beneficiary = new Beneficiary().builder()
-			.hospital(hospitalRepository.findHospitalById(beneficiaryReqeust.getHospitalId())
+			.hospital(hospitalRepository.findHospitalById(hospitalId)
 				.orElseThrow(() -> new CustomException(
 					CustomExceptionType.HOSPITAL_NOT_FOUND)))
 			.beneficiaryName(beneficiaryReqeust.getBeneficiaryName())

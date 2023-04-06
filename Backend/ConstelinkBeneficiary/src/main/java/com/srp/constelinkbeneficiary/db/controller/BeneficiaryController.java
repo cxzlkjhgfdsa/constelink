@@ -60,25 +60,20 @@ public class BeneficiaryController {
 		return ResponseEntity.ok(beneficiaryInfoList);
 	}
 
-	@Operation(summary = "수혜자 등록", description = "hospitalId = 병원ID, beneficiaryName = 수혜자 이름, beneficiaryBirthday = 수혜자 생일, beneficiaryDisease = 수혜자 병명, beneficiaryPhoto = 수혜자 사진, beneficiaryAmountGoal = 목표금액 필요")
+	@Operation(summary = "수혜자 등록", description = "beneficiaryName = 수혜자 이름, beneficiaryBirthday = 수혜자 생일, beneficiaryDisease = 수혜자 병명, beneficiaryPhoto = 수혜자 사진, beneficiaryAmountGoal = 목표금액 필요")
 	@PostMapping("/register")
 	public ResponseEntity<BeneficiaryInfoResponse> addBeneficiary(
 		@RequestBody BeneficiaryReqeust beneficiaryReqeust,
 		HttpServletRequest request
 	) {
-		Long hospitalId = beneficiaryReqeust.getHospitalId();
+		Long hospitalId;
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
 		if(accessToken == null) {
-			if(beneficiaryReqeust.getHospitalId() <1) {
-				throw new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND);
-			}
-			hospitalId=beneficiaryReqeust.getHospitalId();
+			throw new CustomException(CustomExceptionType.TOKEN_NOT_FOUND);
 		} else {
 			hospitalId = jwtParser.resolveToken(accessToken);
-			beneficiaryReqeust.setHospitalId(hospitalId);
 		}
-		BeneficiaryInfoResponse beneficiaryInfoResponse = beneficiaryService.addBeneficiary(beneficiaryReqeust);
-
+		BeneficiaryInfoResponse beneficiaryInfoResponse = beneficiaryService.addBeneficiary(beneficiaryReqeust, hospitalId);
 		return ResponseEntity.ok(beneficiaryInfoResponse);
 	}
 
@@ -99,7 +94,7 @@ public class BeneficiaryController {
 	}
 
 
-	@Operation(summary = "해당 회원이 기부했던 수혜자 목록 조회(일기 있는 사람만)", description = "memberId = 회원ID, "
+	@Operation(summary = "해당 회원이 기부했던 수혜자 목록 조회(일기 있는 사람만)"
 		+ "page = 페이지, "
 		+ "size = 한 페이지 담는 자료 수"
 		+ "sortBy = 정렬타입")
@@ -109,14 +104,12 @@ public class BeneficiaryController {
 		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
 		@RequestParam(value = "sortBy", required = false, defaultValue = "NONE") BeneficiaryMemberDonate sortType,
-		@RequestParam(value = "memberId", required = false, defaultValue = "0") Long memberId,
 		HttpServletRequest request
 	) {
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		Long memberId;
 		if(accessToken == null) {
-			if(memberId<1){
-				throw new CustomException(CustomExceptionType.MEMBER_NOT_FOUND);
-			}
+			throw new CustomException(CustomExceptionType.TOKEN_NOT_FOUND);
 		} else {
 			memberId = jwtParser.resolveToken(accessToken);
 		}
@@ -126,20 +119,17 @@ public class BeneficiaryController {
 	}
 
 	@Operation(summary = "수혜자 정보 수정 (수혜자의 병원id 같아야함, header에 있으면 검사안함)", description = "beneficiaryId = 수혜자 Id "
-		+ "/ hospitalId = 해당 수혜자의 병원 Id"
 		+ "/ beneficiaryStatus 3가지 [RAISING, DONE, RECOVERING]")
 	@PostMapping("/edit/{beneficiaryId}")
 	// 해당 수혜자 정보 가져오기
 	public ResponseEntity<Long> findBeneficiaryById(
 		@PathVariable(value = "beneficiaryId") Long beneficiaryId,
 		@RequestBody BeneficiaryEditRequest beneficiaryEditRequest,
-		@RequestParam(value="hospitalId", required = false, defaultValue = "3") Long hospitalId,
 		HttpServletRequest request) {
 		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		Long hospitalId;
 		if(accessToken == null) {
-			if(hospitalId<1){
-				throw new CustomException(CustomExceptionType.HOSPITAL_NOT_FOUND);
-			}
+				throw new CustomException(CustomExceptionType.TOKEN_NOT_FOUND);
 		} else {
 			hospitalId = jwtParser.resolveToken(accessToken);
 		}
