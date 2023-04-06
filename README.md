@@ -1,6 +1,6 @@
 # ⭐Constelink
 
-<img src="https://user-images.githubusercontent.com/96561194/229989668-926a5819-abaa-4e68-a4f0-521221e61f8a.png" width="800"/>
+<img src="https://user-images.githubusercontent.com/47595515/230431288-f742c280-8831-440d-964c-db73e5d3d2e7.png" width="500"/>
 
 <br/>
 
