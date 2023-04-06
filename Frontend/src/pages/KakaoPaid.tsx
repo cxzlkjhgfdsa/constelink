@@ -38,7 +38,10 @@ interface recievedata {
 
 const AUTH_TOKEN = window.localStorage.getItem('access_token');
 const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
-const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
+const FUND_CA = "0x07A8A469ca0D02049599874580a0aBA76dd34F18";
+
+
+// const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
 
 // 이 페이지에서 메타마스크와 연결하고 토큰mint, donate 해야할듯?
@@ -119,7 +122,7 @@ const KakaoPaid: React.FC = () => {
         setAddress(accounts[0]);
 
         // Load the contract
-        const contractInstance = new web3Instance.eth.Contract(FUND_ABI as AbiItem[], TEST_PUB_FUND_CA);
+        const contractInstance = new web3Instance.eth.Contract(FUND_ABI as AbiItem[], FUND_CA);
         setContract(contractInstance);
       }
     };
@@ -149,7 +152,7 @@ const KakaoPaid: React.FC = () => {
       const txParams: TransactionConfig = {
 
         from: master.address,
-        to: TEST_PUB_FUND_CA,
+        to: FUND_CA,
         gas: 1000000,
         data: contract.methods.mint(address, money).encodeABI(),
         nonce: await web3.eth.getTransactionCount(master.address),
@@ -183,7 +186,7 @@ const KakaoPaid: React.FC = () => {
     console.log(typeof info?.fundraisingId);
 
     const txHash = await contract.methods
-      .fundRaising(TEST_PUB_FUND_CA, money, Number(info?.fundraisingId))
+      .fundRaising(FUND_CA, money, Number(info?.fundraisingId))
       .send({ from: address });
     console.log("Donate Transaction hash:", txHash);
     setTranHash(String(txHash));
@@ -206,11 +209,11 @@ const KakaoPaid: React.FC = () => {
     // 토큰 기부하면 DB에 기부 저장하기
     const saveDonation = async () => {
 
-      console.log('400해결');
-      console.log(info);
-      console.log(typeof info);
-      console.log(tranHash);
-      console.log(typeof tranHash)
+      // console.log('400해결');
+      // console.log(info);
+      // console.log(typeof info);
+      // console.log(tranHash);
+      // console.log(typeof tranHash)
 
       const body = {
         fundraisingId: info?.fundraisingId,
@@ -224,8 +227,8 @@ const KakaoPaid: React.FC = () => {
         fundraisingThumbnail: info?.fundraisingThumbnail
       };
 
-      console.log('나이스바디');
-      console.log(body);
+      // console.log('나이스바디');
+      // console.log(body);
 
       await axios.post('/member/donations/save', body, {
         headers: {
