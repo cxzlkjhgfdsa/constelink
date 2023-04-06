@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import topbanner1 from '../assets/img/topbanner_1.jpg';
 import topbanner2 from '../assets/img/topbanner_2.jpg';
-import topbanner3 from '../assets/img/topbanner_3.jpg';
+import topbanner4 from '../assets/img/topbanner_4.jpg';
 import ssafy from '../assets/logo/ssafy_logo.png';
 import DonationCard from '../components/cards/DonationCard';
 import { DonationData, Statistics } from '../models/donatecard';
@@ -30,7 +30,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useNavigate } from 'react-router-dom';
 import SideStickyCard from '../components/cards/SideStickyCard';
 
-const images = [topbanner1, topbanner2, topbanner3];
+const images = [topbanner1, topbanner2, topbanner4];
 const contents = [["콘스텔링크 Constelink", "블록체인기반, 치료비 모금 플랫폼"], ["콘스텔링크 Constelink", "여러분의 관심이 많은이들에게 도움이 됩니다."], ["콘스텔링크 Constelink", "블로체인기반, 치료비 모금 플랫폼 당신의 별자리"]];
 
 const HomePage: React.FC = () => {
