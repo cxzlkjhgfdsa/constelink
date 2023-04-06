@@ -85,7 +85,7 @@ const KakaoPaid: React.FC = () => {
     })
       .then((res) => {
         // console.log(res);
-        console.log(localStorage.getItem('details'));
+        // console.log(localStorage.getItem('details'));
         console.log('1. 카카오 성공');
         localStorage.setItem('money', res.data.amount.total);
         setMoney(res.data.amount.total);
@@ -157,9 +157,9 @@ const KakaoPaid: React.FC = () => {
       };
 
       const signedTX = await master.signTransaction(txParams);
-      console.log('이게 signedTX');
-      console.log(signedTX.rawTransaction);
-      console.log('입니다');
+      // console.log('이게 signedTX');
+      // console.log(signedTX.rawTransaction);
+      // console.log('입니다');
 
       const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
       console.log(`Mint Transaction hash: ${receipt.transactionHash}`);
@@ -177,12 +177,12 @@ const KakaoPaid: React.FC = () => {
   const [txDone, setTxDone] = useState(false);
   async function sendTransactionDonate() {
     console.log('4. 토큰 기부 시작');
-    console.log(id);
-    console.log(typeof id);
-    console.log(info?.beneficiaryId);
+    // console.log(id);
+    // console.log(typeof id);
+    console.log(info?.fundraisingId);
 
     const txHash = await contract.methods
-      .fundRaising(TEST_PUB_FUND_CA, money, info?.beneficiaryId)
+      .fundRaising(TEST_PUB_FUND_CA, money, info?.fundraisingId)
       .send({ from: address });
     console.log("Donate Transaction hash:", txHash);
     setTranHash(String(txHash));
