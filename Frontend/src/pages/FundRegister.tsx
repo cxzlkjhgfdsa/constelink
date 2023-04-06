@@ -100,6 +100,7 @@ const FundRegister: React.FC = () => {
       // console.log('입니다');
 
       const receipt: TransactionReceipt = await web3.eth.sendSignedTransaction(signedTX.rawTransaction!);
+      console.log('id: ', id);
       console.log(`Transaction hash: ${receipt.transactionHash}`);
       setIsDone(true);
     } else {
@@ -383,6 +384,7 @@ const FundRegister: React.FC = () => {
 
   // 할거 없으면 인제 홈가자
   useEffect(() => {
+
 
     if (isDone) {
       alert('모금이 시작되었습니다!');
