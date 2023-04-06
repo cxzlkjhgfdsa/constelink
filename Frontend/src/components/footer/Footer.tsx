@@ -80,7 +80,15 @@ const Footer: React.FC = () => {
         <div className={styles.footerContents3}>
           <a
             className={styles.footer_link}
-            href="https://sepolia.etherscan.io/address/0x07A8A469ca0D02049599874580a0aBA76dd34F18"
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open(
+                "https://sepolia.etherscan.io/address/0x07A8A469ca0D02049599874580a0aBA76dd34F18",
+                "popup",
+                "toolbar=no,scrollbars=yes,resizable=yes,status=no,menubar=no,width=900px, height=600px, top=100px,left=350px"
+              );
+            }}
           >
             기부내역 확인
           </a>
