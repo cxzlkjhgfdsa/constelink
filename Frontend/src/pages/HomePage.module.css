@@ -113,7 +113,8 @@
 /* 별달러 가기 배너 */
 
 .with_box {
-    background: linear-gradient(to bottom right, #474581, #b7b6d6);
+    background: linear-gradient(to bottom right, #15134b, #b7b6d6);
+    /* background: linear-gradient(to bottom right, #474581, #b7b6d6); */
     height: 110px;
     /* width: 100%; */
     display: flex;
