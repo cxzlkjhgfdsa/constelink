@@ -177,9 +177,11 @@ const KakaoPaid: React.FC = () => {
   const [txDone, setTxDone] = useState(false);
   async function sendTransactionDonate() {
     console.log('4. 토큰 기부 시작');
+    console.log(id);
+    console.log(typeof id);
 
     const txHash = await contract.methods
-      .fundRaising(TEST_PUB_FUND_CA, money, id)
+      .fundRaising(TEST_PUB_FUND_CA, money, 55)
       .send({ from: address });
     console.log("Donate Transaction hash:", txHash);
     setTranHash(String(txHash));
