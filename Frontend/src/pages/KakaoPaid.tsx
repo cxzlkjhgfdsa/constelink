@@ -180,9 +180,10 @@ const KakaoPaid: React.FC = () => {
     // console.log(id);
     // console.log(typeof id);
     console.log(info?.fundraisingId);
+    console.log(typeof info?.fundraisingId);
 
     const txHash = await contract.methods
-      .fundRaising(TEST_PUB_FUND_CA, money, info?.fundraisingId)
+      .fundRaising(TEST_PUB_FUND_CA, money, Number(info?.fundraisingId))
       .send({ from: address });
     console.log("Donate Transaction hash:", txHash);
     setTranHash(String(txHash));
