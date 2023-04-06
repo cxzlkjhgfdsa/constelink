@@ -137,4 +137,25 @@ public class BeneficiaryController {
 		return ResponseEntity.ok(beneficiary);
 	}
 
+	@Operation(summary = "해당 병원의 수혜자 목록 조회", description = "hospitalId = 병원ID, "
+		+ "page = 페이지, "
+		+ "size = 한 페이지 담는 자료 수")
+	@GetMapping("/hospital/self")
+	// 하나의 병원에 있는 모든 수혜자 목록 가져오기
+	public ResponseEntity<Page<BeneficiaryInfoResponse>> findBeneficiaryByHospitalSelf(
+		@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+		@RequestParam(value = "size", required = false, defaultValue = "5") int size,
+		HttpServletRequest request
+	) {
+		String accessToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+		Long hospitalId;
+		if(accessToken == null) {
+			throw new CustomException(CustomExceptionType.TOKEN_NOT_FOUND);
+		} else {
+			hospitalId = jwtParser.resolveToken(accessToken);
+		}
+		Page<BeneficiaryInfoResponse> beneficiaryInfoList = beneficiaryService.findBeneficiariesByHospitalId(hospitalId,
+			page - 1, size);
+		return ResponseEntity.ok(beneficiaryInfoList);
+	}
 }
