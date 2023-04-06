@@ -32,7 +32,7 @@ const MM_KEY = process.env.REACT_APP_MM_PRIVATE_KEY;
 const FUND_CA = "0x07A8A469ca0D02049599874580a0aBA76dd34F18";
 // const TEST_PUB_FUND_CA = "0x962aDFA41aeEb2Dc42E04586dBa143f2404FD10D";
 
-const A_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDczOTgyMCwiZXhwIjoxNjgwNzQxNjIwLCJyb2xlIjoiSE9TUElUQUwifQ.vEfoh-cdgyVuNTIAMl0kTnIiBILw1t4iVGUqBtN771bfhpKfWL0gaqzBvJTqAjJI-ZCrwb2XJ-zG1Pz-I4sY1w";
+const A_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMSIsImlhdCI6MTY4MDc0OTE0NCwiZXhwIjoxNjgwNzUwOTQ0LCJyb2xlIjoiSE9TUElUQUwifQ.L5lE9Qn3SMkQXMkFo4vWm-rOQrspFoDWJKbD-WpR5FYBgfqMjqncT29Swsy3MIfoOIJs-dcCXPvWeFqk4HfXsA";
 
 interface category {
   id: number,
