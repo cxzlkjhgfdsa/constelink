@@ -13,6 +13,7 @@ import FundRegister from "./pages/FundRegister";
 import HosBenList from "./pages/HosBenList";
 import HosFundList from "./pages/HosFundList";
 import NoticePage from "./pages/NoticePage";
+import BenEdit from "./pages/BenEdit";
 
 import NoticeDetail from "./pages/NoticeDetail";
 import NoticeEdit from "./pages/NoticeEdit";
@@ -30,6 +31,11 @@ import { RootState } from "./store";
 import HospitalMyPage from "./pages/HospitalMyPage";
 import HospitalMyHome from "./pages/HostpitalMyHome";
 import FinishFundList from "./pages/FinishFundList";
+import { HosBenInfo } from "./models/hospitalmodels";
+
+// interface Data {
+//   data: HosBenInfo
+// }
 
 function App() {
   const authInfo = useSelector((state: RootState) => state.auth);
@@ -56,6 +62,7 @@ function App() {
             <Route path="/benregi" element={<BenRegister />} />
             <Route path="/fundregi" element={<FundRegister />} />
             <Route path="/hosbenlist" element={<HosBenList />} />
+            <Route path="/benedit" element={<BenEdit />} />
             <Route path="/hosfundlist" element={<HosFundList />} />
 
             <Route path="/diary" element={<RecoveryDiary />} />
