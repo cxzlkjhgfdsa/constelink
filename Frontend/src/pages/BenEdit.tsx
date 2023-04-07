@@ -192,7 +192,7 @@ const BenEdit: React.FC = () => {
     console.log(ben);
     
     await axios
-      .post('/beneficiaries', ben)
+      .post(`/beneficiary/beneficiaries/edit/${location.state.beneficiaryId}`, ben)
       .then((res) => {
         console.log(res);
       })

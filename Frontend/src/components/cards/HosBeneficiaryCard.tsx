@@ -81,7 +81,9 @@ const HosBeneficiaryCard: React.FC<Props> = ({ data }) => {
           <option value="RECOVERING">회복 중</option>
         </select>
       </li>
-      <li className={styles.btn_box}>일지 작성</li>
+      <li className={styles.btn_box}
+        onClick={() => navigate('/diary')}
+      >일지 작성</li>
       <li className={styles.btn_box}
         onClick={() => navigate('/benedit', { state: data })}>정보 수정</li>
     </div>
