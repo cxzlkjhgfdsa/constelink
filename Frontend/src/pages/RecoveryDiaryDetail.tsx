@@ -167,9 +167,7 @@ const RecoveryDiaryDetail: React.FC = () => {
     };
 
     await axios
-      .post(`/beneficiary/recoverydiaries`, Record, {
-        headers: { Authorization: "oo" },
-      })
+      .post(`/beneficiary/recoverydiaries`, Record)
       .then((res) => {
         window.location.replace(`/diarydetail/${id}`);
       })
