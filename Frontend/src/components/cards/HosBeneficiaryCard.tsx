@@ -3,12 +3,14 @@ import { HosBenInfo } from "../../models/hospitalmodels";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 interface Props {
   data: HosBenInfo;
 }
 
 const HosBeneficiaryCard: React.FC<Props> = ({ data }) => {
+  const navigate = useNavigate();
   const percent: number =
     (data.beneficiaryAmountRaised / data.beneficiaryAmountGoal) * 100;
   const [beneficiaryStatus, setBeneficiaryStatus] = useState<string>(

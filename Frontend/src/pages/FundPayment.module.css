@@ -13,17 +13,18 @@
   src: url("../assets/fonts/Hahmlet-VariableFont_wght.ttf");
 }
 
-.mainWrapper{
+.mainWrapper {
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
   width: 100%;
-  position: absolute;
+  /* position: static; */
+  /* position: absolute; */
   left: 0;
 }
 
-.mainBanner{
+.mainBanner {
   font-family: "Hahmlet";
   display: flex;
   flex-direction: column;
@@ -38,14 +39,14 @@
   width: 100%;
 }
 
-.bannerTitle{
+.bannerTitle {
   font-family: "Hahmlet";
   font-size: 2.5rem;
   /* font-weight: bold; */
   color: white;
 }
 
-.bannerSubTitle{
+.bannerSubTitle {
   font-family: "Hahmlet";
   font-size: large;
   color: white;
@@ -53,7 +54,7 @@
   right: 8rem;
 }
 
-.mainArticle{
+.mainArticle {
   height: max-content;
   padding-bottom: 2rem;
   width: 60%;
@@ -63,25 +64,25 @@
   margin-top: 1rem;
 }
 
-.articleStep{
+.articleStep {
   background-color: white;
   width: 90%;
   height: max-content;
   /* padding-bottom: 4rem; */
 }
 
-.articleStepTitle{
+.articleStepTitle {
   font-family: "Hahmlet";
   font-size: 2rem;
   font-weight: bold;
 }
 
-.articleStepSubTitle{
+.articleStepSubTitle {
   font-family: "Hahmlet";
   margin-top: 0.5rem;
 }
 
-.articleSteps{
+.articleSteps {
   /* background-color: burlywood; */
   height: 7rem;
   display: flex;
@@ -89,8 +90,8 @@
   justify-content: space-between;
 }
 
-.articleStepOne{
-  background-color: #DBD9EC;
+.articleStepOne {
+  background-color: #dbd9ec;
   height: 3rem;
   width: 12rem;
   border-radius: 1rem;
@@ -98,7 +99,7 @@
   align-items: center;
 }
 
-.voidCircle{
+.voidCircle {
   background-color: white;
   height: 2.3rem;
   width: 2.3rem;
@@ -106,57 +107,57 @@
   margin-left: 0.35rem;
 }
 
-.voidStar{
+.voidStar {
   position: relative;
   display: inline-block;
   width: 0;
   height: 0;
   margin-left: 1.2em;
-  margin-right: .9em;
+  margin-right: 0.9em;
   margin-bottom: 1.2em;
-  border-right:  .3em solid transparent;
-  border-bottom: .7em  solid #FC0;
-  border-left:   .3em solid transparent;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0.7em solid #fc0;
+  border-left: 0.3em solid transparent;
   /* Controlls the size of the stars. */
   font-size: 1rem;
 }
-.voidStar::before{
-  content: '';
-    
+.voidStar::before {
+  content: "";
+
   display: block;
   width: 0;
   height: 0;
-  
+
   position: absolute;
-  top: .6em;
+  top: 0.6em;
   left: -1em;
 
-  border-right:  1em solid transparent;
-  border-bottom: .7em  solid #FC0;
-  border-left:   1em solid transparent;
+  border-right: 1em solid transparent;
+  border-bottom: 0.7em solid #fc0;
+  border-left: 1em solid transparent;
 
   transform: rotate(-35deg);
 }
-.voidStar::after{
-  content: '';
-    
+.voidStar::after {
+  content: "";
+
   display: block;
   width: 0;
   height: 0;
-  
+
   position: absolute;
-  top: .6em;
+  top: 0.6em;
   left: -1em;
 
-  border-right:  1em solid transparent;
-  border-bottom: .7em  solid #FC0;
-  border-left:   1em solid transparent;
+  border-right: 1em solid transparent;
+  border-bottom: 0.7em solid #fc0;
+  border-left: 1em solid transparent;
 
   transform: rotate(-35deg);
   transform: rotate(35deg);
 }
 
-.stepDetail{
+.stepDetail {
   height: 2.5rem;
   width: 8rem;
   margin-left: 0.35rem;
@@ -164,36 +165,36 @@
   flex-direction: column;
 }
 
-.stepOneNumber{
+.stepOneNumber {
   font-family: "Hahmlet";
   font-size: small;
   font-weight: bold;
-  color: #A19FD5;
+  color: #a19fd5;
 }
 
-.stepOneTodo{
+.stepOneTodo {
   font-family: "Hahmlet";
   font-size: small;
   font-weight: bold;
-  color: #A19FD5;
+  color: #a19fd5;
 }
 
-.stepNumber{
-  font-family: "Hahmlet";
-  font-size: small;
-  font-weight: bold;
-  color: white;
-}
-
-.stepTodo{
+.stepNumber {
   font-family: "Hahmlet";
   font-size: small;
   font-weight: bold;
   color: white;
 }
 
-.articleStepTwo{
-  background-color: #A19FD5;
+.stepTodo {
+  font-family: "Hahmlet";
+  font-size: small;
+  font-weight: bold;
+  color: white;
+}
+
+.articleStepTwo {
+  background-color: #a19fd5;
   height: 3rem;
   width: 12rem;
   border-radius: 1rem;
@@ -201,8 +202,8 @@
   align-items: center;
 }
 
-.articleStepThree{
-  background-color: #1C1D67;
+.articleStepThree {
+  background-color: #1c1d67;
   height: 3rem;
   width: 12rem;
   border-radius: 1rem;
@@ -210,7 +211,7 @@
   align-items: center;
 }
 
-.arrowDiv{
+.arrowDiv {
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -223,7 +224,7 @@
   margin: 0.625rem;
   transform: rotate(45deg);
 }
-.arrowDiv::before{
+.arrowDiv::before {
   content: "";
   box-sizing: border-box;
   right: 0;
@@ -235,12 +236,12 @@
   width: 1.438rem;
   transform-origin: right top;
 }
-.arrowDiv::after{
+.arrowDiv::after {
   content: "";
   box-sizing: border-box;
 }
 
-.articleInfo{
+.articleInfo {
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -249,13 +250,13 @@
   height: max-content;
 }
 
-.articleTitle{
+.articleTitle {
   font-family: "Hahmlet";
   font-size: 2rem;
   font-weight: bold;
 }
 
-.infoBeneficiary{
+.infoBeneficiary {
   /* background-color: aqua; */
   width: 100%;
   height: 5rem;
@@ -267,14 +268,14 @@
   padding-bottom: 0.15rem;
 }
 
-.infoTitle{
+.infoTitle {
   font-family: "Hahmlet";
   font-weight: bold;
   margin-left: 2rem;
 }
 
-.infoDetail{
-  display:flex;
+.infoDetail {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   /* background-color: yellowgreen; */
@@ -283,28 +284,28 @@
   margin-right: 0rem;
 }
 
-.detailItem{
+.detailItem {
   font-family: "Hahmlet";
   display: flex;
   flex-direction: row;
   margin-left: 35%;
 }
 
-.itemKey{
+.itemKey {
   /* background-color: aqua; */
   width: 3rem;
 }
 
-.itemLongKey{
+.itemLongKey {
   /* background-color: aqua; */
   width: 6rem;
 }
 
-.itemValue{
+.itemValue {
   margin-left: 2rem;
 }
 
-.itemInput{
+.itemInput {
   margin-left: 2rem;
   background-color: transparent;
   border: none;
@@ -313,15 +314,15 @@
   width: 7rem;
 }
 input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button{
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
 
-.itemPadding{
+.itemPadding {
   height: 0.3rem;
 }
 
-.infoUser{
+.infoUser {
   /* background-color: rebeccapurple; */
   width: 100%;
   height: 5rem;
@@ -332,7 +333,7 @@ input[type="number"]::-webkit-outer-spin-button{
   border-top: solid 0.1rem grey;
 }
 
-.infoCheck{
+.infoCheck {
   /* background-color: tomato; */
   width: 100%;
   height: 5rem;
@@ -343,8 +344,8 @@ input[type="number"]::-webkit-outer-spin-button{
   border-top: solid 0.1rem grey;
 }
 
-.moneyCheck{
-  background-color: #F3F2F6;
+.moneyCheck {
+  background-color: #f3f2f6;
   width: 100%;
   height: 3.5rem;
   display: flex;
@@ -354,23 +355,23 @@ input[type="number"]::-webkit-outer-spin-button{
   font-family: "Hahmlet";
 }
 
-.moneyCheckKey{
+.moneyCheckKey {
   font-weight: bold;
   margin-right: 1rem;
 }
 
-.moneyCheckValue{
+.moneyCheckValue {
   font-weight: bold;
 }
 
-.moneyCheckCurrency{
+.moneyCheckCurrency {
   font-weight: bold;
   margin-left: 0.5rem;
   margin-right: 2rem;
 }
 
-.fundingBtn{
-  background-color: #A19FD5;
+.fundingBtn {
+  background-color: #a19fd5;
   width: 10rem;
   height: 2.2rem;
   color: white;
@@ -385,16 +386,14 @@ input[type="number"]::-webkit-outer-spin-button{
   cursor: pointer;
 }
 
-.fundingKakao{
+.fundingKakao {
   font-family: "noto-sans";
   margin-left: auto;
   margin-top: 0.2rem;
 }
 
-
-
 /* 결제 완료 후 토큰페이지 */
-.main_wrapper{
+.main_wrapper {
   display: flex;
   justify-content: center;
   align-content: center;
@@ -408,7 +407,7 @@ input[type="number"]::-webkit-outer-spin-button{
   background-color: aqua;
 }
 
-.article_info{
+.article_info {
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -417,7 +416,7 @@ input[type="number"]::-webkit-outer-spin-button{
   height: max-content;
 }
 
-.gif_div{
+.gif_div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -425,7 +424,6 @@ input[type="number"]::-webkit-outer-spin-button{
   height: max-content;
 }
 
-.gif{
+.gif {
   width: 50%;
-
 }
