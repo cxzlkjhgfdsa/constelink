@@ -25,11 +25,9 @@ const CustomerEditPage:React.FC = () => {
         // axios.defaults.headers.common['authorization'] = accessToken;
         axios.post("/member/members/modify", editData).then(res=>{
             alert("수정이 완료되었습니다.")
-            axios.defaults.headers.common = {};
             navigate("/mypage");
           }).catch((err)=>{
             console.log(err);
-            axios.defaults.headers.common = {};
           })
         
     }
