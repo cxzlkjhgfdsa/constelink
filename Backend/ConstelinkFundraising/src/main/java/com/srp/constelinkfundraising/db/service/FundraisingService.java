@@ -227,7 +227,10 @@ public class FundraisingService {
 		}
 
 		fundraising.setFundraisingAmountRaised(fundraising.getFundraisingAmountRaised() + donateRequest.getCash());
-
+		if(fundraising.getFundraisingAmountGoal() <= fundraising.getFundraisingAmountRaised()){
+			fundraising.setFundraisingIsDone(true);
+		}
+		// fundraisingRepository.saveAndFlush(fundraising);
 		return true;
 	}
 
