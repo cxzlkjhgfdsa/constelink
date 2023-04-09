@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import styles from "./FundPayment.module.css"
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 interface recievedata {
   beneficiaryBirthday: number;
@@ -29,6 +31,7 @@ interface recievedata {
 const AUTH_TOKEN = process.env.REACT_APP_TMP_AUTH_TOKEN;
 
 const FundPayment: React.FC = () => {
+  const authInfo = useSelector((state: RootState) => state.auth);
 
   // 기부 상세정보 받기
   // 로컬스토리지에 기부 상세정보 저장
@@ -182,12 +185,12 @@ const FundPayment: React.FC = () => {
               <div className={styles.infoDetail}>
                 <div className={styles.detailItem}>
                   <div className={styles.itemKey}>성명</div>
-                  <div className={styles.itemValue}>윤동근</div>
+                  <div className={styles.itemValue}>{authInfo.nickname}</div>
                 </div>
                 <div className={styles.itemPadding} />
                 <div className={styles.detailItem}>
                   <div className={styles.itemKey}>이메일</div>
-                  <div className={styles.itemValue}>gksrud316@naver.com</div>
+                  <div className={styles.itemValue}>{authInfo.email}</div>
                 </div>
               </div>
             </div>

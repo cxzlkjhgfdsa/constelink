@@ -62,7 +62,9 @@ const FundMain: React.FC = () => {
   useEffect(() => {
     if (selected === "0") {
       axios
-        .get("fundraising/fundraisings", { params: { page: page, size: 16 } })
+        .get("fundraising/fundraisings", {
+          params: { page: page, size: 16, sortBy: "UNFINISHED" },
+        })
         .then((res) => {
           setTotalPage(res.data.totalElements);
           setCampaignList(res.data.content);

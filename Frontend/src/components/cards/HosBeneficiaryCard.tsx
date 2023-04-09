@@ -1,19 +1,24 @@
 import styles from "./HosBeneficiaryCard.module.css";
 import { HosBenInfo } from "../../models/hospitalmodels";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+// import { useNavigate } from "react-router";
 
 interface Props {
   data: HosBenInfo;
 }
 
 const HosBeneficiaryCard: React.FC<Props> = ({ data }) => {
+  const navigate = useNavigate();
   const percent: number =
     (data.beneficiaryAmountRaised / data.beneficiaryAmountGoal) * 100;
   const [beneficiaryStatus, setBeneficiaryStatus] = useState<string>(
     data.beneficiaryStatus
   );
   const loaded = useRef<Boolean>(false);
+
+  // const navigate = useNavigate();
 
   useEffect(() => {
     if (loaded.current === false) {
@@ -76,8 +81,11 @@ const HosBeneficiaryCard: React.FC<Props> = ({ data }) => {
           <option value="RECOVERING">회복 중</option>
         </select>
       </li>
-      <li className={styles.btn_box}>일지 작성</li>
-      <li className={styles.btn_box}>정보 수정</li>
+      <li className={styles.btn_box}
+        onClick={() => navigate('/diary')}
+      >일지 작성</li>
+      <li className={styles.btn_box}
+        onClick={() => navigate('/benedit', { state: data })}>정보 수정</li>
     </div>
   );
 };

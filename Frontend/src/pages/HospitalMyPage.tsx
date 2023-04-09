@@ -25,9 +25,7 @@ const HospitalMyPage: React.FC = () => {
     useEffect(() => {
         // console.log(accessToken);
         axios.get("/member/members/info", {
-          headers: {
-            Authorization: accessToken
-          }
+
         }).then((res) => {
             const name = res.data.name;
             dispatch(authActions.update({name}))

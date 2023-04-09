@@ -96,7 +96,7 @@ const DonationCard: React.FC<Props> = ({ data }) => {
         >
           <div className={styles.dona_type}>{data.categoryName}</div>
           <div className={styles.dona_title}>{data.fundraisingTitle}</div>
-          <div className={styles.dona_hospital}>{"서울아산병원"}</div>
+          <div className={styles.dona_hospital}>{data.hospitalName}</div>
           <div className={styles.dona_deadline}>D-{demicalDay + 1}</div>
           <div className={styles.progress_box}>
             <progress value={curValue} max={100} />
